@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADHD.ME</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Placeholder page. Nothing is offered here yet.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23172033'/%3E%3Cpath d='M15 8h2.6l5.4 15h-3l-1.1-3.3h-5.6L12.2 23h-3L15 8Zm.1 9.1h3.8L17 11.4l-1.9 5.7Z' fill='%23F7F8FC'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #F7F8FC;
+    --stone: #EDF0F6;
+    --ink: #172033;
+    --muted: #565F70;
+    --faint: #626B7B;
+    --blue: #4C5F9C;
+    --line: #D8DEEA;
+    --band-from: #D47839;
+    --band-to: #6679B9;
+    --serif: Newsreader, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100svh;
+  }
+
+  /* The signature band, used once, as a rule rather than a surface. */
+  .band {
+    height: 4px;
+    background: linear-gradient(90deg, var(--band-from), var(--band-to));
+  }
+
+  main {
+    display: grid;
+    place-items: center;
+    padding: 2rem 1.25rem;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 34rem;
+    text-align: left;
+  }
+
+  .eyebrow {
+    margin: 0 0 1.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--blue);
+  }
+
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.6rem;
+    border-radius: 50%;
+    background: var(--blue);
+    vertical-align: 0.08em;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 11vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-variant-ligatures: none;
+  }
+
+  h1 .dot { color: var(--blue); }
+
+  .lede {
+    margin: 1.15rem 0 0;
+    max-width: 28rem;
+    font-size: clamp(1rem, 2.6vw, 1.125rem);
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  hr {
+    margin: 2rem 0 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .meta {
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--faint);
+  }
+
+  .meta div {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+
+  .meta dt {
+    flex: 0 0 5.5rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .meta dd { margin: 0; }
+
+  a {
+    color: var(--blue);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+
+  a:hover { color: var(--ink); }
+
+  a:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  footer {
+    padding: 1.25rem;
+    border-top: 1px solid var(--line);
+    background: var(--stone);
+    font-size: 0.8125rem;
+    color: var(--faint);
+  }
+
+  footer p {
+    margin: 0 auto;
+    max-width: 34rem;
+    text-wrap: pretty;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #101725;
+      --stone: #151D2E;
+      --ink: #EDF0F6;
+      --muted: #A6B0C4;
+      --faint: #8C97AC;
+      --blue: #9FB1E4;
+      --line: #26314A;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="band" role="presentation"></div>
+
+  <main>
+    <div class="card">
+      <p class="eyebrow">Rebuild in progress</p>
+
+      <h1>ADHD<span class="dot">.</span>ME</h1>
+
+      <p class="lede">
+        This address is a placeholder while the site is rebuilt from the ground up.
+        There is nothing to use here yet.
+      </p>
+
+      <hr>
+
+      <dl class="meta">
+        <div>
+          <dt>Status</dt>
+          <dd>Placeholder &mdash; no content published</dd>
+        </div>
+        <div>
+          <dt>Source</dt>
+          <dd><a href="https://github.com/Stef-01/revamped-adhd.me">Stef-01/revamped-adhd.me</a></dd>
+        </div>
+      </dl>
+    </div>
+  </main>
+
+  <footer>
+    <p>
+      This page is not a health service. It offers no assessment, no clinical advice,
+      no practitioner directory and no booking.
+    </p>
+  </footer>
+</body>
+</html>
