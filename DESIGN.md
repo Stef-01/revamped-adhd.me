@@ -311,7 +311,7 @@ The floor the page is built to:
 - **Don't** nest cards inside tiles; a tile is the only container.
 - **Don't** introduce a second typeface, a mono face, or weights outside 400 to 800.
 - **Don't** use emoji or icon fonts; the only glyph is the inline arrow SVG in buttons and the plus in FAQ discs.
-- **Don't** use photography of people or any imagery; the page is type on tiles.
+- **Do** use photography only as anonymous, uncaptioned imagery: the brand hero over a bottom gradient, and the three tilted white-framed cards. **Don't** show a named person, a patient, a clinician or a testimonial face, and don't add imagery anywhere else; the rest of the page is type on tiles.
 - **Don't** use yellow as a text colour or a second accent colour of any hue.
 - **Don't** use em-dashes, exclamation marks or ALL CAPS in visible copy.
 - **Don't** draw a second ink mark; the stroke under the headline is the page's one gesture.
