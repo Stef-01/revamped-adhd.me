@@ -183,10 +183,9 @@ def article(key, kind, short):
 <div class="space-y-2.5">
 <div class="flex items-center justify-between gap-2"><span class="px-2 py-0.5 rounded-full {box} font-label-sm text-[11px] font-bold flex items-center gap-1"><span class="material-symbols-outlined text-xs {ic}" style="font-variation-settings: 'FILL' 1;">{icon}</span>{badge}</span><span class="text-xs text-neutral-400 font-medium">{year}</span></div>
 <h4 class="font-bold text-sm text-black leading-snug group-hover:text-[#1d64c2] transition-colors">{esc(title)}</h4>
-<p class="text-xs text-[#1d64c2] italic font-medium">{esc(source)}</p>
-<p class="text-xs text-neutral-600 leading-relaxed">{esc(desc)}</p>
+<p class="text-[11px] text-neutral-500 font-medium">{esc(source)}</p>
 </div>
-<div class="pt-2 border-t border-[#eeebe5] flex items-center justify-between"><span class="text-[11px] text-neutral-500 font-medium">Curated by {short}</span><span class="inline-flex items-center gap-1 text-xs font-bold text-[#1d64c2] group-hover:text-[#1e40af] transition-colors">Read article<span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
+<div class="pt-2 border-t border-[#eeebe5] flex items-center justify-end"><span class="inline-flex items-center gap-1 text-xs font-bold text-[#1d64c2] group-hover:text-[#1e40af] transition-colors">Read<span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
 </div>
 </a>'''
 
