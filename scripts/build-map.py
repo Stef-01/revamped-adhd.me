@@ -48,12 +48,12 @@ for name, lon, lat, pos in CITIES:
     x, y = proj(lon, lat)
     dx, dy, anchor = {'right': (13, 4, 'start'), 'right-up': (13, -2, 'start'), 'right-down': (13, 12, 'start'), 'left-down': (-12, 14, 'end')}[pos]
     markers.append(f'''<g class="au-marker" transform="translate({x:.1f} {y:.1f})">
-<circle r="12" class="au-pulse"/><circle r="5.5" fill="#f1bc31" stroke="#1a1c1c" stroke-width="2.5"/>
+<circle r="12" class="au-pulse"/><circle r="5.5" fill="#f1bc31" stroke="#fdfbf7" stroke-width="2.5"/>
 <text x="{dx}" y="{dy}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
 <title id="au-map-title">Map of Australia showing planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
-<g fill="#2d94be" stroke="#017fb9" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
+<g fill="#1a1c1c" stroke="#2f3130" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
 {''.join(markers)}
 </svg>'''
 
