@@ -1,6 +1,6 @@
 # revamped-adhd.me
 
-The landing page for ADHDme, an ADHD assessment service for adults in Australia. One static page, no build step, no dependencies beyond a Google Fonts stylesheet.
+The site for ADHDme, an ADHD assessment service for adults in Australia. Static HTML, no build step, no dependencies beyond a Google Fonts stylesheet.
 
 - **GitHub Pages:** https://stef-01.github.io/revamped-adhd.me/ (serves `main` / root)
 - **Current app (unchanged):** https://adhdme.vercel.app, repo `Stef-01/adhd.me`
@@ -8,7 +8,11 @@ The landing page for ADHDme, an ADHD assessment service for adults in Australia.
 ## What is here
 
 ```
-index.html            the page. Semantic HTML, the direction contract as the first comment in <body>
+index.html            the landing page. Semantic HTML, the direction contract as the first comment in <body>
+book/                 "Where are you?" the state picker; the one action every Book button leads to
+states/<code>/        the GPs in that state (NSW), or "No GPs in X yet" with the GP invitation (the other seven)
+network/<id>/         one page per GP: their own match line, experience, about, details, disclosure, booking
+sitemap.xml, robots.txt
 assets/css/site.css   the whole stylesheet, in cascade layers: tokens, base, components, sections, motion
 assets/js/site.js     30 lines: floating nav arrival, step reveals, reduced-motion opt-out
 assets/img/           hero.jpg (1376px) and card-1..3.jpg (896px), the only images on the page
@@ -21,6 +25,10 @@ DESIGN.md             the visual system as built (tokens, type, tiles, motion vo
 Four photographs ship under `assets/img/`: the brand hero (the founder-approved "ADHD me." image from the original design) and three candid photographs generated in the Stitch project. None is captioned or presented as a patient, clinician or staff member, and none carries a name.
 
 The "Allied care" section lists the professions around the clinician, with each description taken verbatim from the `adhd.me` app's profession vocabulary (`src/support/professions.ts`). It names kinds of support, never individual providers: the allied providers in that app are example profiles.
+
+## The booking flow
+
+Book now → choose your state → the GPs there → Book (the practice's own Healthengine page). A GP's name opens their profile for anyone who wants to read first. Every string about a doctor is their own declaration from the `adhd.me`/`ADHD` roster; the deck shows the three declarations that tell the two GPs apart, never the one they share.
 
 ## Local preview
 

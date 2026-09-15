@@ -315,3 +315,10 @@ The floor the page is built to:
 - **Don't** use yellow as a text colour or a second accent colour of any hue.
 - **Don't** use em-dashes, exclamation marks or ALL CAPS in visible copy.
 - **Don't** draw a second ink mark; the stroke under the headline is the page's one gesture.
+
+## Added surfaces (2026-09-15, later)
+
+- **GP deck** (`.gp-deck`): portrait tile (1:1, 16px radius, hairline inset), name at 1.375rem/800, where they consult in muted 600, up to three declaration chips (pill, cream, hairline), one ink `Book` control. Cards arrive with the reveal; the portrait settles from scale 1.12 over 1100ms.
+- **State list** (`.states`): eight hairline rows at lead size, arrow appears on hover/focus, whole row is the link. No codes beside the names.
+- **GP page** (`.gp__sheet`): 5/7 head (portrait / name, meta, match line, yellow Book), then hairline-topped 5/7 sections Experience, About, Details, a muted disclosure line, and "Also in the network".
+- **No-GP state page** (`.st__sheet`): h2-size heading, lead, yellow "Tell me when X opens", hairline, the GP invitation.
