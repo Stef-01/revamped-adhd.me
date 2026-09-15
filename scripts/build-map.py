@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the dotted Australia map used behind the logo on the-doctors.html.
+"""Generate the solid Australia map used behind the logo on the-doctors.html.
 Re-run after editing CITIES. Output is injected between the AU-MAP markers."""
 import math, pathlib, re
 
@@ -31,15 +31,14 @@ def inside(pt, poly):
     return ins
 
 polys = [[proj(*p) for p in MAINLAND], [proj(*p) for p in TASMANIA]]
-step = 7.5
-dots = []
-y = 3
-while y < H:
-    x = 3 + (step / 2 if int(y / step) % 2 else 0)
-    while x < W:
-        if any(inside((x, y), p) for p in polys): dots.append((round(x, 1), round(y, 1)))
-        x += step
-    y += step * 0.87
+
+# Centre the viewBox on the landmass so a logo centred in the container sits on the country's centre.
+xs = [x for poly in polys for x, _ in poly]; ys = [y for poly in polys for _, y in poly]
+cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
+LABEL_ROOM = 90                     # room for city labels to the right of the east coast
+half_w = max(cx - min(xs), max(xs) + LABEL_ROOM - cx) + 8
+half_h = max(cy - min(ys), max(ys) - cy) + 14
+VB = (cx - half_w, cy - half_h, 2 * half_w, 2 * half_h)
 
 def path(poly):
     return 'M' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in poly) + ' Z'
@@ -52,14 +51,13 @@ for name, lon, lat, pos in CITIES:
 <circle r="12" class="au-pulse"/><circle r="5" fill="#1a1c1c" stroke="#fdfbf7" stroke-width="2.5"/>
 <text x="{dx}" y="{dy}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
-svg = f'''<svg class="au-map" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
+svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
 <title id="au-map-title">Map of Australia showing planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
-<g fill="none" stroke="#f1bc31" stroke-width="1.5" stroke-linejoin="round" opacity="0.55"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
-<g fill="#e0a915" opacity="0.5">{''.join(f'<circle cx="{x}" cy="{y}" r="1.7"/>' for x, y in dots)}</g>
+<g fill="#f1bc31" stroke="#e2ac24" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
 {''.join(markers)}
 </svg>'''
 
 p = ROOT / 'the-doctors.html'; s = p.read_text()
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
 p.write_text(s)
-print(f'map: {len(dots)} dots, {len(CITIES)} markers')
+print(f'map: solid fill, viewBox {VB}, landmass centre ({cx:.0f},{cy:.0f}), {len(CITIES)} markers')
