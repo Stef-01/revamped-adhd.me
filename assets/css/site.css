@@ -263,7 +263,7 @@
     visibility: hidden;
     transition: transform 600ms var(--ease-out), opacity 400ms var(--ease-ui), visibility 0s 400ms;
   }
-  .floating a { text-decoration: none; }
+  .floating a { text-decoration: none; white-space: nowrap; }
   .floating a:not(.btn):hover { text-decoration: underline; }
   .floating.is-on {
     transform: translate(-50%, 0);
@@ -433,6 +433,34 @@
     color: var(--muted);
     font-size: var(--text-small);
     max-width: 60ch;
+  }
+
+  /* Allied care: the professions around the clinician */
+  .allied {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    column-gap: clamp(2rem, 6vw, 6rem);
+    row-gap: var(--s-6);
+  }
+  .allied__aside { display: grid; gap: var(--s-5); align-content: start; }
+  @media (min-width: 900px) { .allied__aside { position: sticky; top: calc(var(--page-margin) + 4.5rem); } }
+  @media (max-width: 899px) { .allied { grid-template-columns: 1fr; } }
+  .team { display: grid; }
+  .team__row {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: var(--s-5);
+    row-gap: var(--s-1);
+    padding: var(--s-5) 0;
+    border-top: 1px solid var(--line);
+  }
+  .team__row:last-child { border-bottom: 1px solid var(--line); }
+  .team__row h3 { font-size: var(--text-body); line-height: 1.3; letter-spacing: -0.01em; grid-column: 1; }
+  .team__word { grid-column: 1; color: var(--muted); font-size: var(--text-small); }
+  .team__for { grid-column: 2; grid-row: 1 / span 2; color: var(--muted); font-size: var(--text-small); max-width: 46ch; }
+  @media (max-width: 599px) {
+    .team__row { grid-template-columns: 1fr; }
+    .team__for { grid-column: 1; grid-row: auto; padding-top: var(--s-2); }
   }
 
   /* Before your first consult */

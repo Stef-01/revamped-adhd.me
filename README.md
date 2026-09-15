@@ -20,6 +20,8 @@ DESIGN.md             the visual system as built (tokens, type, tiles, motion vo
 
 Four photographs ship under `assets/img/`: the brand hero (the founder-approved "ADHD me." image from the original design) and three candid photographs generated in the Stitch project. None is captioned or presented as a patient, clinician or staff member, and none carries a name.
 
+The "Allied care" section lists the professions around the clinician, with each description taken verbatim from the `adhd.me` app's profession vocabulary (`src/support/professions.ts`). It names kinds of support, never individual providers: the allied providers in that app are example profiles.
+
 ## Local preview
 
 ```bash
