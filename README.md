@@ -11,13 +11,14 @@ The landing page for ADHDme, an ADHD assessment service for adults in Australia.
 index.html            the page. Semantic HTML, the direction contract as the first comment in <body>
 assets/css/site.css   the whole stylesheet, in cascade layers: tokens, base, components, sections, motion
 assets/js/site.js     30 lines: floating nav arrival, step reveals, reduced-motion opt-out
+assets/img/           hero.jpg (1376px) and card-1..3.jpg (896px), the only images on the page
 PRODUCT.md            product truth the copy was written from, with every undecided fact recorded
 DESIGN.md             the visual system as built (tokens, type, tiles, motion vocabulary)
 .nojekyll             tells GitHub Pages to serve the tree as-is
 .claude/launch.json   local preview config
 ```
 
-No images ship. The page is typographic by design: the only photographs available were AI-generated people, which a health service cannot present as patients or staff.
+Four photographs ship under `assets/img/`: the brand hero (the founder-approved "ADHD me." image from the original design) and three candid photographs generated in the Stitch project. None is captioned or presented as a patient, clinician or staff member, and none carries a name.
 
 ## Local preview
 
