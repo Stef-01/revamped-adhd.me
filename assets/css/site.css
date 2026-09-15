@@ -193,6 +193,11 @@
   .btn--ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px currentColor; }
   .btn--ghost:hover { background: rgba(20, 20, 20, 0.08); }
 
+  /* Text link with an arrow, for secondary navigation */
+  .arrow-link { display: inline-flex; align-items: center; gap: 0.45em; min-height: 2.75rem; font-weight: 700; font-size: var(--text-small); text-decoration: none; }
+  .arrow-link svg { width: 1em; height: 1em; transition: transform var(--dur) var(--ease-ui); }
+  .arrow-link:hover svg { transform: translateX(-3px); }
+
   /* Wordmark: set in type, so it needs no asset */
   .wordmark {
     display: inline-flex;
@@ -355,6 +360,74 @@
   }
   .hero__facts li { display: inline-flex; align-items: center; gap: var(--s-2); }
   .hero__facts li::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--yellow); }
+
+  /* The network: a deck of GPs, portrait first, one control */
+  .network { display: grid; gap: var(--s-7); }
+  .network__head { display: grid; gap: var(--s-4); max-width: 60ch; }
+  .gp-deck {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 22rem));
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .gp-card { display: flex; flex-direction: column; min-width: 0; }
+  .gp-card__open { display: block; color: inherit; text-decoration: none; border-radius: var(--r-md); }
+  .gp-card__portrait {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--cream);
+    box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .gp-card__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform 480ms var(--ease-out); }
+  .gp-card__open:hover .gp-card__portrait img { transform: scale(1.02); }
+  .gp-card__body { display: grid; gap: var(--s-2); padding-top: var(--s-4); }
+  .gp-card__name { font-size: 1.375rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+  .gp-card__where { color: var(--muted); font-size: var(--text-small); font-weight: 600; }
+  .gp-card__signals { display: flex; flex-wrap: wrap; gap: var(--s-2); padding-top: var(--s-1); }
+  .gp-card__signal {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35em 0.75em;
+    border-radius: var(--r-pill);
+    background: var(--cream);
+    box-shadow: inset 0 0 0 1px var(--line);
+    font-size: var(--text-meta);
+    font-weight: 600;
+  }
+  .gp-card__actions { margin-top: var(--s-4); }
+
+  /* A GP's own page */
+  .gp-page .gp-bar { margin-bottom: var(--gap-tiles); }
+  .gp-bar .btn { white-space: nowrap; }
+  @media (max-width: 599px) { .gp-bar .btn { font-size: var(--text-meta); padding-inline: 1em; } }
+  .gp { display: grid; gap: var(--s-6); }
+  .gp__back { padding-inline: var(--s-2); }
+  .gp__sheet { display: grid; gap: var(--s-8); margin-top: 0; }
+  .gp__head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(2rem, 6vw, 5rem); row-gap: var(--s-6); align-items: start; }
+  .gp__portrait { border-radius: var(--r-tile); overflow: hidden; aspect-ratio: 1 / 1; box-shadow: inset 0 0 0 1px var(--line); }
+  .gp__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+  .gp__identity { display: grid; gap: var(--s-4); }
+  .gp__name { font-size: var(--text-h2); }
+  .gp__meta { color: var(--muted); font-weight: 600; font-size: var(--text-small); }
+  .gp__line { font-size: var(--text-lead); line-height: 1.4; font-weight: 500; max-width: 40ch; }
+  .gp__book { display: grid; gap: var(--s-3); justify-items: start; padding-top: var(--s-2); }
+  .gp__book-note { color: var(--muted); font-size: var(--text-meta); }
+  .gp__section { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(2rem, 6vw, 5rem); row-gap: var(--s-3); padding-top: var(--s-6); border-top: 1px solid var(--line); }
+  .gp__label { font-size: var(--text-h3); }
+  .gp__list { display: grid; gap: var(--s-2); }
+  .gp__list li { padding: var(--s-2) 0; border-bottom: 1px solid var(--line); }
+  .gp__about { max-width: 60ch; color: var(--ink); }
+  .gp__facts { display: grid; gap: var(--s-3); }
+  .gp__facts div { display: grid; grid-template-columns: 9rem 1fr; gap: var(--s-4); padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
+  .gp__facts dt { color: var(--muted); font-size: var(--text-small); font-weight: 600; }
+  .gp__facts dd { margin: 0; }
+  .gp__disclosure { color: var(--muted); font-size: var(--text-small); max-width: 70ch; }
+  .gp__also { display: grid; gap: var(--s-4); padding: var(--s-6) var(--tile-pad) 0; }
+  .gp__also-card { display: flex; align-items: center; gap: var(--s-5); width: fit-content; }
+  .gp__also-portrait { width: 5.5rem; flex: none; }
+  .gp__also .gp-card__body { padding-top: 0; }
+  @media (max-width: 899px) { .gp__head, .gp__section { grid-template-columns: 1fr; } .gp__facts div { grid-template-columns: 1fr; gap: var(--s-1); } }
 
   /* Three tilted photographs, white frames, the centre one raised */
   .cards {

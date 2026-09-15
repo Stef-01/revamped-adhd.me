@@ -21,8 +21,8 @@
 <!--
 THESIS: The page is the appointment letter you never got: it tells a tired adult what happens, in order, and refuses the category's hero-metric-testimonial arrangement. Nothing on it is a number that can go stale or a person nobody quoted.
 OWN-WORLD: One saturated yellow (#F5BA13) owning the first viewport, ink type on it; cream ground; white 24px panels; no drop shadows; hairlines for structure; Plus Jakarta Sans 800 at line-height 1.0; one hand-drawn ink underline; numerals in yellow discs.
-STORY: This is ADHD assessment for adults. Online or in person, two to three consults, no test to fail, no referral. I register interest.
-FIRST VIEWPORT: A yellow tile inside a 12px margin. Wordmark and two links top-left/right. Bottom-left: display headline "ADHD assessment you can actually reach." with an ink stroke drawn under "actually reach", a two-line lead, then [Register interest] and [What happens]. A hairline fact row at the tile's foot: no referral, two to three consults, no test you can fail.
+STORY: This is ADHD assessment for adults. Online or in person, two to three consults, no test to fail, no referral. I book with a GP.
+FIRST VIEWPORT: A yellow tile inside a 12px margin. Wordmark and two links top-left/right. Bottom-left: display headline "ADHD assessment you can actually reach." with an ink stroke drawn under "actually reach", a two-line lead, then [Book with a GP] and [What happens]. A hairline fact row at the tile's foot: no referral, two to three consults, no test you can fail.
 FORM: Appointment letter, candidate 6 of 7, seed 76facd3f (degraded roll, no challengers). Raised by candidate 2 (numbered consult blocks) and candidate 4 (direct-answer-first questions).
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 -->
@@ -30,21 +30,23 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 <nav class="floating" aria-label="Page" data-floating hidden>
   <a class="wordmark wordmark--sm" href="#top">ADHDme</a>
+  <a href="#clinicians">The GPs</a>
   <a href="#what-happens">What happens</a>
   <a href="#allied-care">Allied care</a>
   <a href="#questions">Questions</a>
-  <a class="btn btn--sm" href="mailto:info@adhdme.au?subject=Register%20interest">Register interest</a>
+  <a class="btn btn--sm" href="#clinicians">Book</a>
 </nav>
 
 <header class="hero" id="top" data-hero>
   <div class="hero__bar">
     <a class="wordmark" href="#top" aria-label="ADHDme, home">ADHDme</a>
     <nav class="hero__nav" aria-label="Sections">
+      <a href="#clinicians">The GPs</a>
       <a href="#what-happens">What happens</a>
       <a href="#allied-care">Allied care</a>
       <a href="#questions">Questions</a>
     </nav>
-    <a class="btn hero__cta" href="mailto:info@adhdme.au?subject=Register%20interest">Register interest
+    <a class="btn hero__cta" href="#clinicians">Book with a GP
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
   </div>
@@ -58,7 +60,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       </h1>
       <p class="hero__lead arrive" style="--i:2">Assessment, diagnosis and, where it fits, the start of treatment. For adults 18 and over, online or in person, with <span class="nowrap">AHPRA-registered</span> clinicians.</p>
       <div class="hero__actions arrive" style="--i:3">
-        <a class="btn btn--yellow btn--lg" href="mailto:info@adhdme.au?subject=Register%20interest">Register interest
+        <a class="btn btn--yellow btn--lg" href="#clinicians">Book with a GP
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a class="btn btn--lg btn--ghost btn--ghost-light" href="#what-happens">What happens</a>
@@ -73,6 +75,36 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 </header>
 
 <main id="main">
+  <section class="panel panel--white network" id="clinicians" aria-labelledby="network-title">
+    <div class="network__head">
+      <h2 id="network-title">The GPs who make up this network.</h2>
+      <p class="letter__note">Read what each doctor says about their own work, and book with whoever fits. Booking opens the practice's own page.</p>
+    </div>
+    <ul class="gp-deck" role="list">
+      <li class="gp-card" id="anubhav-saxena" data-reveal style="--i:0">
+        <a class="gp-card__open" href="network/anubhav-saxena/">
+          <span class="gp-card__portrait"><img src="assets/img/clinicians/anubhav-saxena.png" width="800" height="800" alt="Portrait of Dr Anubhav Saxena" loading="eager"></span>
+          <span class="gp-card__body">
+            <strong class="gp-card__name">Dr Anubhav Saxena</strong>
+            <span class="gp-card__where">Beecroft &amp; Double Bay</span>
+            <span class="gp-card__signals"><span class="gp-card__signal">Baseline physical screening</span><span class="gp-card__signal">Integrative care</span><span class="gp-card__signal">Phone consultations</span></span>
+          </span>
+        </a>
+        <div class="gp-card__actions"><a class="btn" href="https://healthengine.com.au/doctor/nsw/beecroft/dr-anubhav-saxena/p123180?utm_source=adhdme&amp;utm_medium=referral&amp;utm_campaign=deck" rel="noopener">Book<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </li>
+      <li class="gp-card" id="anu-saxena" data-reveal style="--i:1">
+        <a class="gp-card__open" href="network/anu-saxena/">
+          <span class="gp-card__portrait"><img src="assets/img/clinicians/anu-saxena.png" width="800" height="800" alt="Portrait of Dr Anu Saxena" loading="lazy"></span>
+          <span class="gp-card__body">
+            <strong class="gp-card__name">Dr Anu Saxena</strong>
+            <span class="gp-card__where">Double Bay &amp; Hornsby</span>
+            <span class="gp-card__signals"><span class="gp-card__signal">Mental health focus</span><span class="gp-card__signal">Women’s health</span><span class="gp-card__signal">Hindi &amp; Urdu</span></span>
+          </span>
+        </a>
+        <div class="gp-card__actions"><a class="btn" href="https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121?utm_source=adhdme&amp;utm_medium=referral&amp;utm_campaign=deck" rel="noopener">Book<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+      </li>
+    </ul>
+  </section>
 
   <section class="cards" aria-label="Photographs">
     <ul class="cards__row" role="list">
@@ -166,7 +198,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       </details>
       <details class="faq__item" name="faq">
         <summary>What does it cost?</summary>
-        <div class="faq__body"><p>Not published yet. Email us and we tell you before anything is arranged.</p></div>
+        <div class="faq__body"><p>Each GP's practice sets its own fees, shown on their booking page before you confirm. ADHDme charges nothing to book.</p></div>
       </details>
       <details class="faq__item" name="faq">
         <summary>Who is it for?</summary>
@@ -182,7 +214,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   <section class="panel panel--ink close" aria-labelledby="close-title">
     <h2 id="close-title" class="close__title" data-reveal>Stop arguing for it.<br>Get assessed.</h2>
     <div class="close__actions" data-reveal style="--i:1">
-      <a class="btn btn--yellow btn--lg" href="mailto:info@adhdme.au?subject=Register%20interest">Register interest
+      <a class="btn btn--yellow btn--lg" href="#clinicians">Book with a GP
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>
