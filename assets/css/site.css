@@ -712,11 +712,17 @@
     transition-delay: calc(var(--i, 0) * 80ms);
   }
   .js [data-reveal].is-in { opacity: 1; transform: none; }
+  /* Photographs settle from a slight zoom as they enter, like a lens finding focus */
+  .js [data-reveal] .gp-card__portrait img,
+  .js .card[data-reveal] img { transform: scale(1.12); transition: transform 1100ms var(--ease-out); transition-delay: calc(var(--i, 0) * 80ms); }
+  .js [data-reveal].is-in .gp-card__portrait img,
+  .js .card[data-reveal].is-in img { transform: none; }
 
   @media (prefers-reduced-motion: reduce) {
     .js .arrive { animation: none; }
     .js .mark__stroke { animation: none; }
     .js [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .js [data-reveal] img { transform: none; transition: none; }
     .floating, .floating.is-on { transition: none; }
   }
 }
