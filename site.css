@@ -1,0 +1,53 @@
+/* ADHDme — shared polish layer */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { text-rendering: optimizeLegibility; }
+::selection { background: #f1bc31; color: #1a1c1c; }
+
+/* Accessible focus rings (keyboard only) */
+:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 3px; border-radius: 8px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Material Symbols default axis so icons render consistently */
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+
+/* Header elevation on scroll */
+.site-header { transition: box-shadow .3s ease; }
+.site-header.is-scrolled { box-shadow: 0 10px 30px -14px rgba(0,0,0,.25); }
+
+/* Hidden attribute must beat utility display classes */
+[hidden] { display: none !important; }
+
+/* Mobile nav */
+#mobile-nav a { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1rem; border-radius: 9999px; font-weight: 600; color: #1a1c1c; }
+#mobile-nav a:hover { background: rgba(0,0,0,.06); }
+#mobile-nav a[aria-current="page"] { background: #1a1c1c; color: #fff; }
+
+/* Scroll reveal */
+.js [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+[data-reveal="1"] { transition-delay: .08s; }
+[data-reveal="2"] { transition-delay: .16s; }
+[data-reveal="3"] { transition-delay: .24s; }
+[data-reveal="4"] { transition-delay: .32s; }
+[data-reveal="5"] { transition-delay: .40s; }
+
+/* Pressed feedback on primary buttons */
+a.btn-press:active, button.btn-press:active { transform: scale(.97); }
+
+/* Hero headline entrance */
+@keyframes hero-in { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+.hero-in { animation: hero-in .9s cubic-bezier(.2,.7,.2,1) both; }
+.hero-in-2 { animation-delay: .15s; }
+.hero-in-3 { animation-delay: .3s; }
+
+/* Learn filter */
+.module-card[hidden] { display: none; }
+.filter-btn[aria-pressed="true"] { background: #c84c25; color: #fff; border-color: #c84c25; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .hero-in { animation: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

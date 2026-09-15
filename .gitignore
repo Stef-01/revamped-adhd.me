@@ -1,38 +1,3 @@
-# OS
 .DS_Store
-Thumbs.db
-desktop.ini
-
-# Editor
-.vscode/
-.idea/
-*.swp
-
-# Node (for when the rebuild lands here)
 node_modules/
-.next/
-out/
-dist/
-build/
-*.tsbuildinfo
-
-# Env
-.env
-.env.*
-!.env.example
-
-# Logs
 *.log
-npm-debug.log*
-pnpm-debug.log*
-
-# Vercel
-.vercel/
-
-# Impeccable review artifacts (screenshots, comps)
-.impeccable/review/
-.impeccable/mocks/
-.impeccable/config.local.json
-
-# playwright-cli session snapshots
-.playwright-cli/

@@ -1,228 +1,358 @@
-<!DOCTYPE html>
-<html lang="en-AU" class="no-js">
-<head>
+<!-- ADHDme Landing Page - Brand Yellow Refinement -->
+<!DOCTYPE html><html lang="en" class="no-js"><script>document.documentElement.className="js"</script><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ADHDme: ADHD assessment you can actually reach</title>
-<meta name="description" content="ADHD assessment for adults 18 and over, online or in person, with AHPRA-registered clinicians. Two to three consults. No referral needed.">
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#f5ba13">
-<meta name="color-scheme" content="light">
-<meta property="og:title" content="ADHDme: ADHD assessment you can actually reach">
-<meta property="og:description" content="For adults 18 and over, online or in person, with AHPRA-registered clinicians. Two to three consults. No referral needed.">
-<meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F5BA13'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23141414'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-<link rel="stylesheet" href="assets/css/site.css">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ADHDme — Not just focus. Clarity back.</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#F5BA13',
+              yellowLight: '#FFF8E6',
+              yellowMuted: '#FEF1C9',
+              dark: '#141414',
+              charcoal: '#222222',
+              red: '#E03616',
+              redHover: '#C72F12',
+              cream: '#FAFAF7',
+              border: '#E8E6DF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif']
+          },
+          boxShadow: {
+            'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            'card': '0 20px 40px -15px rgba(20, 20, 20, 0.15)',
+            'glow-yellow': '0 0 25px rgba(245, 186, 19, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Typography and Card Styles -->
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-brand-headline {
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+  </style>
+<style data-purpose="card-effects">
+    /* Neon outlined silhouette effect inspired by reference visual style */
+    .hero-silhouette-highlight {
+      filter: drop-shadow(0 0 14px rgba(245, 186, 19, 0.95)) drop-shadow(0 0 28px rgba(245, 186, 19, 0.5));
+    }
+    /* Angled gallery rotations */
+    .tilt-left {
+      transform: rotate(-3.5deg) translateY(6px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-center {
+      transform: translateY(-8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-right {
+      transform: rotate(3deg) translateY(8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-left:hover, .tilt-center:hover, .tilt-right:hover {
+      transform: rotate(0deg) translateY(-4px) scale(1.02);
+    }
+    /* Membership card glassmorphism */
+    .membership-card-gradient {
+      background: linear-gradient(135deg, #1C1A17 0%, #111111 60%, #28241D 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(245, 186, 19, 0.25);
+    }
+  </style>
+<!-- END: Custom Typography and Card Styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"><link rel="stylesheet" href="site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23f1bc31%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27800%27 font-size=%2730%27 fill=%27%231a1c1c%27%3Eme%3C/text%3E%3Ccircle cx=%2751%27 cy=%2742%27 r=%274%27 fill=%27%23ff4d2e%27/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 </head>
-<body>
-<!--
-THESIS: The page is the appointment letter you never got: it tells a tired adult what happens, in order, and refuses the category's hero-metric-testimonial arrangement. Nothing on it is a number that can go stale or a person nobody quoted.
-OWN-WORLD: One saturated yellow (#F5BA13) owning the first viewport, ink type on it; cream ground; white 24px panels; no drop shadows; hairlines for structure; Plus Jakarta Sans 800 at line-height 1.0; one hand-drawn ink underline; numerals in yellow discs.
-STORY: This is ADHD assessment for adults. Online or in person, two to three consults, no referral. I press Book now, say my state, and book with a GP.
-FIRST VIEWPORT: A yellow tile inside a 12px margin. Wordmark and two links top-left/right. Bottom-left: display headline "ADHD assessment you can actually reach." with an ink stroke drawn under "actually reach", a one-line lead, then [Book now] and [What happens]. A hairline fact row at the tile's foot: adults 18 and over, online or in person, no referral needed.
-FORM: Appointment letter, candidate 6 of 7, seed 76facd3f (degraded roll, no challengers). Raised by candidate 2 (numbered consult blocks) and candidate 4 (direct-answer-first questions).
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
--->
-<a class="skip" href="#main">Skip to content</a>
-
-<nav class="floating" aria-label="Page" data-floating hidden>
-  <a class="wordmark wordmark--sm" href="#top">ADHDme</a>
-  <a href="#clinicians">The GPs</a>
-  <a href="#what-happens">What happens</a>
-  <a href="#allied-care">Allied care</a>
-  <a href="#questions">Questions</a>
-  <a class="btn btn--sm" href="book/">Book now</a>
+<body class="bg-[#FAFAF7] text-brand-dark antialiased selection:bg-brand-yellow selection:text-brand-dark overflow-x-hidden">
+<!-- BEGIN: MainHeader -->
+<!-- Top global navigation with logo, nav links and primary CTA -->
+<a class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-[#1a1c1c] focus:text-white focus:px-4 focus:py-2 focus:rounded-full" href="#main">Skip to content</a>
+<header class="site-header sticky top-0 left-0 right-0 z-50 bg-[#f1bc31] border-b border-[#e5b029]">
+<div class="h-20 w-full px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto flex items-center justify-between gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-center justify-center leading-none transition-transform duration-200 group-hover:scale-105">
+<span class="whitespace-nowrap text-[11px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase pl-0.5">A D H D</span>
+<div class="flex items-baseline"><span class="text-[28px] font-extrabold text-[#1a1c1c] tracking-tight -mt-1">me</span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#ff4d2e] ml-0.5 shadow-sm"></span></div>
+</div>
+</a>
+<nav aria-label="Primary" class="hidden md:flex items-center gap-1 bg-[#f7cf63]/70 backdrop-blur-md px-1.5 py-1.5 rounded-full border border-black/5 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+<a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html">The Doctors</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html">Learn</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="our-story.html">Our Story</a>
 </nav>
+<div class="flex items-center gap-3">
+<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-sm font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/5 hover:bg-black/10 text-[#1a1c1c] transition-colors" data-menu-toggle type="button">
+<svg data-icon-open width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+<svg data-icon-close hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+</div>
+</div>
+<nav id="mobile-nav" hidden aria-label="Mobile" class="md:hidden border-t border-black/10 bg-[#f1bc31] px-4 py-3 flex flex-col gap-1">
+<a href="how-it-works.html">How it works<span aria-hidden="true">→</span></a><a href="the-doctors.html">The Doctors<span aria-hidden="true">→</span></a><a href="learn.html">Learn<span aria-hidden="true">→</span></a><a href="our-story.html">Our Story<span aria-hidden="true">→</span></a>
+</nav>
+</header>
+<!-- END: MainHeader -->
+<main id="main">
+<!-- BEGIN: HeroSection -->
+<!-- Hero section with large typography, framed poster aesthetic, and vivid contrast -->
+<section class="w-full relative overflow-hidden text-white shadow-card min-h-[640px] lg:min-h-[760px] flex flex-col justify-between p-8 sm:p-12 lg:p-16 pb-16">
+  <!-- Background Photography Layer full bleed edge-to-edge -->
+  <div class="absolute inset-0 z-0">
+    <img fetchpriority="high" decoding="async" alt="Joyful mother and children playing outdoors under an open blue sky" class="w-full h-full object-cover object-center" src="assets/hero-family.jpg">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/5 pointer-events-none"></div>
+  </div>
+  <!-- Top Row Metadata & Microcopy within Hero -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hero-in">
+    <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold text-white">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25"><span class="text-[#8ef0b4]">✓</span> No sign up required to browse</span>
+      <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25"><span class="text-[#8ef0b4]">✓</span> Zero upfront platform fees</span>
+    </div>
+    <span class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1a1c1c]/70 backdrop-blur-md text-white text-xs font-semibold"><span class="w-2 h-2 rounded-full bg-[#ff4d2e] animate-pulse"></span>Immediate appointments available</span>
+  </div>
+  <!-- Bottom Row Editorial Headline & Reference Code -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full pt-28 sm:pt-48 lg:pt-64 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8">
+    <div class="max-w-2xl hero-in hero-in-2">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-brand-headline text-white leading-[0.98] drop-shadow-md">
+        Not just focus.<br>
+        <span class="text-brand-yellow" style="color: rgb(241, 188, 49);">Life back.</span>
+      </h1>
+    </div>
+    <div class="max-w-md flex flex-col lg:items-end gap-5 hero-in hero-in-3">
+      <p class="text-white/90 text-base sm:text-lg font-medium leading-relaxed lg:text-right drop-shadow">No mandatory sign up. No upfront booking fee to explore your options. Just transparent, neuro-affirming ADHD care designed for executive ease.</p>
+      <div class="flex flex-wrap gap-3 lg:justify-end">
+        <a class="btn-press inline-flex items-center gap-2 bg-[#f1bc31] hover:bg-[#f7cf63] text-[#141414] font-bold text-sm px-6 py-3.5 rounded-full transition-all shadow-md hover:-translate-y-0.5" href="the-doctors.html">Find your clinician <span aria-hidden="true">→</span></a>
+        <a class="btn-press inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white font-semibold text-sm px-6 py-3.5 rounded-full transition-all" href="how-it-works.html">How it works</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: ValuePropositionAndCardShowcase -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 lg:py-24">
+<!-- Section Header with two-column editorial layout -->
+<div data-reveal class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12"><div class="lg:col-span-7">
+  <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight leading-tight">
+    Real progress for <span class="underline decoration-brand-yellow decoration-4 underline-offset-4" style="text-decoration-color: rgb(241, 188, 49);">neurodivergent lives.</span>
+  </h2>
+</div>
+<div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-between space-y-5">
+  <a class="inline-flex items-center gap-2 bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold text-sm px-6 py-3 rounded-full transition-all shadow-sm" href="#join" style="background-color: rgb(241, 188, 49); color: rgb(25, 25, 25);">
+    <span class="">Find what suits your needs</span>
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+    </svg>
+  </a>
+</div></div>
+<!-- Vivid Colorful Backdrop with ADHDme Member Card -->
+<div class="relative rounded-3xl overflow-hidden p-6 sm:p-12 min-h-[460px] flex items-center justify-center shadow-lg border border-brand-border"><!-- Abstract vibrant colorful fluid backdrop -->
+<div class="absolute inset-0 z-0">
+  <img loading="lazy" decoding="async" alt="Abstract vibrant colorful fluid background" class="w-full h-full object-cover" src="assets/fluid-backdrop.jpg">
+  <div class="absolute inset-0 bg-gradient-to-br from-[#3b93d4]/90 via-[#2672ad]/95 to-[#1a5585] backdrop-blur-md"></div>
+</div>
 
-<header class="hero" id="top" data-hero>
-  <div class="hero__bar">
-    <a class="wordmark" href="#top" aria-label="ADHDme, home">ADHDme</a>
-    <nav class="hero__nav" aria-label="Sections">
-      <a href="#clinicians">The GPs</a>
-      <a href="#what-happens">What happens</a>
-      <a href="#allied-care">Allied care</a>
-      <a href="#questions">Questions</a>
-    </nav>
-    <a class="btn hero__cta" href="book/">Book now
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+<!-- 3 Sleek Dark Patient Testimonial Cards Grid -->
+<div class="relative z-10 w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-6 py-4">  <!-- Testimonial 1: Tiffany Dunn -->
+  <div data-reveal="1" class="relative rounded-3xl overflow-hidden shadow-card flex flex-col justify-end hover:-translate-y-1 transition duration-300 min-h-[460px] bg-[#0055b3] group">
+  <div class="absolute inset-0 z-0">
+    <img loading="lazy" decoding="async" alt="Tiffany Dunn" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="assets/tiffany-dunn.jpg">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+  </div>
+  <div class="relative z-10 m-3 sm:m-4 max-w-full bg-white text-brand-dark p-5 rounded-2xl shadow-2xl flex flex-col justify-between space-y-3 border border-white/40">
+    <div>
+      <svg class="w-7 h-7 text-[#0055b3] mb-2 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+      </svg>
+      <p class="text-xs sm:text-sm font-extrabold text-brand-dark leading-snug tracking-tight">"Missing two days didn't trigger a two-month shame spiral. That alone changed everything for me."</p>
+    </div>
+    <div>
+      <p class="text-xs font-black uppercase tracking-widest text-[#0055b3]">
+        TIFFANY DUNN
+      </p>
+      <p class="text-[10px] text-gray-600 font-medium mt-0.5">
+        Diagnosed at 34 • Inattentive
+      </p>
+    </div>
+  </div>
+</div>
+
+  <!-- Testimonial 2: Marcus Thorne -->
+  <div data-reveal="2" class="relative rounded-3xl overflow-hidden shadow-card flex flex-col justify-end hover:-translate-y-1 transition duration-300 min-h-[460px] bg-[#0055b3] group">
+  <div class="absolute inset-0 z-0">
+    <img loading="lazy" decoding="async" alt="Marcus Thorne" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="assets/marcus-thorne.jpg">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+  </div>
+  <div class="relative z-10 m-3 sm:m-4 max-w-full bg-white text-brand-dark p-5 rounded-2xl shadow-2xl flex flex-col justify-between space-y-3 border border-white/40">
+    <div>
+      <svg class="w-7 h-7 text-[#0055b3] mb-2 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+      </svg>
+      <p class="text-xs sm:text-sm font-extrabold text-brand-dark leading-snug tracking-tight">"Instead of fighting my hyperfocus, it actually works with it. No more guilt about how I think."</p>
+    </div>
+    <div>
+      <p class="text-xs font-black uppercase tracking-widest text-[#0055b3]">
+        MARCUS THORNE
+      </p>
+      <p class="text-[10px] text-gray-600 font-medium mt-0.5">
+        Software Engineer • Combined
+      </p>
+    </div>
+  </div>
+</div>
+
+  <!-- Testimonial 3: Elena Rostova -->
+  <div data-reveal="3" class="relative rounded-3xl overflow-hidden shadow-card flex flex-col justify-end hover:-translate-y-1 transition duration-300 min-h-[460px] bg-[#0055b3] group">
+  <div class="absolute inset-0 z-0">
+    <img loading="lazy" decoding="async" alt="Elena Rostova" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" src="assets/elena-rostova.jpg">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none"></div>
+  </div>
+  <div class="relative z-10 m-3 sm:m-4 max-w-full bg-white text-brand-dark p-5 rounded-2xl shadow-2xl flex flex-col justify-between space-y-3 border border-white/40"><div class="">
+      <svg class="w-7 h-7 text-[#0055b3] mb-2 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"></path>
+      </svg>
+      <p class="text-xs sm:text-sm font-extrabold text-brand-dark leading-snug tracking-tight">"We finally felt listened to without judgment. For the first time, our family had a real roadmap."</p>
+    </div>
+    <div class="">
+      <p class="text-xs font-black uppercase tracking-widest text-[#0055b3]">
+        ELENA ROSTOVA
+      </p>
+      <p class="text-[10px] text-gray-600 font-medium mt-0.5">
+        Parent &amp; Mother • Early Assessment Pathway
+      </p>
+    </div></div>
+</div></div></div>
+</section>
+<!-- END: ValuePropositionAndCardShowcase -->
+<!-- BEGIN: HowItWorksStrip -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 lg:pb-24">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10" data-reveal>
+    <div>
+      <span class="text-xs font-bold tracking-widest text-[#785a00] uppercase">How it works</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand-dark mt-2 leading-tight">Find your clinician and book. <span class="font-serif italic font-normal text-[#785a00]">That’s it.</span></h2>
+    </div>
+    <a class="inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-[#785a00] transition-colors" href="how-it-works.html">See the full process <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-[860px]">
+    <div data-reveal="1" class="bg-white rounded-2xl p-7 md:p-8 border border-black/[0.06] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] group hover:border-[#f1bc31] hover:-translate-y-1 transition-all duration-300">
+      <div class="flex items-center justify-between mb-5"><span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#f1bc31] text-brand-dark font-extrabold text-sm">01</span><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#f0f7fb] text-[#1e547a]">Free &amp; Open</span></div>
+      <h3 class="text-xl font-bold text-brand-dark mb-2">Browse verified clinicians</h3>
+      <p class="text-neutral-600 text-sm leading-relaxed">Explore ADHD-specialized clinicians freely.</p>
+    </div>
+    <div data-reveal="2" class="bg-white rounded-2xl p-7 md:p-8 border border-black/[0.06] shadow-[0_4px_24px_-4px_rgba(0,0,0,0.04)] group hover:border-[#f1bc31] hover:-translate-y-1 transition-all duration-300">
+      <div class="flex items-center justify-between mb-5"><span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#eeeeed] group-hover:bg-[#f1bc31] transition-colors text-brand-dark font-extrabold text-sm">02</span><span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#e8f5e9] text-[#2e7d32]">Zero Friction</span></div>
+      <h3 class="text-xl font-bold text-brand-dark mb-2">Direct 1-click booking</h3>
+      <p class="text-neutral-600 text-sm leading-relaxed">Instant booking with zero account creation.</p>
+    </div>
+  </div>
+</section>
+<!-- END: HowItWorksStrip -->
+<!-- BEGIN: FeaturesAndPillarsSection -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-16 lg:pb-24">
+  <div class="bg-white/80 backdrop-blur-sm rounded-3xl border border-black/[0.05] p-6 sm:p-12 shadow-[0_2px_16px_rgba(0,0,0,0.02)]">
+    <div class="text-center max-w-xl mx-auto mb-10" data-reveal>
+      <span class="text-xs font-bold tracking-widest text-[#785a00] uppercase">Built for ADHD Minds</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight mt-2">Executive ease by design</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+      <div data-reveal="1" class="p-6 rounded-2xl bg-[#faf9f6] border border-black/[0.04]">
+        <div class="w-9 h-9 rounded-full bg-[#f1bc31]/25 flex items-center justify-center text-[#785a00] mb-4"><span class="material-symbols-outlined text-[20px]">bolt</span></div>
+        <h3 class="font-bold text-lg text-brand-dark mb-1.5">Zero Bureaucracy</h3>
+        <p class="text-neutral-600 text-sm leading-relaxed">Browse profiles, see genuine calendar slots, and confirm your appointment in under 2 minutes without creating an account.</p>
+      </div>
+      <div data-reveal="2" class="p-6 rounded-2xl bg-[#faf9f6] border border-black/[0.04]">
+        <div class="w-9 h-9 rounded-full bg-[#e1f0fa] flex items-center justify-center text-[#1e547a] mb-4"><span class="material-symbols-outlined text-[20px]">visibility</span></div>
+        <h3 class="font-bold text-lg text-brand-dark mb-1.5">Transparent Pricing</h3>
+        <p class="text-neutral-600 text-sm leading-relaxed">Exact fees and eligible Medicare rebates are displayed upfront before you book. No hidden administrative fees, ever.</p>
+      </div>
+      <div data-reveal="3" class="p-6 rounded-2xl bg-[#faf9f6] border border-black/[0.04]">
+        <div class="w-9 h-9 rounded-full bg-[#fee8e5] flex items-center justify-center text-[#b91a24] mb-4"><span class="material-symbols-outlined text-[20px]">favorite</span></div>
+        <h3 class="font-bold text-lg text-brand-dark mb-1.5">Neuro-Affirming Care</h3>
+        <p class="text-neutral-600 text-sm leading-relaxed">100% of our clinical network is neuro-affirming and trauma-informed. Talk openly without having to mask or defend your symptoms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: FeaturesAndPillarsSection -->
+<!-- BEGIN: CliniciansTeaser -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-8">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10" data-reveal>
+    <div>
+      <span class="text-xs font-bold tracking-widest text-[#785a00] uppercase">The Doctors</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-brand-dark mt-2 leading-tight">Meet the clinicians</h2>
+    </div>
+    <a class="inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-[#785a00] transition-colors" href="the-doctors.html">View all clinician profiles <span aria-hidden="true">→</span></a>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+    <a data-reveal="1" href="dr-anubhav-saxena.html" class="group bg-white rounded-3xl p-5 sm:p-6 border border-black/[0.06] shadow-[0_16px_48px_rgba(0,0,0,0.06)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row gap-5 items-start">
+      <div class="w-full sm:w-44 aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden bg-[#eeeeed] shrink-0"><img loading="lazy" decoding="async" alt="Dr Anubhav Saxena" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" src="assets/dr-anubhav-saxena.jpg"></div>
+      <div class="flex flex-col gap-3">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-[#1e547a]">General Practitioner</span>
+        <h3 class="font-serif text-2xl sm:text-3xl text-brand-dark leading-tight">Dr Anubhav Saxena</h3>
+        <p class="text-sm text-neutral-600">Beecroft &amp; Double Bay</p>
+        <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Baseline physical screening</span><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Integrative care</span><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Phone consultations</span></div>
+        <span class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-dark mt-1">View profile <span class="text-[#785a00] group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span></span>
+      </div>
+    </a>
+    <a data-reveal="2" href="the-doctors.html" class="group bg-white rounded-3xl p-5 sm:p-6 border border-black/[0.06] shadow-[0_16px_48px_rgba(0,0,0,0.06)] hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 flex flex-col sm:flex-row gap-5 items-start">
+      <div class="w-full sm:w-44 aspect-[4/3] sm:aspect-square rounded-2xl overflow-hidden bg-[#eeeeed] shrink-0"><img loading="lazy" decoding="async" alt="Dr Anu Saxena" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" src="assets/dr-anu-saxena.jpg"></div>
+      <div class="flex flex-col gap-3">
+        <span class="text-[11px] font-bold tracking-widest uppercase text-[#1e547a]">General Practitioner</span>
+        <h3 class="font-serif text-2xl sm:text-3xl text-brand-dark leading-tight">Dr Anu Saxena</h3>
+        <p class="text-sm text-neutral-600">Double Bay &amp; Hornsby</p>
+        <div class="flex flex-wrap gap-2"><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Mental health focus</span><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Women’s health</span><span class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#f7f7f5] border border-[#e6dfd1]">Hindi &amp; Urdu</span></div>
+        <span class="inline-flex items-center gap-1.5 text-sm font-bold text-brand-dark mt-1">See all clinicians <span class="text-[#785a00] group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span></span>
+      </div>
     </a>
   </div>
-
-  <div class="hero__photo">
-    <img class="hero__img" src="assets/img/hero.jpg" width="1376" height="769" alt="A woman in a yellow jumpsuit runs along a wall against a blue sky, holding hands with two children" fetchpriority="high">
-    <div class="hero__body">
-      <h1 class="hero__title">
-        <span class="arrive" style="--i:0">ADHD assessment</span>
-        <span class="arrive hero__title-accent" style="--i:1">you can <span class="mark">actually reach<svg class="mark__stroke" viewBox="0 0 400 26" preserveAspectRatio="none" aria-hidden="true"><path d="M3 15 C 40 7, 95 17, 150 12 C 215 6, 275 18, 335 10 C 360 7, 382 7, 397 11 C 399 13, 398 16, 394 17 C 378 14, 356 16, 332 19 C 272 26, 212 15, 152 20 C 98 25, 42 15, 5 21 C 1 21, 0 17, 3 15 Z"/></svg></span>.</span>
-      </h1>
-      <p class="hero__lead arrive" style="--i:2">Assessment, diagnosis and, where it fits, the start of treatment.</p>
-      <div class="hero__actions arrive" style="--i:3">
-        <a class="btn btn--yellow btn--lg" href="book/">Book now
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a class="btn btn--lg btn--ghost btn--ghost-light" href="#what-happens">What happens</a>
-      </div>
-      <ul class="hero__facts arrive" style="--i:4" role="list">
-        <li>Adults 18 and over</li>
-        <li>Online or in person</li>
-        <li>No referral needed</li>
-      </ul>
-    </div>
-  </div>
-</header>
-
-<main id="main">
-  <section class="panel panel--white network" id="clinicians" aria-labelledby="network-title">
-    <div class="network__head">
-      <h2 id="network-title">The GPs who make up this network.</h2>
-      <p class="letter__note">Read what each doctor says about their own work, and book with whoever fits. Booking opens the practice's own page.</p>
-    </div>
-    <ul class="gp-deck" role="list">
-      <li class="gp-card" id="anubhav-saxena" data-reveal style="--i:0">
-        <a class="gp-card__open" href="network/anubhav-saxena/">
-          <span class="gp-card__portrait"><img src="assets/img/clinicians/anubhav-saxena.png" width="800" height="800" alt="Portrait of Dr Anubhav Saxena" loading="eager"></span>
-          <span class="gp-card__body">
-            <strong class="gp-card__name">Dr Anubhav Saxena</strong>
-            <span class="gp-card__where">Beecroft &amp; Double Bay</span>
-            <span class="gp-card__signals"><span class="gp-card__signal">Baseline physical screening</span><span class="gp-card__signal">Integrative care</span><span class="gp-card__signal">Phone consultations</span></span>
-          </span>
-        </a>
-        <div class="gp-card__actions"><a class="btn" href="https://healthengine.com.au/doctor/nsw/beecroft/dr-anubhav-saxena/p123180?utm_source=adhdme&amp;utm_medium=referral&amp;utm_campaign=deck" rel="noopener">Book<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </li>
-      <li class="gp-card" id="anu-saxena" data-reveal style="--i:1">
-        <a class="gp-card__open" href="network/anu-saxena/">
-          <span class="gp-card__portrait"><img src="assets/img/clinicians/anu-saxena.png" width="800" height="800" alt="Portrait of Dr Anu Saxena" loading="lazy"></span>
-          <span class="gp-card__body">
-            <strong class="gp-card__name">Dr Anu Saxena</strong>
-            <span class="gp-card__where">Double Bay &amp; Hornsby</span>
-            <span class="gp-card__signals"><span class="gp-card__signal">Mental health focus</span><span class="gp-card__signal">Women’s health</span><span class="gp-card__signal">Hindi &amp; Urdu</span></span>
-          </span>
-        </a>
-        <div class="gp-card__actions"><a class="btn" href="https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121?utm_source=adhdme&amp;utm_medium=referral&amp;utm_campaign=deck" rel="noopener">Book<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
-      </li>
-      <li class="gp-card gp-card--join" data-reveal style="--i:2">
-        <div class="gp-card__join">
-          <h3>Are you a GP who does this work?</h3>
-          <p>Tell us what you see, how you work, how to reach you. One email, and a person replies. Nothing goes live until you have read it back.</p>
-          <a class="arrow-link" href="mailto:info@adhdme.au?subject=Joining%20the%20network">Join the network<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <section class="cards" aria-label="Photographs">
-    <ul class="cards__row" role="list">
-      <li class="card card--left" data-reveal style="--i:0"><img src="assets/img/card-1.jpg" width="896" height="1200" alt="" loading="lazy"></li>
-      <li class="card card--centre" data-reveal style="--i:1"><img src="assets/img/card-2.jpg" width="896" height="1200" alt="" loading="lazy"></li>
-      <li class="card card--right" data-reveal style="--i:2"><img src="assets/img/card-3.jpg" width="896" height="1200" alt="" loading="lazy"></li>
-    </ul>
-    <p class="cards__note">Most services give you one option and call it access. You can do this online. You can do it in person. It is the same assessment, the same clinicians, the same standard. And it is genuinely your call.</p>
-  </section>
-
-  <section class="panel panel--white letter" id="what-happens" aria-labelledby="what-happens-title">
-    <div class="letter__aside">
-      <h2 id="what-happens-title">What happens, in order.</h2>
-      <p class="letter__note">Three steps. No queue to clear first.</p>
-    </div>
-    <ol class="steps" role="list">
-      <li class="step" data-reveal style="--i:0">
-        <span class="step__n" aria-hidden="true">1</span>
-        <div class="step__body">
-          <h3>Two to three consults.</h3>
-          <p>How many depends on how much history the clinician already has. There is no blood test and no scan. The assessment is your history, taken properly.</p>
-        </div>
-      </li>
-      <li class="step" data-reveal style="--i:1">
-        <span class="step__n" aria-hidden="true">2</span>
-        <div class="step__body">
-          <h3>A medication trial, where appropriate.</h3>
-          <p>Whether it is appropriate is a decision for you and your clinician.</p>
-        </div>
-      </li>
-      <li class="step" data-reveal style="--i:2">
-        <span class="step__n" aria-hidden="true">3</span>
-        <div class="step__body">
-          <h3>Reviews every three months.</h3>
-          <p>Ongoing, on a schedule.</p>
-        </div>
-      </li>
-    </ol>
-    <p class="letter__fine">What can be prescribed and reviewed varies by state.</p>
-  </section>
-
-  <section class="panel panel--white allied" id="allied-care" aria-labelledby="allied-title">
-    <div class="allied__aside">
-      <h2 id="allied-title">Allied care, around your clinician.</h2>
-      <p class="letter__note">Where the assessment points to it, the right kind of support is brought in. Your clinician still holds the plan.</p>
-    </div>
-    <ul class="team" role="list">
-      <li class="team__row"><h3>Psychologist</h3><p class="team__word">The emotional part</p><p class="team__for">Emotional regulation, anxiety and low mood alongside ADHD, perfectionism, and structured psychological work on patterns that keep repeating.</p></li>
-      <li class="team__row"><h3>Dietitian</h3><p class="team__word">Eating that keeps going</p><p class="team__for">Regular eating when hunger arrives late, appetite on medication days, and food that works without cooking or planning.</p></li>
-      <li class="team__row"><h3>Occupational therapist</h3><p class="team__word">The doing part</p><p class="team__for">Practical executive-function systems in real settings, starting work, organising a household, workplace and study adjustments.</p></li>
-      <li class="team__row"><h3>Counsellor</h3><p class="team__word">Talking it through</p><p class="team__for">Talking things through: relationships, conflict, a change in life stage, the load of a late recognition.</p></li>
-      <li class="team__row"><h3>ADHD coach</h3><p class="team__word">Accountability, week by week</p><p class="team__for">Accountability and structure over weeks: goals, first actions, check-ins, and the habits around them.</p></li>
-      <li class="team__row"><h3>Exercise physiologist</h3><p class="team__word">Movement that sticks</p><p class="team__for">Building movement into a week in a way that sticks, and using it deliberately for attention, sleep and mood.</p></li>
-      <li class="team__row"><h3>Sleep clinician</h3><p class="team__word">Nights that will not start</p><p class="team__for">A body clock that runs late, nights that will not start, and the checks for sleep conditions that can sit beside ADHD.</p></li>
-      <li class="team__row"><h3>Relationship counsellor</h3><p class="team__word">Two people in the room</p><p class="team__for">Two people in the room: the household load, the sting of reminders, and what ADHD does to a partnership when only one of you has it.</p></li>
-    </ul>
-  </section>
-
-  <section class="bring" aria-labelledby="bring-title">
-    <h2 id="bring-title" class="bring__title">Before your first consult, find:</h2>
-    <ul class="bring__list" role="list">
-      <li>Photo ID</li>
-      <li>Your Medicare card</li>
-      <li>A list of anything you currently take</li>
-      <li>Your GP's details</li>
-      <li>An old school report, if you can</li>
-    </ul>
-  </section>
-
-  <section class="panel panel--white questions" id="questions" aria-labelledby="questions-title">
-    <h2 id="questions-title">Questions</h2>
-    <div class="faq">
-      <details class="faq__item" name="faq">
-        <summary>Do I need a referral?</summary>
-        <div class="faq__body"><p>No. In Australia you can book a GP directly for an ADHD assessment. If a psychiatrist is needed later, your GP says so, and says why.</p></div>
-      </details>
-      <details class="faq__item" name="faq">
-        <summary>What does it cost?</summary>
-        <div class="faq__body"><p>Each practice sets its own fees, shown on its booking page before you confirm. ADHDme charges nothing to book.</p></div>
-      </details>
-      <details class="faq__item" name="faq">
-        <summary>What if I am under 18?</summary>
-        <div class="faq__body"><p>The pathway here is for adults. Under 18, we refer you on to an appropriate specialist.</p></div>
-      </details>
-    </div>
-  </section>
-
-  <section class="panel panel--ink close" aria-labelledby="close-title">
-    <h2 id="close-title" class="close__title" data-reveal>Stop arguing for it.<br>Get assessed.</h2>
-    <div class="close__actions" data-reveal style="--i:1">
-      <a class="btn btn--yellow btn--lg" href="book/">Book now
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-  </section>
-
+</section>
+<!-- END: CliniciansTeaser -->
+<!-- BEGIN: CallToActionSection -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-12 mb-16" id="join">
+<div data-reveal class="bg-[#F1BC31] text-brand-dark rounded-3xl p-8 sm:p-16 relative overflow-hidden text-center shadow-card border border-[#E2AC24]"><div class="absolute top-0 right-1/4 w-72 h-72 bg-white/30 rounded-full blur-3xl pointer-events-none"></div><div class="absolute bottom-0 left-1/4 w-72 h-72 bg-[#faedcd]/40 rounded-full blur-3xl pointer-events-none"></div><div class="relative z-10 max-w-2xl mx-auto"><h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-5 text-brand-dark font-brand-headline">Ready to swap overwhelm for clarity?</h2><p class="text-brand-dark/85 text-base sm:text-lg mb-8 leading-relaxed font-medium">Join thousands of adults with ADHD stepping into momentum, self-compassion, and systems that feel natural.</p><form class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto justify-center" action="the-doctors.html" method="get"><button class="btn-press w-full sm:w-auto shrink-0 bg-brand-dark hover:-translate-y-0.5 hover:bg-brand-charcoal text-white font-bold text-sm px-7 py-3.5 rounded-full transition-all duration-200 shadow-md flex items-center justify-center gap-2" type="submit"><span class="">Find a clinician</span><span class="text-[#F1BC31]">→</span></button></form></div></div>
+</section>
+<!-- END: CallToActionSection -->
 </main>
-
-<footer class="footer">
-  <div class="footer__top">
-    <a class="wordmark" href="#top">ADHDme</a>
-    <p class="footer__line">Assessment and diagnosis by AHPRA-registered clinicians.</p>
-  </div>
-  <div class="footer__mid">
-    <p class="footer__contact"><a href="mailto:info@adhdme.au">info@adhdme.au</a></p>
-    <p class="footer__crisis">If you need help right now, Lifeline is <a href="tel:131114">13 11 14</a>. In an emergency, call <a href="tel:000">000</a>.</p>
-  </div>
-  <p class="footer__ack">ADHDme acknowledges the Traditional Owners of Country throughout Australia, and the many First Nations whose lands and waters we live and work among. We pay our respects to Aboriginal and Torres Strait Islander peoples and cultures, and to their Elders past, present and emerging.</p>
-  <p class="footer__legal">© 2026 ADHDme</p>
+<!-- BEGIN: MainFooter -->
+<footer class="w-full bg-[#fdfbf7] border-t border-[#ebd8ab]/50">
+<div class="w-full px-6 md:px-12 max-w-[1200px] mx-auto py-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-black/[0.06] pb-6">
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-start leading-none">
+<span class="text-[10px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase">A D H D</span>
+<div class="flex items-baseline"><span class="text-xl font-extrabold text-[#1a1c1c] tracking-tight -mt-0.5">me</span><span class="inline-block w-2 h-2 rounded-full bg-[#ff4d2e] ml-0.5"></span></div>
+</div>
+</a>
+<div class="h-5 w-px bg-[#d2c5ad]/60 hidden sm:block"></div>
+<p class="text-xs text-[#4f4634] font-medium hidden sm:block">A gentle momentum platform designed to reduce cognitive overwhelm.</p>
+</div>
+<nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Terms of Care</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Accessibility</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="mailto:info@adhdme.au">Contact</a>
+</nav>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#4f4634] pt-5">
+<p>© 2026 ADHDme Inc. All rights reserved.</p>
+<div class="inline-flex items-center gap-2 bg-[#fef3c7] text-[#92400e] border border-[#fde68a] px-4 py-1.5 rounded-full font-bold text-[11px] tracking-wider uppercase"><span class="w-2 h-2 rounded-full bg-[#ff4d2e]"></span>Crafted for neurodiversity</div>
+</div>
+</div>
 </footer>
-
-<script src="assets/js/site.js" defer></script>
-</body>
-</html>
+<!-- END: MainFooter -->
+<script src="site.js" defer></script>
+</body></html>

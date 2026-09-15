@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://stef-01.github.io/revamped-adhd.me/sitemap.xml
