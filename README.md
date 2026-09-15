@@ -41,6 +41,14 @@ The dotted map of Australia behind the logo on The Doctors page is generated SVG
 python3 scripts/build-map.py
 ```
 
+## Blog
+
+The "From the blog" section on Our Story and the individual post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
+
+```bash
+python3 scripts/build-blog.py
+```
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host.
