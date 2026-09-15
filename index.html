@@ -1,207 +1,360 @@
-<!DOCTYPE html>
-<html lang="en-AU">
-<head>
+<!DOCTYPE html><html lang="en" style=""><head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ADHD.ME</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Placeholder page. Nothing is offered here yet.">
-<meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23172033'/%3E%3Cpath d='M15 8h2.6l5.4 15h-3l-1.1-3.3h-5.6L12.2 23h-3L15 8Zm.1 9.1h3.8L17 11.4l-1.9 5.7Z' fill='%23F7F8FC'/%3E%3C/svg%3E">
-<style>
-  :root {
-    --paper: #F7F8FC;
-    --stone: #EDF0F6;
-    --ink: #172033;
-    --muted: #565F70;
-    --faint: #626B7B;
-    --blue: #4C5F9C;
-    --line: #D8DEEA;
-    --band-from: #D47839;
-    --band-to: #6679B9;
-    --serif: Newsreader, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
-    --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body { height: 100%; }
-
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100svh;
-  }
-
-  /* The signature band, used once, as a rule rather than a surface. */
-  .band {
-    height: 4px;
-    background: linear-gradient(90deg, var(--band-from), var(--band-to));
-  }
-
-  main {
-    display: grid;
-    place-items: center;
-    padding: 2rem 1.25rem;
-  }
-
-  .card {
-    width: 100%;
-    max-width: 34rem;
-    text-align: left;
-  }
-
-  .eyebrow {
-    margin: 0 0 1.75rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--blue);
-  }
-
-  .eyebrow::before {
-    content: "";
-    display: inline-block;
-    width: 0.45rem;
-    height: 0.45rem;
-    margin-right: 0.6rem;
-    border-radius: 50%;
-    background: var(--blue);
-    vertical-align: 0.08em;
-  }
-
-  h1 {
-    margin: 0;
-    font-family: var(--serif);
-    font-weight: 500;
-    font-size: clamp(2.6rem, 11vw, 4.25rem);
-    line-height: 1.02;
-    letter-spacing: -0.02em;
-    font-variant-ligatures: none;
-  }
-
-  h1 .dot { color: var(--blue); }
-
-  .lede {
-    margin: 1.15rem 0 0;
-    max-width: 28rem;
-    font-size: clamp(1rem, 2.6vw, 1.125rem);
-    color: var(--muted);
-    text-wrap: pretty;
-  }
-
-  hr {
-    margin: 2rem 0 0;
-    border: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .meta {
-    margin: 1.25rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--faint);
-  }
-
-  .meta div {
-    display: flex;
-    gap: 0.75rem;
-    align-items: baseline;
-  }
-
-  .meta dt {
-    flex: 0 0 5.5rem;
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  .meta dd { margin: 0; }
-
-  a {
-    color: var(--blue);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.18em;
-  }
-
-  a:hover { color: var(--ink); }
-
-  a:focus-visible {
-    outline: 2px solid var(--blue);
-    outline-offset: 3px;
-    border-radius: 2px;
-  }
-
-  footer {
-    padding: 1.25rem;
-    border-top: 1px solid var(--line);
-    background: var(--stone);
-    font-size: 0.8125rem;
-    color: var(--faint);
-  }
-
-  footer p {
-    margin: 0 auto;
-    max-width: 34rem;
-    text-wrap: pretty;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #101725;
-      --stone: #151D2E;
-      --ink: #EDF0F6;
-      --muted: #A6B0C4;
-      --faint: #8C97AC;
-      --blue: #9FB1E4;
-      --line: #26314A;
+<title>ADHDme — Not just focus. Clarity back.</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#F5BA13',
+              yellowLight: '#FFF8E6',
+              yellowMuted: '#FEF1C9',
+              dark: '#141414',
+              charcoal: '#222222',
+              red: '#E03616',
+              redHover: '#C72F12',
+              cream: '#FAFAF7',
+              border: '#E8E6DF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif']
+          },
+          boxShadow: {
+            'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            'card': '0 20px 40px -15px rgba(20, 20, 20, 0.15)',
+            'glow-yellow': '0 0 25px rgba(245, 186, 19, 0.45)',
+          }
+        }
+      }
     }
-  }
-</style>
-</head>
-<body>
-  <div class="band" role="presentation"></div>
+  </script>
+<!-- BEGIN: Custom Typography and Card Styles -->
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-brand-headline {
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+  </style>
+<style data-purpose="card-effects">
+    /* Neon outlined silhouette effect inspired by reference visual style */
+    .hero-silhouette-highlight {
+      filter: drop-shadow(0 0 14px rgba(245, 186, 19, 0.95)) drop-shadow(0 0 28px rgba(245, 186, 19, 0.5));
+    }
+    /* Angled gallery rotations */
+    .tilt-left {
+      transform: rotate(-3.5deg) translateY(6px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-center {
+      transform: translateY(-8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-right {
+      transform: rotate(3deg) translateY(8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-left:hover, .tilt-center:hover, .tilt-right:hover {
+      transform: rotate(0deg) translateY(-4px) scale(1.02);
+    }
+    /* Membership card glassmorphism */
+    .membership-card-gradient {
+      background: linear-gradient(135deg, #1C1A17 0%, #111111 60%, #28241D 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(245, 186, 19, 0.25);
+    }
+  </style>
+<!-- END: Custom Typography and Card Styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" data-snapdom="injected-import"></head>
+<body class="bg-[#FAFAF7] text-brand-dark antialiased selection:bg-brand-yellow selection:text-brand-dark overflow-x-hidden">
+<!-- BEGIN: TopNotificationBar -->
+<!-- Top announcement banner matching the high-contrast bar in Reference Image 3 -->
 
-  <main>
-    <div class="card">
-      <p class="eyebrow">Rebuild in progress</p>
-
-      <h1>ADHD<span class="dot">.</span>ME</h1>
-
-      <p class="lede">
-        This address is a placeholder while the site is rebuilt from the ground up.
-        There is nothing to use here yet.
-      </p>
-
-      <hr>
-
-      <dl class="meta">
-        <div>
-          <dt>Status</dt>
-          <dd>Placeholder &mdash; no content published</dd>
-        </div>
-        <div>
-          <dt>Source</dt>
-          <dd><a href="https://github.com/Stef-01/revamped-adhd.me">Stef-01/revamped-adhd.me</a></dd>
-        </div>
-      </dl>
+<!-- END: TopNotificationBar -->
+<!-- BEGIN: MainHeader -->
+<!-- Top global navigation with logo, nav links and primary CTA -->
+<header class="w-full bg-[#F1BC31] border-b border-[#E2AC24] px-6 py-4">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Brand Logo Group -->
+    <a aria-label="ADHDme Home" class="flex items-center gap-3 group" href="#" style="background: transparent;"><img alt="ADHDme logo" class="h-14 w-auto object-contain group-hover:scale-105 transition-transform mix-blend-multiply rounded-xl overflow-hidden" style="background-color: rgb(241, 188, 49);" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdZd62-76hxHdn0wtPbkqLUdXTSpCt09cDFQqkQ0AIgVSa0Rv5rhde3wQU-djOfavh3E-lhmN4DIWA-cwVhd57kFlsO5pFOhOjfstA0saza9iaLcjYqc7tc9Y7q39-9rV4uz3M-Y3_8Y_N82Liqa3zA972xIV_A7zSNx3kljyeW6ai2WSrWmKvfsfr-2rAZavKMVWqj-n6S3hiRsgBmjCt-h8PlI4Dv14EyLfSFExw9n8zD3R6TSQtYUgh2M-nXGNH3A"></a>
+    <!-- Center Navigation Links -->
+    <nav class="hidden md:flex items-center space-x-8 text-sm font-bold text-brand-dark">
+      <a class="hover:opacity-75 transition-opacity" href="#how-it-works">How it works</a>
+      <a class="hover:opacity-75 transition-opacity" href="#benefits">The Doctors</a>
+      <a class="hover:opacity-75 transition-opacity" href="#community">Learn</a>
+      <a class="hover:opacity-75 transition-opacity" href="#our-story">Our Story</a>
+    </nav>
+    <!-- Header Action Button -->
+    <div class="flex items-center gap-3">
+      <a class="inline-flex items-center gap-2 bg-brand-dark hover:bg-brand-charcoal text-white text-xs md:text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md hover:translate-x-0.5" href="#join">
+        <span class="">Join waitlist</span>
+        <svg class="w-4 h-4 text-brand-yellow" fill="none" stroke="currentColor" style="color: #F1BC31;" viewBox="0 0 24 24">
+          <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </a>
     </div>
-  </main>
+  </div>
+</header>
+<!-- END: MainHeader -->
+<main>
+<!-- BEGIN: HeroSection -->
+<!-- Hero section with large typography, framed poster aesthetic, and vivid contrast -->
+<section class="w-full relative overflow-hidden text-white shadow-card min-h-[640px] lg:min-h-[760px] flex flex-col justify-between p-8 sm:p-12 lg:p-16 pb-16">
+  <!-- Background Photography Layer full bleed edge-to-edge -->
+  <div class="absolute inset-0 z-0">
+    <img alt="Adults enjoying freedom and clarity" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-7K1oTG0oPw7yd0kgyUcx_jvY1GpJfkPrMBviYlJDqHSaqKD69z-qqoHCafJj9OvfdbJrZo8cz-9-_i1O6GmJEiumM3uOuwGjEu1HqrFqUmTZXDYafoajZPdqGm1WRpw355QM6oarb44XkRIODehDxvbE-dn8vzwlDUbOANpawHr2REFwhNqTjgHvrr6IgNlLChTN2aYca19YB_UWkr8J-JOHQXT5OAponhFbQraeT-6K1R6O5SIa">
+    <!-- Subtle color grading overlay that unifies with brand yellow & rich sky tones -->
 
-  <footer>
-    <p>
-      This page is not a health service. It offers no assessment, no clinical advice,
-      no practitioner directory and no booking.
-    </p>
-  </footer>
-</body>
-</html>
+
+  </div>
+  <!-- Top Row Metadata & Microcopy within Hero -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+
+
+  </div>
+  <!-- Bottom Row Editorial Headline & Reference Code -->
+  <div class="relative z-10 max-w-7xl mx-auto w-full pt-48 sm:pt-64 flex flex-col md:flex-row items-end justify-between gap-6">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight font-brand-headline text-white leading-[0.98] drop-shadow-md">
+        Not just focus.<br>
+        <span class="text-brand-yellow" style="color: rgb(241, 188, 49);">Life back.</span>
+      </h1>
+    </div>
+
+  </div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: ValuePropositionAndCardShowcase -->
+<!-- Section inspired by Reference Image 1: Split editorial header with vibrant abstract gradient banner & companion card -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 lg:py-24">
+<!-- Section Header with two-column editorial layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+<div class="lg:col-span-7">
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight leading-tight">
+            For everything you navigate every single day, <span class="underline decoration-brand-yellow decoration-4 underline-offset-4" style="text-decoration-color: rgb(241, 188, 49);">this is for you.</span>
+</h2>
+</div>
+<div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-between space-y-5">
+<p class="text-base text-gray-600 leading-relaxed max-w-md lg:text-right">
+            A gentle neuro-support membership built by ADHDers, for ADHDers. Designed to validate everyday effort, calm executive overwhelm, and give you momentum right when you stall.
+          </p>
+<a class="inline-flex items-center gap-2 bg-[#8C52FF] hover:bg-[#7A3EE6] text-white font-semibold text-sm px-6 py-3 rounded-full transition-colors shadow-sm" href="#join" style="background-color: rgb(241, 188, 49); color: rgb(25, 25, 25);">
+<span class="">Join Us</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</div>
+<!-- Vivid Colorful Backdrop with ADHDme Member Card -->
+<div class="relative rounded-3xl overflow-hidden p-6 sm:p-12 min-h-[460px] flex items-center justify-center shadow-lg border border-brand-border">
+<!-- Abstract energetic background matching the vibrant red/yellow/pink painting flow from Image 1 -->
+<div class="absolute inset-0 z-0">
+<img alt="Abstract vibrant colorful fluid background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1Xk6HPxjFTh0wL7Spd_ldhg2vheD5G3dMYTl9Pe-5NvWVPLsRISZSh3axdBaHkPQuEwAiR-Whx1-3twItkHFOOmDSAQ9KvtWHvmqOYg63fEsJ_jm9EEmLiMXUCMGE0hbpdhIzKMdAuPTaDgxJL_F3d2ji-SGgOaA5mOu4zJm00ikwH9V3mLBtMH35IFAS_8MRdeMa0keNe4vJT75CSkVO02II409WpgbYGWdI7c2pgD8v5hG51TaiAbWlM">
+<div class="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-transparent to-red-500/15 mix-blend-overlay"></div>
+</div>
+<!-- Floating ADHDme Membership Companion Card (Re-branded representation) -->
+<div class="relative z-10 w-full max-w-md membership-card-gradient rounded-2xl p-6 sm:p-7 text-white border border-brand-yellow/30 shadow-card transform hover:-translate-y-1 transition duration-300" data-purpose="membership-card">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-bold tracking-tight text-white flex items-center">
+                adhdme<span class="w-2 h-2 rounded-full bg-brand-red ml-0.5"></span>
+</span>
+<span class="text-[10px] bg-brand-yellow/20 text-brand-yellow uppercase tracking-widest px-2 py-0.5 rounded-full font-mono border border-brand-yellow/30" style="background-color: rgba(241, 188, 49, 0.2); color: rgb(241, 188, 49); border-color: rgba(241, 188, 49, 0.4);">
+                Founding Member
+              </span>
+</div>
+<img alt="ADHDme emblem" class="w-8 h-8 border border-white/20 rounded-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDKx5KNcKo2p9rz4NxxRgmOYeRbr8GLoyj6dCHhm0cVF53fua3_bPWE_SmcAjDn9t75Q_zSS6Kw9x8Yu1Odj5L0QkuPsA0JotXu_lH2XOkc-BEaPegpN6LkyWKEK3w_UUaEBgH1WZ9DUS3HGO9Yhu89JnMjwBHbQUh1CxSzvyM9tDBH03FL2Swk7O-rmM5rdi0StMHHCcGuDxAXN2U2S6Yh6l_-A49qL4IK8YAMPP1Dce7FvISPWlt1cbJvBNNXUS7yw">
+</div>
+<div class="flex items-center gap-5 mt-6 pt-4 border-t border-white/10">
+<!-- Avatar picture representation -->
+<div class="relative">
+<div class="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 border-brand-yellow/80 shadow-md" style="border-color: #F1BC31;">
+<img alt="Member profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLAe34lVAGnu4BUK_ZZTe9phcTrh8PyRKs3h46AF52DN0K_zBD2UBoEl0OGI90eGyy_JWyqh3TQdWJdqb2C8kPHRjmZNH-8FRQUtkr4QvF8_peexrx1q8DfFoBsY6S0Jxt9wDwWx0tl3ha5gPO35fnlkJVNFLNojDegR4LIgSPCfypwI_MfLWB5bdU09gcZPRNScAVj-DXPAgaF9vOT-qGfbkG0sLPvBLYbAeKgqmZ23AHmuiMvmi9fmGW0xNtE7XD3A">
+</div>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-brand-yellow rounded-full border-2 border-brand-dark flex items-center justify-center text-[9px] text-brand-dark font-black" style="background-color: rgb(241, 188, 49); color: rgb(25, 25, 25);">✓</span>
+</div>
+<div class="flex-1">
+<p class="text-xs uppercase tracking-wider text-brand-yellow/90 font-mono" style="color: rgb(241, 188, 49);">Verified ADHD Member</p>
+<h3 class="text-lg font-bold text-white tracking-tight">Tiffany Dunn</h3>
+<p class="text-xs text-white/60">Executive Function Tier • 2026</p>
+</div>
+</div>
+<!-- Micro feature chips inside the card -->
+<div class="mt-5 grid grid-cols-3 gap-2 text-center text-[11px] font-medium pt-3 border-t border-white/10">
+<div class="bg-white/5 rounded-lg py-1.5 px-2">
+<span class="block text-brand-yellow font-bold">Daily Streak</span>
+<span class="text-white/80">14 Wins</span>
+</div>
+<div class="bg-white/5 rounded-lg py-1.5 px-2">
+<span class="block text-brand-yellow font-bold">Body Double</span>
+<span class="text-white/80">Active</span>
+</div>
+<div class="bg-white/5 rounded-lg py-1.5 px-2">
+<span class="block text-brand-yellow font-bold">Dopamine Log</span>
+<span class="text-white/80">Ready</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ValuePropositionAndCardShowcase -->
+<!-- BEGIN: OurStorySection -->
+<!-- Section inspired by Reference Image 2: "The people behind ADHDme" with tilted Polaroid-style photo cards -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 lg:py-24 bg-brand-cream border-t border-b border-brand-border" id="our-story">
+<!-- Section Header -->
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="inline-block text-xs font-bold uppercase tracking-widest text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full mb-3">
+          Our story
+        </span>
+<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight">
+          The people behind ADHDme
+        </h2>
+</div>
+<!-- Tilted Dynamic Member Gallery (matching the 3 angled candid photos in Image 2) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center max-w-5xl mx-auto mb-14">
+<!-- Left Photo Card (Tilted Left) -->
+<div class="tilt-left bg-white p-3.5 rounded-3xl shadow-card border border-brand-border">
+<div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+<img alt="Community members sharing a family moment" class="w-full h-full object-cover object-left" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGgqg-8B6UyN6SBhMsXqImutY_9YGTqPGJ8Ke2rDqH9dKeBRoPqRwOhXStI8ynbGk_HpTXpleui2v8IDCGUGosnNfHKbD3ED_2mO1D-KxLaqUNLyJcPVJnktQVUIo36MPtRbV2-R1ElEi2OkgZJtX_-gcK4Lm9pw3tjBD4d4tQN-KV3iDJC18IKZSS92lNfRP3rLTl30xxxd-49t-HAhOS1dk31K8RV1_LIb-qRMLlkSTjESWzk6q3j0_8VsmIgqCJ-w">
+<div class="absolute bottom-3 left-3 bg-brand-dark/80 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full font-medium">
+              Sam &amp; Family • Portland
+            </div>
+</div>
+</div>
+<!-- Center Photo Card (Centered & Elevated) -->
+<div class="tilt-center bg-white p-3.5 rounded-3xl shadow-xl border-2 border-brand-yellow" style="border-color: #F1BC31;">
+<div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+<img alt="ADHDme co-founder and child in natural playful setting" class="w-full h-full object-cover object-center" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtbpC3o7jAAMjYET0O_NSUu7pM1dKSZ_kODZKyrI7lJIQRoruy5B9y2L-bjxsj9xSAMA5WFhE5IpzghJhbijWLT60o-KZqlxM6McLLr6MGd33-Lz7aXTtS0E_LpAq_JSMJU8FwYRPD-Za-4HNHXPWJp95VG95-3qyfR7hI11aipKX7GzT-_wKDlgF9zKVDfOkZuZdArjPP8-aUrpG6sbeHFUv_rqKVvKAfwDRVfuIO80pSGyCf6B2fm5zGAm-2XzkEHw">
+<div class="absolute bottom-3 left-3 bg-brand-yellow text-brand-dark font-bold text-xs px-3 py-1 rounded-full shadow-sm" style="background-color: rgb(241, 188, 49); color: rgb(25, 25, 25);">
+              Elena R. • Founder
+            </div>
+</div>
+</div>
+<!-- Right Photo Card (Tilted Right) -->
+<div class="tilt-right bg-white p-3.5 rounded-3xl shadow-card border border-brand-border">
+<div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+<img alt="ADHD community members laughing together outdoors" class="w-full h-full object-cover object-right" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUmv-86Q-t-GSgemRZbCmfq1mbkuKiDfUBzk53diMdRQU3j7iBl87cpIcyb_YfaT8sSXUN_E-ztiPF63MKtyEhDeXiVmuyCNxr5Lf5wPOaI-M1Zxi9Dh2r9zllJu0YGDwO_RSWrd6l5nSQFjBS6au3hDEkWgvzv9E3RMdFFwBfz8LLsD0ZkADciyniXgxnKal0GtPZiCerFAd6PDys2hOGt7RB6mUoEUROSPd5YJG5utcRh4tvLBVsOY5-T47DAEz88w">
+<div class="absolute bottom-3 left-3 bg-brand-dark/80 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full font-medium">
+              Marcus &amp; Team • Austin
+            </div>
+</div>
+</div>
+</div>
+<!-- Caption Matching the Tone from Reference Image 2 -->
+<div class="max-w-2xl mx-auto text-center">
+<p class="text-base sm:text-lg text-gray-700 font-normal leading-relaxed">
+          The people spending time unlearning guilt, navigating hyperfocus, planning for messy days, and raising thriving kids. This is who ADHDme is for.
+        </p>
+</div>
+</section>
+<!-- END: OurStorySection -->
+<!-- BEGIN: FeaturesAndPillarsSection -->
+<!-- Distinctive value pillars crafted specifically for ADHD neurotype -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-20" id="benefits">
+<div class="text-center max-w-2xl mx-auto mb-16">
+<span class="text-xs font-bold uppercase tracking-wider text-brand-red bg-red-50 px-3 py-1 rounded-full">
+          Designed for Divergence
+        </span>
+<h3 class="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight mt-3">
+          Tools that flow with your brain, never against it.
+        </h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="bg-white rounded-3xl p-8 border border-brand-border shadow-subtle hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-2xl bg-brand-yellowLight flex items-center justify-center text-brand-dark font-black text-xl mb-6">
+            ⚡
+          </div>
+<h4 class="text-xl font-bold text-brand-dark mb-3">Zero-Friction Momentum</h4>
+<p class="text-gray-600 text-sm leading-relaxed">
+            Forget rigid task managers that punish missed days. ADHDme uses micro-commitments, visual momentum chains, and smart sensory resets that gently guide you into flow.
+          </p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-white rounded-3xl p-8 border border-brand-border shadow-subtle hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-2xl bg-brand-yellowLight flex items-center justify-center text-brand-dark font-black text-xl mb-6">
+            🤝
+          </div>
+<h4 class="text-xl font-bold text-brand-dark mb-3">Silent Body Doubling</h4>
+<p class="text-gray-600 text-sm leading-relaxed">
+            Instant focus rooms whenever you need quiet accountability. Join fellow neurodivergent members worldwide to tackle tax prep, folding laundry, or deep work.
+          </p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-white rounded-3xl p-8 border border-brand-border shadow-subtle hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-2xl bg-brand-yellowLight flex items-center justify-center text-brand-dark font-black text-xl mb-6">
+            🎯
+          </div>
+<h4 class="text-xl font-bold text-brand-dark mb-3">Dopamine Rewards Bank</h4>
+<p class="text-gray-600 text-sm leading-relaxed">
+            Real tangible validation for invisible executive effort. Turn daily persistence into unlockable badges, self-care credits, and community recognition.
+          </p>
+</div>
+</div>
+</section>
+<!-- END: FeaturesAndPillarsSection -->
+<!-- BEGIN: CallToActionSection -->
+<!-- Final conversion block inviting users to join the waitlist -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 py-12 mb-16" id="join">
+<div class="bg-brand-dark text-white rounded-3xl p-8 sm:p-16 relative overflow-hidden text-center shadow-card">
+<!-- Decorative Glow Orbs -->
+<div class="absolute top-0 right-1/4 w-72 h-72 bg-brand-yellow/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 left-1/4 w-72 h-72 bg-brand-red/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 max-w-2xl mx-auto">
+<div class="inline-flex items-center gap-2 bg-white/10 px-3.5 py-1 rounded-full text-xs text-brand-yellow font-semibold mb-6">
+<span class="">🚀 Founding Cohort Access Open</span>
+</div>
+<h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-5">
+            Ready to swap overwhelm for clarity?
+          </h2>
+<p class="text-white/80 text-base sm:text-lg mb-8 leading-relaxed">
+            Join thousands of adults with ADHD stepping into momentum, self-compassion, and systems that feel natural.
+          </p>
+<!-- Waitlist Form -->
+<form class="flex flex-col sm:flex-row items-center gap-3 max-w-md mx-auto" onsubmit="event.preventDefault()">
+<input class="w-full px-5 py-3.5 rounded-full text-brand-dark text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-yellow border-none shadow-inner" placeholder="Enter your email address..." required="" type="email">
+<button class="w-full sm:w-auto shrink-0 bg-brand-yellow hover:bg-yellow-400 text-brand-dark font-bold text-sm px-7 py-3.5 rounded-full transition-all duration-200 shadow-md flex items-center justify-center gap-2" style="background-color: rgb(241, 188, 49); color: rgb(25, 25, 25);" type="submit">
+<span class="">Join waitlist</span>
+<span class="">→</span>
+</button>
+</form>
+<p class="text-xs text-white/50 mt-4">
+            No spam ever. Early access invites distributed weekly.
+          </p>
+</div>
+</div>
+</section>
+<!-- END: CallToActionSection -->
+</main>
+<!-- BEGIN: MainFooter -->
+<!-- Clean minimalist footer matching high-contrast editorial brand standards -->
+<footer class="border-t border-brand-border bg-white">
+<div class="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+<!-- Brand & Copy Notice -->
+<div class="flex items-center gap-3"><img alt="ADHDme logo" class="h-10 w-auto object-contain rounded-xl overflow-hidden" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Jl5-EBPfbULLTYkOqpi31wkP0XJFT0YoBUZsMkYcN8kv_ZZsK-yL79ioUSft-YV-wrTxhRkdAp0Ywm5vh_5ZG-d0ofpL2ZxgzynC0LEL0E-_ZAQQ1hYsOpRdcUCw64n3TpZ4X32h4L10H6DBxXkpC5iS8_N1mYZMxxKoEt7Q89tI0f-tThbqhbrqzSxUoGdm9znK0K2-NJdDfxL9rS_tr_m3NJ6YPWt_6OqUJFYIW00I13w5hk44TdsXaaCZDW7HNQ"><div class="flex flex-col"><span class="text-xs text-gray-400 mt-1">© 2026 ADHDme Inc. All rights reserved.</span><span class="text-xs text-gray-400 mt-1">Not a health service — no assessment, advice, directory or booking is offered here.</span></div></div>
+<!-- Links Group -->
+<div class="flex items-center space-x-6 text-sm text-gray-600">
+<a class="hover:text-brand-dark transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-brand-dark transition-colors" href="#">Terms of Care</a>
+<a class="hover:text-brand-dark transition-colors" href="#">Accessibility</a>
+<a class="hover:text-brand-dark transition-colors" href="#">Contact</a>
+</div>
+<!-- Social Accent Tag -->
+<div class="flex items-center gap-2 text-xs font-mono text-gray-400">
+<span class="">CRAFTED FOR NEURODIVERSITY</span>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>
