@@ -53,7 +53,7 @@ for name, lon, lat, pos in CITIES:
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
 <title id="au-map-title">Map of Australia showing planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
-<g fill="#bfdcf2" stroke="#8fbfe3" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
+<g fill="#2d94be" stroke="#017fb9" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
 {''.join(markers)}
 </svg>'''
 
