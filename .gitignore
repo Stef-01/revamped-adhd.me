@@ -28,3 +28,11 @@ pnpm-debug.log*
 
 # Vercel
 .vercel/
+
+# Impeccable review artifacts (screenshots, comps)
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/config.local.json
+
+# playwright-cli session snapshots
+.playwright-cli/
