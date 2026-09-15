@@ -33,6 +33,14 @@ python3 scripts/build-profiles.py
 
 Article thumbnails live in `assets/articles/` and are keyed by the article slug in the `ARTICLES` table.
 
+## Service map
+
+The dotted map of Australia behind the logo on The Doctors page is generated SVG. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
+
+```bash
+python3 scripts/build-map.py
+```
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host.
