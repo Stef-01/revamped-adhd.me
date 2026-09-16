@@ -75,7 +75,7 @@
     }
   </style>
 <!-- END: Custom Typography and Card Styles -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="privacy.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23f1bc31%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27800%27 font-size=%2730%27 fill=%27%231a1c1c%27%3Eme%3C/text%3E%3Ccircle cx=%2751%27 cy=%2742%27 r=%274%27 fill=%27%23ff4d2e%27/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 </head>
@@ -92,10 +92,10 @@
 </div>
 </a>
 <nav aria-label="Primary" class="hidden md:flex items-center gap-1 bg-[#f7cf63]/70 backdrop-blur-md px-1.5 py-1.5 rounded-full border border-black/5 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
-<a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html">The Doctors</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html">Learn</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="our-story.html">Our Story</a>
+<a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html" data-landing-control="nav-approach">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html" data-landing-control="nav-doctors">The Doctors</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html" data-landing-control="nav-learn">Learn</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="our-story.html">Our Story</a>
 </nav>
 <div class="flex items-center gap-3">
-<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-sm font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
+<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-sm font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html" data-landing-control="nav-cta"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
 <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/5 hover:bg-black/10 text-[#1a1c1c] transition-colors" data-menu-toggle type="button">
 <svg data-icon-open width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
 <svg data-icon-close hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -134,7 +134,7 @@
     </div>
     <div class="max-w-md flex flex-col lg:items-end gap-5 hero-in hero-in-3">
       <div class="flex flex-wrap gap-3 lg:justify-end">
-        <a class="btn-press inline-flex items-center gap-2 bg-[#f1bc31] hover:bg-[#f7cf63] text-[#141414] font-bold text-sm px-6 py-3.5 rounded-full transition-all shadow-md hover:-translate-y-0.5" href="the-doctors.html">Find your clinician <span aria-hidden="true">→</span></a>
+        <a data-landing-control="hero-cta" class="btn-press inline-flex items-center gap-2 bg-[#f1bc31] hover:bg-[#f7cf63] text-[#141414] font-bold text-sm px-6 py-3.5 rounded-full transition-all shadow-md hover:-translate-y-0.5" href="the-doctors.html">Find your clinician <span aria-hidden="true">→</span></a>
         <a class="btn-press inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-md border border-white/30 text-white font-semibold text-sm px-6 py-3.5 rounded-full transition-all" href="how-it-works.html">How it works</a>
       </div>
     </div>
@@ -340,8 +340,8 @@
 <p class="text-xs text-[#4f4634] font-medium hidden sm:block">A gentle momentum platform designed to reduce cognitive overwhelm.</p>
 </div>
 <nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-6">
-<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Privacy Policy</a>
-<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Terms of Care</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="terms.html">Terms of Care</a>
 <a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Accessibility</a>
 <a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="mailto:info@adhdme.au">Contact</a>
 </nav>
@@ -355,4 +355,7 @@
 <!-- END: MainFooter -->
 <script src="site.js" defer></script>
 <script src="motion.js" defer></script>
+<script src="analytics-config.js"></script>
+<script src="analytics.js" defer></script>
+<script src="privacy-consent.js" defer></script>
 </body></html>

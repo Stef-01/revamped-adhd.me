@@ -1,0 +1,144 @@
+<!-- ADHDme — Terms of use -->
+<!DOCTYPE html><html lang="en" class="no-js"><script>document.documentElement.className="js"</script><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Terms of use — ADHDme</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#F5BA13',
+              yellowLight: '#FFF8E6',
+              yellowMuted: '#FEF1C9',
+              dark: '#141414',
+              charcoal: '#222222',
+              red: '#E03616',
+              redHover: '#C72F12',
+              cream: '#FAFAF7',
+              border: '#E8E6DF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif']
+          },
+          boxShadow: {
+            'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            'card': '0 20px 40px -15px rgba(20, 20, 20, 0.15)',
+            'glow-yellow': '0 0 25px rgba(245, 186, 19, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Typography and Card Styles -->
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-brand-headline {
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+  </style>
+<style data-purpose="card-effects">
+    /* Neon outlined silhouette effect inspired by reference visual style */
+    .hero-silhouette-highlight {
+      filter: drop-shadow(0 0 14px rgba(245, 186, 19, 0.95)) drop-shadow(0 0 28px rgba(245, 186, 19, 0.5));
+    }
+    /* Angled gallery rotations */
+    .tilt-left {
+      transform: rotate(-3.5deg) translateY(6px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-center {
+      transform: translateY(-8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-right {
+      transform: rotate(3deg) translateY(8px);
+      transition: transform 0.3s ease;
+    }
+    .tilt-left:hover, .tilt-center:hover, .tilt-right:hover {
+      transform: rotate(0deg) translateY(-4px) scale(1.02);
+    }
+    /* Membership card glassmorphism */
+    .membership-card-gradient {
+      background: linear-gradient(135deg, #1C1A17 0%, #111111 60%, #28241D 100%);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(245, 186, 19, 0.25);
+    }
+  </style>
+<!-- END: Custom Typography and Card Styles -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="privacy.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23f1bc31%27/%3E%3Ctext x=%2732%27 y=%2743%27 text-anchor=%27middle%27 font-family=%27Arial%27 font-weight=%27800%27 font-size=%2730%27 fill=%27%231a1c1c%27%3Eme%3C/text%3E%3Ccircle cx=%2751%27 cy=%2742%27 r=%274%27 fill=%27%23ff4d2e%27/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<meta name="description" content="What ADHDme is and is not, what you agree to by using it, and where responsibility sits.">
+</head>
+<body class="bg-[#FAFAF7] text-brand-dark antialiased selection:bg-brand-yellow selection:text-brand-dark overflow-x-hidden">
+<a class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-[#1a1c1c] focus:text-white focus:px-4 focus:py-2 focus:rounded-full" href="#main">Skip to content</a>
+<header class="site-header sticky top-0 left-0 right-0 z-50 bg-[#f1bc31] border-b border-[#e5b029]">
+<div class="h-20 w-full px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto flex items-center justify-between gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-center justify-center leading-none transition-transform duration-200 group-hover:scale-105">
+<span class="whitespace-nowrap text-[11px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase pl-0.5">A D H D</span>
+<div class="flex items-baseline"><span class="text-[28px] font-extrabold text-[#1a1c1c] tracking-tight -mt-1">me</span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#ff4d2e] ml-0.5 shadow-sm"></span></div>
+</div>
+</a>
+<nav aria-label="Primary" class="hidden md:flex items-center gap-1 bg-[#f7cf63]/70 backdrop-blur-md px-1.5 py-1.5 rounded-full border border-black/5 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+<a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html">The Doctors</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html">Learn</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="our-story.html">Our Story</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-sm font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/5 hover:bg-black/10 text-[#1a1c1c] transition-colors" data-menu-toggle type="button">
+<svg data-icon-open width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+<svg data-icon-close hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+</div>
+</div>
+<nav id="mobile-nav" hidden aria-label="Mobile" class="md:hidden border-t border-black/10 bg-[#f1bc31] px-4 py-3 flex flex-col gap-1">
+<a href="how-it-works.html">How it works<span aria-hidden="true">→</span></a><a href="the-doctors.html">The Doctors<span aria-hidden="true">→</span></a><a href="learn.html">Learn<span aria-hidden="true">→</span></a><a href="our-story.html">Our Story<span aria-hidden="true">→</span></a>
+</nav>
+</header>
+<main id="main" class="legal">
+<article class="max-w-[760px] mx-auto px-5 md:px-8 py-14 lg:py-20">
+<h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-brand-dark leading-[1.05] mb-4" data-reveal>Terms of use</h1><p class="text-lg text-[#4f4634] leading-relaxed mb-10" data-reveal>What ADHDme is and is not, what you agree to by using it, and where responsibility sits.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">The short version</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">ADHDme lists GPs and what each of them says about their own work, so you can read them and choose. It is not a medical service, it does not give medical advice, and using it creates no relationship between you and any doctor; that begins when you book and attend an appointment. By using the site you accept these terms and the <a class="underline decoration-brand-yellow decoration-2 underline-offset-4 font-semibold" href="privacy.html">privacy policy</a>.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">What the service is, and is not</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Each GP is shown with what they themselves declare about their own work. We do not write it for them and we do not add an assessment of our own. Nothing on this site is a judgement about you or your health. Whether any appointment, assessment or care is right for you is a conversation with a doctor, not with a website. Booking is done on Healthengine or with the practice, not here.</p><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">The service is not for emergencies. If you or someone else is in immediate danger, call 000. If you want to talk to someone about how you are feeling, at any hour, Lifeline is 13 11 14.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Who is responsible for your care</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Your practice provides your care. ADHDme is a listing that shows you GPs and hands you to the practice's own booking page. It does not provide treatment, does not give clinical advice, and is not part of your care team. Anything about your health goes to your practice, not to us.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">How the order of GPs is decided</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">The list is in roster order. It is not ranked and not personalised. No GP can pay to rank higher, and listing a clinician is not an endorsement or a statement about quality.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Clinician information</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Everything shown about a clinician is their own declaration or their practice's published information. If you believe something shown is wrong, tell us and we will check it with the clinician and correct it; a clinician can ask at any time for their listing to be corrected or removed.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Bookings and Healthengine</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Booking happens on Healthengine, under Healthengine's own terms and privacy policy. Your appointment, its time, fees and everything about it, is between you and the practice. ADHDme is not a party to the booking, does not see it, and does not set or receive any part of any fee.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Using the site fairly</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Use the site lawfully and as a person looking for care, or a clinician engaging with their own listing. Do not misrepresent who you are when you write to us, attempt to interfere with the service, or harvest its content by automated bulk access.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Content and ownership</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">The site's text, design and software are ours or licensed to us. What a clinician declares about their own work remains theirs, shown here with their consent. Nothing you send us is used for any purpose beyond the one it was given for; see the privacy policy.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">The service while it is early</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">The product is under active development: features change, listings are few, and the service may be unavailable at times without notice. We work to keep everything shown accurate to what clinicians have declared, and we say so plainly when something is a demonstration or an illustration.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Australian Consumer Law</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">Nothing in these terms takes away any right or remedy you have under the Australian Consumer Law or any other law that cannot be excluded. To the extent the law allows, our responsibility for a failure of the service is limited to resupplying it, and we are not responsible for the acts of the third parties named here, Healthengine, or the practice you book with, whose services are governed by their own terms.</p><h2 class="text-2xl font-extrabold tracking-tight text-brand-dark mt-10 mb-3">Governing law, changes and contact</h2><p class="text-[17px] leading-relaxed text-[#2b2820] mb-4">These terms are governed by the law of New South Wales, Australia. If they change, the date and the change will be stated here. They are in force as published. Questions go to <a class="underline decoration-brand-yellow decoration-2 underline-offset-4 font-semibold" href="mailto:info@adhdme.au">info@adhdme.au</a>. If any part of these terms cannot be enforced, the rest still applies.</p>
+</article>
+</main>
+<footer class="w-full bg-[#fdfbf7] border-t border-[#ebd8ab]/50">
+<div class="w-full px-6 md:px-12 max-w-[1200px] mx-auto py-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-black/[0.06] pb-6">
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-start leading-none">
+<span class="text-[10px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase">A D H D</span>
+<div class="flex items-baseline"><span class="text-xl font-extrabold text-[#1a1c1c] tracking-tight -mt-0.5">me</span><span class="inline-block w-2 h-2 rounded-full bg-[#ff4d2e] ml-0.5"></span></div>
+</div>
+</a>
+<div class="h-5 w-px bg-[#d2c5ad]/60 hidden sm:block"></div>
+<p class="text-xs text-[#4f4634] font-medium hidden sm:block">A gentle momentum platform designed to reduce cognitive overwhelm.</p>
+</div>
+<nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="terms.html">Terms of Care</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="#">Accessibility</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="mailto:info@adhdme.au">Contact</a>
+</nav>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#4f4634] pt-5">
+<p>© 2026 ADHDme Inc. All rights reserved.</p>
+<div class="inline-flex items-center gap-2 bg-[#fef3c7] text-[#92400e] border border-[#fde68a] px-4 py-1.5 rounded-full font-bold text-[11px] tracking-wider uppercase"><span class="w-2 h-2 rounded-full bg-[#ff4d2e]"></span>Crafted for neurodiversity</div>
+</div>
+</div>
+</footer>
+<script src="site.js" defer></script>
+<script src="motion.js" defer></script>
+<script src="analytics-config.js"></script>
+<script src="analytics.js" defer></script>
+<script src="privacy-consent.js" defer></script>
+</body></html>
