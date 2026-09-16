@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "echo 'Static site: the CSS and JS bundles are committed, nothing to build here'",
+  "outputDirectory": "."
+}

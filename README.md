@@ -89,7 +89,7 @@ Keep new text on one of these steps. Fee figures (36 → 48px) are display numbe
 
 ## Deploy
 
-It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host.
+It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).
 
 ## Analytics, attribution and privacy (ported from `Stef-01/ADHD`)
 
