@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /measurement.html
+Disallow: /academy.html
+Disallow: /academy-login.html
 
 User-agent: CCBot
 Disallow: /

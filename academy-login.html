@@ -1,0 +1,127 @@
+<!-- ADHDme — Clinician training portal (sign in) -->
+<!DOCTYPE html><html lang="en" class="no-js"><script>document.documentElement.className="js"</script><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta name="description" content="Sign in to the ADHDme Clinical Academy, the self-directed clinician workbook.">
+<meta name="theme-color" content="#f1bc31">
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<title>Clinician training portal · ADHDme</title>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Custom Configuration -->
+<script data-purpose="tailwind-config">
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              yellow: '#F5BA13',
+              yellowLight: '#FFF8E6',
+              yellowMuted: '#FEF1C9',
+              dark: '#141414',
+              charcoal: '#222222',
+              red: '#E03616',
+              redHover: '#C72F12',
+              cream: '#FAFAF7',
+              border: '#E8E6DF'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            serif: ['Newsreader', 'Georgia', 'serif']
+          },
+          boxShadow: {
+            'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+            'card': '0 20px 40px -15px rgba(20, 20, 20, 0.15)',
+            'glow-yellow': '0 0 25px rgba(245, 186, 19, 0.45)',
+          }
+        }
+      }
+    }
+  </script>
+
+<style data-purpose="typography">
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-brand-headline {
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+    }
+  </style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="privacy.css">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://stef-01.github.io/revamped-adhd.me/#org", "name": "ADHDme", "url": "https://stef-01.github.io/revamped-adhd.me/", "logo": "https://stef-01.github.io/revamped-adhd.me/assets/brand/icon-512.png", "email": "info@adhdme.au", "areaServed": "AU"}, {"@type": "WebSite", "@id": "https://stef-01.github.io/revamped-adhd.me/#site", "url": "https://stef-01.github.io/revamped-adhd.me/", "name": "ADHDme", "inLanguage": "en-AU", "publisher": {"@id": "https://stef-01.github.io/revamped-adhd.me/#org"}}]}</script>
+<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="bg-[#FAFAF7] text-brand-dark antialiased selection:bg-brand-yellow selection:text-brand-dark overflow-x-hidden">
+<a class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-[#1a1c1c] focus:text-white focus:px-4 focus:py-2 focus:rounded-full" href="#main">Skip to content</a>
+<header class="site-header sticky top-0 left-0 right-0 z-50 bg-[#f1bc31] border-b border-[#e5b029]">
+<div class="h-20 w-full px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto flex items-center justify-between gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-center justify-center leading-none transition-transform duration-200 group-hover:scale-105">
+<span class="whitespace-nowrap text-[11px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase pl-0.5">A D H D</span>
+<div class="flex items-baseline"><span class="text-[28px] font-extrabold text-[#1a1c1c] tracking-tight -mt-1">me</span><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#ff4d2e] ml-0.5 shadow-sm"></span></div>
+</div>
+</a>
+<nav aria-label="Primary" class="hidden md:flex items-center gap-1 bg-[#f7cf63]/70 px-1.5 py-1.5 rounded-full border border-black/5 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+<a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html" data-landing-control="nav-approach">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html" data-landing-control="nav-doctors">The Doctors</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html" data-landing-control="nav-learn">Learn</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-sm font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="our-story.html">Our Story</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-sm font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html" data-landing-control="nav-cta"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
+<button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/5 hover:bg-black/10 text-[#1a1c1c] transition-colors" data-menu-toggle type="button">
+<svg data-icon-open width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+<svg data-icon-close hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+</button>
+</div>
+</div>
+<nav id="mobile-nav" hidden aria-label="Mobile" class="md:hidden border-t border-black/10 bg-[#f1bc31] px-4 py-3 flex flex-col gap-1">
+<a href="how-it-works.html">How it works<span aria-hidden="true">→</span></a><a href="the-doctors.html">The Doctors<span aria-hidden="true">→</span></a><a href="learn.html">Learn<span aria-hidden="true">→</span></a><a href="our-story.html">Our Story<span aria-hidden="true">→</span></a>
+</nav>
+</header>
+<main id="main" class="bg-white">
+<div class="max-w-[440px] mx-auto px-5 pt-20 pb-28">
+  <a class="inline-flex items-center gap-2 h-11 text-sm font-bold text-[#1a1c1c]" href="learn.html"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Learn</a>
+  <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-[#1a1c1c] leading-[1.05]">Clinician training portal</h1>
+  <p class="mt-3 text-[17px] text-[#5f5e59]">The ADHDme Clinical Academy: an eleven-module, self-directed clinician workbook.</p>
+  <form class="mt-8 grid gap-4" data-academy-login novalidate>
+    <label class="grid gap-1.5 text-sm font-semibold text-[#1a1c1c]">Email<input class="h-12 px-4 rounded-2xl border border-[#e8e6df] bg-[#FAFAF7] text-base font-normal focus:border-[#1a1c1c]" type="email" name="email" autocomplete="username" placeholder="you@practice.com.au"></label>
+    <label class="grid gap-1.5 text-sm font-semibold text-[#1a1c1c]">Password<input class="h-12 px-4 rounded-2xl border border-[#e8e6df] bg-[#FAFAF7] text-base font-normal focus:border-[#1a1c1c]" type="password" name="password" autocomplete="current-password" placeholder="••••••••"></label>
+    <button class="btn-press mt-2 inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full bg-[#1a1c1c] text-white text-sm font-bold hover:bg-[#2f3130] transition-colors" type="submit">Sign in <span class="text-[#f1bc31]" aria-hidden="true">→</span></button>
+    <p class="text-[13px] text-[#5f5e59]">Preview access: any email and password open the workbook while accounts are being set up. Progress is saved in this browser only.</p>
+  </form>
+</div>
+</main>
+<footer class="w-full bg-[#fdfbf7] border-t border-[#ebd8ab]/50">
+<div class="w-full px-6 md:px-12 max-w-[1200px] mx-auto py-10">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-black/[0.06] pb-6">
+<div class="flex items-center gap-4">
+<a class="flex items-center gap-2 group focus:outline-none" href="index.html" aria-label="ADHDme home">
+<div class="flex flex-col items-start leading-none">
+<span class="text-[10px] tracking-[0.25em] text-[#1a1c1c] font-extrabold uppercase">A D H D</span>
+<div class="flex items-baseline"><span class="text-xl font-extrabold text-[#1a1c1c] tracking-tight -mt-0.5">me</span><span class="inline-block w-2 h-2 rounded-full bg-[#ff4d2e] ml-0.5"></span></div>
+</div>
+</a>
+<div class="h-5 w-px bg-[#d2c5ad]/60 hidden sm:block"></div>
+<p class="text-xs text-[#4f4634] font-medium hidden sm:block">Assessment and diagnosis by AHPRA-registered clinicians.</p>
+</div>
+<nav aria-label="Footer" class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="privacy.html">Privacy Policy</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="terms.html">Terms of use</a>
+<a class="text-sm font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="mailto:info@adhdme.au">Contact</a>
+</nav>
+</div>
+<div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#4f4634] pt-5">
+<p>© 2026 ADHDme</p>
+</div>
+</div>
+</footer>
+<script src="site.js" defer></script>
+<script src="motion.js" defer></script>
+<script>document.querySelector('[data-academy-login]').addEventListener('submit',function(e){e.preventDefault();try{sessionStorage.setItem('adhdme-academy','1')}catch(err){};location.href='academy.html'});</script>
+</body></html>

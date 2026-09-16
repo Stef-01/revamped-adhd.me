@@ -1,0 +1,31 @@
+/* ADHDme — Clinical Academy skin: the site's tokens laid over the workbook's own system */
+:root{
+  --paper:#FAFAF7; --bg:#FFFFFF; --sunk:#F6F4EE; --line:#E8E6DF; --line-2:#D9D5C9;
+  --ink:#1A1C1C; --ink-2:#4F4634; --ink-3:#5F5E59;
+  --accent:#1A1C1C; --accent-deep:#000000; --accent-wash:#FFF8E6; --accent-soft:#FDE7A5;
+  --ok:#2F6B3A; --ok-wash:#EEF6EF; --bad:#9B2C2C; --bad-wash:#FBEFEF; --warn:#7A5A00; --warn-wash:#FFF8E6; --violet:#4F4634; --violet-wash:#F6F4EE;
+  --side-bg:#1A1C1C; --side-ink:#FAFAF7; --side-ink-2:#BAB6AB; --side-line:rgba(255,255,255,.10);
+  --serif:'Plus Jakarta Sans', system-ui, sans-serif; --sans:'Plus Jakarta Sans', system-ui, sans-serif;
+  --shadow-1:none; --shadow-2:none; --r:16px; --r-lg:24px;
+  --brand:#F1BC31;
+}
+.sec--module,.branch{ --m:#1A1C1C; --m-deep:#1A1C1C; --m-ghost:#4F4634; --m-wash:#FFF8E6; --m-soft:#FDE7A5; }
+h1,h2,h3,h4,.mhead__num,.side__title{ font-family:var(--sans); font-style:normal; letter-spacing:-.02em; }
+h1,h2{ font-weight:800 } h3,h4{ font-weight:700 }
+.mhead__num{ font-weight:700; letter-spacing:.02em }
+.mhead__h .mhead__num{ color:var(--brand) }
+.mhead::after{ display:none }
+.q--open{ background:var(--accent-wash); box-shadow:none; border:1px solid var(--line) }
+.readbar,.prog__fill,.nav__item[aria-current="true"]::before{ background:var(--brand) }
+.side__head{ background:var(--side-bg) }
+.side__title::before{ background:var(--brand); border-radius:8px }
+.top{ background:var(--paper); backdrop-filter:none; -webkit-backdrop-filter:none; border-bottom:1px solid var(--line) }
+.crumb--home{ text-decoration:none; color:var(--ink) }
+.topbtn{ display:inline-flex; align-items:center; min-height:36px; padding:0 14px; border-radius:999px; background:var(--ink); color:#fff; font:700 13px/1 var(--sans); text-decoration:none; border:0; cursor:pointer; white-space:nowrap }
+.topbtn--ghost{ background:transparent; color:var(--ink); border:1.5px solid var(--ink) }
+.topbtn + .topbtn{ margin-left:8px }
+[data-theme-toggle]{ display:none !important }
+a{ text-decoration-color:var(--brand) }
+::selection{ background:var(--brand); color:var(--ink) }
+:focus-visible{ outline:3px solid var(--ink); outline-offset:3px }
+@media (max-width:560px){ .topbtn{ padding:0 10px; font-size:12px } }
