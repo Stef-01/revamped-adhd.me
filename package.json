@@ -2,10 +2,13 @@
   "name": "adhdme-site",
   "version": "1.0.0",
   "private": true,
-  "description": "ADHDme marketing site — static HTML with Tailwind CDN",
+  "description": "ADHDme marketing site \u2014 static HTML with Tailwind CDN",
   "scripts": {
     "dev": "node dev-server.js",
-    "start": "node dev-server.js --no-reload"
+    "start": "node dev-server.js --no-reload",
+    "build:css": "npx -y tailwindcss@3.4.17 -c tailwind.config.js -i assets/css/input.css -o assets/css/tailwind.css --minify"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }

@@ -1,6 +1,6 @@
 # ADHDme website
 
-Static marketing site: six HTML pages styled with Tailwind (CDN), shared `site.css` / `site.js`, and locally hosted images in `assets/`.
+Static marketing site: HTML pages styled with a compiled Tailwind stylesheet, shared `site.css` / `site.js`, self-hosted fonts, and locally hosted images in `assets/`.
 
 ## Run locally
 
@@ -48,6 +48,20 @@ The "From the blog" section on Our Story and the individual post pages (`blog-*.
 ```bash
 python3 scripts/build-blog.py
 ```
+
+## Styles and fonts
+
+Tailwind is compiled once to `assets/css/tailwind.css` (about 36 KB) from `tailwind.config.js`, which holds the theme extensions the pages used to declare inline. The runtime CDN script is gone. After adding or changing utility classes in any HTML file, rebuild the stylesheet:
+
+```bash
+npm run build:css
+```
+
+That stylesheet is linked last in `<head>` on purpose: the CDN used to inject its CSS at the end of the head, so utilities win over each page's own inline styles. Keeping that order keeps the pages rendering as they did.
+
+Fonts live in `assets/fonts/` (Plus Jakarta Sans 400 to 800 and Newsreader 400 and 500, latin subsets, SIL Open Font License) and are declared in `assets/css/fonts.css`; the two above-the-fold weights are preloaded. The only remaining Google Fonts request is the Material Symbols icon font, on the four pages that show icons.
+
+Photographs ship as WebP with a JPEG fallback inside `<picture>`.
 
 ## Deploy
 
