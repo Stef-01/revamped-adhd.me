@@ -48,9 +48,8 @@ a{ text-decoration-color:var(--brand) }
 .box{ border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--s6) var(--s6); margin:var(--s7) 0; background:#FAFAF7; }
 .box::before{ display:none !important; }
 .box--objectives{ background:#FFF8E6 } .box--key{ background:#F3F7F3 } .box--warn{ background:#FFF8E6 } .box--stop{ background:#FBEFEF }
-/* Questions: roomier options */
+/* Questions: the label carries its own padding; options sit 8px apart */
 .q{ margin:var(--s7) 0; padding:var(--s6); border:1px solid var(--line); border-radius:var(--r-lg); background:#fff; box-shadow:none; }
-.q__opt{ padding:16px 18px; margin-bottom:12px; border-radius:16px; }
 .q__stem{ line-height:1.5; margin-bottom:var(--s5); }
 /* Sidebar: quieter rows, more air */
 .nav__item{ padding-top:11px; padding-bottom:11px; }
@@ -58,3 +57,15 @@ a{ text-decoration-color:var(--brand) }
 /* Case laboratory and readings */
 .case{ padding:var(--s6) var(--s7); margin:var(--s7) 0; background-image:none !important; }
 .tablewrap{ margin:var(--s6) 0; }
+
+/* ---- Refresher and tighter questions (2026-09-16, pass 2) ---- */
+.box--refresh{ background:#F6F4EE }
+.box--refresh > p{ margin:0; line-height:1.65 }
+.box--refresh .terms{ margin:var(--s4) 0 0; padding-top:var(--s4); border-top:1px solid var(--line); display:grid; grid-template-columns:max-content 1fr; gap:6px var(--s4); font-size:15px; line-height:1.5 }
+.box--refresh .terms dt{ font-weight:700; margin:0 } .box--refresh .terms dd{ margin:0; color:var(--ink-3) }
+@media (max-width:560px){ .box--refresh .terms{ grid-template-columns:1fr; gap:2px } .box--refresh .terms dd{ margin-bottom:8px } }
+.q{ margin:var(--s5) 0; padding:var(--s5) }
+.q__opt{ padding:0; margin:0 }
+.q__opts{ gap:var(--s2) }
+.q__stem{ margin-bottom:var(--s4) }
+.test__body .q{ margin:var(--s4) 0 }
