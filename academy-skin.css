@@ -29,3 +29,32 @@ a{ text-decoration-color:var(--brand) }
 ::selection{ background:var(--brand); color:var(--ink) }
 :focus-visible{ outline:3px solid var(--ink); outline-offset:3px }
 @media (max-width:560px){ .topbtn{ padding:0 10px; font-size:12px } }
+
+/* ---- Breathing space and de-clutter (2026-09-16) ---- */
+:root{ --measure:66ch; --shadow-1:none; --shadow-2:none; }
+.wrap{ max-width:880px; padding-left:var(--s7); padding-right:var(--s7); }
+.sec{ padding-top:var(--s8); }
+.prose p{ line-height:1.7; margin:0 0 1.35em; }
+.prose ul,.prose ol{ line-height:1.65; }
+.prose li{ margin-bottom:.45em; }
+.lesson{ padding-top:var(--s8); margin-top:var(--s6); }
+/* Watermark numerals and glyphs behind text: gone */
+.mhead::before,.mhead::after,.q--open::before,.test__head::after,.path a::after{ display:none !important; content:none !important; }
+/* Module and test headers: flat ink, generous padding, no gradient */
+.mhead{ background:#1A1C1C !important; padding:var(--s8) var(--s7) var(--s7); box-shadow:none; }
+.mhead__lede{ opacity:.9 }
+.test__head{ background:#1A1C1C; }
+/* Callouts: one hairline container, a faint tint, no coloured bar */
+.box{ border:1px solid var(--line); border-radius:var(--r-lg); padding:var(--s6) var(--s6); margin:var(--s7) 0; background:#FAFAF7; }
+.box::before{ display:none !important; }
+.box--objectives{ background:#FFF8E6 } .box--key{ background:#F3F7F3 } .box--warn{ background:#FFF8E6 } .box--stop{ background:#FBEFEF }
+/* Questions: roomier options */
+.q{ margin:var(--s7) 0; padding:var(--s6); border:1px solid var(--line); border-radius:var(--r-lg); background:#fff; box-shadow:none; }
+.q__opt{ padding:16px 18px; margin-bottom:12px; border-radius:16px; }
+.q__stem{ line-height:1.5; margin-bottom:var(--s5); }
+/* Sidebar: quieter rows, more air */
+.nav__item{ padding-top:11px; padding-bottom:11px; }
+.side__head{ padding-bottom:var(--s6); }
+/* Case laboratory and readings */
+.case{ padding:var(--s6) var(--s7); margin:var(--s7) 0; background-image:none !important; }
+.tablewrap{ margin:var(--s6) 0; }
