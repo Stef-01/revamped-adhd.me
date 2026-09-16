@@ -66,16 +66,6 @@
       font-style: italic;
     }
   </style>
-<style data-purpose="audio-slider-styling">
-    .bg-dot-pattern {
-      background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-      background-size: 11px 11px;
-    }
-    .bg-dot-pattern-dark {
-      background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-      background-size: 11px 11px;
-    }
-  </style>
 <style data-purpose="blob-character-animations">
     @keyframes blob-sway {
       0%, 100% { transform: rotate(-3deg) translateY(0); }
@@ -111,7 +101,7 @@
       }
     }
   </style>
-<link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="privacy.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"><link rel="stylesheet" href="site.css"><link rel="stylesheet" href="motion.css"><link rel="stylesheet" href="privacy.css">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
 </head>
 <body class="min-h-screen flex flex-col bg-[#faf8f5]">
@@ -142,211 +132,38 @@
 </header>
 <!-- END: MainHeader -->
 <!-- BEGIN: MainContent -->
-<main id="main" class="flex-grow">
-<!-- BEGIN: LearningModulesGrid -->
-<section class="py-12 sm:py-16 px-4 sm:px-6 max-w-7xl mx-auto" id="modules">
-<!-- Section Header - Compact for laptop fit -->
-<div data-reveal class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
-<div>
-<span class="text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-500">LEARN · MICRO-MODULES &amp; HELPFUL RESOURCES</span>
-<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-brand-dark mt-1 leading-tight">Micro-modules and helpful resources</h1>
-<p class="text-neutral-600 text-sm sm:text-base mt-2 max-w-xl">Zero guilt, zero long lectures. Short modules under 20 minutes, plus free, plain-language ADHD resources our clinicians point patients to.</p>
-</div>
-<!-- Filter Pills -->
-<div role="group" aria-label="Module category filters" class="flex flex-wrap items-center gap-1.5"><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="all" aria-pressed="true">All</button><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="focus" aria-pressed="false">Focus &amp; Flow</button><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="habits" aria-pressed="false">Dopamine &amp; Habits</button><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="somatics" aria-pressed="false">Somatics</button><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="sleep" aria-pressed="false">Sleep</button><button type="button" class="filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide bg-white border border-neutral-300 text-neutral-700 hover:border-neutral-500 transition" data-filter="research" aria-pressed="false">Helpful resources</button></div>
-<p id="filter-status" class="sr-only" aria-live="polite"></p>
-</div>
-<!-- 3x3 Compact Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"><!-- Card 01 -->
-<article class="module-card rounded-2xl bg-[#ead7c8] text-neutral-900 p-5 sm:p-6 flex flex-col justify-between border border-black/10 hover: hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group relative overflow-hidden bg-dot-pattern-dark" data-purpose="color-module-card" data-category="focus" data-reveal="1" tabindex="0">
-<div>
-<div class="w-full h-20 flex items-center justify-center relative my-0.5">
-<div class="w-16 h-16 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-<svg class="w-full h-full anim-blob-bounce overflow-visible" viewBox="0 0 100 100">
-<ellipse cx="50" cy="94" fill="#000000" opacity="0.15" rx="30" ry="4.5"></ellipse>
-<path d="M50 16 C68 16, 78 28, 76 50 C74 64, 82 78, 76 90 C68 98, 32 98, 24 90 C18 78, 26 64, 24 50 C22 28, 32 16, 50 16 Z" fill="#d96b52" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
-<path d="M22 48 C20 22, 80 22, 78 48" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="4"></path>
-<rect fill="#f5cf6d" height="15" rx="3.5" stroke="#1c1917" stroke-width="3" width="7" x="17" y="44"></rect>
-<rect fill="#f5cf6d" height="15" rx="3.5" stroke="#1c1917" stroke-width="3" width="7" x="76" y="44"></rect>
-<circle cx="43" cy="46" fill="#1c1917" r="3.5"></circle>
-<circle cx="57" cy="46" fill="#1c1917" r="3.5"></circle>
-<circle cx="44" cy="44.5" fill="#ffffff" r="1.3"></circle>
-<circle cx="58" cy="44.5" fill="#ffffff" r="1.3"></circle>
-<path d="M45 56 Q50 62 55 56" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-</svg>
-</div>
-</div>
-<h3 class="text-lg sm:text-xl font-serif text-neutral-950 tracking-tight leading-snug mb-0.5 text-center">Focus &amp; Flow Podcasts</h3>
-<div class="flex items-center justify-center gap-2 mt-2 text-[11px] font-semibold text-neutral-700"><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Focus &amp; Flow</span><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Under 20 min</span></div>
-</div>
-</article>
-
-<!-- Card 02 -->
-<a href="https://adhdguideline.aadpa.com.au/adhd-and-aboriginal-torres-strait-islanders/" target="_blank" rel="noopener noreferrer" data-category="research systems" data-reveal="1" class="module-card group rounded-2xl bg-[#faf9f6] border border-black/10 flex flex-col overflow-hidden hover:bg-white hover: hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
-<div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img loading="lazy" decoding="async" src="assets/learn/first-nations.svg" alt="Characters sitting together in a circle around a small fire" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-<div class="p-5 flex flex-col justify-between gap-4 flex-1">
-<div class="space-y-2">
-<div class="flex items-center justify-between gap-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/70 border border-black/10 text-[11px] font-bold tracking-wide text-neutral-800"><span class="material-symbols-outlined text-[15px]">groups</span>For First Nations people</span><span class="text-[11px] font-mono font-bold text-neutral-600">Free</span></div>
-<h3 class="text-lg font-serif text-neutral-950 tracking-tight leading-snug group-hover:text-[#1d64c2] transition-colors">ADHD and Aboriginal and Torres Strait Islander Peoples</h3>
-<p class="text-[11px] font-medium text-neutral-500">Factsheet · Australian ADHD Guideline</p>
-</div>
-<div class="pt-3 border-t border-black/10 flex items-center justify-end text-xs font-bold"><span class="inline-flex items-center gap-1 text-[#1d64c2]">Read<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
-</div>
-</a>
-<a href="https://podcasts.apple.com/au/podcast/yarning-disability/id1360097025?i=1000607020382" target="_blank" rel="noopener noreferrer" data-category="research focus" data-reveal="2" class="module-card group rounded-2xl bg-[#faf9f6] border border-black/10 flex flex-col overflow-hidden hover:bg-white hover: hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
-<div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img loading="lazy" decoding="async" src="assets/learn/yarning-disability.svg" alt="Two characters wearing headphones either side of a microphone" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-<div class="p-5 flex flex-col justify-between gap-4 flex-1">
-<div class="space-y-2">
-<div class="flex items-center justify-between gap-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/70 border border-black/10 text-[11px] font-bold tracking-wide text-neutral-800"><span class="material-symbols-outlined text-[15px]">podcasts</span>Podcast · First Nations voices</span><span class="text-[11px] font-mono font-bold text-neutral-600">Free</span></div>
-<h3 class="text-lg font-serif text-neutral-950 tracking-tight leading-snug group-hover:text-[#1d64c2] transition-colors">Yarning Disability: “Spicy Brain”, Mat Fink on adult ADHD and autism</h3>
-<p class="text-[11px] font-medium text-neutral-500">First Peoples Disability Network · Episode 3</p>
-</div>
-<div class="pt-3 border-t border-black/10 flex items-center justify-end text-xs font-bold"><span class="inline-flex items-center gap-1 text-[#1d64c2]">Listen<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
-</div>
-</a>
-
-<!-- Card 03 -->
-<article class="module-card rounded-2xl bg-[#f6ecce] text-neutral-900 p-5 sm:p-6 flex flex-col justify-between border border-black/10 hover: hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group relative overflow-hidden bg-dot-pattern-dark" data-purpose="color-module-card" data-category="habits" data-reveal="3" tabindex="0">
-<div>
-<div class="w-full h-20 flex items-center justify-center relative my-0.5">
-<div class="w-16 h-16 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-<svg class="w-full h-full anim-blob-breathe overflow-visible" viewBox="0 0 100 100">
-<ellipse cx="52" cy="94" fill="#000000" opacity="0.15" rx="28" ry="4.5"></ellipse>
-<path d="M50 18 C66 16, 76 30, 72 50 C66 62, 80 74, 72 88 C62 96, 36 94, 28 84 C18 72, 30 58, 30 44 C30 28, 36 20, 50 18 Z" fill="#d96b52" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
-<path d="M50 26 Q58 22 64 27" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="2.8"></path>
-<circle cx="43" cy="36" fill="#1c1917" r="3.5"></circle>
-<circle cx="56" cy="33" fill="#1c1917" r="3.8"></circle>
-<circle cx="44" cy="34.5" fill="#ffffff" r="1.3"></circle>
-<circle cx="57" cy="31.5" fill="#ffffff" r="1.4"></circle>
-<ellipse cx="50" cy="46" fill="#1c1917" rx="4" ry="5"></ellipse>
-<circle cx="51" cy="48" fill="#f87171" r="2.2"></circle>
-</svg>
-</div>
-</div>
-<h3 class="text-lg sm:text-xl font-serif text-neutral-950 tracking-tight leading-snug mb-0.5 text-center">Dopamine &amp; Habit Loops</h3>
-<div class="flex items-center justify-center gap-2 mt-2 text-[11px] font-semibold text-neutral-700"><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Dopamine &amp; Habits</span><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Under 20 min</span></div>
-</div>
-</article>
-
-<!-- Card 04 -->
-<a href="https://www.youtube.com/@HowtoADHD" target="_blank" rel="noopener noreferrer" data-category="research habits" data-reveal="1" class="module-card group rounded-2xl bg-[#faf9f6] border border-black/10 flex flex-col overflow-hidden hover:bg-white hover: hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
-<div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img loading="lazy" decoding="async" src="assets/learn/how-to-adhd.svg" alt="A character with headphones watching a video" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-<div class="p-5 flex flex-col justify-between gap-4 flex-1">
-<div class="space-y-2">
-<div class="flex items-center justify-between gap-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/70 border border-black/10 text-[11px] font-bold tracking-wide text-neutral-800"><span class="material-symbols-outlined text-[15px]">play_circle</span>Videos</span><span class="text-[11px] font-mono font-bold text-neutral-600">Free</span></div>
-<h3 class="text-lg font-serif text-neutral-950 tracking-tight leading-snug group-hover:text-[#1d64c2] transition-colors">How to ADHD</h3>
-<p class="text-[11px] font-medium text-neutral-500">Jessica McCabe · YouTube</p>
-</div>
-<div class="pt-3 border-t border-black/10 flex items-center justify-end text-xs font-bold"><span class="inline-flex items-center gap-1 text-[#1d64c2]">Read<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
-</div>
-</a>
-
-<!-- Card 05 -->
-<article class="module-card rounded-2xl bg-[#f2d5c8] text-neutral-900 p-5 sm:p-6 flex flex-col justify-between border border-black/10 hover: hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group relative overflow-hidden bg-dot-pattern-dark" data-purpose="color-module-card" data-category="somatics" data-reveal="2" tabindex="0">
-<div>
-<div class="w-full h-20 flex items-center justify-center relative my-0.5">
-<div class="w-16 h-16 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-<svg class="w-full h-full anim-blob-breathe overflow-visible" viewBox="0 0 100 100">
-<ellipse cx="50" cy="94" fill="#000000" opacity="0.15" rx="30" ry="4.5"></ellipse>
-<path d="M48 22 C60 20, 72 28, 76 44 C80 58, 86 76, 78 88 C68 96, 32 96, 22 88 C14 76, 20 58, 24 44 C28 28, 36 22, 48 22 Z" fill="#d96b52" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
-<path d="M38 42 Q44 38 48 42" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-<path d="M56 42 Q62 38 66 42" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-<path d="M48 50 Q52 54 56 50" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-<path d="M52 68 C52 68, 47 63, 44 60 C41 57, 41 54, 44 52 C47 50, 50 51, 52 54 C54 51, 57 50, 60 52 C63 54, 63 57, 60 60 C57 63, 52 68, 52 68 Z" fill="#ffffff" opacity="0.95"></path>
-</svg>
-</div>
-</div>
-<h3 class="text-lg sm:text-xl font-serif text-neutral-950 tracking-tight leading-snug mb-0.5 text-center">Mindful Somatics &amp; Calm</h3>
-<div class="flex items-center justify-center gap-2 mt-2 text-[11px] font-semibold text-neutral-700"><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Somatics</span><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Under 20 min</span></div>
-</div>
-</article>
-
-<!-- Card 06 -->
-<a href="https://www.healthdirect.gov.au/attention-deficit-disorder-add-or-adhd" target="_blank" rel="noopener noreferrer" data-category="research somatics" data-reveal="1" class="module-card group rounded-2xl bg-[#faf9f6] border border-black/10 flex flex-col overflow-hidden hover:bg-white hover: hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
-<div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img loading="lazy" decoding="async" src="assets/learn/healthdirect.svg" alt="A cheerful character pointing at a simple health information card" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-<div class="p-5 flex flex-col justify-between gap-4 flex-1">
-<div class="space-y-2">
-<div class="flex items-center justify-between gap-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/70 border border-black/10 text-[11px] font-bold tracking-wide text-neutral-800"><span class="material-symbols-outlined text-[15px]">health_and_safety</span>Plain-language</span><span class="text-[11px] font-mono font-bold text-neutral-600">Free</span></div>
-<h3 class="text-lg font-serif text-neutral-950 tracking-tight leading-snug group-hover:text-[#1d64c2] transition-colors">ADHD explained simply: symptoms, causes and getting help</h3>
-<p class="text-[11px] font-medium text-neutral-500">healthdirect · Australian Government</p>
-</div>
-<div class="pt-3 border-t border-black/10 flex items-center justify-end text-xs font-bold"><span class="inline-flex items-center gap-1 text-[#1d64c2]">Read<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
-</div>
-</a>
-
-<!-- Card 07 -->
-<a href="https://adhdguideline.aadpa.com.au/consumer-companion/" target="_blank" rel="noopener noreferrer" data-category="research systems" data-reveal="1" class="module-card group rounded-2xl bg-[#faf9f6] border border-black/10 flex flex-col overflow-hidden hover:bg-white hover: hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
-<div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img loading="lazy" decoding="async" src="assets/learn/aadpa-guideline.svg" alt="A cheerful character holding up a checklist with green ticks" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
-<div class="p-5 flex flex-col justify-between gap-4 flex-1">
-<div class="space-y-2">
-<div class="flex items-center justify-between gap-2"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/70 border border-black/10 text-[11px] font-bold tracking-wide text-neutral-800"><span class="material-symbols-outlined text-[15px]">menu_book</span>Easy-read guide</span><span class="text-[11px] font-mono font-bold text-neutral-600">Free</span></div>
-<h3 class="text-lg font-serif text-neutral-950 tracking-tight leading-snug group-hover:text-[#1d64c2] transition-colors">The ADHD Guideline, written for people with ADHD</h3>
-<p class="text-[11px] font-medium text-neutral-500">Consumer Companion · AADPA</p>
-</div>
-<div class="pt-3 border-t border-black/10 flex items-center justify-end text-xs font-bold"><span class="inline-flex items-center gap-1 text-[#1d64c2]">Read<span class="material-symbols-outlined text-[16px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">north_east</span></span></div>
-</div>
-</a>
-
-<!-- Card 08 -->
-<article class="module-card rounded-2xl bg-[#d2ccd7] text-neutral-900 p-5 sm:p-6 flex flex-col justify-between border border-black/10 hover: hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group relative overflow-hidden bg-dot-pattern-dark" data-purpose="color-module-card" data-category="sleep somatics" data-reveal="2" tabindex="0">
-<div>
-<div class="w-full h-20 flex items-center justify-center relative my-0.5">
-<div class="w-24 h-16 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-<svg class="w-full h-full anim-blob-snooze overflow-visible" viewBox="0 0 110 70">
-<ellipse cx="55" cy="62" fill="#000000" opacity="0.15" rx="46" ry="5"></ellipse>
-<path d="M16 52 C18 38, 38 26, 60 26 C82 26, 94 36, 102 46 C108 52, 104 58, 98 60 C78 62, 36 62, 18 60 C14 59, 14 54, 16 52 Z" fill="#d96b52" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
-<path d="M80 44 L88 44" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-<path d="M92 45 L96 45" stroke="#1c1917" stroke-linecap="round" stroke-width="3"></path>
-<circle cx="88" cy="51" fill="#1c1917" r="2.2"></circle>
-<g class="anim-blob-zzz">
-<text fill="#996515" font-family="'Space Mono', monospace" font-size="10" font-weight="bold" x="84" y="22">z</text>
-<text fill="#b8860b" font-family="'Space Mono', monospace" font-size="8" font-weight="bold" x="93" y="14">z</text>
-</g>
-</svg>
-</div>
-</div>
-<h3 class="text-lg sm:text-xl font-serif text-neutral-950 tracking-tight leading-snug mb-0.5 text-center">Bedtime Friction &amp; Sleep</h3>
-<div class="flex items-center justify-center gap-2 mt-2 text-[11px] font-semibold text-neutral-700"><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Sleep</span><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Under 20 min</span></div>
-</div>
-</article>
-
-<!-- Card 09 -->
-<article class="module-card rounded-2xl bg-[#d0e4de] text-neutral-900 p-5 sm:p-6 flex flex-col justify-between border border-black/10 hover: hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group relative overflow-hidden bg-dot-pattern-dark" data-purpose="color-module-card" data-category="focus" data-reveal="3" tabindex="0">
-<div>
-<div class="w-full h-20 flex items-center justify-center relative my-0.5">
-<div class="w-20 h-16 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
-<svg class="w-full h-full anim-blob-bounce overflow-visible" viewBox="0 0 100 100">
-<ellipse cx="50" cy="94" fill="#000000" opacity="0.15" rx="36" ry="4.5"></ellipse>
-<path d="M38 28 C50 26, 58 36, 56 56 C54 70, 60 84, 52 92 C44 98, 22 96, 16 88 C10 78, 16 62, 18 48 C20 34, 28 28, 38 28 Z" fill="#d96b52" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"></path>
-<path d="M68 40 C78 38, 86 46, 84 62 C82 72, 86 84, 80 90 C74 96, 58 96, 54 88 C50 80, 56 68, 56 58 C56 46, 60 40, 68 40 Z" fill="#f5cf6d" stroke="#1c1917" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.5"></path>
-<circle cx="34" cy="44" fill="#1c1917" r="2.8"></circle>
-<circle cx="44" cy="44" fill="#1c1917" r="2.8"></circle>
-<path d="M36 52 Q40 56 44 52" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="2.5"></path>
-<circle cx="68" cy="54" fill="#1c1917" r="2.5"></circle>
-<circle cx="76" cy="54" fill="#1c1917" r="2.5"></circle>
-<path d="M70 61 Q73 64 76 61" fill="none" stroke="#1c1917" stroke-linecap="round" stroke-width="2"></path>
-</svg>
-</div>
-</div>
-<h3 class="text-lg sm:text-xl font-serif text-neutral-950 tracking-tight leading-snug mb-0.5 text-center">Body Doubling &amp; Focus</h3>
-<div class="flex items-center justify-center gap-2 mt-2 text-[11px] font-semibold text-neutral-700"><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Focus &amp; Flow</span><span class="px-2 py-0.5 rounded-full bg-white/60 border border-black/10">Under 20 min</span></div>
-</div>
-</article></div>
+<main id="main" class="bg-white">
+<nav aria-label="Learn categories" class="w-full bg-[#fdfbf7] border-b border-[#e8e6df]"><div class="max-w-[960px] mx-auto px-5 flex gap-8 overflow-x-auto h-14 items-center"><a class="whitespace-nowrap text-[15px] font-medium text-[#1a1c1c] hover:underline underline-offset-4 decoration-2 decoration-[#f1bc31]" href="#getting-assessed">Getting assessed</a><a class="whitespace-nowrap text-[15px] font-medium text-[#1a1c1c] hover:underline underline-offset-4 decoration-2 decoration-[#f1bc31]" href="#focus">Focus and everyday life</a><a class="whitespace-nowrap text-[15px] font-medium text-[#1a1c1c] hover:underline underline-offset-4 decoration-2 decoration-[#f1bc31]" href="#late-recognition">Late recognition</a><a class="whitespace-nowrap text-[15px] font-medium text-[#1a1c1c] hover:underline underline-offset-4 decoration-2 decoration-[#f1bc31]" href="#wellbeing">Wellbeing</a><a class="whitespace-nowrap text-[15px] font-medium text-[#1a1c1c] hover:underline underline-offset-4 decoration-2 decoration-[#f1bc31]" href="#guidelines">Guidelines and resources</a></div></nav>
+<div class="max-w-[960px] mx-auto px-5 pb-24">
+  <header class="text-center pt-20 pb-6 hero-in">
+    <h1 class="font-serif text-[40px] leading-tight font-normal text-[#1a1c1c]">ADHDme Learn</h1>
+    <p class="mt-5 mx-auto max-w-[62ch] text-[19px] leading-relaxed text-[#5f5e59]">ADHD is complex and everyone has an opinion. Here is what the doctors in this network actually point people to: Australia’s clinical guideline, the government’s own information, and the reads and resources that hold up.</p>
+  </header>
+  <section id="featured" class="pt-14" aria-labelledby="featured-title" data-reveal>
+    <div class="pb-4 border-b border-[#e8e6df]"><h2 id="featured-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Featured</h2></div>
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-x-8 gap-y-12 pt-8">
+      <a class="group block" href="blog-how-booking-works.html"><span class="block aspect-square overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="eager" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-how-booking-works.svg"></span><span class="block mt-5 text-[26px] leading-[1.2] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">No referral needed to look. How booking with ADHDme works.</span><span class="block mt-2.5 text-[15px] leading-relaxed text-[#5f5e59]">Browse every clinician, see the fee on the practice’s page, and book in two steps. No account, no upfront fee.</span></a>
+      <div class="grid grid-cols-1 gap-y-12"><a class="group block" href="blog-late-diagnosis.html"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-late-diagnosis.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Diagnosed as an adult? What the research actually says.</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">A late diagnosis rewrites the past. The evidence base is clearer and kinder than most people expect.</span></a><a class="group block" href="blog-body-doubling.html"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-body-doubling.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Body doubling: the least complicated focus tool there is.</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Sitting near someone else who is working can be enough to start. Here is why it helps and how to try it.</span></a></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-12"><a class="group block" href="https://adhdguideline.aadpa.com.au/consumer-companion/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/aadpa-guideline.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">The ADHD Guideline, written for people with ADHD</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Australia’s clinical guideline, rewritten by AADPA for the people it is about: what good assessment and care look like.</span></a><a class="group block" href="https://www.healthdirect.gov.au/attention-deficit-disorder-add-or-adhd" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/healthdirect.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD explained simply: symptoms, causes and getting help</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">healthdirect, the Australian Government’s health information service: what ADHD is, how it is assessed, and where to get help.</span></a><a class="group block" href="https://www.additudemag.com/adhd-in-women-girls-symptoms-diagnosis-recommendations/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/women-girls-diagnosis.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD in Women and Girls: Why Female Symptoms Slip Through Diagnostic Cracks</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: why ADHD in women and girls is missed, and what a better assessment asks.</span></a></div>
+  </section>
+  <section id="getting-assessed" class="pt-16" aria-labelledby="getting-assessed-title" data-reveal>
+  <div class="flex items-end justify-between gap-6 pb-4 border-b border-[#e8e6df]"><h2 id="getting-assessed-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Getting assessed</h2></div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-8"><a class="group block" href="blog-how-booking-works.html"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-how-booking-works.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">No referral needed to look. How booking with ADHDme works.</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Browse every clinician, see the fee on the practice’s page, and book in two steps. No account, no upfront fee.</span></a><a class="group block" href="https://www.healthdirect.gov.au/attention-deficit-disorder-add-or-adhd" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/healthdirect.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD explained simply: symptoms, causes and getting help</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">healthdirect, the Australian Government’s health information service: what ADHD is, how it is assessed, and where to get help.</span></a><a class="group block" href="https://adhdguideline.aadpa.com.au/consumer-companion/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/aadpa-guideline.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">The ADHD Guideline, written for people with ADHD</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Australia’s clinical guideline, rewritten by AADPA for the people it is about: what good assessment and care look like.</span></a></div>
+</section><section id="focus" class="pt-16" aria-labelledby="focus-title" data-reveal>
+  <div class="flex items-end justify-between gap-6 pb-4 border-b border-[#e8e6df]"><h2 id="focus-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Focus and everyday life</h2></div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-8"><a class="group block" href="blog-body-doubling.html"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-body-doubling.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Body doubling: the least complicated focus tool there is.</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Sitting near someone else who is working can be enough to start. Here is why it helps and how to try it.</span></a><a class="group block" href="https://www.additudemag.com/adhd-executive-dysfunction-how-to-be-more-productive-consistent/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/executive-dysfunction.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">You Can’t Train Away ADHD Executive Dysfunction</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: why executive dysfunction is not a discipline problem, and what helps instead.</span></a><a class="group block" href="https://www.youtube.com/@HowtoADHD" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/how-to-adhd.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">How to ADHD</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Jessica McCabe’s channel: short, practical videos on living with an ADHD brain.</span></a></div>
+</section><section id="late-recognition" class="pt-16" aria-labelledby="late-recognition-title" data-reveal>
+  <div class="flex items-end justify-between gap-6 pb-4 border-b border-[#e8e6df]"><h2 id="late-recognition-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Late recognition</h2></div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-8"><a class="group block" href="blog-late-diagnosis.html"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/blog-late-diagnosis.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Diagnosed as an adult? What the research actually says.</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">A late diagnosis rewrites the past. The evidence base is clearer and kinder than most people expect.</span></a><a class="group block" href="https://www.additudemag.com/adhd-in-women-girls-symptoms-diagnosis-recommendations/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/women-girls-diagnosis.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD in Women and Girls: Why Female Symptoms Slip Through Diagnostic Cracks</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: why ADHD in women and girls is missed, and what a better assessment asks.</span></a><a class="group block" href="https://www.additudemag.com/adhd-symptoms-adult-women-undiagnosed/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/adult-women-undiagnosed.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Study: Women with Undiagnosed ADHD Suffer Poor Self-Esteem, Mental Health</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: a study on undiagnosed ADHD in adult women, self-esteem and mental health.</span></a></div>
+</section><section id="wellbeing" class="pt-16" aria-labelledby="wellbeing-title" data-reveal>
+  <div class="flex items-end justify-between gap-6 pb-4 border-b border-[#e8e6df]"><h2 id="wellbeing-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Wellbeing</h2></div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-8"><a class="group block" href="https://www.additudemag.com/autistic-adhd-burnout-neurodivergent-masking/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/neurodivergent-burnout.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">When Neurodivergent Burnout Reaches Its Breaking Point</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: recognising neurodivergent burnout and masking before they reach breaking point.</span></a><a class="group block" href="https://www.additudemag.com/emotional-resilience-adhd-coping/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/articles/emotional-resilience.jpg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">How’s Your Emotional Resilience? Learning to Cope with Intense ADHD Feelings</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">ADDitude Magazine: learning to cope with intense ADHD feelings without being run by them.</span></a><a class="group block" href="https://podcasts.apple.com/au/podcast/yarning-disability/id1360097025?i=1000607020382" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/yarning-disability.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">Yarning Disability: “Spicy Brain”, Mat Fink on adult ADHD and autism</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">First Peoples Disability Network’s podcast, episode 3: adult ADHD and autism, in conversation.</span></a></div>
+</section><section id="guidelines" class="pt-16" aria-labelledby="guidelines-title" data-reveal>
+  <div class="flex items-end justify-between gap-6 pb-4 border-b border-[#e8e6df]"><h2 id="guidelines-title" class="font-serif text-[36px] sm:text-[40px] leading-none font-normal text-[#1a1c1c]">Guidelines and resources</h2></div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-12 pt-8"><a class="group block" href="https://adhdguideline.aadpa.com.au/consumer-companion/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/aadpa-guideline.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">The ADHD Guideline, written for people with ADHD</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">Australia’s clinical guideline, rewritten by AADPA for the people it is about: what good assessment and care look like.</span></a><a class="group block" href="https://adhdguideline.aadpa.com.au/adhd-and-aboriginal-torres-strait-islanders/" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/first-nations.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD and Aboriginal and Torres Strait Islander Peoples</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">The Australian ADHD Guideline’s factsheet for Aboriginal and Torres Strait Islander peoples.</span></a><a class="group block" href="https://www.healthdirect.gov.au/attention-deficit-disorder-add-or-adhd" target="_blank" rel="noopener noreferrer"><span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]"><img loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/learn/healthdirect.svg"></span><span class="block mt-4 text-[21px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">ADHD explained simply: symptoms, causes and getting help</span><span class="block mt-2 text-[14px] leading-relaxed text-[#5f5e59]">healthdirect, the Australian Government’s health information service: what ADHD is, how it is assessed, and where to get help.</span></a></div>
 </section>
-<!-- END: LearningModulesGrid -->
-<section class="pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
-<div data-reveal class="bg-[#f1bc31] rounded-3xl p-8 md:p-12 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left border border-[#e2ac24]">
-<div class="max-w-xl space-y-3">
-<div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#1a1c1c] text-white text-xs font-semibold"><span class="w-2 h-2 rounded-full bg-[#ff4d2e]"></span> Free to book and find your clinician</div>
-<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-dark tracking-tight leading-tight">Stop forcing focus. Start flowing with your brain.</h2>
-<p class="text-sm sm:text-base text-[#674d00] font-medium">Zero guilt, zero long lectures. Pair a module with a clinician who understands how your brain works.</p>
 </div>
-<div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0">
-<a class="btn-press h-[52px] px-8 rounded-full bg-[#1a1c1c] text-white text-base font-semibold hover:bg-[#2f3130] transition-all flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a>
-<p class="text-xs text-[#674d00] font-medium">🔒 No account or sign-up required.</p>
-</div>
-</div>
-</section>
 </main>
 <!-- END: MainContent -->
 <!-- BEGIN: MainFooter -->
