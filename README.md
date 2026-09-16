@@ -68,6 +68,25 @@ Fonts are self-hosted from `assets/fonts/`, one variable file per family: Plus J
 
 Photographs ship as WebP with a JPEG fallback inside `<picture>`, with 320, 640 and full-size candidates where the rendered size warrants it.
 
+## Type scale
+
+One scale, applied as Tailwind classes in the HTML (phone size first, then from the `sm` breakpoint):
+
+| Role | Size | Where |
+|---|---|---|
+| Landing hero title | 30 → 36 → 60 → 72px | `index.html` only |
+| Page title (h1) | 36 → 44 → 52px, line-height 1.05 | every other page; Learn's serif title is 40 → 48px |
+| Section heading (h2) | 32 → 40px | all section headings, including Learn's serif ones |
+| Subsection heading (h2) | 24px | inside articles, profiles and legal pages |
+| Card or step title | 22px, line-height 1.25 | Learn cards, GP deck names, How it works steps |
+| Lede | 19px | the paragraph under a page title |
+| Body | 17px, line-height 1.6 to 1.7 | paragraphs, lists, definitions |
+| Small | 15px | card lines, navigation, buttons, chips' neighbours |
+| Label | 14px | chips |
+| Caption | 13px | dates, read times, footnotes, the copyright line |
+
+Keep new text on one of these steps. Fee figures (36 → 48px) are display numbers and sit outside the scale on purpose.
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host.

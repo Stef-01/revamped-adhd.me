@@ -69,3 +69,4 @@ a{ text-decoration-color:var(--brand) }
 .q__opts{ gap:var(--s2) }
 .q__stem{ margin-bottom:var(--s4) }
 .test__body .q{ margin:var(--s4) 0 }
+@media (max-width:400px){ .top .iconbtn[aria-label="Print"]{ display:none } .topbtn{ padding:0 9px; font-size:12px } .top__in{ gap:6px } }
