@@ -1,0 +1,75 @@
+/* ADHDme — motion layer
+   One vocabulary, four verbs: arrive (reveals and hero), settle (photos and the hero image),
+   drift (hero parallax), draw (the ink mark). Everything here is additive to site.css and
+   switches itself off under prefers-reduced-motion. */
+
+:root {
+  --m-ease: cubic-bezier(0.22, 1, 0.36, 1);   /* exponential ease-out, spring-like settle */
+  --m-ease-ui: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Arrive: reveals use the spring curve, and siblings stagger from a JS-assigned index */
+.js [data-reveal] {
+  transition: opacity 0.72s var(--m-ease), transform 0.8s var(--m-ease);
+  transition-delay: calc(var(--stagger, 0) * 80ms);
+}
+.js [data-reveal="1"], .js [data-reveal="2"], .js [data-reveal="3"], .js [data-reveal="4"], .js [data-reveal="5"] {
+  transition-delay: calc(var(--stagger, 0) * 80ms);
+}
+.hero-in { animation-timing-function: var(--m-ease); animation-duration: 0.9s; }
+
+/* Settle: photographs inside a revealed block arrive from a slight zoom, like a lens finding focus */
+.js [data-reveal] img:not(.no-settle) {
+  transform: scale(1.1);
+  transition: transform 1.2s var(--m-ease);
+  transition-delay: calc(var(--stagger, 0) * 80ms);
+}
+.js [data-reveal].is-visible img:not(.no-settle) { transform: none; }
+/* Cards that already scale on hover keep that: the settle only runs while hidden */
+.js [data-reveal].is-visible .group:hover img { transform: scale(1.05); }
+
+/* Settle: the hero photograph eases in from a slow zoom on load */
+@keyframes hero-settle { from { transform: scale(1.06); } to { transform: scale(1); } }
+.js .hero-settle { animation: hero-settle 2.4s var(--m-ease) both; transform-origin: 50% 40%; will-change: transform; }
+
+/* Drift: the hero photograph moves at a fraction of scroll speed (JS writes --drift) */
+.js .hero-drift { transform: translate3d(0, var(--drift, 0px), 0); }
+.js .hero-settle.hero-drift { animation: none; transform: translate3d(0, var(--drift, 0px), 0) scale(var(--settle, 1)); transition: none; }
+
+/* Draw: a variable-width ink stroke under a phrase, wiped in left to right */
+.mark { position: relative; white-space: nowrap; text-decoration: none !important; }
+.mark__stroke {
+  position: absolute; left: -0.02em; bottom: -0.2em; width: 104%; height: 0.3em;
+  overflow: visible; pointer-events: none;
+  clip-path: inset(-20% 100% -20% 0);
+}
+.mark__stroke path { fill: var(--mark-color, currentColor); opacity: 0.95; }
+.mark.is-drawn .mark__stroke { clip-path: inset(-20% 0 -20% 0); transition: clip-path 0.9s var(--m-ease) 0.25s; }
+.no-js .mark__stroke { clip-path: none; }
+
+/* Primary buttons: the arrow leads the hover */
+.btn-press span[aria-hidden="true"] { display: inline-block; transition: transform 0.2s var(--m-ease-ui); }
+.btn-press:hover span[aria-hidden="true"] { transform: translateX(3px); }
+.btn-press { transition: transform 0.2s var(--m-ease-ui), background-color 0.2s var(--m-ease-ui), box-shadow 0.2s var(--m-ease-ui); }
+
+/* Mobile menu slides in under the bar */
+@keyframes nav-in { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+#mobile-nav:not([hidden]) { animation: nav-in 0.32s var(--m-ease) both; }
+#mobile-nav a { transition: background-color 0.2s var(--m-ease-ui); }
+
+/* Tilted photo cards: reveal keeps their tilt, hover still straightens them */
+.js .tilt-left[data-reveal], .js .tilt-center[data-reveal], .js .tilt-right[data-reveal] { transition-property: opacity, transform; }
+.js .tilt-left[data-reveal]:not(.is-visible) { transform: rotate(-3.5deg) translateY(30px); }
+.js .tilt-center[data-reveal]:not(.is-visible) { transform: translateY(24px); }
+.js .tilt-right[data-reveal]:not(.is-visible) { transform: rotate(3deg) translateY(32px); }
+.js .tilt-left[data-reveal].is-visible { transform: rotate(-3.5deg) translateY(6px); }
+.js .tilt-center[data-reveal].is-visible { transform: translateY(-8px); }
+.js .tilt-right[data-reveal].is-visible { transform: rotate(3deg) translateY(8px); }
+.js .tilt-left[data-reveal].is-visible:hover, .js .tilt-center[data-reveal].is-visible:hover, .js .tilt-right[data-reveal].is-visible:hover { transform: rotate(0deg) translateY(-4px) scale(1.02); }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] img, .js .hero-settle, .js .hero-drift, .js .hero-settle.hero-drift { transform: none !important; animation: none !important; transition: none !important; }
+  .mark__stroke, .mark.is-drawn .mark__stroke { clip-path: none; transition: none; }
+  #mobile-nav:not([hidden]) { animation: none; }
+  .js .tilt-left[data-reveal]:not(.is-visible), .js .tilt-center[data-reveal]:not(.is-visible), .js .tilt-right[data-reveal]:not(.is-visible) { opacity: 1; }
+}
