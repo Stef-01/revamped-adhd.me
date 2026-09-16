@@ -49,19 +49,24 @@ The "From the blog" section on Our Story and the individual post pages (`blog-*.
 python3 scripts/build-blog.py
 ```
 
-## Styles and fonts
+## Styles, scripts and fonts
 
-Tailwind is compiled once to `assets/css/tailwind.css` (about 36 KB) from `tailwind.config.js`, which holds the theme extensions the pages used to declare inline. The runtime CDN script is gone. After adding or changing utility classes in any HTML file, rebuild the stylesheet:
+Every page loads one stylesheet and one script bundle:
+
+- `assets/css/site.min.css` is `assets/css/fonts.css` + `site.css` + `motion.css` + `privacy.css` + the compiled Tailwind utilities (`assets/css/tailwind.css`, built from `tailwind.config.js`), in that order, minified. It is linked last in `<head>` so utilities keep winning over each page's inline styles, as they did when the Tailwind CDN injected its CSS at the end of the head.
+- `assets/js/site.min.js` is `site.js` + `motion.js` + `analytics.js` + `privacy-consent.js`, minified. `analytics-config.js` stays a separate, unminified file so the analytics ID can be set without a rebuild. The academy login page loads only `site.js` and `motion.js`, on purpose.
+
+Edit the source files, never the bundles, then rebuild:
 
 ```bash
-npm run build:css
+npm run build
 ```
 
-That stylesheet is linked last in `<head>` on purpose: the CDN used to inject its CSS at the end of the head, so utilities win over each page's own inline styles. Keeping that order keeps the pages rendering as they did.
+(`npm run build:css` and `npm run build:js` run the halves.) After adding or changing utility classes in any HTML file, the CSS build is required.
 
-Fonts live in `assets/fonts/` (Plus Jakarta Sans 400 to 800 and Newsreader 400 and 500, latin subsets, SIL Open Font License) and are declared in `assets/css/fonts.css`; the two above-the-fold weights are preloaded. The only remaining Google Fonts request is the Material Symbols icon font, on the four pages that show icons.
+Fonts are self-hosted from `assets/fonts/`, one variable file per family: Plus Jakarta Sans (weights 200 to 800, 27 KB, Google's own latin file) and Newsreader (38 KB: Google's variable file instanced to weights 400 to 500 with the optical size pinned at 36, the display sizes this site uses). Both are under the SIL Open Font License. No page requests Google Fonts; the few icons on Our Story and the blog are inline SVG.
 
-Photographs ship as WebP with a JPEG fallback inside `<picture>`.
+Photographs ship as WebP with a JPEG fallback inside `<picture>`, with 320, 640 and full-size candidates where the rendered size warrants it.
 
 ## Deploy
 
