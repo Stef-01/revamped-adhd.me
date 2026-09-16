@@ -35,7 +35,7 @@ Article thumbnails live in `assets/articles/` and are keyed by the article slug 
 
 ## Service map
 
-The dotted map of Australia behind the logo on The Doctors page is generated SVG. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
+The dotted map of Australia behind the logo on the Our Story page is generated SVG. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
 
 ```bash
 python3 scripts/build-map.py

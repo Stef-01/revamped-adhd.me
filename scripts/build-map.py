@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the solid Australia map used behind the logo on the-doctors.html.
+"""Generate the solid Australia map used behind the logo on our-story.html.
 Re-run after editing CITIES. Output is injected between the AU-MAP markers."""
 import math, pathlib, re
 
@@ -57,7 +57,7 @@ svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3
 {''.join(markers)}
 </svg>'''
 
-p = ROOT / 'the-doctors.html'; s = p.read_text()
+p = ROOT / 'our-story.html'; s = p.read_text()
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
 p.write_text(s)
 print(f'map: solid fill, viewBox {VB}, landmass centre ({cx:.0f},{cy:.0f}), {len(CITIES)} markers')
