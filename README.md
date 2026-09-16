@@ -19,13 +19,13 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 | `index.html` | Landing |
 | `how-it-works.html` | How it works |
 | `the-doctors.html` | The Doctors |
-| `dr-anubhav-saxena.html`, `dr-anu-saxena.html`, `dr-maya-lin.html`, `julian-vance.html`, `sarah-jenkins.html`, `claire-brennan.html` | Clinician profiles (generated) |
+| `dr-anubhav-saxena.html`, `dr-anu-saxena.html` | GP profiles (generated) |
 | `learn.html` | Learn (micro-modules) |
 | `our-story.html` | Our Story |
 
 ## Clinician profiles
 
-The six profile pages are generated from one data set so they stay structurally identical. Edit the `CLINICIANS` list (bio, fees, booking link, articles) in `scripts/build-profiles.py`, then rebuild:
+The GP profile pages are generated from one data set so they stay structurally identical. Edit the `CLINICIANS` list (bio, fees, booking link, articles) in `scripts/build-profiles.py`, then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py

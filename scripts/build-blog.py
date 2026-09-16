@@ -59,7 +59,7 @@ POSTS = [
        'People with ADHD have used it informally for decades, usually without a name for it. The library was easier to study in than the bedroom. The kitchen got cleaned faster when a friend was chatting at the table. The name came later; the effect was always real.',
        'Why does it work? The honest answer is that the research is still young. A 2024 study found body doubling helped people with ADHD both start and finish tasks, and earlier work suggests social presence nudges the brain’s reward and motivation pathways. What we know for certain is that it lowers the cost of starting, and starting is usually the hard part.',
        '<strong>How to try it.</strong> Pick one task you have been avoiding. Ask someone to sit with you for twenty minutes while they do their own thing. Say out loud what you are going to do. Then begin. If nobody is around, a video call with the camera on works, and so do the many online focus rooms built for exactly this.',
-       'Several practitioners in the ADHDme network facilitate body doubling sessions, and our clinicians often suggest it alongside other treatment. It costs nothing to try tonight.'],
+       'Our clinicians often suggest body doubling alongside other treatment. It costs nothing to try tonight.'],
       sources=[('Harnessing Focus with Body Doubling, Psychology Today', 'https://www.psychologytoday.com/us/blog/empowered-with-adhd/202408/harnessing-focus-with-body-doubling-a-strategy-for-adhd'), ('Body Doubling for ADHD, Healthline', 'https://www.healthline.com/health/adhd/body-double-adhd')]),
  dict(slug='blog-late-diagnosis', category='Late diagnosis', date='2026-08-05', read='4 min', cover=cover_late_diagnosis,
       title='Diagnosed as an adult? What the research actually says.',
