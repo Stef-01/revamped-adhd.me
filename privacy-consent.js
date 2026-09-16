@@ -32,9 +32,11 @@
       '</div>' +
     '</dialog>';
   document.body.appendChild(bar);
+  var setOffset = function () { var h = bar.getBoundingClientRect().height; document.documentElement.style.setProperty('--consent-h', h + 'px'); document.documentElement.classList.add('has-consent'); document.body.classList.add('has-consent'); };
+  setOffset(); window.addEventListener('resize', setOffset, { passive: true });
 
   var dialog = bar.querySelector('dialog');
-  var remove = function () { if (bar.parentNode) bar.parentNode.removeChild(bar); };
+  var remove = function () { if (bar.parentNode) bar.parentNode.removeChild(bar); document.documentElement.classList.remove('has-consent'); document.body.classList.remove('has-consent'); };
   var agree = function () {
     try { localStorage.setItem(KEY, '1'); } catch (e) {}
     if (dialog.open) dialog.close();

@@ -1,5 +1,5 @@
 /* ADHDme — shared polish layer */
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: 6rem; }
 body { text-rendering: optimizeLegibility; }
 ::selection { background: #f1bc31; color: #1a1c1c; }
 
@@ -59,3 +59,31 @@ a.btn-press:active, button.btn-press:active { transform: scale(.97); }
 .au-marker:nth-child(odd) .au-pulse { animation-delay: .8s; }
 @keyframes au-pulse { 0% { transform: scale(.4); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
 @media (max-width: 640px) { .au-label { font-size: 15px; } }
+
+/* ---- Micro-refinements (research pass, 2026-09-16) ---- */
+/* Touch: no 300ms delay or double-tap zoom on controls; our own active state instead of the grey tap flash */
+a, button, summary, [role="button"] { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button, [role="button"] { user-select: none; }
+/* Type: balanced headings, pretty paragraphs, no orphans */
+h1, h2, h3 { text-wrap: balance; }
+p, li, dd { text-wrap: pretty; }
+/* Hover transforms only where a hover exists; touch gets the press state alone */
+@media (hover: none) {
+  [class*="hover:-translate-y"]:hover, [class*="hover:scale"]:hover { transform: none !important; }
+}
+/* Focus rings that survive every ground: ink on light, yellow on ink */
+[class*="bg-[#1a1c1c]"]:focus-visible, [class*="bg-black"]:focus-visible, [class*="bg-on-surface"]:focus-visible, .consent-bar :focus-visible, .topbtn:focus-visible, a[href="#main"]:focus-visible { outline-color: #f1bc31; }
+/* The logo link had focus:outline-none; every control shows its ring */
+a[aria-label="ADHDme home"]:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 4px; border-radius: 8px; }
+/* Targets: footer and strip links reach 44px without changing their look */
+nav[aria-label="Footer"] a, nav[aria-label="Learn categories"] a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+/* The consent bar must not cover the thing you are reading or focusing */
+body.has-consent { padding-bottom: var(--consent-h, 4.5rem); }
+html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }
+/* Print: the content, not the chrome */
+@media print {
+  .site-header, footer, .consent-bar, #mobile-nav, .noprint { display: none !important; }
+  body { background: #fff; color: #000; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .85em; color: #555; }
+  img, picture { break-inside: avoid; }
+}
