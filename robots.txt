@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /measurement.html
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://stef-01.github.io/revamped-adhd.me/sitemap.xml

@@ -1,0 +1,20 @@
+{
+ "name": "ADHDme",
+ "short_name": "ADHDme",
+ "icons": [
+  {
+   "src": "assets/brand/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "assets/brand/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ],
+ "theme_color": "#f1bc31",
+ "background_color": "#FAFAF7",
+ "display": "browser",
+ "start_url": "./"
+}
