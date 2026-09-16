@@ -1,6 +1,6 @@
 module.exports = {
  "content": [
-  "/Users/devasiathottunkal/revamped-adhd.me/*.html",
+  "./*.html",
   "!./academy.html"
  ],
  "theme": {
