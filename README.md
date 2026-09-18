@@ -60,7 +60,16 @@ The "From the blog" section on Our Story and the individual post pages (`blog-*.
 python3 scripts/build-blog.py
 ```
 
-**Do not run it yet.** Its templates have fallen behind the pages on disk: the cards on Our Story and the post pages were refined by hand after the last build, and the script still holds the older markup, so running it reverts all four pages. Reconcile the templates in `scripts/build-blog.py` with the current `our-story.html` and `blog-*.html` first, then rebuild and check the diff is only what you meant to change. Until then, edit those pages directly. (`build-profiles.py` has a `--check` mode that catches exactly this; `build-blog.py` does not yet.)
+`python3 scripts/build-blog.py --check` exits non-zero and names any page on disk that differs from what the data would produce. Run it before committing a hand edit to Our Story's blog section or a post page, because the next build overwrites them; the fix is to move the edit into `POSTS`.
+
+Four fields per post are worth knowing:
+
+- `title` is the headline, on the card and as the page's `<h1>`, with its terminal punctuation.
+- `seo` is the same headline for `<title>`, `og:title` and `twitter:title`, without the trailing full stop and phrased to read as a link. Each post page starts from Our Story's `<head>` and rewrites every tag that names the page, so a post cannot ship Our Story's title, description and canonical URL to crawlers and share cards.
+- `description` is the meta and share-card description. It is not the opening line of the post; write it for someone deciding whether to click.
+- `hook` is the short line under the title on a card, and the lede on the post page itself. Aim for four or five words.
+
+Cards come in two shapes, on purpose. On Our Story they carry no chrome — image, title, hook — matching the Learn tiles. The "More from the blog" pair at the foot of a post keeps its box, because there it is a genuine aside rather than the page's own content. Icons are inline SVG; this site ships no icon font.
 
 ## Styles, scripts and fonts
 
