@@ -20,6 +20,7 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 | `how-it-works.html` | How it works |
 | `the-doctors.html` | The Doctors |
 | `dr-anubhav-saxena.html`, `dr-anu-saxena.html` | GP profiles (generated) |
+| `paula-garrido.html` | Clinical psychologist profile |
 | `learn.html` | Learn (micro-modules) |
 | `our-story.html` | Our Story |
 
@@ -32,6 +33,8 @@ python3 scripts/build-profiles.py
 ```
 
 Article thumbnails live in `assets/articles/` and are keyed by the article slug in the `ARTICLES` table.
+
+The profile pages were restyled by hand after the generator last ran, and `paula-garrido.html` (the psychologist) was written from the same shell as `dr-anu-saxena.html`; the generator does not know about it and would put back the older layout. Treat it as a starting point until it is brought up to date. Portraits live in `assets/clinicians/` as square JPEG and WebP at 320, 640 and full size.
 
 ## Service map
 
@@ -94,5 +97,5 @@ It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Page
 ## Analytics, attribution and privacy (ported from `Stef-01/ADHD`)
 
 - `analytics.js` carries the closed event taxonomy: `landing-viewed`, `landing-cta` (five named controls), `deck-viewed`, `profile-viewed`, `booking-outbound`. Every event and property value is checked against the declaration; anything else is refused and logged as `analytics-refused`. Nothing is sent anywhere until `analytics-config.js` carries a GA4 ID; when it does, events go cookieless with advertising signals off, and `privacy.html`'s "Cookies and local storage" section must be updated the same day.
-- Attribution: every Healthengine link gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>` at click time, a `booking-outbound` event, and a row in this device's local tally (clinician, surface, day; never identifying). Sending never delays the click. `measurement.html` lists the channels and what cannot be observed (whether a booking followed).
+- Attribution: every booking link (Healthengine, or a clinic’s own booking page, as declared per clinician in `analytics.js`) gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>` at click time, a `booking-outbound` event, and a row in this device's local tally (clinician, surface, day; never identifying). Sending never delays the click. `measurement.html` lists the channels and what cannot be observed (whether a booking followed).
 - Privacy: `privacy-consent.js` shows the notice bar on first arrival, with the dialog's three sentences lifted from the policy; the agreement is one value in local storage. `privacy.html`, `terms.html` and `automated-decisions.html` are the source's pages rewritten for what is true of this static site (GitHub Pages, no forms, no database, no recall engine). Footer links point at them.

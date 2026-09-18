@@ -10,9 +10,11 @@
 (function () {
   'use strict';
 
+  // Each clinician: the booking link the outbound handler matches, and the profile page that names them.
   var CLINICIANS = {
-    'anubhav-saxena': /dr-anubhav-saxena\/p123180/,
-    'anu-saxena': /dr-anusha-saxena\/p160121/
+    'anubhav-saxena': { booking: /dr-anubhav-saxena\/p123180/, profile: 'dr-anubhav-saxena.html' },
+    'anu-saxena': { booking: /dr-anusha-saxena\/p160121/, profile: 'dr-anu-saxena.html' },
+    'paula-garrido': { booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html' }
   };
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];
@@ -73,20 +75,27 @@
   // Which surface this page is, in the taxonomy's own words.
   var path = location.pathname.replace(/\/index\.html$/, '/');
   var file = path.split('/').pop() || 'index.html';
-  var surface = /^dr-/.test(file) ? 'profile' : file === 'the-doctors.html' ? 'network' : null;
+  function clinicianOfPage(name) {
+    for (var k in CLINICIANS) if (CLINICIANS[k].profile === name) return k;
+    return null;
+  }
+  var profileId = clinicianOfPage(file);
+  var surface = profileId ? 'profile' : file === 'the-doctors.html' ? 'network' : null;
 
   // Page events: the funnel's first three steps.
   if (file === 'index.html' || file === '') track('landing-viewed', {});
   if (file === 'the-doctors.html') {
-    var deck = document.querySelectorAll('a[href^="dr-"]').length;
-    track('deck-viewed', { clinicians: deck });
+    var seen = {};
+    Array.prototype.forEach.call(document.querySelectorAll('a[href]'), function (a) {
+      var id = clinicianOfPage(a.getAttribute('href').split(/[?#]/)[0]);
+      if (id) seen[id] = true;
+    });
+    track('deck-viewed', { clinicians: Object.keys(seen).length });
   }
-  var profileMatch = file.match(/^dr-(.+)\.html$/);
-  if (profileMatch) {
-    var id = profileMatch[1] === 'anubhav-saxena' ? 'anubhav-saxena' : profileMatch[1] === 'anu-saxena' ? 'anu-saxena' : null;
+  if (profileId) {
     var src = new URLSearchParams(location.search).get('src');
     var from = BOOKING_SURFACES.indexOf(src) !== -1 ? src : (/the-doctors\.html/.test(document.referrer) ? 'network' : 'profile');
-    if (id) track('profile-viewed', { clinician: id, surface: from });
+    track('profile-viewed', { clinician: profileId, surface: from });
   }
 
   // Landing controls: which of five named controls was pressed.
@@ -98,7 +107,7 @@
 
   // Booking handoff: the UTM tail for the practice's own reporting, a local tally, and the last event.
   function clinicianFor(href) {
-    for (var k in CLINICIANS) if (CLINICIANS[k].test(href)) return k;
+    for (var k in CLINICIANS) if (CLINICIANS[k].booking.test(href)) return k;
     return null;
   }
   function tallyOutbound(clinician, surf) {
@@ -111,7 +120,7 @@
     } catch (e) {}
   }
   document.addEventListener('click', function (e) {
-    var a = e.target instanceof Element ? e.target.closest('a[href*="healthengine.com.au"]') : null;
+    var a = e.target instanceof Element ? e.target.closest('a[href^="http"]') : null;
     if (!a) return;
     var clinician = clinicianFor(a.href);
     if (!clinician) return;
