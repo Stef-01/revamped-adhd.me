@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the clinician profile pages and the cards on The Doctors from one data set.
+"""Generate the clinician profile pages and the cards on The Network from one data set.
 
     python3 scripts/build-profiles.py          # write the pages
     python3 scripts/build-profiles.py --check  # exit 1 if any page on disk differs from what would be written
@@ -29,10 +29,11 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHELL = ROOT / 'scripts' / 'profile-shell.html'
 DECK = ROOT / 'the-doctors.html'
+LANDING = ROOT / 'index.html'
 SITE = 'https://stef-01.github.io/revamped-adhd.me'
 PORTRAITS = 'assets/clinicians'
 
-# The Doctors: which tab panel each category's cards go in. The first clinician in the default panel
+# The Network: which tab panel each category's cards go in. The first clinician in the default panel
 # is the one card that loads eagerly; every other card is lazy.
 PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health'}
 DEFAULT_PANEL = 'gp'
@@ -838,6 +839,30 @@ def render_deck(deck, sizes):
     return deck
 
 
+# ---------------------------------------------------------------- the landing page
+
+# The landing page routes; it does not list. The one thing it states from the data is how many
+# practitioners there are, between a <!-- BEGIN:GENERATED count-all --> pair, so the number cannot
+# quietly go wrong when the network grows.
+LANDING_REGIONS = ['count-all']
+
+
+def region(page, name, body, where):
+    """Replace the contents of one <!-- BEGIN:GENERATED name --> … <!-- END:GENERATED name --> region."""
+    start, end = f'<!-- BEGIN:GENERATED {name} -->', f'<!-- END:GENERATED {name} -->'
+    i, j = page.find(start), page.find(end)
+    if i < 0 or j < 0 or j < i:
+        raise BuildError(f'{where}: no <!-- BEGIN:GENERATED {name} --> … <!-- END:GENERATED {name} --> region to fill')
+    if page.find(start, i + 1) >= 0 or page.find(end, j + 1) >= 0:
+        raise BuildError(f'{where}: the "{name}" region is marked more than once')
+    return page[:i + len(start)] + body + page[j:]
+
+
+def render_landing(page, sizes):
+    """index.html with the practitioner count refilled."""
+    return region(page, 'count-all', str(len(CLINICIANS)), 'index.html')
+
+
 # ---------------------------------------------------------------- checks
 
 def check_data():
@@ -867,6 +892,11 @@ def check_data():
             problems.append(f"analytics.js CLINICIANS does not declare {c['slug']}.html (profile views and booking clicks would be refused)")
         if f"::view-transition-group(portrait-{c['id']})" not in css:
             problems.append(f"site.css: add ::view-transition-group(portrait-{c['id']}) to the portrait transition rule")
+    landing = LANDING.read_text(encoding='utf-8')
+    for name in LANDING_REGIONS:
+        if f'<!-- BEGIN:GENERATED {name} -->' not in landing or f'<!-- END:GENERATED {name} -->' not in landing:
+            problems.append(f'index.html has no <!-- BEGIN:GENERATED {name} --> … <!-- END:GENERATED {name} --> region; '
+                            'the landing page cannot be filled from the data without it')
     if problems:
         raise BuildError('\n  '.join(['fix these first:'] + problems))
 
@@ -877,6 +907,7 @@ def build():
     shell = SHELL.read_text(encoding='utf-8')
     out = {ROOT / f"{c['slug']}.html": render_page(c, shell, sizes) for c in CLINICIANS}
     out[DECK] = render_deck(DECK.read_text(encoding='utf-8'), sizes)
+    out[LANDING] = render_landing(LANDING.read_text(encoding='utf-8'), sizes)
     return out
 
 

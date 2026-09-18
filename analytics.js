@@ -28,7 +28,12 @@
   };
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];
-  var LANDING_CONTROLS = ['hero-cta', 'nav-learn', 'nav-cta', 'nav-doctors', 'nav-approach'];
+  // The header's four, then the landing page's two doors wherever they appear: the hero card, the
+  // pair of panels, and the closing banner. 'hero-cta' is gone; the hero now has two named doors.
+  var LANDING_CONTROLS = ['nav-learn', 'nav-cta', 'nav-doctors', 'nav-approach',
+    'hero-diagnosis', 'hero-psychology',
+    'door-diagnosis', 'door-psychology', 'door-allied',
+    'final-diagnosis', 'final-psychology'];
 
   var EVENTS = {
     'landing-viewed': {},

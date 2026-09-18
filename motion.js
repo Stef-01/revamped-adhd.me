@@ -5,28 +5,36 @@
   'use strict';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. Stagger: reveals that share a parent arrive 80ms apart, in reading order.
+  // 1. Stagger: reveals that share a parent arrive 80ms apart, in reading order. The index stops at
+  // STAGGER_MAX so a long grid — the landing page's twelve-tile network roster — still finishes
+  // inside half a second; past that the cascade stops reading as choreography and starts reading as
+  // a page that has not loaded.
+  var STAGGER_MAX = 5;
   var seen = new Map();
   document.querySelectorAll('[data-reveal]').forEach(function (el) {
     var parent = el.parentElement;
     if (!parent) return;
     var n = seen.get(parent) || 0;
-    el.style.setProperty('--stagger', n);
+    el.style.setProperty('--stagger', Math.min(n, STAGGER_MAX));
     seen.set(parent, n + 1);
   });
 
   // 2. The hero photograph: a slow settle from 1.06 on load, then a drift at a fraction of scroll.
   var firstSection = document.querySelector('main section');
-  var hero = firstSection && firstSection.querySelector('.absolute.inset-0 > img.object-cover, .absolute > img.object-cover');
+  // Descendant, not child: the hero photograph is wrapped in <picture> for its WebP source, so a
+  // child selector has matched nothing since responsive images landed, and the settle and the drift
+  // below were dead code.
+  var hero = firstSection && firstSection.querySelector('.absolute.inset-0 img.object-cover');
   if (hero && !reduce) {
     hero.classList.add('hero-settle', 'hero-drift');
-    hero.style.setProperty('--settle', '1.06');
+    var REST = 1.08, ZOOM = 0.06;      // rest scale, and how much further in it starts
+    hero.style.setProperty('--settle', String(REST + ZOOM));
     var t0 = null;
     var settle = function (ts) {
       if (t0 === null) t0 = ts;
       var p = Math.min(1, (ts - t0) / 2400);
       var eased = 1 - Math.pow(1 - p, 4);
-      hero.style.setProperty('--settle', String(1 + 0.06 * (1 - eased)));
+      hero.style.setProperty('--settle', String(REST + ZOOM * (1 - eased)));
       if (p < 1) requestAnimationFrame(settle);
     };
     var begin = function () { requestAnimationFrame(settle); };
@@ -34,7 +42,11 @@
     var ticking = false;
     var drift = function () {
       ticking = false;
-      var y = Math.min(window.scrollY * 0.18, 140);
+      // The drift moves the photograph down, so what it spends is the headroom above it: with a
+      // transform-origin of 50% 40%, the rest scale puts 40% of the extra height there. Go past that
+      // and the top edge of the section shows through above the picture.
+      var room = Math.max(0, firstSection.offsetHeight * (REST - 1) * 0.4 - 2);
+      var y = Math.min(window.scrollY * 0.12, room);
       hero.style.setProperty('--drift', y.toFixed(1) + 'px');
     };
     window.addEventListener('scroll', function () {

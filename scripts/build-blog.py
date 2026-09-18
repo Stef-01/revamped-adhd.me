@@ -50,7 +50,7 @@ POSTS = [
        '<strong>Step two is booking.</strong> When a profile feels right, the Book button takes you straight to that practice’s own booking page. You pick a time, and that is it. ADHDme does not charge a platform fee and does not ask for payment upfront.',
        'That is deliberately the whole process. Executive function is exactly the resource ADHD makes scarce, so a booking flow that demands a lot of it is a booking flow that quietly filters out the people it exists for.',
        'If you are unsure which clinician to start with, our GPs are the usual first step for assessment and prescribing. Psychologists and allied health practitioners support what comes after, from therapy to workplace adjustments.'],
-      sources=[('How it works', 'how-it-works.html'), ('The Doctors', 'the-doctors.html')]),
+      sources=[('How it works', 'how-it-works.html'), ('The Network', 'the-doctors.html')]),
  dict(slug='blog-body-doubling', category='Focus', date='2026-08-19', read='4 min', cover=cover_body_doubling,
       title='Body doubling: the least complicated focus tool there is.',
       excerpt='Sitting near someone else who is working can be enough to start. Here is why it helps and how to try it.',

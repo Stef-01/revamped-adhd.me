@@ -16,16 +16,16 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 
 | File | Page |
 | --- | --- |
-| `index.html` | Landing |
+| `index.html` | Landing (the practitioner count is generated — see below) |
 | `how-it-works.html` | How it works |
-| `the-doctors.html` | The Doctors |
+| `the-doctors.html` | The Network (the file name predates the rename) |
 | `<slug>.html`, one per entry in `CLINICIANS` | Clinician profiles (generated) |
 | `learn.html` | Learn (micro-modules) |
 | `our-story.html` | Our Story |
 
 ## Clinician profiles
 
-One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html`, are generated from one data set, so they stay structurally identical. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
+One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html` and three regions of the landing page, are generated from one data set, so they stay structurally identical and cannot drift apart as the network grows. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py
@@ -35,7 +35,9 @@ python3 scripts/build-profiles.py
 
 The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors and the og:image size cannot go stale.
 
-To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup).
+On `index.html` the script owns exactly one thing: the practitioner count, between a `<!-- BEGIN:GENERATED count-all -->` / `<!-- END:GENERATED count-all -->` pair. The landing page routes people to a door; it deliberately does not list the network, so there is no roster to keep in step. Everything else on that page is left alone.
+
+To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, until `index.html` still carries the count region, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup).
 
 Two fields carry more than they look like:
 
@@ -83,7 +85,7 @@ One scale, applied as Tailwind classes in the HTML (phone size first, then from 
 
 | Role | Size | Where |
 |---|---|---|
-| Landing hero title | 30 → 36 → 60 → 72px | `index.html` only |
+| Landing hero title | 32 → 40 → 56 → 64px | `index.html` only. The marked phrase is pinned to one line (`motion.css`), so the type has to fit the column rather than overflow it; under 380px the mark unpins and wraps. |
 | Page title (h1) | 36 → 44 → 52px, line-height 1.05 | every other page; Learn's serif title is 40 → 48px |
 | Section heading (h2) | 32 → 40px | all section headings, including Learn's serif ones |
 | Subsection heading (h2) | 24px | inside articles, profiles and legal pages |

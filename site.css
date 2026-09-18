@@ -115,3 +115,11 @@ html { scrollbar-gutter: stable; }
 
 /* Headlines over full-brightness hero photos */
 .hero-text { text-shadow: 0 2px 6px rgba(0,0,0,.45), 0 12px 32px rgba(0,0,0,.35); }
+
+/* The surfaces we did not draw: the scrollbar ships with no design system, so give it the palette's
+   own neutrals rather than the platform's grey. Firefox takes the two-value form; WebKit the parts. */
+html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: #f4f2ec; }
+::-webkit-scrollbar-thumb { background: #d2c5ad; border-radius: 999px; border: 3px solid #f4f2ec; }
+::-webkit-scrollbar-thumb:hover { background: #bcae93; }
