@@ -19,22 +19,23 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 | `index.html` | Landing |
 | `how-it-works.html` | How it works |
 | `the-doctors.html` | The Doctors |
-| `dr-anubhav-saxena.html`, `dr-anu-saxena.html` | GP profiles (generated) |
-| `paula-garrido.html` | Clinical psychologist profile |
+| `dr-anubhav-saxena.html`, `dr-anu-saxena.html`, `paula-garrido.html` | Clinician profiles (generated) |
 | `learn.html` | Learn (micro-modules) |
 | `our-story.html` | Our Story |
 
 ## Clinician profiles
 
-The GP profile pages are generated from one data set so they stay structurally identical. Edit the `CLINICIANS` list (bio, fees, booking link, articles) in `scripts/build-profiles.py`, then rebuild:
+The profile pages (`dr-anubhav-saxena.html`, `dr-anu-saxena.html`, `paula-garrido.html`) and the cards inside each category panel on `the-doctors.html` are generated from one data set, so they stay structurally identical. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py
 ```
 
-Article thumbnails live in `assets/articles/` and are keyed by the article slug in the `ARTICLES` table.
+`python3 scripts/build-profiles.py --check` exits non-zero and names any generated page on disk that differs from what the data would produce. Run it before committing a hand edit to one of those pages, because the next rebuild overwrites them; the fix is to move the edit into the data.
 
-The profile pages were restyled by hand after the generator last ran, and `paula-garrido.html` (the psychologist) was written from the same shell as `dr-anu-saxena.html`; the generator does not know about it and would put back the older layout. Treat it as a starting point until it is brought up to date. Portraits live in `assets/clinicians/` as square JPEG and WebP at 320, 640 and full size.
+The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors and the og:image size cannot go stale.
+
+To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup).
 
 ## Service map
 
