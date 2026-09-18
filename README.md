@@ -19,13 +19,13 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 | `index.html` | Landing |
 | `how-it-works.html` | How it works |
 | `the-doctors.html` | The Doctors |
-| `dr-anubhav-saxena.html`, `dr-anu-saxena.html`, `paula-garrido.html` | Clinician profiles (generated) |
+| `<slug>.html`, one per entry in `CLINICIANS` | Clinician profiles (generated) |
 | `learn.html` | Learn (micro-modules) |
 | `our-story.html` | Our Story |
 
 ## Clinician profiles
 
-The profile pages (`dr-anubhav-saxena.html`, `dr-anu-saxena.html`, `paula-garrido.html`) and the cards inside each category panel on `the-doctors.html` are generated from one data set, so they stay structurally identical. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
+One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html`, are generated from one data set, so they stay structurally identical. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py
@@ -36,6 +36,11 @@ python3 scripts/build-profiles.py
 The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors and the og:image size cannot go stale.
 
 To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup).
+
+Two fields carry more than they look like:
+
+- `telehealth` is a bool, and the only thing that draws the telehealth pill. The pill is one fixed marker — same icon, same wording, always first in the chip row, on the deck card and the profile — so "can I be seen remotely?" is answered by scanning `the-doctors.html` rather than opening every profile. Set it from what the clinician actually declares; `dr-anu-saxena` is `False` because she declares practice appointments only.
+- `fees['figures']` may be empty, for a clinic that does not publish a fee. The figure row is then skipped and the `notes` carry the explanation instead. Don't fill it with an estimate: the whole point of the section is that the number is settled before the appointment, and a wrong number is worse than an honest "the clinic quotes it when you book". GOALS Psychology is the current example, and its Medicare wording differs by registration, so there are three note sets (`GOALS_FEES`, `GOALS_FEES_PROVISIONAL`, `GOALS_FEES_OT`) rather than one.
 
 ## Service map
 

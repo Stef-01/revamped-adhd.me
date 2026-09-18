@@ -57,7 +57,7 @@ svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3
 {''.join(markers)}
 </svg>'''
 
-p = ROOT / 'our-story.html'; s = p.read_text()
+p = ROOT / 'our-story.html'; s = p.read_text(encoding='utf-8')
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
-p.write_text(s)
+p.write_text(s, encoding='utf-8', newline='')
 print(f'map: solid fill, viewBox {VB}, landmass centre ({cx:.0f},{cy:.0f}), {len(CITIES)} markers')

@@ -14,7 +14,17 @@
   var CLINICIANS = {
     'anubhav-saxena': { booking: /dr-anubhav-saxena\/p123180/, profile: 'dr-anubhav-saxena.html' },
     'anu-saxena': { booking: /dr-anusha-saxena\/p160121/, profile: 'dr-anu-saxena.html' },
-    'paula-garrido': { booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html' }
+    'paula-garrido': { booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html' },
+    // GOALS Psychology: one clinic booking page for the seven bookable clinicians, so the regex cannot
+    // tell them apart. clinicianFor() resolves it from the profile page the click came from.
+    'kate-row': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'kate-row.html' },
+    'ellie-putland': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'ellie-putland.html' },
+    'lachlan-avent': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lachlan-avent.html' },
+    'samantha-courtney': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'samantha-courtney.html' },
+    'lauren-poulos': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lauren-poulos.html' },
+    'alice-bui': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'alice-bui.html' },
+    'meera-lakhani': { booking: /goalspsychology\.com\/contact/, profile: 'meera-lakhani.html' },
+    'flynn-simonis': { booking: /halaxy\.com\/book\/goals-psychology/, profile: 'flynn-simonis.html' }
   };
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];
@@ -107,6 +117,9 @@
 
   // Booking handoff: the UTM tail for the practice's own reporting, a local tally, and the last event.
   function clinicianFor(href) {
+    // A clinic whose clinicians share one booking page would otherwise always attribute to whichever
+    // of them is declared first, so the profile being read wins when its own link is the one clicked.
+    if (profileId && CLINICIANS[profileId].booking.test(href)) return profileId;
     for (var k in CLINICIANS) if (CLINICIANS[k].booking.test(href)) return k;
     return null;
   }

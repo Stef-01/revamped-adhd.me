@@ -121,14 +121,14 @@ def post_page(p, head, footer, others):
 {footer}'''
 
 def main():
-    story = (ROOT / 'our-story.html').read_text()
+    story = (ROOT / 'our-story.html').read_text(encoding='utf-8')
     head = story[:story.index('<main')]
     footer = story[story.index('<footer'):]
     for p in POSTS:
-        (ROOT / 'assets/blog' / f"{p['slug']}.svg").write_text(p['cover']())
+        (ROOT / 'assets/blog' / f"{p['slug']}.svg").write_text(p['cover'](), encoding='utf-8', newline='')
         h = re.sub(r'<title>.*?</title>', f'<title>{p["title"]} · ADHDme</title>', head, count=1)
         others = [o for o in POSTS if o is not p]
-        (ROOT / f"{p['slug']}.html").write_text(post_page(p, h, footer, others))
+        (ROOT / f"{p['slug']}.html").write_text(post_page(p, h, footer, others), encoding='utf-8', newline='')
         print('built', p['slug'] + '.html')
     if '<!-- BLOG -->' in story:
         story = re.sub(r'<!-- BLOG -->.*?<!-- /BLOG -->', section(), story, count=1, flags=re.S)
@@ -136,7 +136,7 @@ def main():
         marker = '<!-- 6. High-Impact Closing CTA Banner'
         assert marker in story
         story = story.replace(marker, section() + '\n' + marker, 1)
-    (ROOT / 'our-story.html').write_text(story)
+    (ROOT / 'our-story.html').write_text(story, encoding='utf-8', newline='')
     print('our-story.html: blog section', 'updated' if '<!-- BLOG -->' in story else 'missing')
 
 if __name__ == '__main__':
