@@ -25,7 +25,7 @@ Opens at http://localhost:5173 with live reload (the page refreshes when you sav
 
 ## Clinician profiles
 
-One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html` and three regions of the landing page, are generated from one data set, so they stay structurally identical and cannot drift apart as the network grows. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
+One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html` and the practitioner count on the landing page, are generated from one data set, so they stay structurally identical and cannot drift apart as the network grows. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py
@@ -59,6 +59,8 @@ The "From the blog" section on Our Story and the individual post pages (`blog-*.
 ```bash
 python3 scripts/build-blog.py
 ```
+
+**Do not run it yet.** Its templates have fallen behind the pages on disk: the cards on Our Story and the post pages were refined by hand after the last build, and the script still holds the older markup, so running it reverts all four pages. Reconcile the templates in `scripts/build-blog.py` with the current `our-story.html` and `blog-*.html` first, then rebuild and check the diff is only what you meant to change. Until then, edit those pages directly. (`build-profiles.py` has a `--check` mode that catches exactly this; `build-blog.py` does not yet.)
 
 ## Styles, scripts and fonts
 
