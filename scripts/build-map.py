@@ -43,21 +43,25 @@ VB = (cx - half_w, cy - half_h, 2 * half_w, 2 * half_h)
 def path(poly):
     return 'M' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in poly) + ' Z'
 
+route = ' '.join(f'{proj(lon, lat)[0]:.1f},{proj(lon, lat)[1]:.1f}' for _, lon, lat, _ in CITIES)
 markers = []
 for name, lon, lat, pos in CITIES:
     x, y = proj(lon, lat)
+    slug = name.lower().replace(' ', '-')
     dx, dy, anchor = {'right': (13, 4, 'start'), 'right-up': (13, -2, 'start'), 'right-down': (13, 12, 'start'), 'left-down': (-12, 14, 'end')}[pos]
-    markers.append(f'''<g class="au-marker" transform="translate({x:.1f} {y:.1f})">
+    markers.append(f'''<g class="au-marker" data-city-marker="{slug}" transform="translate({x:.1f} {y:.1f})">
 <circle r="12" class="au-pulse"/><circle r="5.5" fill="#f1bc31" stroke="#fdfbf7" stroke-width="2.5"/>
 <text x="{dx}" y="{dy}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
 <title id="au-map-title">Map of Australia showing planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
 <g fill="#1a1c1c" stroke="#2f3130" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
+<polyline class="au-route" points="{route}" fill="none"/>
 {''.join(markers)}
 </svg>'''
 
 p = ROOT / 'our-story.html'; s = p.read_text(encoding='utf-8')
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
-p.write_text(s, encoding='utf-8', newline='')
+with open(p, 'w', encoding='utf-8', newline='') as fh:  # newline= on write_text needs Python 3.10+
+    fh.write(s)
 print(f'map: solid fill, viewBox {VB}, landmass centre ({cx:.0f},{cy:.0f}), {len(CITIES)} markers')
