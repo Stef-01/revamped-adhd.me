@@ -5,6 +5,7 @@ import html, pathlib, re, sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / 'scripts'))
 from academy_tracks_content import TRACKS
+from sketchy_scenes import SCENES, SHARED
 
 LESSON_MIN = 4
 def e(s): return html.escape(s, quote=False)
@@ -32,6 +33,63 @@ def module(tk, mi, m):
             f'<p class="prose">{e(m["lede"])}</p>'
             + ''.join(lesson(tk, mi, li, L) for li, L in enumerate(m['lessons'], 1)))
 
+
+# ------------------------------------------------------------------ Sketchy-method layer
+def sk_defs():
+    """Every symbol is defined ONCE here and <use>d by the scenes and the explorers."""
+    out = ['<svg class="sk-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>',
+           '<!-- SHARED VOCABULARY: recurs in every discipline scene. Replace art here; ids must not change. -->']
+    for sid, (title, art) in SHARED.items():
+        out.append(f'<!-- SYMBOL: {title} -->\n<symbol id="{sid}" viewBox="0 0 100 100">{art}</symbol>')
+    for key, sc in SCENES.items():
+        out.append(f'<!-- SCENE {key}: {sc["world"]} -->')
+        for sy in sc['symbols']:
+            if sy['shared']: continue
+            out.append(f'<!-- SYMBOL: {sy["encodes"]} -->\n<symbol id="sk-{sy["id"]}" viewBox="0 0 100 100">{sy["art"]}</symbol>')
+    out.append('</defs></svg>')
+    return '\n'.join(out)
+
+def sk_scene(key, track_title):
+    sc = SCENES[key]; b1, b2, ink, acc = sc['palette']; n = len(sc['symbols'])
+    style = f'--sk-b1:{b1};--sk-b2:{b2};--sk-ink:{ink};--sk-accent:{acc}'
+    groups = []
+    for i, sy in enumerate(sc['symbols'], 1):
+        ref = sy['shared'] or f'sk-{sy["id"]}'; z = sy['size']
+        badge = (f'<use href="#{sy["badge"]}" x="{z*0.60:.0f}" y="{-z*0.10:.0f}" width="{z*0.42:.0f}" height="{z*0.42:.0f}"/>' if sy['badge'] else '')
+        label = e(f'{sy["title"]}. {sy["encodes"]}' + (f' {SHARED[sy["badge"]][0]}.' if sy['badge'] else ''))
+        groups.append(f'<!-- SYMBOL: {sy["encodes"]} -->\n<g class="sk__sym" data-step="{i}" tabindex="-1" role="button" aria-label="{label}" '
+                      f'data-title="{e(sy["title"])}" data-recap="{e(sy["recap"])}" data-cues="{e("; ".join(sy["cues"]))}" data-lesson="{e(sy["lesson"])}" transform="translate({sy["x"]} {sy["y"]})">'
+                      f'<g class="sk__pop"><rect class="sk__ring" x="-6" y="-6" width="{z+12}" height="{z+12}" rx="14"/><use href="#{ref}" width="{z}" height="{z}"/>{badge}'
+                      f'<circle class="sk__nbg" cx="4" cy="4" r="12"/><text class="sk__n" x="4" y="9" text-anchor="middle">{i}</text></g></g>')
+    used = ['sk-stamp-strong', 'sk-stamp-weak', 'sk-shield-high', 'sk-shield-mod', 'sk-shield-low', 'sk-shield-vlow', 'sk-myth', 'sk-signpost']
+    legend = ''.join(f'<span><svg viewBox="0 0 100 100" aria-hidden="true"><use href="#{u}"/></svg>{e(SHARED[u][0])}</span>' for u in used)
+    scene = (f'<figure class="sk" id="sk-{key}" style="{style}" data-world="{e(sc["world"])}" data-desc="{e(sc["desc"])}">'
+             f'<div class="sk__head"><div><span class="sk__kick">Visual map of this track</span><h3 class="sk__title">{e(sc["world"])}</h3></div>'
+             f'<span class="lesson__min">{ic("ph:clock-duotone")}{sc["minutes"]} min</span></div>'
+             f'<div class="sk__stage"><svg class="sk__svg" viewBox="0 0 800 450" role="group" aria-labelledby="sk-{key}-t sk-{key}-d">'
+             f'<title id="sk-{key}-t">{e(sc["world"])}: a visual map of the {e(track_title)} track</title><desc id="sk-{key}-d">{e(sc["desc"])} It holds {n} symbols, each encoding one point from the lessons.</desc>'
+             f'<!-- WORLD BACKDROP: {sc["world"]}. Placeholder geometry; replace with final scene art at the same 800x450 size. -->\n<g aria-hidden="true">{sc["backdrop"]}</g>\n'
+             + '\n'.join(groups) + '</svg></div>'
+             '<div class="sk__cap" data-sk-cap="" aria-live="polite"></div>'
+             '<div class="sk__bar"><span class="sk__count" data-sk-count=""></span>'
+             '<button type="button" class="btn btn--ghost" data-sk-prev="">Back</button>'
+             '<button type="button" class="btn" data-sk-next="">Start the scene <span aria-hidden="true">→</span></button>'
+             '<button type="button" class="btn btn--ghost" data-sk-all="">Show the whole scene</button>'
+             '<label class="sk__still"><input type="checkbox" data-sk-motion="">Reduce motion: show the finished scene</label></div>'
+             f'<div class="sk__legend" aria-label="Symbols that mean the same thing in every track">{legend}</div>'
+             '<p class="sk__note">Stamps and shields summarise how this track describes the evidence. Confirm each against the tables in the Australian ADHD guideline before relying on it.</p></figure>')
+    cards = []
+    for i, sy in enumerate(sc['symbols'], 1):
+        ref = sy['shared'] or f'sk-{sy["id"]}'
+        badge = (f'<svg class="skx__badge" viewBox="0 0 100 100" aria-hidden="true"><use href="#{sy["badge"]}"/></svg>' if sy['badge'] else '')
+        extra = f' {SHARED[sy["badge"]][0]}.' if sy['badge'] else ''
+        cards.append(f'<button type="button" class="skx__b" aria-expanded="false">{badge}<svg class="skx__art" viewBox="0 0 100 100" role="img" aria-label="{e(sy["encodes"])}"><use href="#{ref}"/></svg>'
+                     f'<span class="skx__t">{i}. {e(sy["title"])}</span><span class="skx__r">{e(sy["recap"])}{e(extra)}</span></button>')
+    explorer = (f'<div class="skx" style="{style}"><h2 class="h2">{ic("ph:squares-four-duotone", "h2__i")}Symbol explorer</h2>'
+                '<p class="prose">The same symbols, out of the scene. Before you open one, try to recall what it stands for; then tap, hover or focus it to check.</p>'
+                f'<div class="skx__grid">{"".join(cards)}</div></div>')
+    return scene + explorer + '\n<!-- QUIZ INTEGRATION POINT: the existing lessons and their .q knowledge checks follow, unchanged. -->\n'
+
 def branch(t):
     n_checks = sum(len(m['lessons']) for m in t['modules'])
     mins = sum(LESSON_MIN * len(m['lessons']) for m in t['modules'])
@@ -39,6 +97,7 @@ def branch(t):
             f'<div class="branch__head">{ic(t["icon"], "branch__i")}<div><span class="kick">{t["label"]}</span><h3 class="branch__t">{e(t["title"])}</h3>'
             f'<p class="branch__d">{e(t["blurb"])} {len(t["modules"])} modules, {mins} minutes in total, no module longer than 12 minutes.</p></div></div>'
             f'<div class="box box--objectives"><p class="box__t">{ic("ph:target-duotone", "box__i")}Scope of this track</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["scope"])}</ul></div>'
+            + (sk_scene(t['key'], t['title']) if t['key'] in SCENES else '')
             + ''.join(module(t['key'], mi, m) for mi, m in enumerate(t['modules'], 1))
             + f'<div class="box box--refresh"><p class="box__t">{ic("ph:books-duotone", "box__i")}Sources for this track</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["sources"])}</ul></div>'
             + '<p class="branch__next"><button type="button" class="btn btn--ghost" data-journey-back="">Choose another discipline</button></p></div>'), n_checks
@@ -57,6 +116,7 @@ def section():
             f'  <div class="box box--refresh"><p class="box__t">{ic("ph:shield-warning-duotone", "box__i")}How to read these tracks</p>'
             '<p>These are practice-level summaries consistent with the Australian ADHD guideline. Where trial evidence is thin, the lesson says so. '
             'They do not replace your profession’s scope of practice, your registration standards or local prescribing law.</p></div>\n'
+            '  ' + sk_defs() + '\n'
             '  <div class="journey" data-journey-root="tracks">\n'
             f'    <div class="journey__grid">{"".join(cards)}</div>\n  </div>\n'
             + '\n'.join(branches) + '\n</section>\n<!-- /TRACKS -->\n')
@@ -121,6 +181,10 @@ def main():
         a = s.index(OLD_JS_START); b = s.index("  /* ---------- motion: reveal on scroll, reading bar ---------- */", a)
         s = s[:a] + NEW_JS + '\n\n' + s[b:]
     assert 'pathway pickers: module 11, and training by discipline' in s
+    if 'assets/academy/sketchy.css' not in s:
+        s = s.replace('<link rel="stylesheet" href="academy-skin.css">', '<link rel="stylesheet" href="academy-skin.css">\n<link rel="stylesheet" href="assets/academy/sketchy.css">', 1)
+    if 'assets/academy/sketchy.js' not in s:
+        s = s.replace('</body>', '<script src="assets/academy/sketchy.js" defer></script>\n</body>', 1)
     p.write_text(s)
     # 4. login page blurb
     lp = ROOT / 'academy-login.html'; l = lp.read_text()
