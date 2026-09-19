@@ -80,6 +80,13 @@ def goals_fees(rebate_note):
 
     Inventing a number for a real clinic would be worse than publishing none, and the free 15-minute
     call is the clinic's own published way to ask before committing to a session.
+
+    Checked again 2026-09-19 against the clinic's Halaxy page, so nobody has to repeat it: on a fresh
+    load the price column is blank for "Appointment Request (50 minutes)" and for the 90-minute OT
+    group session, and picking a named practitioner (tried Kate Row and Flynn Simonis) narrows the
+    list to "New Client Free 15minute Call" at A$0.00. A$0.00 is the only figure anywhere on the page.
+    Nothing on goalspsychology.com carries one either. If the clinic ever publishes a schedule, put
+    the numbers in `figures` and the notes here can shrink.
     """
     return dict(
         heading='What a session costs',
