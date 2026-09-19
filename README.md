@@ -109,6 +109,18 @@ One scale, applied as Tailwind classes in the HTML (phone size first, then from 
 
 Keep new text on one of these steps. Fee figures (36 → 48px) are display numbers and sit outside the scale on purpose.
 
+## The ad
+
+`ad/` holds a twenty-second hand-drawn film for the brand: `ad/out/adhdme-ad-final.mp4`, 1920x1080 at 24 fps with its own score. It is drawn in JavaScript on a Canvas 2D context — no photos, no video, no stock. Its palette comes from `tailwind.config.js` and its type is the site's own Plus Jakarta Sans, and every line of copy in it is lifted from `index.html` rather than written fresh, so the film cannot claim something the site does not. `ad/README.md` says how it is built and rendered; `ad/SOURCES.md` records licences. The `hand-drawn-canvas-animation` skill it was made with is vendored at `.claude/skills/hand-drawn-canvas-animation/`.
+
+Rebuilding the film needs Node 22+, Chrome and ffmpeg, and takes a few minutes:
+
+```bash
+cd ad && npm i && node render.mjs adhdme-ad.html
+```
+
+The rendered frames, the score track and the silent cut are ignored by git; the delivered MP4 and the contact sheet are committed.
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).

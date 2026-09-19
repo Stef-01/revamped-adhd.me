@@ -1,0 +1,35 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ADHDme ad · pose study</title>
+<style>body{margin:0;background:#242321;display:grid;place-items:center;min-height:100vh}canvas{max-width:100vw;max-height:100vh;object-fit:contain}</style>
+<canvas id="c"></canvas>
+<script src="core.js"></script>
+<script src="studio.js"></script>
+<script src="cels.js"></script>
+<script src="materials.js"></script>
+<script src="fonts.js"></script>
+<script src="brand.js"></script>
+<script src="figure.js"></script>
+<script>
+'use strict';
+// Step 3 of the workflow: every authored key, at delivery size and small, before
+// any timing exists. Look for silhouette, proportion across keys, elbow and knee
+// creases, planted feet, and whether the chin tuck reads.
+const KEYS = Object.keys(KEY);
+function sheet(c, tau) {
+  paper(c, BRAND.cream, null, 9);
+  const per = Math.ceil(KEYS.length / 2), cellW = W / per, cellH = H / 2;
+  c.save(); setType(c, 20, {weight: 700, track: 0}); c.fillStyle = BRAND.muted;
+  KEYS.forEach((k, idx) => {
+    const col = idx % per, row = Math.floor(idx / per);
+    const x = col * cellW + cellW * .40, y = row * cellH + cellH * .92;
+    c.save(); c.strokeStyle = 'rgba(26,28,28,.16)'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(col * cellW + 10, y); c.lineTo((col + 1) * cellW - 10, y); c.stroke(); c.restore();
+    drawFigure(c, KEY[k], 'study/' + k, {x, y, scale: cellH / 900});
+    c.fillText(k, col * cellW + 14, row * cellH + 26);
+  });
+  c.restore();
+}
+defineFilm({palette: AD_PALETTE, format: {ar: '16:9', width: 1600}, fps: 24,
+  timeline: [{name: 'pose-sheet', dur: 1, fn: sheet}]});
+</script>

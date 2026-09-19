@@ -5,3 +5,11 @@ node_modules/
 # playwright-cli session snapshots
 .playwright-cli/
 __pycache__/
+
+# the ad's render intermediates: PNG frames, the bare video and the score track
+# are all rebuilt by `node render.mjs adhdme-ad.html`. The delivered film and its
+# contact sheet are committed.
+ad/out/*-frames/
+ad/out/*-score.wav
+ad/out/adhdme-ad.mp4
+ad/out/.*-render-*/

@@ -1,0 +1,199 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ADHDme &middot; Not just focus</title>
+<style>body{margin:0;background:#242321;display:grid;place-items:center;min-height:100vh}canvas{max-width:100vw;max-height:100vh;object-fit:contain}</style>
+<canvas id="c"></canvas>
+<script src="core.js"></script>
+<script src="studio.js"></script>
+<script src="cels.js"></script>
+<script src="materials.js"></script>
+<script src="fonts.js"></script>
+<script src="brand.js"></script>
+<script src="figure.js"></script>
+<script src="scenes.js"></script>
+<script src="score.js"></script>
+<script>
+'use strict';
+/*
+Film brief
+----------
+Subject and emotional beat: a woman has been waiting for an ADHD assessment.
+  The wait lets go of her; she stands up and walks. The beat is the head lift -
+  the moment she stops being a person in a queue.
+Duration; aspect; delivery:  20.0s, 16:9, 1920x1080, 24 fps.
+Drawing reference; material: confident brush-pen contour with flat colour
+  masses, on the site's cream stock. Acting reference: getting out of a low
+  waiting-room chair - weight forward over the feet before the hips leave it.
+Look: ink. Techniques: whole redrawn cels, one continuous drawn line, set type.
+Palette: the ADHDme brand, read off index.html and tailwind.config.js. Yellow
+  #f1bc31 is the GP door, blue #2c80c6 the psychology door, coral #ff4d2e the
+  logo dot, ink #1a1c1c, cream #FAFAF7.
+Mark language: long pressure contours for the body, short describing marks for
+  creases and folds, sparse shading on the shadow side only, quiet elsewhere.
+  Type is set, not lettered: the type IS the brand, and the hand is the drawing.
+Cast: one woman, profile, seven heads tall. Eleven authored keys.
+Drawing method: whole cels rebuilt from an authored skeleton per exposed pose.
+Exposure: 24 fps out. Sixes over the slump, ones on the head lift and on
+  leaving the seat, twos everywhere else.
+Hardest action: gather -> rise -> push -> stand. Contacts: both feet stay on the
+  floor from the moment she draws them back under her; the hips release the seat
+  at 11.0s; the hands leave the knees at 11.4s.
+Camera: locked until she stands, then a slow drift right behind her, with the
+  two rules on a slower plane so she walks in front of them.
+Environmental force: none. The room is deliberately still; the only thing moving
+  before the head lift is the line.
+External sources: none. The typeface is the site's own Plus Jakarta Sans (SIL
+  OFL 1.1), inlined; every word is the site's own copy. See SOURCES.md.
+
+Beat sheet
+----------
+  t      dur   viewer notices              action                       camera   sound
+  0.00   4.75  a knot above a slumped      she breathes, nothing else   locked   pad, clock
+                woman in a waiting room
+  4.75   3.75  the knot pulls straight     head lift, then she follows  locked   tick stops
+                and leaves the room          the line out to the right
+  8.50   4.75  the line divides in two      gather, rise, push, stand    locked   two bells
+                and the two doors label
+ 13.25   4.00  she walks                    eight half-steps, planted    drift R  walking major
+ 17.25   2.75  the mark                     the dot lands in the logo    locked   resolve
+*/
+
+const T_KNOT = 3.875, T_SPLIT = 7.625, T_WALK = 13.375, T_CARD = 17.25, ROOM = T_CARD, CARD = 2.75;
+const lin = t => t;
+
+// ------------------------------------------------------------- performance
+const ACT = performanceTrack([
+  [0.000, 'slump'],
+  [2.000, 'slumpB', easeInOutSine],     // one exhalation, nothing else
+  [4.100, 'slumpB'],
+  [4.450, 'lift', easeOutBack],         // the knot moves and the head comes up
+  [5.000, 'lift'],
+  [5.950, 'look', easeIO],              // she follows the line out to the right
+  [8.600, 'look'],
+  [9.400, 'gather', easeIO],            // hands to the knees, feet back under
+  [9.850, 'gather'],
+  [10.450, 'rise', easeIn],             // weight forward, hips leave the seat
+  [11.000, 'push', easeIO],
+  [11.650, 'stand', easeOutBack],
+  [13.375, 'stand'],
+  // the walk: contact, passing, contact, linear so the action passes through
+  [13.750, 'stepA', lin], [14.125, 'pass', lin], [14.500, 'stepB', lin],
+  [14.875, 'passB', lin], [15.250, 'stepA', lin], [15.625, 'pass', lin],
+  [16.000, 'stepB', lin], [16.375, 'passB', lin], [16.750, 'stepA', lin],
+  [17.125, 'pass', lin], [17.500, 'stepB', lin],
+]);
+
+// Root travel. The planted ankle moves backwards through the pose by exactly as
+// much as the root moves forward, and both tracks are linear over the same
+// spans, so the contact foot does not slide by a pixel.
+const ROOT = t => key(t, [
+  [13.375, 0], [13.750, 46], [14.125, 112], [14.500, 184], [14.875, 248],
+  [15.250, 324], [15.625, 390], [16.000, 462], [16.375, 526], [16.750, 602],
+  [17.125, 668], [17.500, 740],
+], lin);
+
+// Exposure: a finite set of drawings, held. Sixes while she is still, ones for
+// the head lift and the push out of the chair, twos for the rest.
+const EXPOSE = exposureTrack([
+  {at: 0, on: 6}, {at: 3.5, on: 3}, {at: 4.375, on: 1}, {at: 5.125, on: 2},
+  {at: 9.0, on: 2}, {at: 10.25, on: 1}, {at: 11.875, on: 2}, {at: 13.375, on: 2},
+], 24);
+
+// ------------------------------------------------------------------ camera
+const camX = t => key(t, [[0, 960], [T_KNOT, 968], [T_SPLIT, 980], [13.2, 980], [T_CARD, 1400]], easeInOutSine);
+const camZ = t => key(t, [[0, 1.0], [T_SPLIT, 1.035], [13.2, 1.035], [T_CARD, 1.058]], easeInOutSine);
+const SIGN_PARALLAX = .55;
+const signCam = t => 960 + (camX(t) - 960) * SIGN_PARALLAX;
+// where a point on the sign plane lands on screen
+const onScreen = (t, p) => [(p[0] - signCam(t)) * camZ(t) + W / 2, (p[1] - 540) * camZ(t) + H / 2];
+
+// the geometry of the line at film time t, shared by the room and the card
+function lineAt(t) {
+  const pull = sm(T_KNOT, 5.70, t, easeInOutQuint);
+  const settle = sm(T_SPLIT, 9.00, t, easeInOutQuint);
+  const y = lerp(LINE_Y, RULE_TOP, settle), x0 = lerp(-260, RULE_X0, settle);
+  return {pull, settle, y, x0, shape: threadShape(pull, settle, y, x0, RULE_X1)};
+}
+
+// ------------------------------------------------------------- scene: room
+function room(c, tau) {
+  const t = tau;
+  paper(c, BRAND.cream, null, 9);
+
+  const L = lineAt(t);
+  const blue = sm(T_SPLIT + .40, 9.40, t, easeInOutQuint);
+  const labelsOut = 1 - sm(14.1, 15.1, t);
+
+  // signage plane, a little behind everything else
+  cam(c, signCam(t), 540, camZ(t));
+  const tip = drawThread(c, L.shape, {
+    width: lerp(3.4, 9, L.settle),
+    color: mix(BRAND.ink, BRAND.yellow, easeIO(clamp(L.settle * 1.5, 0, 1))),
+  });
+  blueRule(c, blue, L.y, L.x0);
+  if (labelsOut > 0) { c.save(); c.globalAlpha *= labelsOut; doorLabels(c, sm(9.0, 10.3, t)); c.restore(); }
+  coralDot(c, tip, lerp(9, 13, L.settle));
+
+  // the room
+  cam(c, camX(t), 540, camZ(t));
+  floorLine(c);
+  queueChairs(c, 1 - sm(4.3, 5.9, t));
+  chair(c, FIG_X - 12, {a: 1 - sm(14.4, 16.2, t) * .55});
+
+  const pt = EXPOSE(t), pose = ACT(pt), travel = ROOT(pt) * FIG_SCALE;
+  const x = FIG_X + travel;
+  contactShadow(c, x + lerp(96, 40, sm(11.4, 12.6, t)) * FIG_SCALE, FLOOR + 5, lerp(132, 84, sm(11.4, 12.6, t)), .85);
+  drawFigure(c, pose, 'f' + pt.toFixed(3), {x, y: FLOOR, scale: FIG_SCALE});
+
+  // type, in screen space: the brand's own voice sits on the frame, not in it
+  resetT(c);
+  const headline = [
+    ['A year in a queue.', 0.45, 3.30],
+    ['A bill you could not plan for.', 1.30, 3.30],
+  ];
+  headline.forEach(([text, inAt, outAt], i) => {
+    const a = 1 - sm(outAt, outAt + .5, t);
+    if (a <= 0) return;
+    c.save(); c.globalAlpha *= a;
+    riseLine(c, text, 140, 200 + i * 94, 66, {color: BRAND.ink, progress: sm(inAt, inAt + .85, t, easeOutQuint)});
+    c.restore();
+  });
+  const said = (1 - sm(8.85, 9.30, t));
+  if (said > 0) {
+    c.save(); c.globalAlpha *= said;
+    riseLine(c, 'The wait was never the care.', 140, 200, 66, {color: BRAND.ink, progress: sm(5.55, 6.40, t, easeOutQuint)});
+    c.restore();
+  }
+}
+
+// ------------------------------------------------------------- scene: card
+// The dot is the only thing that survives the cut: it is where the line left it
+// on the last frame of the room, and it travels into the logo.
+const CUT_DOT = () => { const L = lineAt(ROOM); return onScreen(ROOM, L.shape[L.shape.length - 1]); };
+const MARK_X = 552, MARK_Y = 388, MARK_SIZE = 108;
+
+function card(c, tau) {
+  cardGround(c);
+  const from = CUT_DOT(), u = sm(0, .62, tau, easeInOutQuint);
+  const to = markDot(c, MARK_X, MARK_Y, MARK_SIZE);
+  const p = [lerp(from[0], to[0], u), lerp(from[1], to[1], u) - Math.sin(u * Math.PI) * 54];
+
+  adhdmeMark(c, MARK_X, MARK_Y, MARK_SIZE, {ink: '#ffffff', dot: false, progress: sm(.34, 1.0, tau)});
+  coralDot(c, p, lerp(13 * camZ(ROOM), to[2], u));
+
+  riseLine(c, 'Not just focus.', MARK_X, 582, 86, {color: '#ffffff', progress: sm(.72, 1.34, tau, easeOutQuint)});
+  riseLine(c, 'Life returned to you.', MARK_X, 682, 86, {color: BRAND.yellow, progress: sm(1.02, 1.64, tau, easeOutQuint)});
+  riseLine(c, 'adhdme.au', MARK_X, 788, 31, {weight: 700, track: 0, color: 'rgba(255,255,255,.62)', progress: sm(1.5, 2.0, tau, easeOutQuint), rise: .8});
+}
+
+defineFilm({
+  palette: AD_PALETTE,
+  format: {ar: '16:9', width: 1920},
+  fps: 24,
+  score,
+  timeline: [
+    {name: 'the-wait', dur: ROOM, fn: room},
+    {name: 'the-mark', dur: CARD, fn: card},
+  ],
+});
+</script>
