@@ -1,0 +1,17 @@
+{
+  "file": "/home/user/revamped-adhd.me/ad/adhdme-ad.html",
+  "fps": 24,
+  "frames": 480,
+  "outputFps": 24,
+  "outputFrames": 480,
+  "duration": 20,
+  "size": {
+    "w": 1920,
+    "h": 1080,
+    "W": 1920,
+    "H": 1080,
+    "S": 1
+  },
+  "look": null,
+  "audio": true
+}
