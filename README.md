@@ -109,6 +109,14 @@ One scale, applied as Tailwind classes in the HTML (phone size first, then from 
 
 Keep new text on one of these steps. Fee figures (36 → 48px) are display numbers and sit outside the scale on purpose.
 
+## Clinical Academy: training by discipline
+
+The six discipline tracks in `academy.html` (general practice, psychology, occupational therapy, exercise physiology, nutrition, naturopathy) are generated. Each track has four modules of three 4-minute lessons, so no module exceeds 12 minutes; the builder enforces that cap. Edit `scripts/academy_tracks_content.py`, then rebuild:
+
+```bash
+python3 scripts/build-academy-tracks.py
+```
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).
