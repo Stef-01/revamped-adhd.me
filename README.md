@@ -113,8 +113,63 @@ Keep new text on one of these steps. Fee figures (36 → 48px) are display numbe
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).
 
-## Analytics, attribution and privacy (ported from `Stef-01/ADHD`)
+## Analytics, attribution and privacy
 
-- `analytics.js` carries the closed event taxonomy: `landing-viewed`, `landing-cta` (five named controls), `deck-viewed`, `profile-viewed`, `booking-outbound`. Every event and property value is checked against the declaration; anything else is refused and logged as `analytics-refused`. Nothing is sent anywhere until `analytics-config.js` carries a GA4 ID; when it does, events go cookieless with advertising signals off, and `privacy.html`'s "Cookies and local storage" section must be updated the same day.
-- Attribution: every booking link (Healthengine, or a clinic’s own booking page, as declared per clinician in `analytics.js`) gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>` at click time, a `booking-outbound` event, and a row in this device's local tally (clinician, surface, day; never identifying). Sending never delays the click. `measurement.html` lists the channels and what cannot be observed (whether a booking followed).
-- Privacy: `privacy-consent.js` shows the notice bar on first arrival, with the dialog's three sentences lifted from the policy; the agreement is one value in local storage. `privacy.html`, `terms.html` and `automated-decisions.html` are the source's pages rewritten for what is true of this static site (GitHub Pages, no forms, no database, no recall engine). Footer links point at them.
+The question this setup exists to answer: **who is on the site, and how many of them clicked through to book with each psychologist, allied health clinician or GP.** PostHog holds the people, the closed taxonomy in `analytics.js` holds the events, and `scripts/posthog-dashboard.py` builds the tiles that read them back.
+
+### Switching it on
+
+1. In PostHog, copy the **project API key** (`phc_…`) from Settings → Project. It is meant to be public; it only lets a browser write events.
+2. Put it in `analytics-config.js` — that file stays unminified and outside the bundle on purpose, so a key can be set on the live site without a rebuild:
+
+   ```js
+   window.ADHDME = { posthogKey: 'phc_…', posthogHost: 'https://us.i.posthog.com', /* … */ };
+   ```
+
+3. Build the dashboard. This needs a **personal** API key (`phx_…`, Settings → Personal API keys, read+write), which never goes near the browser:
+
+   ```bash
+   export POSTHOG_PERSONAL_API_KEY=phx_…
+   export POSTHOG_HOST=https://us.posthog.com     # the app host, not the ingestion host
+   python3 scripts/posthog-dashboard.py           # --dry-run prints every payload and sends nothing
+   ```
+
+4. Update `privacy.html`'s "Cookies and local storage" section and `measurement.html`'s channel list the same day if what is counted has changed.
+
+`gaId` still works alongside it: set a GA4 measurement ID and the same declared events go there too, cookieless and with advertising signals off. Leave every key empty and events are still validated and then dropped — no request leaves the page.
+
+### Seeing each person
+
+`posthogPersonProfiles: 'always'` gives every browser a person row, so PostHog's Persons list has somebody in it without this site ever calling `identify()`. Each row carries a random label (`Visitor 3f9a21`), when it first arrived and what referred it, how many profiles it has read, how many booking links it has followed, and who the last one was for. No name, no email, nothing typed into anything — there is nothing on these pages to type into. Session replay is off by default, deliberately; turning it on is a decision, not a default.
+
+`scripts/posthog-dashboard.py` also creates cohorts, which are the literal "show me each person" lists: everybody who clicked a booking link, everybody who did that for a psychologist, for allied health, for a GP, and everybody who read a profile and did not book. It is idempotent — it matches insights and cohorts by name and updates them in place, so re-running it after editing the tile list never leaves a second copy behind.
+
+### The taxonomy
+
+`analytics.js` declares every event and every property value. Anything else is refused and logged as `analytics-refused` rather than becoming a row that looks real. `?debug=analytics` on any page prints both to the console.
+
+| Event | Says |
+|---|---|
+| `page-viewed` | which page of the site was opened |
+| `landing-viewed` | somebody arrived at the front door |
+| `landing-cta` | which named control was pressed (the header's four, the landing page's doors) |
+| `deck-viewed` | The Network was opened, and how many cards it held |
+| `deck-card-opened` | which clinician card was pressed, and their discipline |
+| `profile-viewed` | whose page, their discipline, their practice, which surface they came from |
+| `booking-outbound` | who they went to book with, their discipline, their practice, where the link lands, which surface, and which named link |
+
+The clinician, discipline, practice and destination vocabularies are generated from the registry at the top of `analytics.js`, so a dashboard cannot show a clinician this site does not have. `scripts/build-profiles.py --check` refuses to build a profile page that registry does not declare. Adding a clinician means adding them in both places.
+
+A page that grows a second booking link should mark it with `data-booking-link="<name>"` and add that name to `BOOKING_LINKS`; otherwise the link is attributed to the page it sits on (`profile-cta` on a profile, `deck-card` on The Network).
+
+### Attribution
+
+Every booking link (Healthengine, Halaxy, or a clinic's own page, as declared per clinician) gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>&utm_content=<clinician>` rewritten onto it at click time, so the practice can see the referral from their own side. Sending never delays the click: the browser follows the link immediately and the event travels on its own. Each handoff also lands in a local tally in that browser's storage (clinician, discipline, practice, surface, day), which `measurement.html` reads back and which never leaves the device.
+
+### Privacy and the opt-out
+
+`privacy-consent.js` shows the notice bar on first arrival, with the dialog's sentences lifted from the policy; the agreement is one value in local storage, and pressing Agree dispatches `adhdme-privacy-ack` on `window`. Setting `requireConsent: true` in `analytics-config.js` holds every sink until that moment, queueing events meanwhile and flushing them in order on agreement, so a gated first visit is not lost. It ships `false`, which is how the bar reads today.
+
+The opt-out is real and works either way: a button on `measurement.html`, `?analytics=off` on any page, or a browser sending Global Privacy Control, which is honoured without being asked and cannot be overridden from the page. Opting out stops PostHog and GA on that device; the practice's own reporting is the practice's to run.
+
+`privacy.html`, `terms.html` and `automated-decisions.html` are the source's pages rewritten for what is true of this static site (no forms, no database, no recall engine). Footer links point at them. `measurement.html` lists every channel, what each one holds, and what cannot be observed from here — whether a booking actually followed, which neither Healthengine nor Halaxy nor a clinic form will tell a third party.
