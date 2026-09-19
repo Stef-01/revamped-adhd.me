@@ -64,4 +64,27 @@
       });
     });
   }
+
+  // Our Story: the city list and the map markers highlight each other
+  var stage = document.querySelector('.au-stage');
+  if (stage) {
+    var setHot = function (slug) {
+      stage.classList.toggle('is-focusing', !!slug);
+      document.querySelectorAll('[data-city-marker]').forEach(function (m) { m.classList.toggle('is-hot', m.getAttribute('data-city-marker') === slug); });
+      document.querySelectorAll('[data-city]').forEach(function (b) { b.classList.toggle('is-hot', b.getAttribute('data-city') === slug); });
+    };
+    document.querySelectorAll('[data-city]').forEach(function (b) {
+      var slug = b.getAttribute('data-city');
+      b.addEventListener('mouseenter', function () { setHot(slug); });
+      b.addEventListener('focus', function () { setHot(slug); });
+      b.addEventListener('mouseleave', function () { setHot(null); });
+      b.addEventListener('blur', function () { setHot(null); });
+      b.addEventListener('click', function () { setHot(slug); });
+    });
+    document.querySelectorAll('[data-city-marker]').forEach(function (m) {
+      var slug = m.getAttribute('data-city-marker');
+      m.addEventListener('mouseenter', function () { setHot(slug); });
+      m.addEventListener('mouseleave', function () { setHot(null); });
+    });
+  }
 })();

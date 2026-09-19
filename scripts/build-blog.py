@@ -127,7 +127,7 @@ def related_card(p):
 def section():
     return f'''<!-- BLOG --><section id="blog" class="w-full pb-16 lg:pb-20 px-gutter-mobile lg:px-gutter max-w-[1240px] mx-auto">
 <div data-reveal class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
-<div><h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-on-surface mt-2">Notes on living well with an ADHD brain.</h2></div>
+<div><h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-on-surface mt-2">From the blog.</h2></div>
 <p class="text-[15px] text-on-surface-variant max-w-sm">Short reads from the ADHDme team, written to be finished in one sitting and grounded in the research our clinicians trust.</p>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">{''.join(story_card(p) for p in POSTS)}</div>
