@@ -7,7 +7,9 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from academy_tracks_content import TRACKS
 from sketchy_scenes import SCENES, SHARED
 
-LESSON_MIN = 4
+LESSON_MIN = 2   # minutes per lesson
+CHECK_MIN = 1    # minutes per knowledge check
+LEARN_CAP, TOTAL_CAP = 6, 10
 def e(s): return html.escape(s, quote=False)
 def ic(name, cls=''): return f'<iconify-icon icon="{name}"' + (f' class="{cls}"' if cls else '') + '></iconify-icon>'
 
@@ -16,22 +18,22 @@ def question(qid, stem, opts, ans, fb):
     return (f'<div class="q" id="{qid}" data-a="{ans}" data-mode="instant"><p class="q__kick">{ic("ph:check-square-duotone")}Knowledge check</p>'
             f'<p class="q__stem">{e(stem)}</p><ul class="q__opts">{lis}</ul><p class="q__fb"><b>Answer {ans}.</b> {e(fb)}</p></div>')
 
-def lesson(tk, mi, li, L):
+def lesson(tk, li, L):
     title, paras, keys, stem, opts, ans, fb = L
     slug = tk.replace('-', '')
-    return (f'<div class="lesson" id="{slug}m{mi}l{li}"><h3 class="lesson__h"><span class="lesson__num">{li}</span>{e(title)}'
+    return (f'<div class="lesson" id="{slug}l{li}"><h3 class="lesson__h"><span class="lesson__num">{li}</span>{e(title)}'
             f'<span class="lesson__min">{ic("ph:clock-duotone")}{LESSON_MIN} min</span></h3>'
             f'<div class="prose">{"".join(f"<p>{e(p)}</p>" for p in paras)}</div>'
             f'<div class="box box--key"><p class="box__t">{ic("ph:hash-duotone", "box__i")}What to hold on to</p><ul>{"".join(f"<li>{e(k)}</li>" for k in keys)}</ul></div>'
-            + question(f'{tk}-m{mi}-chk{li}', stem, opts, ans, fb) + '</div>')
+            + question(f'{tk}-chk{li}', stem, opts, ans, fb) + '</div>')
 
-def module(tk, mi, m):
-    total = LESSON_MIN * len(m['lessons'])
-    assert total <= 12, (tk, mi, total)
-    return (f'<h2 class="h2">{ic("ph:book-open-text-duotone", "h2__i")}Module {mi}: {e(m["title"])}'
-            f'<span class="lesson__min">{ic("ph:clock-duotone")}{total} min</span></h2>'
-            f'<p class="prose">{e(m["lede"])}</p>'
-            + ''.join(lesson(tk, mi, li, L) for li, L in enumerate(m['lessons'], 1)))
+def budget(t):
+    scene = SCENES[t['key']]['minutes'] if t['key'] in SCENES else 0
+    learn = scene + LESSON_MIN * len(t['lessons'])
+    checks = CHECK_MIN * (len(t['lessons']) + len(t['final']))
+    assert learn <= LEARN_CAP, (t['title'], 'learning minutes', learn)
+    assert learn + checks <= TOTAL_CAP, (t['title'], 'total minutes', learn + checks)
+    return learn, checks
 
 
 # ------------------------------------------------------------------ Sketchy-method layer
@@ -91,15 +93,18 @@ def sk_scene(key, track_title):
     return scene + explorer + '\n<!-- QUIZ INTEGRATION POINT: the existing lessons and their .q knowledge checks follow, unchanged. -->\n'
 
 def branch(t):
-    n_checks = sum(len(m['lessons']) for m in t['modules'])
-    mins = sum(LESSON_MIN * len(m['lessons']) for m in t['modules'])
+    learn, checks = budget(t)
+    n_checks = len(t['lessons']) + len(t['final'])
+    finals = ''.join(question(f'{t["key"]}-fin{i}', *c) for i, c in enumerate(t['final'], 1))
     return (f'<div class="branch" data-branch="{t["key"]}" style="--mh:{t["hue"]}" hidden="">'
             f'<div class="branch__head">{ic(t["icon"], "branch__i")}<div><span class="kick">{t["label"]}</span><h3 class="branch__t">{e(t["title"])}</h3>'
-            f'<p class="branch__d">{e(t["blurb"])} {len(t["modules"])} modules, {mins} minutes in total, no module longer than 12 minutes.</p></div></div>'
-            f'<div class="box box--objectives"><p class="box__t">{ic("ph:target-duotone", "box__i")}Scope of this track</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["scope"])}</ul></div>'
+            f'<p class="branch__d">{e(t["blurb"])} {learn + checks} minutes: {learn} of learning, {checks} of checks.</p></div></div>'
+            f'<div class="box box--objectives"><p class="box__t">{ic("ph:target-duotone", "box__i")}Before you start</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["scope"])}</ul></div>'
             + (sk_scene(t['key'], t['title']) if t['key'] in SCENES else '')
-            + ''.join(module(t['key'], mi, m) for mi, m in enumerate(t['modules'], 1))
-            + f'<div class="box box--refresh"><p class="box__t">{ic("ph:books-duotone", "box__i")}Sources for this track</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["sources"])}</ul></div>'
+            + f'<h2 class="h2">{ic("ph:book-open-text-duotone", "h2__i")}Lessons</h2>'
+            + ''.join(lesson(t['key'], li, L) for li, L in enumerate(t['lessons'], 1))
+            + f'<h2 class="h2">{ic("ph:check-square-duotone", "h2__i")}Check yourself</h2>' + finals
+            + f'<div class="box box--refresh"><p class="box__t">{ic("ph:books-duotone", "box__i")}Sources</p><ul>{"".join(f"<li>{e(s)}</li>" for s in t["sources"])}</ul></div>'
             + '<p class="branch__next"><button type="button" class="btn btn--ghost" data-journey-back="">Choose another discipline</button></p></div>'), n_checks
 
 def section():
@@ -111,8 +116,7 @@ def section():
                      f'<span class="journey__prog" data-jprog="{t["key"]}"><i style="width:0%"></i><b>0</b> of {n}</span></button>')
     return ('<!-- TRACKS -->\n<section class="sec" id="tracks">\n'
             f'  <h2 class="h2">{ic("ph:identification-card-duotone", "h2__i")}Training by discipline</h2>\n'
-            '  <p class="prose">Short tracks written for the work you actually do. Choose your discipline: each track has four modules, and no module takes longer than 12 minutes. '
-            'Every lesson ends with a knowledge check that marks as you answer. The eleven modules that follow are the full course and are open to everyone.</p>\n'
+            '  <p class="prose">One ten-minute module for each discipline: six minutes of learning, four of knowledge checks that mark as you answer. Only the points you would act on. The eleven modules that follow are the full course and are open to everyone.</p>\n'
             f'  <div class="box box--refresh"><p class="box__t">{ic("ph:shield-warning-duotone", "box__i")}How to read these tracks</p>'
             '<p>These are practice-level summaries consistent with the Australian ADHD guideline. Where trial evidence is thin, the lesson says so. '
             'They do not replace your profession’s scope of practice, your registration standards or local prescribing law.</p></div>\n'

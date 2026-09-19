@@ -111,7 +111,7 @@ Keep new text on one of these steps. Fee figures (36 → 48px) are display numbe
 
 ## Clinical Academy: training by discipline
 
-The six discipline tracks in `academy.html` (general practice, psychology, occupational therapy, exercise physiology, nutrition, naturopathy) are generated. Each track has four modules of three 4-minute lessons, so no module exceeds 12 minutes; the builder enforces that cap. Edit `scripts/academy_tracks_content.py`, then rebuild:
+The six discipline tracks in `academy.html` (general practice, psychology, occupational therapy, exercise physiology, nutrition, naturopathy) are generated. Each is one 10-minute module: at most 6 minutes of learning (2-minute lessons, plus a 2-minute visual map where a scene exists) and 4 minutes of knowledge checks. The builder enforces both caps. Edit `scripts/academy_tracks_content.py`, then rebuild:
 
 ```bash
 python3 scripts/build-academy-tracks.py
