@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the solid Australia map used behind the logo on our-story.html.
+"""Generate the hand-drawn Australia map used behind the logo on our-story.html.
 Re-run after editing CITIES. Output is injected between the AU-MAP markers."""
 import math, pathlib, re
 
@@ -40,23 +40,91 @@ half_w = max(cx - min(xs), max(xs) + LABEL_ROOM - cx) + 8
 half_h = max(cy - min(ys), max(ys) - cy) + 14
 VB = (cx - half_w, cy - half_h, 2 * half_w, 2 * half_h)
 
-def path(poly):
-    return 'M' + ' L'.join(f'{x:.1f} {y:.1f}' for x, y in poly) + ' Z'
+# ---------------------------------------------------------------- hand-drawn rendering
+# Deterministic, so the drawing is identical on every build.
+import random
+INK, PAPER, PENCIL, GOLD = '#1a1c1c', '#fdfbf7', '#c9bfa6', '#f1bc31'
 
-route = ' '.join(f'{proj(lon, lat)[0]:.1f},{proj(lon, lat)[1]:.1f}' for _, lon, lat, _ in CITIES)
+def smooth(poly, per=2):
+    """Closed Catmull-Rom through the coastline points, so corners read as pen curves."""
+    n = len(poly); out = []
+    for i in range(n):
+        p0, p1, p2, p3 = poly[i - 1], poly[i], poly[(i + 1) % n], poly[(i + 2) % n]
+        for k in range(per):
+            t = k / per; t2, t3 = t * t, t * t * t
+            out.append(tuple(0.5 * ((2 * p1[d]) + (-p0[d] + p2[d]) * t + (2 * p0[d] - 5 * p1[d] + 4 * p2[d] - p3[d]) * t2 + (-p0[d] + 3 * p1[d] - 3 * p2[d] + p3[d]) * t3) for d in (0, 1)))
+    return out
+
+def wobble(pts, seed, amp):
+    """Low-frequency drift, like a hand that never quite retraces its own line."""
+    r = random.Random(seed); ph = [r.uniform(0, 6.28) for _ in range(4)]; n = len(pts)
+    return [(x + amp * (math.sin(i * 0.21 + ph[0]) * 0.6 + math.sin(i * 0.057 + ph[1])),
+             y + amp * (math.cos(i * 0.19 + ph[2]) * 0.6 + math.sin(i * 0.071 + ph[3]))) for i, (x, y) in enumerate(pts)]
+
+def closed_path(pts):
+    mids = [((pts[i][0] + pts[(i + 1) % len(pts)][0]) / 2, (pts[i][1] + pts[(i + 1) % len(pts)][1]) / 2) for i in range(len(pts))]
+    d = f'M{mids[-1][0]:.1f} {mids[-1][1]:.1f}'
+    for p, m in zip(pts, mids): d += f' Q{p[0]:.1f} {p[1]:.1f} {m[0]:.1f} {m[1]:.1f}'
+    return d + ' Z'
+
+def open_path(pts):
+    d = f'M{pts[0][0]:.1f} {pts[0][1]:.1f}'
+    for i in range(1, len(pts) - 1):
+        mx, my = (pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2
+        d += f' Q{pts[i][0]:.1f} {pts[i][1]:.1f} {mx:.1f} {my:.1f}'
+    return d + f' L{pts[-1][0]:.1f} {pts[-1][1]:.1f}'
+
+lands = [smooth(poly) for poly in polys]
+base = ''.join(f'<path id="au-land-{k}" d="{closed_path(l)}"/>' for k, l in enumerate(lands))   # defined once, reused below
+clip = ''.join(f'<use href="#au-land-{k}"/>' for k in range(len(lands)))
+fill = clip
+ink_a = ''.join(f'<path d="{closed_path(wobble(l, 21 + k, 1.3))}"/>' for k, l in enumerate(lands))
+ink_b = ''.join(f'<path d="{closed_path(wobble(l, 31 + k, 1.9))}"/>' for k, l in enumerate(lands))
+
+# pencil hatching across the land, clipped to the coast
+r = random.Random(5); hatch = []
+span = VB[2] + VB[3]
+for k in range(int(span / 9)):
+    o = VB[0] - VB[3] + k * 9 + r.uniform(-1.2, 1.2)
+    x1, y1 = o, VB[1] + VB[3] + r.uniform(-3, 3); x2, y2 = o + VB[3], VB[1] + r.uniform(-3, 3)
+    mx, my = (x1 + x2) / 2 + r.uniform(-2.5, 2.5), (y1 + y2) / 2 + r.uniform(-2.5, 2.5)
+    hatch.append(f'<path d="M{x1:.1f} {y1:.1f} Q{mx:.1f} {my:.1f} {x2:.1f} {y2:.1f}"/>')
+
+# three small wave marks in the Tasman and Coral seas, the only non-data marks
+waves = ''.join(f'<path d="M{x} {y} q6 -6 12 0 q6 6 12 0"/>' for x, y in [(455, 250), (470, 118), (120, 330)])
+
+def loop(x, y, rad, seed):
+    """A dot circled by hand: one and a bit turns, never quite closing."""
+    rr = random.Random(seed); start = rr.uniform(0, 6.28); pts = []
+    for k in range(27):
+        a = start + k * (2 * math.pi * 1.22 / 26); q = rad + rr.uniform(-0.7, 0.7) + k * 0.05
+        pts.append((x + q * math.cos(a), y + q * math.sin(a) * 0.94))
+    return open_path(pts)
+
+route_pts = [proj(lon, lat) for _, lon, lat, _ in CITIES]
+dense = []
+for (xa, ya), (xb, yb) in zip(route_pts, route_pts[1:]):
+    for k in range(6): dense.append((xa + (xb - xa) * k / 6, ya + (yb - ya) * k / 6))
+dense.append(route_pts[-1])
+route = open_path(wobble(dense, 77, 1.1))
+
 markers = []
-for name, lon, lat, pos in CITIES:
+for idx, (name, lon, lat, pos) in enumerate(CITIES):
     x, y = proj(lon, lat)
     slug = name.lower().replace(' ', '-')
-    dx, dy, anchor = {'right': (13, 4, 'start'), 'right-up': (13, -2, 'start'), 'right-down': (13, 12, 'start'), 'left-down': (-12, 14, 'end')}[pos]
-    markers.append(f'''<g class="au-marker" data-city-marker="{slug}" transform="translate({x:.1f} {y:.1f})">
-<circle r="12" class="au-pulse"/><circle r="5.5" fill="#f1bc31" stroke="#fdfbf7" stroke-width="2.5"/>
-<text x="{dx}" y="{dy}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
+    dx, dy, anchor = {'right': (16, 5, 'start'), 'right-up': (16, -2, 'start'), 'right-down': (16, 14, 'start'), 'left-down': (-15, 16, 'end')}[pos]
+    markers.append(f'''<g class="au-marker" data-city-marker="{slug}">
+<g class="au-dot" style="transform-origin:{x:.1f}px {y:.1f}px"><circle cx="{x:.1f}" cy="{y:.1f}" r="5.6" fill="{GOLD}"/><path d="{loop(x, y, 7.6, 100 + idx)}" fill="none" stroke="{INK}" stroke-width="1.9" stroke-linecap="round"/></g>
+<text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
-<title id="au-map-title">Map of Australia showing planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
-<g fill="#1a1c1c" stroke="#2f3130" stroke-width="1.5" stroke-linejoin="round"><path d="{path(polys[0])}"/><path d="{path(polys[1])}"/></g>
-<polyline class="au-route" points="{route}" fill="none"/>
+<title id="au-map-title">Hand-drawn map of Australia with dots marking planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
+<defs>{base}<clipPath id="au-land">{clip}</clipPath></defs>
+<g fill="{PAPER}" transform="translate(2.5 3)">{fill}</g>
+<g clip-path="url(#au-land)" fill="none" stroke="{PENCIL}" stroke-width="1" stroke-linecap="round" opacity=".5">{''.join(hatch)}</g>
+<g fill="none" stroke="{INK}" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="2.2">{ink_a}</g><g stroke-width="1.2" opacity=".5">{ink_b}</g></g>
+<g fill="none" stroke="{INK}" stroke-width="1.4" stroke-linecap="round" opacity=".35">{waves}</g>
+<path class="au-route" d="{route}" fill="none"/>
 {''.join(markers)}
 </svg>'''
 
@@ -64,4 +132,4 @@ p = ROOT / 'our-story.html'; s = p.read_text(encoding='utf-8')
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
 with open(p, 'w', encoding='utf-8', newline='') as fh:  # newline= on write_text needs Python 3.10+
     fh.write(s)
-print(f'map: solid fill, viewBox {VB}, landmass centre ({cx:.0f},{cy:.0f}), {len(CITIES)} markers')
+print(f'map: hand-drawn, {len(hatch)} hatch lines, {len(CITIES)} dots, viewBox {tuple(round(v) for v in VB)}')

@@ -46,7 +46,7 @@ Two fields carry more than they look like:
 
 ## Service map
 
-The dotted map of Australia behind the logo on the Our Story page is generated SVG. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
+The hand-drawn map of Australia on the Our Story page is generated SVG: a sketched, double-inked coastline with pencil hatching, and a looped dot for each city. The drawing is seeded, so it is identical on every build. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
 
 ```bash
 python3 scripts/build-map.py
