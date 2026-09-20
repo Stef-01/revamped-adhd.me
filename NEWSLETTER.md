@@ -318,6 +318,19 @@ site rather than system tokens, and a third hue is what makes a palette look ass
 > ink "Book →" on the cards — and an ink button is the safer bet across mail clients.
 > Don't "fix" one to match the other.
 
+**The publication's default post theme is still stock**, and that is a live trap. The
+`ADHDme Weekly` template carries a branded per-template override, but the publication
+default underneath it does not — it is Inter body on `#374151`, Instrument Sans headings
+on `#111827`, `#0C4A6E` links, a `#030712` button, `#EAEBEC` quotes and Helvetica lists,
+tables and link cards. Any post started from **blank rather than from the template**
+inherits all of that and looks like a different newsletter. This is the same hazard as the
+accidental template send logged below; the template is the only thing standing between a
+new issue and stock beehiiv.
+
+MCP cannot fix it either: `save_post_theme` and `save_post_template_theme` write per-post
+and per-template overrides only, and there is no publication-theme tool in this build. Set
+it once by hand so the floor is branded even when someone forgets the template.
+
 ---
 
 ## Also set up (all free on Launch)
