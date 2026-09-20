@@ -35,28 +35,31 @@ practitioner:
 
 ### The loop
 
-1. **Pick a provider**, then read their profile properly. Their credentials are the brief.
-2. **Commit to a direction.** Do not send open questions. Find the intersection only that
-   person could speak to — Paula Garrido holds ADHD, autism, complex trauma and couples
-   credentials at once, so her three run across exactly those. **If a tip could have come
-   from any clinician, it is the wrong tip.**
-3. **Write all three, finished.** Two to four sentences each, in ADHDme's voice, as they
-   will appear in the issue.
-4. **Flag at most three uncertainties**, in one compact block at the end. Not one per
-   section — a busy clinician should see the finished thing first and the doubts second.
-5. **Publish it as a hidden beehiiv draft** (`hide_from_feed: true`) in the newsletter's
-   own design, and send that link. It should look like the thing it will become, not like
-   a form.
-6. **One status notice, at the top, plus the title.** Repeating DO NOT SEND in every
-   section reads as anxiety and adds to the load it is meant to reduce.
-7. **Publish only what comes back approved.** Silence is not approval. An edit is.
+1. **Pick a provider** and read their profile properly. Their credentials are the brief.
+2. **Commit to a direction.** Find the intersection only that person could speak to.
+   **If the piece could have come from any clinician, it is the wrong piece.**
+3. **Write it as a finished article**, in the newsletter's own design, that a reader
+   landing on the site would get value from on its own. Not a form, not a list of tips
+   with the workings showing. Real prose, a pull quote, a profile card at the foot.
+4. **Put the questions in a separate `.txt`** beside it in `qa-packs/`. They are for us,
+   not for the provider, and they never appear in the piece.
+5. **Keep the piece a hidden draft** (`hide_from_feed: true`) with `DRAFT — ` on the title.
+   That is the whole safeguard: one marker, in the name, nothing in the body.
+6. **Send the provider the draft link and a short note.** Three replies suffice: approve,
+   edit, or cut. An edit is the approval. Silence is not.
+7. **On approval**, strip `DRAFT — `, set `hide_from_feed: false`, and record the return
+   date in the questions file with her edits verbatim.
 
 ### Why it is shaped this way
 
 These are busy, frequently overwhelmed people. Every open question is a blank page, and a
-blank page is the expensive thing. A finished draft with three marked doubts can be
-answered in five minutes; "tell us your top three ADHD tips" cannot be answered at all on
-a Tuesday between clients.
+blank page is the expensive thing. Reading a finished article and saying "yes, except
+that bit" takes five minutes; "tell us your top three ADHD tips" cannot be answered at
+all on a Tuesday between clients.
+
+The piece must also be worth reading on its own. If it only makes sense as an internal
+review document, it has failed twice over: the provider has to imagine the finished
+version, and the finished version was never actually written.
 
 Research the provider's public media first only when it helps write a better draft — it is
 no longer the source of the content. Run 001 below establishes why: this network does not
