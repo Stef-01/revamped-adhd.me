@@ -291,6 +291,26 @@ in line, in **Website Builder → Design**:
 
 ---
 
+## Also set up (all free on Launch)
+
+The brief assumed polls and surveys were Max-only. beehiiv's own gating flags say
+otherwise for this account, so they are configured:
+
+- **Poll** `poll_e7d300d2` — "Was this issue useful?", reusable at the end of any issue.
+  Deliberately about the writing, not the reader: poll answers are stored per subscriber,
+  so nothing here may touch health information.
+- **Survey** `eab565ec` — *What would make ADHDme Weekly most useful?*, one multiple-choice
+  question on content preference, backed by the `content_preference` custom field. It was
+  first drafted as "What brought you to ADHDme Weekly?" and rewritten, because the obvious
+  answers to that question are health disclosures attached to an email address.
+- **Referral program** — enabled, `upcoming_milestone_only` layout. Milestones are
+  deliberately empty: each one needs a reward, and what ADHDme offers is a product
+  decision, not one to invent.
+
+See `BEEHIIV-UPGRADE-TRACKER.md` for what Launch blocks and whether it is worth paying for.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
