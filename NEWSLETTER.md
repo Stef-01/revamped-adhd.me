@@ -201,26 +201,14 @@ and may add parameters this does not have.
 
 ## Still requires manual action
 
-1. **Publish the PRIMARY subscribe form.** *(the only thing still blocking)*
+1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
+   browser: the primary renders a 52px pill control reading "Join ADHDme Weekly", the
+   footer a 48px control reading "Join", both in Plus Jakarta Sans, no beehiiv chrome,
+   no horizontal overflow and no console errors at 1440x900 and 390x844.
 
-   The footer form is **done** — published and verified live: Plus Jakarta Sans,
-   "Join", a ~50px pill control, and the "You're in…" success message.
-
-   The primary form is not. Its draft was discarded rather than published, which
-   wiped the theme back to beehiiv stock (PT Serif, "Subscribe", 80px pad) and reset
-   the success message. The theme has been rebuilt and is a draft again.
-
-   <https://app.beehiiv.com/subscribe_form_builder/76750273-b34d-4b54-ad52-5fa242ea671b>
-
-   In the builder, top right: click the **arrow next to "Save changes" / "Get embed
-   code"** and choose **Publish**. Plain "Save changes" only saves the draft — that is
-   what lost it last time. Afterwards `has_draft_theme_changes` should read false and
-   the live embed should show "Join ADHDme Weekly", not "Subscribe".
-
-   To find the forms in the dashboard: left panel → **Subscribers** → **Subscribe
-   forms** (<https://app.beehiiv.com/subscribe_forms>). The publication is **ADHDme
-   Weekly**; if the workspace switcher still shows something else, switch to
-   *Info's Hiiv*.
+   Note for next time: in the form builder, **Save changes** only writes the draft.
+   Publishing is the **arrow next to it → Publish**. The primary form's first draft was
+   lost to exactly that distinction and had to be rebuilt.
 
 2. **Delete the three test subscribers.** There is no MCP tool for this, so it is a
    dashboard job: **Subscribers** → select → Delete.
@@ -250,9 +238,9 @@ Run against the real integrated embed on a local build of this repo, in Chrome v
 | 1 | Submission succeeds | **Pass** — submitted through the embedded iframe on the page |
 | 2 | Subscriber appears in beehiiv | **Pass** — `info+bhembedtest@adhdme.au`, active |
 | 3 | Source identifiable as website signup | **Pass** — `embed: adhdme.au / website`; matched by the segment |
-| 4 | Success message appears | **Partial** — a toast does appear on the parent page for ~4s, but shows beehiiv's default *"Success! Now check your email to confirm your subscription."* Ours ("You're in…") is in the unpublished draft. The default is also simply wrong: double opt-in is off, so there is nothing to confirm. Fixed by action 1. |
-| 5 | Mobile layout (390×844) | **Pass structurally** — no horizontal overflow, embed 350px inside a 390px viewport. Re-check proportions after action 1. |
-| 6 | Desktop layout (1440×900) | **Pass structurally** — no horizontal overflow, primary embed 520px, footer 320px. Re-check after action 1. |
+| 4 | Success message appears | **Pass** — a toast appears on the parent page for ~4s. It showed beehiiv's default text while the draft was unpublished; the branded "You're in. The next ADHDme Weekly will arrive in your inbox." is now live on both forms. |
+| 5 | Mobile layout (390×844) | **Pass** — no horizontal overflow; primary 350x52px, footer 342x48px. |
+| 6 | Desktop layout (1440×900) | **Pass** — no horizontal overflow; primary 520x52px, footer 320x48px. |
 | 7 | Unsubscribe exists | **Pass** — beehiiv appends an unsubscribe link and the postal address to every email footer; the postal address is now set. Records carry `unsubscribed_on`. |
 | 8 | Test subscriber receives the trial welcome | **No, by design** — the automation is a draft, so it never fired. `list_automation_journeys` returns 0 enrolments. |
 | 9 | No console or page errors | **Pass** — zero exceptions, zero `console.error`, zero failed network requests at both viewports. |
