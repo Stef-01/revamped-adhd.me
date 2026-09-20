@@ -311,6 +311,40 @@ See `BEEHIIV-UPGRADE-TRACKER.md` for what Launch blocks and whether it is worth 
 
 ---
 
+## Template redesign (2026-09-20)
+
+Rebuilt on the structure of the beehiiv stock template Stefan linked, in ADHDme's palette
+rather than its beige. Order: ink masthead → centred standfirst → rule → `The *research*`
+→ pull quote → `In *practice*` as 01/02/03 → cream caveat card → `Worth *a look*` product
+grid → poll → cream `Coming *next week*` with a button → referral block.
+
+Verified by reading the template back: sections, radii, the 2×2 columns, the
+blockquote variant, the poll node and the referral block all survived the parse.
+
+**Product recommendations** are four real tools — Goblin Tools, Tiimo, Notion Calendar,
+Future ADHD — introduced as *"Popular, not proven — none of this is evidence-based, and
+none of it is sponsored."* That framing is deliberate. This is a clinician-network brand,
+and a section of viral products is the fastest way to undermine "ADHD science, made
+useful" if it reads as endorsement.
+
+Open items on that section:
+- **Verify the URLs** before sending. `goblin.tools` and the Notion link are solid;
+  `tiimo.com` and `futureadhd.com` were not checked.
+- **No product images.** The stock template uses uploaded PNGs per product. Using the
+  vendors' own images would be someone else's copyright, so the cards are typographic.
+  Upload your own, or ask and I will generate them.
+- **If these ever become affiliate links, they need a disclosure line**, not just the
+  "not sponsored" note.
+
+### The template post that went out
+
+`post_fcd461bf` ("Newsletter Template") was **published with `platform: both`**, so it
+emailed every free subscriber — the three test aliases and the one real Gmail address.
+It cannot be unsent. Worth deleting the post so it does not sit in the public archive at
+`/p/newsletter-template-0ecf225d657d342c`.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
