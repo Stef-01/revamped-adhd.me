@@ -244,6 +244,53 @@ check the pill buttons and 16px radius in Outlook, which is the usual place both
 
 ---
 
+## Byline, first issue, and the beehiiv website
+
+**Byline** is **Stefan Thottunkal**, set two ways: the account profile name, and a guest
+author attached to the first issue. `display_byline_in_email` was off by default and is
+now on.
+
+> Quirk worth remembering: `save_guest_author` returns an id like
+> `guest_a1725d9e-…`, but `edit_post` rejects that and only accepts the **bare UUID**.
+> `list_authors` also returns an empty list even with authors present, so do not trust it
+> to tell you whether one exists.
+
+**Issue #1 — draft, not scheduled.** *What stimulants actually do to sleep*
+`post_957f3156-d91f-421a-bec3-922a0da5ff78`
+
+The hook is that the short-term and long-term effects point opposite ways: a late dose
+delays sleep onset, yet longitudinal data associates stimulant treatment with better
+subjective sleep and lower insomnia odds — probably through symptom control rather than
+sedation. Structure follows the template, with a caveat section on the confounding
+(observational data, likely survivorship, self-report vs measured sleep) and two real
+sources linked at the end.
+
+> **Verify before sending.** The claims were drafted from search results, not from
+> reading the papers. Check the specifics against the sources, and have someone
+> clinically qualified read it — it discusses medication timing, which is exactly where
+> a newsletter can do harm if it is loose.
+
+**The beehiiv website** (`adhdme.beehiiv.com`) — home and subscribe pages now carry real
+SEO titles, descriptions and social cards pointing at `assets/brand/og.png`, instead of
+beehiiv's defaults.
+
+Its **colours and fonts cannot be set through MCP.** `edit_page` exposes only SEO
+metadata and navbar/footer toggles; there is no site-theme tool in this build. The site
+still renders stock Instrument Sans / Inter on `--wt-primary-color: #030712`. To bring it
+in line, in **Website Builder → Design**:
+
+| Token | Value |
+|---|---|
+| Primary | `#1a1c1c` |
+| Text on primary | `#FFFFFF` |
+| Background | `#FAFAF7` |
+| Text on background | `#1a1c1c` |
+| Accent / border | `#E8E6DF` |
+| Heading + body font | Plus Jakarta Sans |
+| Accent font | Newsreader |
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
