@@ -35,12 +35,28 @@ practitioner:
 
 ### The loop
 
-1. **Pick a provider** and a topic that plays to their specific credentials.
-2. **Draft three questions and three answers.** Two to four sentences each, in ADHDme's
-   voice, with a `CHECK:` note wherever we are guessing.
-3. **Send the pack for QA.** They edit inline, comment, or reject.
-4. **Publish only what comes back approved**, with their name, role, practice and a link.
-5. **Keep the returned pack.** It is the evidence that they approved it.
+1. **Pick a provider**, then read their profile properly. Their credentials are the brief.
+2. **Commit to a direction.** Do not send open questions. Find the intersection only that
+   person could speak to — Paula Garrido holds ADHD, autism, complex trauma and couples
+   credentials at once, so her three run across exactly those. **If a tip could have come
+   from any clinician, it is the wrong tip.**
+3. **Write all three, finished.** Two to four sentences each, in ADHDme's voice, as they
+   will appear in the issue.
+4. **Flag at most three uncertainties**, in one compact block at the end. Not one per
+   section — a busy clinician should see the finished thing first and the doubts second.
+5. **Publish it as a hidden beehiiv draft** (`hide_from_feed: true`) in the newsletter's
+   own design, and send that link. It should look like the thing it will become, not like
+   a form.
+6. **One status notice, at the top, plus the title.** Repeating DO NOT SEND in every
+   section reads as anxiety and adds to the load it is meant to reduce.
+7. **Publish only what comes back approved.** Silence is not approval. An edit is.
+
+### Why it is shaped this way
+
+These are busy, frequently overwhelmed people. Every open question is a blank page, and a
+blank page is the expensive thing. A finished draft with three marked doubts can be
+answered in five minutes; "tell us your top three ADHD tips" cannot be answered at all on
+a Tuesday between clients.
 
 Research the provider's public media first only when it helps write a better draft — it is
 no longer the source of the content. Run 001 below establishes why: this network does not
