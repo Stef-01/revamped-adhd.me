@@ -127,9 +127,10 @@ added to the list, beehiiv's own confirmation behaviour, and the next weekly iss
 It exists only to answer "does an automated welcome measurably improve the experience". If
 the answer is no, delete it and lose nothing.
 
-> If you want a welcome email that survives Launch, use beehiiv's built-in **Welcome Email**
-> (Settings → Publication → Welcome email) instead of an automation. That is a different
-> feature and it is free-safe. Not set up — say the word.
+> **Done 2026-09-20.** The built-in **Welcome Email** (Settings → Publication → Emails →
+> Preset emails) is configured, published and enabled, using this automation's copy
+> verbatim. It is free-safe and survives Launch. This automation is therefore redundant
+> and can be deleted without losing anything.
 
 ### MCP
 

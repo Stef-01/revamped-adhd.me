@@ -121,11 +121,20 @@ blog build script already; pointing them at this turns a weekly email into index
 
 Two things about it worth knowing before anything consumes it:
 
-> **The feed's only item today is "Newsletter Template"** —
-> `/p/newsletter-template-0ecf225d657d342c`, the internal template that was published to web
-> by accident. It is already a public page, so RSS did not leak it, but any syndication built
-> on this feed right now would pull an internal template onto adhdme.au and get it indexed.
-> Unpublish or archive that post before wiring the feed into the site.
+> **Resolved 2026-09-20.** The feed's only item was "Newsletter Template" — the internal
+> template published to web by accident. It has been **archived**
+> (`post_fcd461bf-e149-4477-bdfa-7142bfab8969`, status `archived`): the public page now
+> returns 403, it is off the beehiiv homepage, and the feed rebuilt to **0 items**. The feed
+> is clean and safe to consume; it will fill with real issues as they publish.
+>
+> Archiving is reversible from the post's row menu. Note the menu also offers *Delete* —
+> that one is not.
+>
+> **The feed lags about two minutes behind a content change.** Immediately after archiving,
+> the feed still served the old body with an unchanged `lastBuildDate`, which reads exactly
+> like a frozen cache — it is not. `Cache-Control: max-age=0, private, must-revalidate` and
+> `cf-cache-status: DYNAMIC`; beehiiv simply rebuilds server side on a short delay. Re-check
+> before concluding anything from a feed read taken seconds after an edit.
 
 > **The URL's token is random** (`256LXheLe8`) and is not derived from the publication name,
 > slug or ID. It cannot be guessed — which is why the earlier probe of six plausible URL
@@ -138,9 +147,27 @@ Outbound RSS is free on Launch. It simply does not exist until generated — the
 here claiming beehiiv "publishes an RSS feed of every issue" was wrong.
 
 
-**The welcome email.** Copy is already written and sitting in this repo. Dashboard-only,
-ten minutes, and it closes the one genuine gap in the free-safe core: right now a new
-subscriber hears nothing until the next issue.
+**The welcome email — live as of 2026-09-20.** This was the one genuine gap in the
+free-safe core: a new subscriber heard nothing until the next issue. Now they get an
+immediate email.
+
+Set up as beehiiv's **built-in Welcome Email** (Settings → Publication → Emails → Preset
+emails), *not* as an automation. That distinction is the whole point: the built-in welcome
+email is free-safe and keeps working on Launch, whereas
+`TRIAL TEST - ADHDme Weekly Welcome` (`aut_fc706289…`) is an automation and would stop the
+day the account leaves a paid tier. The automation stays in draft and can now be deleted
+without losing anything — its copy is reused here verbatim.
+
+- Subject: `Welcome to ADHDme Weekly`
+- Preview: `Weekly ADHD science, practical strategies and ideas worth testing.`
+- Body: the four-line welcome, signed `ADHDme`
+- Toggle enabled and confirmed persisted across a reload; published, no unsaved changes
+
+It inherits the publication theme, so it already carries the masthead line, the
+"you subscribed at adhdme.au" provenance line, the not-medical-advice disclaimer, the
+Robina address and the unsubscribe footer. Nothing extra was written into the body.
+
+It fires on **new** subscriptions only, so the five existing subscribers were not emailed.
 
 ### Judgement calls
 
