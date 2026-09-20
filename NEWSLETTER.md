@@ -143,9 +143,38 @@ writes were a setup convenience, not a runtime dependency.
 
 ---
 
-## Embed code for adhdme.au
+## Site integration
 
-**Not yet added to any page**, by instruction. Paste where the form should appear.
+Both placements are live in this repo. All the copy lives in the page as real HTML —
+the beehiiv iframe supplies **only** the email field and the button. That is deliberate:
+it keeps beehiiv's fonts, borders and padding out of the design, and keeps the words
+indexable instead of buried in a third-party iframe.
+
+| | Form | Placement |
+|---|---|---|
+| Primary | `76750273-b34d-4b54-ad52-5fa242ea671b` | `index.html`, new `NewsletterSection` after the booking CTA, before `</main>` |
+| Footer | `882d54e5-58fd-458f-b045-38318b963983` | Shared footer, above the copyright row, on all 25 pages that have a footer |
+
+Two forms rather than one because a beehiiv form has a single layout and single button
+label, and the footer needs `Join` rather than `Join ADHDme Weekly`. They feed the same
+audience and both carry `utm_content` (`primary` / `footer`) so the placements can be
+told apart.
+
+`index.html` also lost its `pb-24 lg:pb-32` on the booking CTA section — the newsletter
+section now carries the page's bottom padding, preserving the existing vertical rhythm.
+That is the only pre-existing markup that changed.
+
+The wrapper CSS is at the end of `site.css` under *ADHDme Weekly: beehiiv subscribe
+embeds*. It pins the iframe width, because beehiiv's loader momentarily writes
+`width: 5000px` onto the iframe while it measures the child — unpinned, that widens the
+page and flashes a horizontal scrollbar.
+
+Remember `site.css` and the HTML are compiled: run `npm run build` after editing, since
+Vercel does not build and the committed bundles are what ship.
+
+### The raw embed
+
+For reference, the snippet pattern used:
 
 ```html
 <!-- ADHDme Weekly — beehiiv subscribe form -->
@@ -172,30 +201,52 @@ and may add parameters this does not have.
 
 ## Still requires manual action
 
-1. **Publish the subscribe form.** *(blocking — do this first)*
-   The MCP writes the **draft** theme; beehiiv only allows publishing from the website
-   editor. **Right now the live form is still beehiiv's stock black/PT-Serif "Subscribe"
-   form** — all 50 branded tokens are pending. Open
-   <https://app.beehiiv.com/subscribe_form_builder/76750273-b34d-4b54-ad52-5fa242ea671b>
-   → **Get embed code ▾** → **Publish**.
-   While there, sanity-check the 44px field height in the live preview: beehiiv's stored
-   default was `21px`, so it may measure the inner text box rather than the control.
+1. **Publish BOTH subscribe forms.** *(blocking — the site looks wrong until this is done)*
+   The MCP writes only the **draft** theme; publishing is editor-only. Until it happens,
+   both embeds render beehiiv's stock theme: a white box with an 80px pad, PT Serif, a
+   duplicated "ADHDme Weekly / ADHD science, made useful." heading, a squashed email
+   field and a black square "Subscribe" button. Measured in a real browser, that makes
+   the iframes **315px and 375px tall** instead of the ~50px a bare control needs.
+   - Primary: <https://app.beehiiv.com/subscribe_form_builder/76750273-b34d-4b54-ad52-5fa242ea671b>
+   - Footer: <https://app.beehiiv.com/subscribe_form_builder/882d54e5-58fd-458f-b045-38318b963983>
 
-2. **Set the email footer address.** *(blocking for any send)*
-   Both the workspace default and the publication override are empty, and a physical
-   postal address is legally required in the email footer (Australian Spam Act, CAN-SPAM).
-   **No address was invented.** There is no ADHDme postal address anywhere in this repo —
-   the only one present is GOALS Psychology's (Fortitude Valley QLD), which is a partner
-   practice, not ADHDme. Provide the correct one.
+   In each: **Get embed code ▾ → Publish**. Then reload adhdme.au and confirm both
+   collapse to a single row of field + button.
+
+2. **Delete the three test subscribers.** There is no MCP tool for this, so it is a
+   dashboard job: **Subscribers** → select → Delete.
+   - `info+beehiivtest@adhdme.au`
+   - `info+bhembedtest@adhdme.au`
+   - `info+bhtoast@adhdme.au`
+
+   All three are plus-aliases of the account owner's own mailbox. No real person was
+   subscribed. Leave `info@adhdme.au` alone — beehiiv added it as the account owner when
+   the workspace was created, not as part of any test.
 
 3. **Decide the sending address.** See [Open questions](#open-questions).
 
 4. **Publish the automation** — only if the trial is real and you want to test it.
    <https://app.beehiiv.com/automations/fc706289-e260-4585-9a8d-5ecbab9d462f/workflow>
 
-5. **Add the embed to the site** once the above is done.
+Nothing has been sent to anyone. No campaign, no real subscribers.
 
-Nothing has been sent to anyone. No test campaign, no real subscribers.
+---
+
+## Test results
+
+Run against the real integrated embed on a local build of this repo, in Chrome via CDP.
+
+| # | Check | Result |
+|---|---|---|
+| 1 | Submission succeeds | **Pass** — submitted through the embedded iframe on the page |
+| 2 | Subscriber appears in beehiiv | **Pass** — `info+bhembedtest@adhdme.au`, active |
+| 3 | Source identifiable as website signup | **Pass** — `embed: adhdme.au / website`; matched by the segment |
+| 4 | Success message appears | **Partial** — a toast does appear on the parent page for ~4s, but shows beehiiv's default *"Success! Now check your email to confirm your subscription."* Ours ("You're in…") is in the unpublished draft. The default is also simply wrong: double opt-in is off, so there is nothing to confirm. Fixed by action 1. |
+| 5 | Mobile layout (390×844) | **Pass structurally** — no horizontal overflow, embed 350px inside a 390px viewport. Re-check proportions after action 1. |
+| 6 | Desktop layout (1440×900) | **Pass structurally** — no horizontal overflow, primary embed 520px, footer 320px. Re-check after action 1. |
+| 7 | Unsubscribe exists | **Pass** — beehiiv appends an unsubscribe link and the postal address to every email footer; the postal address is now set. Records carry `unsubscribed_on`. |
+| 8 | Test subscriber receives the trial welcome | **No, by design** — the automation is a draft, so it never fired. `list_automation_journeys` returns 0 enrolments. |
+| 9 | No console or page errors | **Pass** — zero exceptions, zero `console.error`, zero failed network requests at both viewports. |
 
 ---
 

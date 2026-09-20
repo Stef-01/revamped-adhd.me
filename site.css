@@ -146,3 +146,23 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-stop__b:hover, .au-stop__b:focus-visible, .au-stop__b.is-hot { background: rgba(255,255,255,.7); }
 .au-stop__b:hover .au-stop__dot, .au-stop__b:focus-visible .au-stop__dot, .au-stop__b.is-hot .au-stop__dot { transform: scale(1.25); }
 @media (prefers-reduced-motion: reduce) { .au-marker, .au-stop__b, .au-stop__dot { transition: none; } }
+
+/* ---- ADHDme Weekly: beehiiv subscribe embeds ----
+   The page owns the type and the copy; the iframe is only the field and the button.
+   beehiiv's loader measures the child and writes height/width onto the iframe inline,
+   briefly setting width to 5000px — so the width is pinned here and the wrapper clips,
+   or that transient would widen the page and flash a horizontal scrollbar. */
+.bh-embed { width: 100%; max-width: 100%; overflow: hidden; }
+.bh-embed iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 0;
+  margin: 0;
+  display: block;
+  background: transparent;
+  color-scheme: light;
+}
+/* Hold the control's height before the child reports back, so nothing jumps under the thumb */
+.bh-embed--primary iframe { min-height: 52px; }
+.bh-embed--footer iframe { min-height: 48px; }
+.bh-embed--primary { max-width: 520px; }

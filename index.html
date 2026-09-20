@@ -121,7 +121,7 @@
 </section>
 <!-- END: WhyThisExists -->
 <!-- BEGIN: CallToActionSection -->
-<section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-24 pb-24 lg:pb-32" id="join">
+<section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-24" id="join">
   <div class="border-t border-[#e8e6df] pt-16 lg:pt-20">
     <h2 class="text-[32px] sm:text-[40px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.05]">Start wherever you like.</h2>
     <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -131,6 +131,19 @@
   </div>
 </section>
 <!-- END: CallToActionSection -->
+<!-- BEGIN: NewsletterSection -->
+<section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-16 sm:pt-20 lg:pt-24 pb-24 lg:pb-32" aria-labelledby="newsletter-title">
+  <div class="border-t border-[#e8e6df] pt-16 lg:pt-20">
+    <p class="text-[12px] font-bold uppercase tracking-[0.14em] text-[#817662]">ADHDme Weekly</p>
+    <h2 id="newsletter-title" class="mt-4 text-[28px] sm:text-[34px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.1]">ADHD science, made useful.</h2>
+    <p class="mt-6 text-[17px] sm:text-[19px] leading-[1.6] text-[#4a453a] max-w-[54ch]">One carefully curated issue each week exploring new research, practical strategies and ideas that may help people better understand how their ADHD works.</p>
+    <div class="bh-embed bh-embed--primary mt-8">
+      <iframe class="beehiiv-embed" src="https://subscribe-forms.beehiiv.com/76750273-b34d-4b54-ad52-5fa242ea671b?utm_source=adhdme.au&amp;utm_medium=website&amp;utm_campaign=site_embed&amp;utm_content=primary" title="Subscribe to ADHDme Weekly" loading="lazy"></iframe>
+    </div>
+    <p class="mt-4 text-[14px] leading-[1.6] text-[#817662]">Free. One thoughtful issue each week. Unsubscribe anytime. See our <a class="underline underline-offset-2 hover:text-[#1a1c1c] transition-colors" href="privacy.html">Privacy Policy</a>.</p>
+  </div>
+</section>
+<!-- END: NewsletterSection -->
 </main>
 <!-- BEGIN: MainFooter -->
 <footer class="w-full bg-[#fdfbf7] border-t border-[#ebd8ab]/50">
@@ -152,6 +165,17 @@
 <a class="text-[15px] font-semibold text-[#4f4634] hover:text-[#1a1c1c] transition-colors" href="mailto:info@adhdme.au">Contact</a>
 </nav>
 </div>
+<!-- BEGIN: FooterNewsletter -->
+<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 pt-6">
+<div>
+<p class="text-[13px] font-bold text-[#1a1c1c]">ADHDme Weekly</p>
+<p class="mt-1 text-[13px] font-medium text-[#4f4634]">One useful idea each week.</p>
+</div>
+<div class="bh-embed bh-embed--footer w-full sm:w-[320px]">
+<iframe class="beehiiv-embed" src="https://subscribe-forms.beehiiv.com/882d54e5-58fd-458f-b045-38318b963983?utm_source=adhdme.au&amp;utm_medium=website&amp;utm_campaign=site_embed&amp;utm_content=footer" title="Subscribe to ADHDme Weekly" loading="lazy"></iframe>
+</div>
+</div>
+<!-- END: FooterNewsletter -->
 <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px] font-medium text-[#4f4634] pt-5">
 <p>&copy; 2026 ADHDme</p>
 </div>
@@ -161,4 +185,5 @@
 <script src="analytics-config.js" defer></script>
 <script src="assets/js/site.min.js" defer></script>
 
+<script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 </body></html>
