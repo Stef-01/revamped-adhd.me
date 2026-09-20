@@ -206,3 +206,11 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 @media (prefers-reduced-motion: reduce) {
   .weekly-invite[open], .weekly-invite.is-leaving { animation: none; }
 }
+
+/* Our Story: the cities in one row beneath the map */
+.au-row { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; max-width: 360px; }
+.au-row .au-stop__b { width: 100%; padding: 6px 12px 6px 6px; gap: 10px; }
+.au-row .au-stop__name { font-size: 16px; white-space: nowrap; }
+.au-row .au-stop__state { display: none; }
+@media (min-width: 560px) { .au-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 520px; } }
+@media (min-width: 900px) { .au-row { display: flex; flex-wrap: nowrap; justify-content: center; gap: 6px; max-width: none; } .au-row .au-stop__b { width: auto; padding: 6px 16px 6px 8px; } .au-row .au-stop__name { font-size: 17px; } }
