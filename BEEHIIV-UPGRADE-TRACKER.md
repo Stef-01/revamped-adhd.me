@@ -94,6 +94,69 @@ At 5 subscribers, Max is roughly **$1,300/year to remove one line of footer bran
 
 ---
 
+## Free, available, and deliberately not switched on
+
+Audited 2026-09-20. These all work on Launch. Each is a decision, not a task.
+
+### Worth doing next
+
+**Custom link parameters.** beehiiv can append parameters to every outbound link, so
+clicks from the newsletter land in the site's own analytics already attributed. The site
+runs PostHog. This is the cheapest real win left and it needs no content.
+
+**Syndicate the archive to adhdme.au.** beehiiv publishes an RSS feed of every issue. The
+site has a `learn.html` and a blog build script already. Pulling issues onto the site turns
+a weekly email into indexed pages that bring in search traffic — the newsletter starts
+feeding the site instead of only the other way round.
+
+**The welcome email.** Copy is already written and sitting in this repo. Dashboard-only,
+ten minutes, and it closes the one genuine gap in the free-safe core: right now a new
+subscriber hears nothing until the next issue.
+
+### Judgement calls
+
+**Recommendations — 17 ADHD publications are available.** beehiiv's own AI suggestions
+returned empty (too new), but `discover_publications` found *Technically ADHD*, *The ADHD
+Informed Parent*, *Personal ADHD Training*, *The Spicy Brain Social Club* and others.
+
+Free growth, and often reciprocated. **Not enabled, on purpose.** A recommendation from a
+clinician-network brand reads as endorsement, and several of these are tonally a long way
+from ADHDme — "Neurospicy", "no-BS", personal-experience newsletters that may give
+advice ADHDme would not stand behind. Same risk as the product block, with more of it,
+because a publication keeps publishing after you have vouched for it.
+
+If it is worth doing: pick one or two, read a few issues first, and revisit quarterly.
+
+**Ad Network.** The account's own gating flag says `available: true`, though beehiiv's
+public pricing says it needs Scale. Either way it is a brand decision before a revenue
+one — ads inside a clinical newsletter change what the newsletter is.
+
+**Referral milestones.** The program is on and configured, but has no milestones, because
+each one needs a reward and what ADHDme gives away is a product decision.
+
+### Premature
+
+**Engagement segments** (re-engagement, highly-engaged). Free and useful — after there is
+send history. At zero issues sent they would match nothing. Revisit after ~5 issues.
+
+**Signup flows.** They only apply to the beehiiv-hosted subscribe page, not to the embedded
+forms on adhdme.au, which is where the traffic will be. Low value for this setup.
+
+**Products / paywalls / premium tiers.** Not the model.
+
+**Podcast embeds.** Available, no podcast.
+
+### Blocked by missing assets, not by beehiiv
+
+**Publication social links** — ADHDme has no social accounts of its own. The only handles
+on the site belong to the partner practices, and pointing the publication at those would
+misattribute it.
+
+**Author avatar** — Stefan's byline still shows a generated gradient, because there is no
+photograph in the repo.
+
+---
+
 ## Triggers to revisit
 
 Upgrade when one of these is true, not before:
