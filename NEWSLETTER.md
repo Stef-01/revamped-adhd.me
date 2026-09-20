@@ -275,19 +275,48 @@ SEO titles, descriptions and social cards pointing at `assets/brand/og.png`, ins
 beehiiv's defaults.
 
 Its **colours and fonts cannot be set through MCP.** `edit_page` exposes only SEO
-metadata and navbar/footer toggles; there is no site-theme tool in this build. The site
-still renders stock Instrument Sans / Inter on `--wt-primary-color: #030712`. To bring it
-in line, in **Website Builder → Design**:
+metadata and navbar/footer toggles; there is no site-theme tool in this build. Out of the
+box it renders stock Instrument Sans / Inter, `--wt-primary-color: #030712`, and a hot
+pink `#FF005A` primary. Every one of those tokens is the wrong temperature: the stock
+theme is cool (pure white, blue-black, cool grey) and this brand is warm throughout. Set
+these by hand in **Website Builder → Design**:
 
-| Token | Value |
-|---|---|
-| Primary | `#1a1c1c` |
-| Text on primary | `#FFFFFF` |
-| Background | `#FAFAF7` |
-| Text on background | `#1a1c1c` |
-| Accent / border | `#E8E6DF` |
-| Heading + body font | Plus Jakarta Sans |
-| Accent font | Newsreader |
+| Token | Value | |
+|---|---|---|
+| Background | `#FAFAF7` | the site's page ground; warm, not clinical white |
+| Text on background | `#1a1c1c` | the site's ink. `#030712` is a blue-black |
+| Primary | `#F1BC31` | brand amber — the site's header bar and every primary CTA |
+| Text on primary | `#1a1c1c` | **not white.** See the rule below |
+| Accent / border | `#E8E6DF` | the site's warm hairline, against a cool `#E5E7EB` |
+| Heading + body font | Plus Jakarta Sans | |
+| Accent font | Newsreader | pull quotes only |
+
+Two things about the amber, both easy to get wrong:
+
+**Text on primary must be ink.** White on `#F1BC31` is 1.75:1 and unreadable; `#1a1c1c`
+on it is 9.76:1. White-on-primary is beehiiv's default and it is correct for their pink,
+so this is the setting most likely to be left wrong. The site agrees: 15 places put
+`#1a1c1c` on an amber fill and none put white on it.
+
+**Amber is a fill, never text.** `#F1BC31` on the page background is 1.68:1. On the site
+it appears as text only inside dark buttons — the `→` on an ink pill — never on light. If
+beehiiv turns out to use Primary for link text as well as fills, override links to
+`#1a1c1c` underlined.
+
+Primary amber makes the FEATURED strip a full-bleed amber band. That is on-brand — the
+site's header is exactly that — but it is a larger area than the site asks the colour to
+hold, and it lands just under an amber Subscribe button. If it reads loud once live, the
+fallback is Primary `#1a1c1c` on white text (the site's other button, 17:1) with amber
+kept for the masthead. Try amber first; a monochrome theme is indistinguishable from
+every other beehiiv publication in an inbox.
+
+Don't reach for `#ff4d2e` or `#f7cf63` to fill the accent slot. They are incidental on the
+site rather than system tokens, and a third hue is what makes a palette look assembled.
+
+> The **email template** below deliberately keeps an ink `#1a1c1c` button while this theme
+> uses amber. That is not drift. The site ships both — amber "Book now" in the header,
+> ink "Book →" on the cards — and an ink button is the safer bet across mail clients.
+> Don't "fix" one to match the other.
 
 ---
 
