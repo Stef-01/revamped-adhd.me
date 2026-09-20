@@ -201,17 +201,26 @@ and may add parameters this does not have.
 
 ## Still requires manual action
 
-1. **Publish BOTH subscribe forms.** *(blocking — the site looks wrong until this is done)*
-   The MCP writes only the **draft** theme; publishing is editor-only. Until it happens,
-   both embeds render beehiiv's stock theme: a white box with an 80px pad, PT Serif, a
-   duplicated "ADHDme Weekly / ADHD science, made useful." heading, a squashed email
-   field and a black square "Subscribe" button. Measured in a real browser, that makes
-   the iframes **315px and 375px tall** instead of the ~50px a bare control needs.
-   - Primary: <https://app.beehiiv.com/subscribe_form_builder/76750273-b34d-4b54-ad52-5fa242ea671b>
-   - Footer: <https://app.beehiiv.com/subscribe_form_builder/882d54e5-58fd-458f-b045-38318b963983>
+1. **Publish the PRIMARY subscribe form.** *(the only thing still blocking)*
 
-   In each: **Get embed code ▾ → Publish**. Then reload adhdme.au and confirm both
-   collapse to a single row of field + button.
+   The footer form is **done** — published and verified live: Plus Jakarta Sans,
+   "Join", a ~50px pill control, and the "You're in…" success message.
+
+   The primary form is not. Its draft was discarded rather than published, which
+   wiped the theme back to beehiiv stock (PT Serif, "Subscribe", 80px pad) and reset
+   the success message. The theme has been rebuilt and is a draft again.
+
+   <https://app.beehiiv.com/subscribe_form_builder/76750273-b34d-4b54-ad52-5fa242ea671b>
+
+   In the builder, top right: click the **arrow next to "Save changes" / "Get embed
+   code"** and choose **Publish**. Plain "Save changes" only saves the draft — that is
+   what lost it last time. Afterwards `has_draft_theme_changes` should read false and
+   the live embed should show "Join ADHDme Weekly", not "Subscribe".
+
+   To find the forms in the dashboard: left panel → **Subscribers** → **Subscribe
+   forms** (<https://app.beehiiv.com/subscribe_forms>). The publication is **ADHDme
+   Weekly**; if the workspace switcher still shows something else, switch to
+   *Info's Hiiv*.
 
 2. **Delete the three test subscribers.** There is no MCP tool for this, so it is a
    dashboard job: **Subscribers** → select → Delete.
@@ -252,9 +261,10 @@ Run against the real integrated embed on a local build of this repo, in Chrome v
 
 ## Open questions
 
-**Sending address.** Sender *name* is set to `ADHDme` as instructed. The sending *address*
-was not, because nothing appropriate is configured and inventing one was off the table.
-The options:
+**Sending address — decided.** Staying on beehiiv's default `@mail.beehiiv.com` sending
+address for now (Stefan, 2026-09-19). Free, works today, no purchase. A custom sending
+domain on adhdme.au is a paid feature and remains the upgrade path if deliverability or
+brand fit becomes a problem. Sender *name* is `ADHDme`. For the record, the options were:
 
 - **beehiiv default** — free, works today, but mail comes from a `@mail.beehiiv.com`
   address rather than the brand domain.
