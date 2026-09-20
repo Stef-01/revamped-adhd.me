@@ -133,3 +133,44 @@ is a legitimate result and more useful than a stretched one.
 Run it once a month, not weekly. Eleven practitioners sharing three practice accounts will
 not generate fresh material every seven days, and a block that recycles thin tips is worse
 than no block.
+
+---
+
+## Run log
+
+### Run 001 — 2026-09-20 — Paula Garrido + GOALS Psychology
+
+**Result: nothing usable found. The block stays empty.**
+
+Started with Paula Garrido as the most likely source: she is the only practitioner in the
+roster with an ADHD-specific credential (ADHD-CCSP).
+
+| Source | Checked | Finding |
+|---|---|---|
+| [Wellness Psychology Clinic profile](https://wellnesspsychologyclinic.com.au/doctor/clinpsych-paula-garrido/) | yes | Credentials and specialisms only. **No ADHD advice of any kind.** |
+| [paulagarrido.com.au](https://paulagarrido.com.au/) | yes | Same. One passing mention of ADHD in a list of conditions. |
+| [GOALS ADHD service page](https://www.goalspsychology.com/adhd) | yes | Service copy. Lists seven strategy *headings* — energy and attention, impulsivity, sleep routines, emotional regulation — but explains none of them, and credits no author. |
+| [GOALS homepage / site](https://www.goalspsychology.com/) | yes | No blog, no articles, no resources section. |
+| Web search, both names + ADHD | yes | Directory listings only: Psychology Today, HealthShare, HotDoc. No interviews, no podcasts, no articles. |
+| Instagram, both practice accounts | **no** | Blocked. A logged-out server-side fetch returns a login wall for both. |
+
+**What this tells us.** The two practice websites are marketing sites, not publishing
+operations. There is no public, attributable, explained ADHD strategy from any named
+practitioner in this network on the open web. Headings like "sleep routines" cannot become
+a tip — writing the explanation ourselves and attributing it to a clinician would be
+inventing their advice, which is the exact failure this workflow exists to prevent.
+
+**What to do next, in order:**
+
+1. **Run the Instagram step in Claude in Chrome.** It is the only surface not yet checked,
+   the only one likely to hold educational content, and it needs a real logged-in browser.
+   Server-side fetching cannot reach it — that is what this whole workflow is for.
+2. **If Instagram is also thin, ask rather than research.** Send three questions to one
+   clinician and publish their answers. That inverts the problem: instead of hunting for
+   quotable material that may not exist, it produces original content the practitioner has
+   already approved by writing it. It is faster, it is safer, and it is more interesting.
+3. Either way, the **From the network** block stays out of an issue until something real
+   and approved exists to put in it.
+
+Paula Garrido remains the right first ask for step 2 — the ADHD-CCSP credential is the
+strongest ADHD-specific qualification in the roster.
