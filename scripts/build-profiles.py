@@ -30,7 +30,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHELL = ROOT / 'scripts' / 'profile-shell.html'
 DECK = ROOT / 'the-doctors.html'
 LANDING = ROOT / 'index.html'
-SITE = 'https://stef-01.github.io/revamped-adhd.me'
+SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
 
 # The Network: which tab panel each category's cards go in. The first clinician in the default panel

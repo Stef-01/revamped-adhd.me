@@ -15,7 +15,7 @@ cards. Icons are inline SVG: this site carries no icon font.
 import pathlib, re, math, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SITE = 'https://stef-01.github.io/revamped-adhd.me'
+SITE = 'https://www.adhdme.au'
 INK = '#1c1917'
 
 ICON = ('viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" '
