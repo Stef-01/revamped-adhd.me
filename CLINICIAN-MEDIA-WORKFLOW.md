@@ -8,29 +8,43 @@ back into a Claude Code session (or into the beehiiv editor directly).
 
 ---
 
-## Before anything else: the consent gate
+## The model: we draft, the provider QAs
 
-**Nothing from this workflow publishes until the named clinician has approved the exact
-wording.** Not the source material — the finished sentence as it will appear.
+Agreed with the practices. We write **both the questions and a draft of the answers**, and
+the provider's job is to correct, comment and approve rather than to produce content from
+a blank page. Less cognitive labour for them, a predictable pipeline for us.
 
-This is not caution for its own sake. Every person in the roster is an AHPRA-registered
-health practitioner, and a newsletter that attributes clinical advice to them is
-advertising a regulated health service:
+This makes the approval step more important, not less. Their name goes on words we wrote
+first, so:
+
+**No pack publishes until the named provider has returned it with an approval.** Silence is
+not approval. An edit is.
+
+The rules that follow from attributing clinical content to an AHPRA-registered
+practitioner:
 
 - **Testimonials are prohibited** in advertising a regulated health service under s133 of
-  the National Law. A clinician's own educational tip is not a testimonial. A reader
-  saying "Kate changed my life" is, and must never appear in this block.
-- Advertising must not **create an unreasonable expectation of benefit**, or encourage
-  indiscriminate use of a service. "Three tips that fixed my focus" fails this. "Three
-  things Kate suggests trying before the next appointment" does not.
-- A tip must not read as **individual clinical advice**. It is general information.
-- **Instagram posts and clinic copy are the practice's copyright.** Quote briefly with
-  attribution and a link. Do not republish their images or lift whole captions.
+  the National Law. A clinician's own educational answer is not a testimonial. A reader
+  saying "Paula changed my life" is, and must never appear in this block.
+- Advertising must not **create an unreasonable expectation of benefit**. "Three tips that
+  fixed my focus" fails. "Three things Paula suggests trying" does not.
+- An answer is **general information**, never individual clinical advice.
+- Draft answers must be **conservative and flagged**. Where we are unsure, the draft says
+  so inline, so the provider is correcting a marked uncertainty rather than hunting for
+  one.
 
-If a clinician declines, or does not reply, the block runs without them. It is optional
-furniture, not a dependency.
+### The loop
 
----
+1. **Pick a provider** and a topic that plays to their specific credentials.
+2. **Draft three questions and three answers.** Two to four sentences each, in ADHDme's
+   voice, with a `CHECK:` note wherever we are guessing.
+3. **Send the pack for QA.** They edit inline, comment, or reject.
+4. **Publish only what comes back approved**, with their name, role, practice and a link.
+5. **Keep the returned pack.** It is the evidence that they approved it.
+
+Research the provider's public media first only when it helps write a better draft — it is
+no longer the source of the content. Run 001 below establishes why: this network does not
+publish, so there was nothing to harvest.
 
 ## The roster
 
@@ -114,7 +128,8 @@ CONCERNS: <anything that might breach the rules above, or "none">
 ```
 
 If nothing usable turns up: `CLINICIAN: <name> — nothing usable found` and move on. That
-is a legitimate result and more useful than a stretched one.
+is a legitimate result and more useful than a stretched one — and under the draft-and-QA
+model it is not a blocker, because the content does not depend on the find.
 
 ---
 
@@ -174,3 +189,12 @@ inventing their advice, which is the exact failure this workflow exists to preve
 
 Paula Garrido remains the right first ask for step 2 — the ADHD-CCSP credential is the
 strongest ADHD-specific qualification in the roster.
+
+### Run 002 — 2026-09-20 — QA pack 001 drafted
+
+Model switched to draft-and-QA (agreed with the practices). First pack written for Paula
+Garrido: `qa-packs/pack-001-paula-garrido.md`. Three questions and three draft answers on
+the ADHD / trauma / relationships overlap, each carrying a `CHECK:` note at the point we
+were least certain.
+
+Not sent yet. Not approved. Nothing from it publishes until it comes back edited.
