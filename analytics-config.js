@@ -9,7 +9,7 @@
 window.ADHDME = {
   // PostHog — the person-level sink. Project API key (starts with "phc_"), from
   // PostHog → Settings → Project → Project API key. Safe to ship in the browser.
-  posthogKey: '',
+  posthogKey: 'phc_nCTxy7xwt9hCTwZradey4xhWqwXraFc63S3TjRnV575d',
   // Where that project lives: https://us.i.posthog.com, https://eu.i.posthog.com, or your own host.
   posthogHost: 'https://us.i.posthog.com',
   // Where the library itself is served from. Empty derives it from posthogHost
