@@ -345,6 +345,30 @@ It cannot be unsent. Worth deleting the post so it does not sit in the public ar
 
 ---
 
+## From the network (clinician tips)
+
+The template now carries a **From the network** block: a bordered card for three tips from
+one clinician in the ADHDme network, with their role, practice and a source link.
+
+It is **empty on purpose**. Filling it means attributing clinical advice to a named,
+AHPRA-registered practitioner, which is advertising a regulated health service. The rules
+that follow from that — no testimonials under s133 of the National Law, no unreasonable
+expectation of benefit, no individual advice, and the practice's copyright in their own
+posts — are written up in `CLINICIAN-MEDIA-WORKFLOW.md`, along with the roster and the
+research pass.
+
+**Nothing in that block publishes until the named clinician approves the exact wording.**
+Not the source material — the finished sentence.
+
+Issue #1 does not include the block, because there are no approved tips yet and a
+placeholder in a sendable draft is how a placeholder gets sent.
+
+One thing the roster makes obvious: eight of the eleven practitioners share a single
+practice Instagram (`@goals.psychology`). Expect most finds to be attributable to GOALS
+Psychology rather than to an individual, unless a post names its author.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
