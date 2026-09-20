@@ -369,6 +369,52 @@ Psychology rather than to an individual, unless a post names its author.
 
 ---
 
+## Images, and a critical read of the template
+
+**Everything is now visible inside beehiiv**, not just in this repo. QA pack 001 lives at
+`post_1b47366e` as a hidden internal draft (`hide_from_feed: true`), branded, with a black
+DO NOT SEND banner at the top. The repo copy in `qa-packs/` is the archive, not the thing
+you read.
+
+### Images
+
+Sourced from **Pexels**, not Unsplash — Unsplash returns 401 to server-side fetches, Pexels
+does not, and the Pexels licence permits commercial use without attribution. Candidates
+were downloaded and actually looked at rather than picked from filenames; two were
+rejected on sight (a derelict bedroom, and a notebook shot with pink hydrangea that fights
+the palette).
+
+Issue 1 hero: asset `b3bf3eb1`, 1200x560, warm early light across a bed. On topic for
+sleep and close to the brand's amber and cream. The template carries the same file as a
+**placeholder** with a caption telling you to replace it every issue.
+
+### The critical read
+
+Things worth knowing about what was built:
+
+1. **Centred headings are borrowed, not native.** The stock template centres everything;
+   adhdme.au is left-aligned editorial throughout. Centred section headings work as
+   dividers in email, so they stayed — but it is a deviation from the site, made knowingly.
+2. **Commerce sits close to the caveat.** *Worth a look* follows the evidence caveat by two
+   blocks. The "Popular, not proven" line carries the weight there; if the section ever
+   grows, move it below the poll.
+3. **Two CTAs run back to back** — the *Find a clinician* button and the referral block.
+   They serve different purposes, but it is the weakest part of the flow.
+4. **No wordmark.** The masthead is typographic because the repo has no logo asset that
+   works at newsletter width.
+5. **Length.** With every block filled — research, practice, caveat, network, products,
+   poll, next week, referral — this is a long weekly for an ADHD audience. The meta line
+   now states a read time, and blocks are meant to be dropped, not always filled.
+
+### One that bit
+
+Applying the template to an existing post **prepends** it rather than replacing. Issue 1
+came back duplicated end to end — two mastheads, two polls, two Sources. Fixed with a
+whole-document replace. If you apply a template to a post that already has content, check
+the body afterwards.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
