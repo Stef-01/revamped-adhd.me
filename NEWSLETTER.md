@@ -199,6 +199,51 @@ and may add parameters this does not have.
 
 ---
 
+## The newsletter itself (email aesthetics)
+
+Template **ADHDme Weekly** — `post_template_59b2aa21-572e-4e8b-a03f-155da57f46cc`,
+theme `c4e1dca5-4078-4e52-8d21-f9d33ef254b6`. Start every issue from it.
+
+beehiiv's own onboarding template, *Weekly newsletter (1)*, is **read-only** — the API
+refuses to theme it ("this template is read-only because it was created during
+onboarding"), which is why a second one exists. Delete it in the dashboard so nobody
+picks the unbranded one by mistake.
+
+The email is built from the same tokens as the site, not an approximation of them:
+
+| | |
+|---|---|
+| Type | Plus Jakarta Sans throughout; Newsreader for pull quotes — both accepted by beehiiv |
+| Ink | headings `#1a1c1c`, body `#4a453a`, muted `#817662` |
+| Canvas | `#FAFAF7` page, `#FFFFFF` content card, `1px #E8E6DF` border, 16px radius |
+| Measure | 640px, 40px padding, 1.65 line height |
+| Buttons | `#1a1c1c`, white text, fully pilled, matching `.btn-press` on the site |
+| Links | `#24487a` underlined — the brand slate, not beehiiv's default blue, and not the loud coral |
+| Rules | hairline `#E8E6DF`, full width, 32px clear above and below |
+| Quotes | Newsreader on cream, hairline border; the alternate styles use a `#f1bc31` accent |
+| Link cards | cream, hairline, 12px radius — not beehiiv's grey Helvetica default |
+
+Starter structure in the template body: *This week / The research / What it means in
+practice / The caveat*. That is a scaffold, not a format decision — rewrite it freely.
+
+**Email footer** (publication-wide, active). beehiiv appends the copyright line, the
+Robina postal address and the unsubscribe link underneath:
+
+> ADHDme Weekly — ADHD science, made useful.
+> You are receiving this because you subscribed at adhdme.au.
+> Written for general information. It is not medical advice, and it is not a substitute
+> for care from your own clinician.
+
+**Not set:** a header logo. There is no ADHDme wordmark image in this repo — only the
+square app icon and the 1200x630 social card, neither of which is a masthead. The
+publication name carries the header instead. Worth revisiting if a wordmark gets drawn.
+
+**Untested:** no email has been rendered or sent, so these are the stored tokens rather
+than verified pixels. Preview one in the beehiiv editor before the first real send, and
+check the pill buttons and 16px radius in Outlook, which is the usual place both degrade.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
