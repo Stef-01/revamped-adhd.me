@@ -71,12 +71,32 @@ Four fields per post are worth knowing:
 
 Cards come in two shapes, on purpose. On Our Story they carry no chrome — image, title, hook — matching the Learn tiles. The "More from the blog" pair at the foot of a post keeps its box, because there it is a genuine aside rather than the page's own content. Icons are inline SVG; this site ships no icon font.
 
+### The invitation dialog
+
+`newsletter-invite.js` offers ADHDme Weekly once, in a native `<dialog>`, and only to somebody who
+has shown they are reading: a minute of attention counted only while the page is actually visible,
+fifteen clicks, or the foot of a page — whichever comes first. The evidence is that time-only
+triggers underperform; an engagement gate filters out the drive-by traffic that was never going to
+subscribe.
+
+It stays away from the policy pages, from anyone who has already dismissed it, from the first visit
+until the privacy notice is answered, and from anyone who has scrolled a signup form into view —
+they have had the offer without being interrupted for it. Dismissal is one value in `localStorage`
+and it is permanent.
+
+It uses the **footer** beehiiv form rather than the primary one, with `utm_content=popup`. That
+form's button reads `Join`, which is what fits beside the field once the dialog's padding comes out
+of a phone's width; the longer label only repeats the heading anyway.
+
+`newsletter-invite` events record `shown` and `dismissed` with what triggered them. Whether anybody
+subscribed is beehiiv's to answer — that is what `utm_content=popup` is for.
+
 ## Styles, scripts and fonts
 
 Every page loads one stylesheet and one script bundle:
 
 - `assets/css/site.min.css` is `assets/css/fonts.css` + `site.css` + `motion.css` + `privacy.css` + the compiled Tailwind utilities (`assets/css/tailwind.css`, built from `tailwind.config.js`), in that order, minified. It is linked last in `<head>` so utilities keep winning over each page's inline styles, as they did when the Tailwind CDN injected its CSS at the end of the head.
-- `assets/js/site.min.js` is `site.js` + `motion.js` + `analytics.js` + `privacy-consent.js`, minified. `analytics-config.js` stays a separate, unminified file so the analytics ID can be set without a rebuild. The academy login page loads only `site.js` and `motion.js`, on purpose.
+- `assets/js/site.min.js` is `site.js` + `motion.js` + `analytics.js` + `privacy-consent.js` + `newsletter-invite.js`, minified. `analytics-config.js` stays a separate, unminified file so the analytics ID can be set without a rebuild. The academy login page loads only `site.js` and `motion.js`, on purpose.
 
 Edit the source files, never the bundles, then rebuild:
 

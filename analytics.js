@@ -134,6 +134,10 @@
 
   // How far down a clinician's page somebody actually got, by the landmarks every profile carries:
   // the hero they land on, the fee table, the "Also in the network" row, then the foot of the page.
+  // The ADHDme Weekly dialog: what it did, and what earned it. newsletter-invite.js raises these.
+  // Whether anybody actually subscribed is beehiiv's to say — the form carries utm_content=popup.
+  var INVITE_ACTIONS = ['shown', 'dismissed'];
+  var INVITE_TRIGGERS = ['time', 'clicks', 'foot'];
   var READ_DEPTHS = ['hero', 'fees', 'network', 'end'];
   var YES_NO = ['yes', 'no'];
   // The header's four, then the landing page's two doors wherever they appear: the hero card, the
@@ -205,6 +209,10 @@
       dwell: { kind: 'count' },
       acted: { kind: 'vocabulary', values: YES_NO }
     }),
+    'newsletter-invite': {
+      action: { kind: 'vocabulary', values: INVITE_ACTIONS },
+      trigger: { kind: 'vocabulary', values: INVITE_TRIGGERS }
+    },
     'booking-outbound': spec(WHO, SOUGHT, CAME, {
       practice: { kind: 'vocabulary', values: PRACTICES },
       destination: { kind: 'vocabulary', values: DESTINATIONS },
