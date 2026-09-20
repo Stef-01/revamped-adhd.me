@@ -59,7 +59,7 @@ The original brief assumed polls and surveys were Max-only. They are not, on thi
 | **Automations** | draft created but never publishable; beehiiv documents automations as Scale+ | Scale+ | **Has a free substitute** — the built-in Welcome Email does the one job that mattered. |
 | **Custom sending domain** (`@adhdme.au`) | not attempted; documented paid | Scale+ | Deliverability and brand fit. The strongest case for upgrading, and still weak at this size. |
 | **Paid subscriptions / tiers** | `list_tiers` empty; documented Scale+ | Scale+ | No. Not the model. |
-| **RSS-to-Send** | no feeds configured; documented paid | Scale+ | No. Issues are hand-written. |
+| **RSS Ingestion** (RSS-to-Send) | no feeds configured; `list_external_rss_feeds` returns 0; beehiiv documents it as Max/Enterprise | Max+ | No. Issues are hand-written. Note this is *inbound* RSS — outbound RSS is free, see below. |
 | **Multiple publications / team seats** | not attempted | Scale+ / Enterprise | Not yet. One publication, one author. |
 
 ### Discrepancy worth knowing
@@ -100,14 +100,30 @@ Audited 2026-09-20. These all work on Launch. Each is a decision, not a task.
 
 ### Worth doing next
 
-**Custom link parameters.** beehiiv can append parameters to every outbound link, so
-clicks from the newsletter land in the site's own analytics already attributed. The site
-runs PostHog. This is the cheapest real win left and it needs no content.
+**Custom link parameters — considered and declined.** beehiiv can append parameters to
+every outbound link so clicks land in the site's own analytics already attributed. The
+available parameter values include the subscriber's email hash and subscription ID,
+which would be sent to *every* third-party site a reader clicks through to — goblin.tools,
+notion.com, partner practices. That is a subscriber identifier leaking off a health-adjacent
+list, for a marginal attribution gain. Declined 2026-09-20. Automatic UTM tagging was
+switched on instead (`utm_source=adhdme-weekly`), which attributes the traffic without
+carrying anything that identifies a person.
 
-**Syndicate the archive to adhdme.au.** beehiiv publishes an RSS feed of every issue. The
-site has a `learn.html` and a blog build script already. Pulling issues onto the site turns
-a weekly email into indexed pages that bring in search traffic — the newsletter starts
-feeding the site instead of only the other way round.
+**Syndicate the archive to adhdme.au — one dashboard click away.** The site has a
+`learn.html` and a blog build script already. Pulling issues onto the site turns a weekly
+email into indexed pages that bring in search traffic — the newsletter starts feeding the
+site instead of only the other way round.
+
+The earlier note here said beehiiv "publishes an RSS feed of every issue". It does not,
+not by default. Outbound RSS is free on Launch, but the feed has to be *generated once*
+at Settings → Publication → [RSS](https://app.beehiiv.com/settings/publication/rss) →
+**New RSS Feed**, which mints a unique `.xml` URL. Until that click, there is no feed and
+every guessable URL 404s — confirmed 2026-09-20 against `/feed`, `/rss`, `/feed.xml`,
+`/rss.xml`, `rss.beehiiv.com/feeds/adhdme.xml` and
+`rss.beehiiv.com/feeds/adhdme.beehiiv.com.xml`, all 404. The URL is random, so it cannot
+be derived or guessed; it can only be read off the dashboard after generating it, and
+regenerating mints a new one and breaks the old. No MCP tool creates it —
+`get_publication_settings` exposes no RSS key at all. **Blocked on one human click.**
 
 **The welcome email.** Copy is already written and sitting in this repo. Dashboard-only,
 ten minutes, and it closes the one genuine gap in the free-safe core: right now a new
@@ -137,7 +153,20 @@ each one needs a reward and what ADHDme gives away is a product decision.
 ### Premature
 
 **Engagement segments** (re-engagement, highly-engaged). Free and useful — after there is
-send history. At zero issues sent they would match nothing. Revisit after ~5 issues.
+send history. One exists: **Unengaged — 30 days**
+(`seg_3029a02e-8d82-4d90-9f3d-dda070dc3a69`), `status = 'active' AND
+unique_opens(within: '1 month') = 0`.
+
+> **Do not send to it yet.** The assumption when it was built was that it would match
+> nobody until there was send history. It matches **all 5 subscribers** — "no opens in
+> 30 days" is trivially true of everyone when nothing has ever been sent. Mailing it
+> today would send a "we miss you" to the entire list, every one of whom signed up this
+> week. It only becomes a re-engagement segment once roughly a month of issues have gone
+> out. Revisit after ~5 issues.
+
+beehiiv DSL gotcha worth keeping: `last_opened_or_clicked_days_ago` is an *automation
+branch* condition and is rejected in a segment. `unique_opens(within: '30 days')` is the
+segment form, and beehiiv silently normalises it to `within: '1 month'`.
 
 **Signup flows.** They only apply to the beehiiv-hosted subscribe page, not to the embedded
 forms on adhdme.au, which is where the traffic will be. Low value for this setup.
@@ -148,9 +177,10 @@ forms on adhdme.au, which is where the traffic will be. Low value for this setup
 
 ### Blocked by missing assets, not by beehiiv
 
-**Publication social links** — ADHDme has no social accounts of its own. The only handles
-on the site belong to the partner practices, and pointing the publication at those would
-misattribute it.
+**Publication social links** — resolved 2026-09-20. ADHDme now has its own Instagram
+(`@adhdme.australia`) and it is set on the beehiiv author profile. The remaining platforms
+stay null on purpose: the other handles on the site belong to the partner practices, and
+pointing the publication at those would misattribute it.
 
 **Author avatar** — Stefan's byline still shows a generated gradient, because there is no
 photograph in the repo.
