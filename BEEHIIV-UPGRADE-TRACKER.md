@@ -59,7 +59,7 @@ The original brief assumed polls and surveys were Max-only. They are not, on thi
 | **Automations** | draft created but never publishable; beehiiv documents automations as Scale+ | Scale+ | **Has a free substitute** — the built-in Welcome Email does the one job that mattered. |
 | **Custom sending domain** (`@adhdme.au`) | not attempted; documented paid | Scale+ | Deliverability and brand fit. The strongest case for upgrading, and still weak at this size. |
 | **Paid subscriptions / tiers** | `list_tiers` empty; documented Scale+ | Scale+ | No. Not the model. |
-| **RSS Ingestion** (RSS-to-Send) | no feeds configured; `list_external_rss_feeds` returns 0; beehiiv documents it as Max/Enterprise | Max+ | No. Issues are hand-written. Note this is *inbound* RSS — outbound RSS is free, see below. |
+| **RSS Ingestion** (RSS-to-Send) | `list_external_rss_feeds` returns 0; the RSS settings page shows "Unlock with Max plan" — **and still shows it on day 1 of the active Max trial**, so the trial does not unlock it | Max+ | No. Issues are hand-written. Note this is *inbound* RSS — outbound RSS is free and now generated, see below. |
 | **Multiple publications / team seats** | not attempted | Scale+ / Enterprise | Not yet. One publication, one author. |
 
 ### Discrepancy worth knowing
@@ -109,21 +109,34 @@ list, for a marginal attribution gain. Declined 2026-09-20. Automatic UTM taggin
 switched on instead (`utm_source=adhdme-weekly`), which attributes the traffic without
 carrying anything that identifies a person.
 
-**Syndicate the archive to adhdme.au — one dashboard click away.** The site has a
-`learn.html` and a blog build script already. Pulling issues onto the site turns a weekly
-email into indexed pages that bring in search traffic — the newsletter starts feeding the
-site instead of only the other way round.
+**Syndicate the archive to adhdme.au — feed is live.**
 
-The earlier note here said beehiiv "publishes an RSS feed of every issue". It does not,
-not by default. Outbound RSS is free on Launch, but the feed has to be *generated once*
-at Settings → Publication → [RSS](https://app.beehiiv.com/settings/publication/rss) →
-**New RSS Feed**, which mints a unique `.xml` URL. Until that click, there is no feed and
-every guessable URL 404s — confirmed 2026-09-20 against `/feed`, `/rss`, `/feed.xml`,
-`/rss.xml`, `rss.beehiiv.com/feeds/adhdme.xml` and
-`rss.beehiiv.com/feeds/adhdme.beehiiv.com.xml`, all 404. The URL is random, so it cannot
-be derived or guessed; it can only be read off the dashboard after generating it, and
-regenerating mints a new one and breaks the old. No MCP tool creates it —
-`get_publication_settings` exposes no RSS key at all. **Blocked on one human click.**
+```
+https://rss.beehiiv.com/feeds/256LXheLe8.xml
+```
+
+Generated 2026-09-20. Serves HTTP 200, `application/xml`, full `<content:encoded>` bodies,
+channel image, categories and `<atom:link rel="self">`. The site has a `learn.html` and a
+blog build script already; pointing them at this turns a weekly email into indexed pages.
+
+Two things about it worth knowing before anything consumes it:
+
+> **The feed's only item today is "Newsletter Template"** —
+> `/p/newsletter-template-0ecf225d657d342c`, the internal template that was published to web
+> by accident. It is already a public page, so RSS did not leak it, but any syndication built
+> on this feed right now would pull an internal template onto adhdme.au and get it indexed.
+> Unpublish or archive that post before wiring the feed into the site.
+
+> **The URL's token is random** (`256LXheLe8`) and is not derived from the publication name,
+> slug or ID. It cannot be guessed — which is why the earlier probe of six plausible URL
+> patterns returned six 404s. Deleting and regenerating mints a *new* token and breaks every
+> consumer of the old one, so treat this URL as the durable reference. There is no MCP tool
+> that reads it back; `get_publication_settings` still exposes no RSS key. If it is ever lost,
+> it is at Settings → Publication → [RSS](https://app.beehiiv.com/settings/publication/rss).
+
+Outbound RSS is free on Launch. It simply does not exist until generated — the earlier note
+here claiming beehiiv "publishes an RSS feed of every issue" was wrong.
+
 
 **The welcome email.** Copy is already written and sitting in this repo. Dashboard-only,
 ten minutes, and it closes the one genuine gap in the free-safe core: right now a new
