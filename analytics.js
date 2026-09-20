@@ -22,59 +22,70 @@
     'anubhav-saxena': {
       booking: /dr-anubhav-saxena\/p123180/, profile: 'dr-anubhav-saxena.html',
       name: 'Dr Anubhav Saxena', category: 'gp',
-      practice: 'Beecroft Family & Skin Cancer Clinic', destination: 'healthengine'
+      practice: 'Beecroft Family & Skin Cancer Clinic', destination: 'healthengine',
+      expertise: ['assessment', 'physical-health', 'integrative'], ages: ['adults']
     },
     'anu-saxena': {
       booking: /dr-anusha-saxena\/p160121/, profile: 'dr-anu-saxena.html',
       name: 'Dr Anu Saxena', category: 'gp',
-      practice: 'Bay Health Clinic', destination: 'healthengine'
+      practice: 'Bay Health Clinic', destination: 'healthengine',
+      expertise: ['mental-health', 'womens-health'], ages: ['children', 'adults']
     },
     'paula-garrido': {
       booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html',
       name: 'Paula Garrido', category: 'psychologist',
-      practice: 'Wellness Psychology Clinic', destination: 'clinic-form'
+      practice: 'Wellness Psychology Clinic', destination: 'clinic-form',
+      expertise: ['autism', 'trauma', 'neuroaffirming'], ages: ['adults']
     },
     // GOALS Psychology: one clinic booking page for the seven bookable clinicians, so the regex cannot
     // tell them apart. clinicianFor() resolves it from the profile page the click came from.
     'kate-row': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'kate-row.html',
       name: 'Kate Row', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['therapy', 'ndis'], ages: ['children', 'teens', 'adults']
     },
     'ellie-putland': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'ellie-putland.html',
       name: 'Ellie Putland', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['therapy', 'trauma'], ages: ['teens', 'adults']
     },
     'lachlan-avent': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lachlan-avent.html',
       name: 'Lachlan Avent', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['assessment', 'autism', 'parenting'], ages: ['children', 'teens', 'adults']
     },
     'samantha-courtney': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'samantha-courtney.html',
       name: 'Samantha Courtney', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['eating-disorders', 'perinatal'], ages: ['adults']
     },
     'lauren-poulos': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lauren-poulos.html',
       name: 'Lauren Poulos', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['assessment', 'early-intervention', 'parenting'], ages: ['children']
     },
     'alice-bui': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'alice-bui.html',
       name: 'Alice Bui', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['therapy', 'trauma', 'cald'], ages: ['teens', 'adults']
     },
     'meera-lakhani': {
       booking: /goalspsychology\.com\/contact/, profile: 'meera-lakhani.html',
       name: 'Meera Lakhani', category: 'psychologist',
-      practice: 'GOALS Psychology', destination: 'clinic-contact'
+      practice: 'GOALS Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'autism', 'education'], ages: ['children', 'teens']
     },
     'flynn-simonis': {
       booking: /halaxy\.com\/book\/goals-psychology/, profile: 'flynn-simonis.html',
       name: 'Flynn Simonis', category: 'allied',
-      practice: 'GOALS Psychology', destination: 'halaxy'
+      practice: 'GOALS Psychology', destination: 'halaxy',
+      expertise: ['occupational-therapy', 'education', 'ndis'], ages: ['children', 'teens']
     }
   };
 
@@ -87,6 +98,14 @@
     return unique(Object.keys(CLINICIANS).map(function (id) { return CLINICIANS[id][key]; }));
   }
 
+  function columnFlat(key) {
+    var out = [];
+    Object.keys(CLINICIANS).forEach(function (id) {
+      (CLINICIANS[id][key] || []).forEach(function (v) { if (out.indexOf(v) === -1) out.push(v); });
+    });
+    return out;
+  }
+
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var CLINICIAN_NAMES = column('name');
   var CATEGORIES = column('category');        // gp · psychologist · allied
@@ -96,6 +115,27 @@
   // second booking link; mark it with data-booking-link="..." and add the name here.
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];
   var BOOKING_LINKS = ['profile-cta', 'deck-card', 'other'];
+  // What each clinician is sought for, and who they see. Kept here beside the other analytics
+  // metadata so a dashboard can ask "what is being looked for", not just "who was looked at" —
+  // the answer to that is what says which expertise the network is short of. Derived from the
+  // chips and experience in scripts/build-profiles.py; keep the two in step.
+  var EXPERTISE = columnFlat('expertise');
+  var AGE_BANDS = ['children', 'teens', 'adults'];
+
+  // Where a visit came from, and what it was reading when it came. utm_source names the channel,
+  // utm_campaign the theme of the post, utm_content the post itself. The first two are closed
+  // vocabularies so a dashboard reads words the team agreed on; the third is a token, because
+  // posts are made faster than code is deployed.
+  var CHANNELS = ['instagram', 'facebook', 'tiktok', 'linkedin', 'youtube', 'newsletter',
+    'search', 'direct', 'referral', 'other'];
+  var CONTENT_THEMES = ['adult-adhd', 'women', 'children', 'autism', 'assessment', 'medication',
+    'workplace', 'relationships', 'body-doubling', 'late-diagnosis', 'cost-access',
+    'clinician-spotlight', 'other'];
+
+  // How far down a clinician's page somebody actually got, by the landmarks every profile carries:
+  // the hero they land on, the fee table, the "Also in the network" row, then the foot of the page.
+  var READ_DEPTHS = ['hero', 'fees', 'network', 'end'];
+  var YES_NO = ['yes', 'no'];
   // The header's four, then the landing page's two doors wherever they appear: the hero card, the
   // pair of panels, and the closing banner.
   var LANDING_CONTROLS = ['nav-learn', 'nav-cta', 'nav-doctors', 'nav-approach',
@@ -114,10 +154,35 @@
   var PAGE_NAMES = unique(Object.keys(PAGES).map(function (k) { return PAGES[k]; }).concat(['profile', 'other']));
 
   // ------------------------------------------------------------------ the taxonomy
+  // Three fragments the events share, so a property means the same thing wherever it appears and
+  // a new one is added in a single place.
+  function spec() {
+    var out = {}, args = arguments;
+    Array.prototype.forEach.call(args, function (part) {
+      Object.keys(part).forEach(function (k) { out[k] = part[k]; });
+    });
+    return out;
+  }
+  // Who the clinician is, in the words a dashboard reads back.
+  var WHO = {
+    clinician: { kind: 'vocabulary', values: CLINICIAN_IDS },
+    clinician_name: { kind: 'vocabulary', values: CLINICIAN_NAMES },
+    category: { kind: 'vocabulary', values: CATEGORIES }
+  };
+  // What they are sought for. Lists, because a clinician is several things at once.
+  var SOUGHT = {
+    expertise: { kind: 'list', values: EXPERTISE },
+    ages: { kind: 'list', values: AGE_BANDS }
+  };
+  // What brought the visit. Carried on every event worth crossing against a content calendar.
+  var CAME = {
+    channel: { kind: 'vocabulary', values: CHANNELS },
+    content_theme: { kind: 'vocabulary', values: CONTENT_THEMES },
+    content_post: { kind: 'token' }
+  };
+
   var EVENTS = {
-    'page-viewed': {
-      page: { kind: 'vocabulary', values: PAGE_NAMES }
-    },
+    'page-viewed': spec({ page: { kind: 'vocabulary', values: PAGE_NAMES } }, CAME),
     'landing-viewed': {},
     'landing-cta': {
       control: { kind: 'vocabulary', values: LANDING_CONTROLS }
@@ -125,27 +190,27 @@
     'deck-viewed': {
       clinicians: { kind: 'count' }
     },
-    'deck-card-opened': {
-      clinician: { kind: 'vocabulary', values: CLINICIAN_IDS },
-      clinician_name: { kind: 'vocabulary', values: CLINICIAN_NAMES },
-      category: { kind: 'vocabulary', values: CATEGORIES }
-    },
-    'profile-viewed': {
-      clinician: { kind: 'vocabulary', values: CLINICIAN_IDS },
-      clinician_name: { kind: 'vocabulary', values: CLINICIAN_NAMES },
-      category: { kind: 'vocabulary', values: CATEGORIES },
+    'deck-card-opened': spec(WHO, SOUGHT),
+    'profile-viewed': spec(WHO, SOUGHT, CAME, {
       practice: { kind: 'vocabulary', values: PRACTICES },
       surface: { kind: 'vocabulary', values: BOOKING_SURFACES }
-    },
-    'booking-outbound': {
-      clinician: { kind: 'vocabulary', values: CLINICIAN_IDS },
-      clinician_name: { kind: 'vocabulary', values: CLINICIAN_NAMES },
-      category: { kind: 'vocabulary', values: CATEGORIES },
+    }),
+    // One summary per profile view, sent when the page goes away: how far it was read, how long it
+    // held attention, and whether it ended in a handoff. One event per view, not one per scroll —
+    // the question is "who read as far as the fees and still did not book", and that needs a row
+    // per reading, not a stream of them.
+    'profile-engaged': spec(WHO, SOUGHT, CAME, {
+      practice: { kind: 'vocabulary', values: PRACTICES },
+      depth: { kind: 'vocabulary', values: READ_DEPTHS },
+      dwell: { kind: 'count' },
+      acted: { kind: 'vocabulary', values: YES_NO }
+    }),
+    'booking-outbound': spec(WHO, SOUGHT, CAME, {
       practice: { kind: 'vocabulary', values: PRACTICES },
       destination: { kind: 'vocabulary', values: DESTINATIONS },
       surface: { kind: 'vocabulary', values: BOOKING_SURFACES },
       link: { kind: 'vocabulary', values: BOOKING_LINKS }
-    }
+    })
   };
 
   function findings(name, props) {
@@ -157,6 +222,21 @@
       var v = props[k];
       if (v === undefined) { out.push('"' + name + '" is missing "' + k + '"'); return; }
       if (spec[k].kind === 'count') { if (typeof v !== 'number' || !isFinite(v)) out.push('"' + name + '"."' + k + '" must be a finite number'); return; }
+      // A list: every member must be declared. One clinician is several things at once, and a
+      // dashboard should be able to break down by each of them.
+      if (spec[k].kind === 'list') {
+        if (!Array.isArray(v)) { out.push('"' + name + '"."' + k + '" must be an array'); return; }
+        v.forEach(function (item) {
+          if (spec[k].values.indexOf(item) === -1) out.push('"' + name + '"."' + k + '" has undeclared member ' + JSON.stringify(item));
+        });
+        return;
+      }
+      // A token: not a closed list, because a campaign names a post and posts outrun deploys. Still
+      // validated, so what lands is a slug and never free text somebody typed.
+      if (spec[k].kind === 'token') {
+        if (typeof v !== 'string' || !/^[a-z0-9][a-z0-9-]{0,39}$/.test(v)) out.push('"' + name + '"."' + k + '" must be a short lowercase slug, got ' + JSON.stringify(v));
+        return;
+      }
       if (typeof v !== 'string' || spec[k].values.indexOf(v) === -1) out.push('"' + name + '"."' + k + '" must be one of the declared values, got ' + JSON.stringify(v));
     });
     return out;
@@ -213,6 +293,13 @@
     return id;
   }
 
+  // How a clinician is described on an event, in one place so the five call sites cannot drift.
+  function who(id) {
+    var c = CLINICIANS[id];
+    return { clinician: id, clinician_name: c.name, category: c.category,
+             expertise: c.expertise, ages: c.ages };
+  }
+
   // ------------------------------------------------------------------ where we are
   var path = location.pathname.replace(/\/index\.html$/, '/');
   var file = path.split('/').pop() || 'index.html';
@@ -232,6 +319,62 @@
       var h = new URL(document.referrer).hostname;
       return h === location.hostname ? 'this-site' : h;
     } catch (e) { return 'unknown'; }
+  }
+
+  // ------------------------------------------------------------------ where this visit came from
+  // A visit is one browsing session. Whatever brought it is remembered for the whole of it, so a
+  // booking three pages later is still credited to the post that started it rather than to the
+  // internal link that happened to be last. Held in sessionStorage, so it ends when the visit does.
+  var VISIT_KEY = 'adhdme-visit';
+  var SOCIAL = {
+    'instagram.com': 'instagram', 'l.instagram.com': 'instagram',
+    'facebook.com': 'facebook', 'm.facebook.com': 'facebook', 'l.facebook.com': 'facebook',
+    'tiktok.com': 'tiktok', 'linkedin.com': 'linkedin', 'lnkd.in': 'linkedin',
+    'youtube.com': 'youtube', 'youtu.be': 'youtube'
+  };
+  var SEARCH = /(^|\.)(google|bing|duckduckgo|ecosia|yahoo)\./;
+
+  function slug(v) {
+    return String(v || '').toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+  }
+  function inVocab(v, list, fallback) { return list.indexOf(v) !== -1 ? v : fallback; }
+
+  function channelFromReferrer() {
+    var host = referrerHost();
+    if (host === 'none') return 'direct';
+    if (host === 'this-site' || host === 'unknown') return null;   // keep whatever the visit already had
+    var bare = host.replace(/^www\./, '');
+    if (SOCIAL[bare]) return SOCIAL[bare];
+    if (SEARCH.test(host)) return 'search';
+    return 'referral';
+  }
+
+  function visit() {
+    var held = null;
+    try { held = JSON.parse(sessionStorage.getItem(VISIT_KEY) || 'null'); } catch (e) {}
+    // An explicit tag always wins: it is the post telling us, rather than us guessing from a host.
+    if (params.get('utm_source')) {
+      var tagged = {
+        channel: inVocab(slug(params.get('utm_source')), CHANNELS, 'other'),
+        theme: inVocab(slug(params.get('utm_campaign')), CONTENT_THEMES, 'other'),
+        post: slug(params.get('utm_content')) || 'none'
+      };
+      try { sessionStorage.setItem(VISIT_KEY, JSON.stringify(tagged)); } catch (e) {}
+      return tagged;
+    }
+    if (held && held.channel) return held;
+    var derived = { channel: channelFromReferrer() || 'direct', theme: 'other', post: 'none' };
+    try { sessionStorage.setItem(VISIT_KEY, JSON.stringify(derived)); } catch (e) {}
+    return derived;
+  }
+  var came = visit();
+  // Every event that matters carries it, so "which post produced handoffs" is a breakdown rather
+  // than a join.
+  function withVisit(props) {
+    props.channel = came.channel;
+    props.content_theme = came.theme;
+    props.content_post = came.post;
+    return props;
   }
 
   // ------------------------------------------------------------------ what a person row says
@@ -413,7 +556,7 @@
   start();
 
   // ------------------------------------------------------------------ page events
-  track('page-viewed', { page: pageName });
+  track('page-viewed', withVisit({ page: pageName }));
 
   if (file === 'index.html') track('landing-viewed', {});
 
@@ -432,10 +575,58 @@
     var from = BOOKING_SURFACES.indexOf(src) !== -1 ? src : (/the-doctors\.html/.test(document.referrer) ? 'network' : 'profile');
     var seenProfiles = profilesSeen();
     if (seenProfiles.indexOf(profileId) === -1) { seenProfiles.push(profileId); writeLocal(PROFILES_KEY, seenProfiles.slice(-50)); }
-    track('profile-viewed', {
-      clinician: profileId, clinician_name: c.name, category: c.category,
+    track('profile-viewed', withVisit(spec(who(profileId), {
       practice: c.practice, surface: from
+    })));
+
+    // ---------------------------------------------------------------- how the page was read
+    // Profile pages put the booking button in the hero, so "did they see the call to action" is
+    // true of nearly everybody and worth nothing. What is worth something is how far past it they
+    // went: somebody who read the fee table and left is a different person from somebody who never
+    // scrolled, and only one of them is a lost booking.
+    //
+    // Sent once, when the page goes away, carrying the deepest landmark reached, the seconds the
+    // page actually held the screen, and whether the reading ended in a handoff. A booking click
+    // runs its own handler before the page hides, so 'acted' is already true by the time this goes.
+    // The one reading it cannot give: tabbing away mid-page ends the measurement there.
+    var reached = 0;                       // index into READ_DEPTHS
+    var acted = false;
+    var visibleSince = document.visibilityState === 'visible' ? Date.now() : 0;
+    var dwellMs = 0;
+    var sent = false;
+
+    var landmarks = [
+      { at: 1, el: document.getElementById('fees-title') },
+      { at: 2, el: document.getElementById('also-title') },
+      { at: 3, el: document.querySelector('footer') }
+    ];
+    if (window.IntersectionObserver) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          landmarks.forEach(function (m) { if (m.el === e.target && m.at > reached) reached = m.at; });
+        });
+      }, { threshold: 0 });
+      landmarks.forEach(function (m) { if (m.el) io.observe(m.el); });
+    }
+
+    var markActed = function () { acted = true; };
+    window.addEventListener('adhdme-booking-click', markActed);
+
+    var sendEngagement = function () {
+      if (sent) return;
+      sent = true;
+      if (visibleSince) { dwellMs += Date.now() - visibleSince; visibleSince = 0; }
+      track('profile-engaged', withVisit(spec(who(profileId), {
+        practice: c.practice, depth: READ_DEPTHS[reached],
+        dwell: Math.round(dwellMs / 1000), acted: acted ? 'yes' : 'no'
+      })));
+    };
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState === 'visible') { visibleSince = visibleSince || Date.now(); return; }
+      sendEngagement();
     });
+    window.addEventListener('pagehide', sendEngagement);
   }
 
   // ------------------------------------------------------------------ click events
@@ -454,7 +645,7 @@
       if (!a) return;
       var id = clinicianOfPage((a.getAttribute('href') || '').split(/[?#]/)[0]);
       if (!id) return;
-      track('deck-card-opened', { clinician: id, clinician_name: CLINICIANS[id].name, category: CLINICIANS[id].category });
+      track('deck-card-opened', who(id));
     }, true);
   }
 
@@ -485,7 +676,7 @@
     if (!a) return;
     var id = clinicianFor(a.href);
     if (!id) return;
-    var who = CLINICIANS[id];
+    var person = CLINICIANS[id];
     var surf = surface || 'network';
     var link = linkNameFor(a);
     try {
@@ -497,14 +688,14 @@
       a.href = u.toString();
     } catch (err) {}
     tallyOutbound({
-      clinicianId: id, name: who.name, category: who.category, practice: who.practice,
-      destination: who.destination, surface: surf, link: link,
+      clinicianId: id, name: person.name, category: person.category, practice: person.practice,
+      destination: person.destination, surface: surf, link: link,
       day: new Date().toISOString().slice(0, 10), at: Date.now()
     });
-    track('booking-outbound', {
-      clinician: id, clinician_name: who.name, category: who.category, practice: who.practice,
-      destination: who.destination, surface: surf, link: link
-    });
+    track('booking-outbound', withVisit(spec(who(id), {
+      practice: person.practice, destination: person.destination, surface: surf, link: link
+    })));
+    try { window.dispatchEvent(new Event('adhdme-booking-click')); } catch (err2) {}
     // The person row carries the running count, so the Persons list answers "how many booking links
     // has this visitor followed, and for whom" without a query.
     posthogCall('setPersonProperties', [personSet()]);

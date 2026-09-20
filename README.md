@@ -166,6 +166,20 @@ The question this setup exists to answer: **who is on the site, and how many of 
 | `profile-viewed` | whose page, their discipline, their practice, which surface they came from |
 | `booking-outbound` | who they went to book with, their discipline, their practice, where the link lands, which surface, and which named link |
 
+### Expertise, and what the network is short of
+
+Each clinician in the `analytics.js` registry carries `expertise` and `ages` alongside their discipline and practice, derived from the `chips` and `experience` in `scripts/build-profiles.py`. They ride along on `profile-viewed`, `booking-outbound` and `profile-engaged` as lists, so a breakdown counts a clinician once under each thing they are sought for. The point is the gap: *What the network is asked for* reads how many people opened somebody with a given expertise against how many went on to book, and a wide gap there is a discipline the network is thin on rather than a page that reads badly. Keep the two registries in step when a clinician's focus changes.
+
+### Where a visit came from, and which post produced it
+
+Tag anything you publish: `?utm_source=<channel>&utm_campaign=<theme>&utm_content=<post>`. The channel and theme are closed vocabularies in `analytics.js`, so a dashboard reads words the team agreed on and an unrecognised one lands as `other` rather than breaking the row. The post is a token — validated as a short lowercase slug, but not a fixed list, because posts are made faster than code is deployed. An untagged visit still gets a channel, inferred from the referrer.
+
+The tag is held in `sessionStorage` for the length of the visit, so a booking three pages later is still credited to the post that started it rather than to the last internal link. *Which post produced the handoff* and *Content theme against bookings, by week* are the two tiles that read it back.
+
+### The SQL tiles
+
+Trends answer "how many". The questions with a ratio or a join in them are HogQL tiles in `scripts/posthog-dashboard.py`: the clinician scorecard, who is starved of referrals, what the network is asked for, and who read the fee table and left anyway. Two things to know if you edit them: every property comes out of the store as a string, so a number needs `toFloat()` before `avg`; and a list property is a JSON string in a nullable column, so it needs `JSONExtract(ifNull(properties.x, '[]'), 'Array(String)')` rather than going straight into `arrayJoin`.
+
 The clinician, discipline, practice and destination vocabularies are generated from the registry at the top of `analytics.js`, so a dashboard cannot show a clinician this site does not have. `scripts/build-profiles.py --check` refuses to build a profile page that registry does not declare. Adding a clinician means adding them in both places.
 
 A page that grows a second booking link should mark it with `data-booking-link="<name>"` and add that name to `BOOKING_LINKS`; otherwise the link is attributed to the page it sits on (`profile-cta` on a profile, `deck-card` on The Network).

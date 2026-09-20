@@ -82,6 +82,15 @@ def funnel(*names, breakdown=None, window=WINDOW):
     return {'kind': 'InsightVizNode', 'source': source}
 
 
+def sql(query):
+    """A SQL tile. Trends answer "how many"; these answer the questions with a join or a ratio in
+    them — which clinician converts the readers they get, which post produced a handoff, and what
+    the network is asked for and has nobody for."""
+    return {'kind': 'DataVisualizationNode',
+            'source': {'kind': 'HogQLQuery', 'query': query},
+            'display': 'ActionsTable'}
+
+
 def lifecycle(event='$pageview', interval='week', window='-90d'):
     return {'kind': 'InsightVizNode', 'source': {
         'kind': 'LifecycleQuery',
@@ -167,6 +176,130 @@ def tiles():
         ('Pages opened',
          'Every page of the site, in the site’s own words.',
          trend('page-viewed', breakdown='page', display='ActionsBarValue')),
+    ]
+    out += [
+        ('Clinician scorecard (30 days)',
+         'One row per clinician: how many people saw their card, opened their page, and went on to '
+         'book. The rate counts people, not clicks, so it cannot exceed 100%. days_since is blank '
+         'for anyone who has never had a handoff.',
+         sql("""
+select properties.clinician_name                                        as clinician,
+       anyIf(properties.practice, event = 'profile-viewed')             as practice,
+       anyIf(properties.category, event = 'profile-viewed')             as discipline,
+       uniqIf(person_id, event = 'deck-card-opened')                    as saw_card,
+       uniqIf(person_id, event = 'profile-viewed')                      as read_page,
+       uniqIf(person_id, event = 'booking-outbound')                    as booked,
+       round(100.0 * uniqIf(person_id, event = 'booking-outbound')
+             / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_readers,
+       countIf(event = 'booking-outbound')                              as handoff_clicks,
+       if(countIf(event = 'booking-outbound') = 0, null,
+          dateDiff('day', maxIf(timestamp, event = 'booking-outbound'), now())) as days_since
+from events
+where timestamp > now() - interval 30 day
+  and event in ('deck-card-opened', 'profile-viewed', 'booking-outbound')
+  and properties.clinician_name is not null
+group by clinician
+order by booked desc, read_page desc""")),
+
+        ('Starved of referrals',
+         'Listed, read, and not booked once in 30 days. Supply health: a clinician nobody is sent '
+         'to is the network failing them, and that never shows up in a total.',
+         sql("""
+select properties.clinician_name    as clinician,
+       any(properties.practice)     as practice,
+       any(properties.category)     as discipline,
+       uniq(person_id)              as readers,
+       max(timestamp)               as last_read
+from events
+where timestamp > now() - interval 30 day
+  and event = 'profile-viewed'
+  and properties.clinician_name is not null
+  and properties.clinician_name not in (
+        select properties.clinician_name from events
+        where timestamp > now() - interval 30 day and event = 'booking-outbound')
+group by clinician
+order by readers desc""")),
+
+        ('What the network is asked for',
+         'Demand by expertise, per person. A profile view counts towards every expertise that '
+         'clinician carries, so this reads what people came looking for rather than who they '
+         'happened to land on. A wide gap between read and booked is where supply is thin.',
+         sql("""
+select arrayJoin(JSONExtract(ifNull(properties.expertise, '[]'), 'Array(String)')) as expertise,
+       uniqIf(person_id, event = 'profile-viewed')      as read_someone,
+       uniqIf(person_id, event = 'booking-outbound')    as booked_someone,
+       round(100.0 * uniqIf(person_id, event = 'booking-outbound')
+             / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct
+from events
+where timestamp > now() - interval 30 day
+  and event in ('profile-viewed', 'booking-outbound')
+  and properties.expertise is not null
+group by expertise
+order by read_someone desc""")),
+
+        ('Read the fees and did not book',
+         'The cohort worth reading: got as far as the fee table on a clinician page and left '
+         'without following the booking link. Fills from the day profile-engaged ships.',
+         sql("""
+select properties.clinician_name                                  as clinician,
+       any(properties.practice)                                   as practice,
+       countIf(properties.acted = 'no'
+               and properties.depth in ('fees','network','end'))  as read_and_left,
+       countIf(properties.acted = 'yes')                          as read_and_booked,
+       round(avgIf(toFloat(properties.dwell), properties.acted = 'no'), 0) as avg_seconds_before_leaving
+from events
+where timestamp > now() - interval 30 day
+  and event = 'profile-engaged'
+group by clinician
+order by read_and_left desc""")),
+
+        ('How far profiles are read',
+         'Where attention stops: the hero, the fee table, the rest of the network, or the foot of '
+         'the page. A page nobody scrolls is a different problem from one they read and leave.',
+         trend('profile-engaged', breakdown='depth', display='ActionsBarValue')),
+
+        ('Which post produced the handoff',
+         'Every tagged post that led to a booking link being followed. Tag links as '
+         '?utm_source=<channel>&utm_campaign=<theme>&utm_content=<post>.',
+         sql("""
+select properties.content_post                          as post,
+       any(properties.content_theme)                    as theme,
+       any(properties.channel)                          as channel,
+       uniqIf(person_id, event = 'page-viewed')         as arrived,
+       uniqIf(person_id, event = 'booking-outbound')    as booked,
+       round(100.0 * uniqIf(person_id, event = 'booking-outbound')
+             / nullIf(uniqIf(person_id, event = 'page-viewed'), 0), 1) as pct
+from events
+where timestamp > now() - interval 90 day
+  and event in ('page-viewed', 'booking-outbound')
+  and properties.content_post is not null
+  and properties.content_post != 'none'
+group by post
+order by booked desc, arrived desc""")),
+
+        ('Content theme against bookings, by week',
+         'The cross-compare: what was posted about, and whether handoffs followed. One row per '
+         'theme per week, so a spike lines up against the content calendar.',
+         sql("""
+select toStartOfWeek(timestamp)                     as week,
+       ifNull(properties.content_theme, 'untagged') as theme,
+       uniqIf(person_id, event = 'page-viewed')     as arrived,
+       countIf(event = 'booking-outbound')          as handoffs
+from events
+where timestamp > now() - interval 90 day
+  and event in ('page-viewed', 'booking-outbound')
+group by week, theme
+order by week desc, handoffs desc""")),
+
+        ('Handoffs by week, by clinician',
+         'Who is trending. Week over week rather than a running total, so a clinician going quiet '
+         'shows up instead of being carried by their history.',
+         trend('booking-outbound', breakdown='clinician_name', display='ActionsLineGraph',
+               interval='week', window='-90d')),
+
+        ('Where visits come from',
+         'Channel for every visit, tagged or inferred from the referrer.',
+         trend('page-viewed', breakdown='channel', display='ActionsPie')),
     ]
     for key, label in CATEGORIES:
         out.append((
