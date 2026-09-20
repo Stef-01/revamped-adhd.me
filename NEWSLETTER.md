@@ -415,6 +415,28 @@ the body afterwards.
 
 ---
 
+## Fixes applied (2026-09-20)
+
+Every point from the critical read is now done, in both the template and issue 1.
+
+| Was | Now |
+|---|---|
+| Typed-out "ADHDME WEEKLY" capitals | The **real wordmark**, cropped from `assets/brand/og.png` onto a 1200x200 brand-yellow banner and committed as `assets/brand/masthead.png` |
+| Centred headings borrowed from the stock template | **Left-aligned**, matching adhdme.au |
+| *Find a clinician* stranded next to the referral block | Moved **inside the caveat card**, directly under "bring the question to whoever prescribes it" — the CTA now follows the sentence that motivates it |
+| Products two blocks after the evidence caveat | Moved **below the poll**, so a careful caveat is not immediately followed by things to buy |
+| Two CTAs competing at the end | *Coming next week* is now a plain teaser with no button. The referral block is the single closing ask |
+| Every block implied mandatory | *From the network* is marked **OPTIONAL BLOCK** in the template |
+
+The masthead was the fix I had written off as impossible. The wordmark already existed
+inside the social card — cropping it beat generating one, and the background sampled at
+exactly `#F1BC31`, so it sits on brand yellow with no seam.
+
+Verified in the rendered draft: both images load, and the section order reads research →
+practice → caveat → Find a clinician → poll → products → coming next → sources.
+
+---
+
 ## Still requires manual action
 
 1. ~~Publish both subscribe forms.~~ **Done.** Both are live and verified in a real
