@@ -17,6 +17,12 @@ Note the host: the personal API key talks to the app host (us.posthog.com), not 
 the browser posts events to (us.i.posthog.com). Either is accepted here; the ingestion form is
 rewritten to the app form before the first request.
 
+A tile built before its first event caches that empty result, and PostHog serves the cache
+until something asks for a recompute. A newly built dashboard therefore reads zero against
+data that is already there; opening it in the UI refreshes it, as does the refresh control
+on any tile. It is not a sign the events are missing — check the Activity view before
+assuming the site is at fault.
+
 Nothing in the browser needs this key. It never goes near analytics-config.js.
 """
 
@@ -41,6 +47,9 @@ CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('
 
 # --------------------------------------------------------------------------- query shorthand
 
+# Breakdowns go in the `breakdowns` list. The older flat form — breakdown_type/breakdown —
+# is still accepted by the API and still returns an empty result set, so a dashboard built
+# with it looks configured and reads zero against data that is plainly there.
 def events(*names, math='total'):
     return [{'kind': 'EventsNode', 'event': n, 'name': n, 'math': math} for n in names]
 
@@ -55,7 +64,7 @@ def trend(*names, math='total', breakdown=None, display='ActionsLineGraph', inte
         'trendsFilter': {'display': display},
     }
     if breakdown:
-        source['breakdownFilter'] = {'breakdown_type': 'event', 'breakdown': breakdown, 'breakdown_limit': 25}
+        source['breakdownFilter'] = {'breakdowns': [{'type': 'event', 'property': breakdown}], 'breakdown_limit': 25}
     if properties:
         source['properties'] = properties
     return {'kind': 'InsightVizNode', 'source': source}
@@ -69,7 +78,7 @@ def funnel(*names, breakdown=None, window=WINDOW):
         'funnelsFilter': {'funnelVizType': 'steps', 'funnelOrderType': 'ordered'},
     }
     if breakdown:
-        source['breakdownFilter'] = {'breakdown_type': 'event', 'breakdown': breakdown, 'breakdown_limit': 25}
+        source['breakdownFilter'] = {'breakdowns': [{'type': 'event', 'property': breakdown}], 'breakdown_limit': 25}
     return {'kind': 'InsightVizNode', 'source': source}
 
 
