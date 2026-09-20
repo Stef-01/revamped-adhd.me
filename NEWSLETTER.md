@@ -170,6 +170,44 @@ embeds*. It pins the iframe width, because beehiiv's loader momentarily writes
 `width: 5000px` onto the iframe while it measures the child — unpinned, that widens the
 page and flashes a horizontal scrollbar.
 
+### The box around the embed — and why it is not in this repo
+
+Fixed 2026-09-20. Both embeds were drawing a **1px solid `#000000` rounded rectangle**
+around the field-and-button row, sitting on an **opaque `#FFFFFF`** panel. Against the
+footer's `#fdfbf7` that read as a stray white box with a hard black outline, which is
+what it looked like — wrong, not subtle.
+
+**Do not go looking for it in `site.css`.** The wrapper there already sets `border: 0` on
+the iframe and always did. The box was *inside* the iframe: beehiiv's own form theme
+tokens, which live in beehiiv, not in this repo. Nothing in git could have explained it,
+and nothing in git records the fix either — hence this note.
+
+The tokens changed, on **both** forms so the two placements stay identical:
+
+| Token | Was | Now |
+|---|---|---|
+| `form_border_style` | `solid` | `none` |
+| `form_border_thickness` | `1px` | `0px` |
+| `form_border_radius` | `8px` all round | `0px` all round |
+| `form_background_color` | `#FFFFFF` | `#FFFFFF00` (transparent) |
+
+The outer box was redundant in the first place: `form_field_border_radius` and
+`form_button_border_radius` are both `9999px`, so the field and the button already carry
+their own pill shapes. The rectangle was a second, conflicting container around two
+controls that were already resolved.
+
+Two gotchas for anyone changing these again:
+
+- `save_subscribe_form_theme` writes the **draft** theme only. `has_draft_theme_changes`
+  goes `true` and the live embed does not move. Publishing is the form builder's
+  **Save changes** item, behind the chevron next to *Get embed code* — confusingly, that
+  panel reads "All changes are saved" even while an unpublished draft exists. Verify with
+  `get_subscribe_form` and check `has_draft_theme_changes` is back to `false`.
+- Transparency is an 8-digit hex with a zero alpha (`#FFFFFF00`), the same convention
+  beehiiv already uses for `header_background_color`. There is no separate
+  "transparent" flag for the form the way `container_background_transparent` exists for
+  the container.
+
 Remember `site.css` and the HTML are compiled: run `npm run build` after editing, since
 Vercel does not build and the committed bundles are what ship.
 
