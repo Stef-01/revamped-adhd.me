@@ -55,6 +55,9 @@ HEALTHENGINE_HINT = 'Opens the practice’s booking page on Healthengine, in a n
 
 WPC = 'https://wellnesspsychologyclinic.com.au/'
 
+# Neurotherapy Clinics Australia, five clinics; Lara Schulz practises at the Jindabyne one.
+NCAU = 'https://www.ncau.com.au/'
+
 # GOALS Psychology, Fortitude Valley. One clinic, eight clinicians, so the shared facts sit here once.
 GOALS = 'https://www.goalspsychology.com/'
 GOALS_BOOK = 'https://www.halaxy.com/book/goals-psychology/location/726621'
@@ -576,6 +579,79 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    dict(
+        slug='lara-schulz', id='lara-schulz', category='allied',
+        name='Lara Schulz', short='Lara Schulz', role='Neurotherapy Practitioner and Director', pronouns='she/her',
+        practice='Neurotherapy Clinics Australia', place='Jindabyne & Snowy Mountains',
+        descriptor='Neurotherapy practitioner & director',
+        description='QEEG brain mapping and neurotherapy in the Snowy Mountains, with the scan read and discussed before any training starts.',
+        chips=['QEEG brain mapping', 'ERP assessment', 'Neurostimulation'],
+        # Neurotherapy needs the equipment and the client in the same room, and the practice offers no
+        # remote option, so the marker stays off.
+        telehealth=False,
+        book_href=NCAU + 'contact-us/',
+        book_hint='Opens Neurotherapy Clinics Australia’s contact form, in a new tab. Appointments are arranged with the practice rather than booked online.',
+        links=[
+            ('instagram', '@neurotherapy_clinics_australia', 'https://www.instagram.com/neurotherapy_clinics_australia/'),
+            ('website', 'ncau.com.au', NCAU),
+        ],
+        fees=dict(
+            heading='What it costs',
+            # Another clinic with no published price list: same rule as GOALS above, so no figures.
+            figures=[],
+            notes=[
+                'Neurotherapy Clinics Australia does not publish a price list. It says fees are set on each person’s '
+                'individual needs and quotes them when you get in touch, and that payment plans can be arranged.',
+                'What gets quoted: a two-hour first appointment covering two QEEG brain scans, eyes open and eyes '
+                'closed, a visual and an auditory ERP, health history and your goals; then a 30-minute consultation on '
+                'the findings and on whether neurotherapy is an appropriate treatment for you. You keep a copy of the '
+                'typed report and the scan. Training sessions after that run 30 minutes, with a follow-up brain scan '
+                'after 25 to 30 of them.',
+                'The practice publishes nothing about Medicare, NDIS or private health cover for any of this. Ask what '
+                'applies to you at the same time you ask for the quote.',
+                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+                'It is described here rather than shown as a number because the practice has not published one, and a '
+                'guess would be worse than nothing.',
+            ],
+        ),
+        qualifications='Neurotherapy practitioner, GradDipPsych MBusMgt',
+        languages=[],
+        experience=[
+            'Director and principal neurotherapy practitioner, Neurotherapy Clinics Australia',
+            'Alpine Neurotherapy Clinic, Jindabyne, established after relocating from Perth',
+            'Neurotherapy training in Santa Barbara, California, with Dr Nicholas Dogris, founder of Neurofield Neurotherapy, and Dr Tiffany Thompson',
+            'EEG and QEEG assessment, and ERP assessment and analysis',
+            'Neurostimulation including tACS, tDCS, tAPNS and pEMF',
+            'Graduate Diploma in Psychology, University of New South Wales',
+            'Master of Business Management, Charles Sturt University',
+            'Presented her practice results at the Neurofield International Conference, Santa Barbara, September 2022',
+            'Speaks at conferences internationally and domestically, and to clinician groups on mental health awareness in regional areas',
+        ],
+        about=[
+            'Lara Schulz established her first Neurotherapy practice in Perth in 2019 after completing her neurotherapy training in Santa Barbara, California with expert neuroscientist and founder of Neurofield Neurotherapy, Dr Nicholas Dogris and Dr Tiffany Thompson. Since relocating to Jindabyne in Alpine NSW, she has established Alpine Neurotherapy.',
+            'Lara has a Graduate Diploma in Psychology from the University of NSW and will be continuing with her Post Graduate Psychology study after a well deserved break from study between degrees. She has studied in the USA learning how to read EEG and QEEG assessment as well as ERP assessment and analysis; and a diverse range of neurostimulation techniques including tACS, tDCS, tAPNS and pEMF.',
+            'In September 2022 Lara was invited to present the results of her neurotherapy practice at the Neurofield International Conference in Santa Barbara USA. Lara has appeared on Sky News being interviewed by Erin Molan along with Dr Dogris in the hope of bringing awareness to Australia about this state of the art therapy for all Australians.',
+            'As well as speaking at conferences both internationally and domestically Lara regularly is invited to speak to groups for Mental Health information awareness for clinicians in regional areas discussing case studies and Neurostimulation.',
+            'Lara came to this work as a client, for her own learning difficulties, and changed careers after her own child needed neurofeedback. Having completed a Masters of Business Management at Charles Sturt University, she enrolled in the Graduate Diploma in Psychology through the University of New South Wales to extend her knowledge of psychological functioning, which she describes as integral to her neurotherapy practice. She says she has always felt passionately about wanting to help and reassure anyone with learning difficulties, ADHD or any other disability that they are no different from anyone else: “We just think differently and that is something to nurture and be proud of”.',
+        ],
+        details=[
+            ('Reach', 'Clinic appointments in Jindabyne, serving the Snowy Mountains, Cooma and the Snowy Monaro region'),
+            ('Appointments', 'A two-hour first appointment, then a 30-minute consultation on the findings; training sessions run 30 minutes'),
+            ('Billing', 'Set and quoted by the practice for each person; payment plans can be arranged'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='Neurotherapy Clinics Australia is an independent practice: it sets its own fees, availability and clinical approach, and ADHDme receives no part of what you pay.',
+        schema=dict(
+            type='Person',
+            credentials=['Graduate Diploma in Psychology, University of New South Wales',
+                         'Master of Business Management, Charles Sturt University',
+                         'Neurofield neurotherapy training, Santa Barbara, California'],
+            same_as=[NCAU + 'about/', 'https://www.instagram.com/neurotherapy_clinics_australia/'],
+            works_for=dict(url=NCAU, telephone='+61 418 216 077', locality='Jindabyne', state='NSW'),
+            # She sees people in one town, so the country-wide default would overstate it.
+            area='Snowy Mountains, NSW, Australia', area_type='Place',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -732,7 +808,8 @@ def jsonld(c):
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
              'worksFor': {'@type': 'MedicalBusiness', 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
                           'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'}},
-             'areaServed': {'@type': 'Country', 'name': s['area']}}
+             # A clinician who only sees people in one town gets a Place rather than the whole country.
+             'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}
     else:
         raise BuildError(f"{c['name']}: unknown schema type {s['type']!r}")
     d['memberOf'] = {'@id': SITE + '/#org'}

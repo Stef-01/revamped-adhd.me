@@ -86,6 +86,12 @@
       name: 'Flynn Simonis', category: 'allied',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['occupational-therapy', 'education', 'ndis'], ages: ['children', 'teens']
+    },
+    'lara-schulz': {
+      booking: /ncau\.com\.au\/contact-us/, profile: 'lara-schulz.html',
+      name: 'Lara Schulz', category: 'allied',
+      practice: 'Neurotherapy Clinics Australia', destination: 'clinic-contact',
+      expertise: ['brain-mapping', 'neurotherapy'], ages: ['children', 'teens', 'adults']
     }
   };
 
