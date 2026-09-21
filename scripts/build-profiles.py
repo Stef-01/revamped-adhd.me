@@ -78,6 +78,15 @@ GOALS_DISCLOSURE = ('GOALS Psychology is an independent clinic: it sets its own 
 GOALS_WORKS_FOR = dict(url=GOALS, telephone='0451 674 121', locality='Fortitude Valley', state='QLD')
 
 
+# Medicare rebates for a session of at least 50 minutes under a Mental Health Treatment Plan. These are the
+# government's figures, not any clinic's fee: MBS items 80110 (registered psychologist) and 80010 (clinical
+# psychologist), schedule fee updated 1 July 2026, read from the two pages below on 2026-09-21. They are
+# indexed each July; when they move, change them here and in how-it-works.html (check-site.py compares the two).
+MBS_REBATE_REGISTERED = '$101.55'
+MBS_REBATE_CLINICAL = '$149.05'
+MBS_SOURCE = 'https://www9.health.gov.au/mbs/fullDisplay.cfm?type=item&q=80110&qt=item'
+
+
 def goals_fees(rebate_note):
     """GOALS publishes no session fee, so this block carries no figures: see the note in `figures`.
 
@@ -108,8 +117,10 @@ def goals_fees(rebate_note):
 
 GOALS_FEES = goals_fees(
     'With a Mental Health Treatment Plan and referral from your GP, Medicare rebates part of the fee for up to 10 '
-    'sessions a year. The rebate depends on the clinician’s registration; the clinic can tell you which one applies '
-    'and what the gap will be.')
+    'sessions a year. From 1 July 2026 the rebate is ' + MBS_REBATE_REGISTERED + ' a session with a registered psychologist and '
+    + MBS_REBATE_CLINICAL + ' with a clinical psychologist (<a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 '
+    'underline-offset-4" target="_blank" rel="noopener noreferrer" href="' + MBS_SOURCE + '">Medicare Benefits Schedule</a>); '
+    'the clinic can tell you which applies and what the gap will be.')
 GOALS_FEES_PROVISIONAL = goals_fees(
     'Sessions with a provisional psychologist do not attract a Medicare rebate. NDIS funding and some private health '
     'extras may still cover them; the clinic can tell you what applies to you.')

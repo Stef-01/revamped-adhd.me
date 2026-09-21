@@ -7,6 +7,7 @@ What it looks for, and the mistake each one came from (see UX-EVALUATION-UPGRADE
   - text stranded outside an attribute, e.g. class names after a closed style="…"   (X-03)
   - an internal link to a page or asset that is not in the repo
   - a second typeface: font-serif on any page                                       (LRN-01)
+  - a cost figure on How it works that the generator no longer holds                (HIW-03)
   - a card or profile whose button says Book when the link is an enquiry form, or
     an enquiry listed above a bookable diary on The Network                         (X-01)
 """
@@ -56,6 +57,13 @@ for panel in re.findall(r'<div role="tabpanel"[^>]*id="panel-([\w-]+)"[^>]*><ul[
     verbs = re.findall(r'aria-label="(Book|Enquire) with ', panel[1])
     if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
         problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
+
+# Cost figures on How it works are hand-written; every one must still be a figure the generator holds.
+profiles = (ROOT / 'scripts' / 'build-profiles.py').read_text(encoding='utf-8')
+hiw = (ROOT / 'how-it-works.html').read_text(encoding='utf-8')
+for figure in ('$299', '$199', '$498', '$253', '$149', '$104', '$149.05', '$101.55'):
+    if figure not in hiw or figure not in profiles:
+        problems.append(f'how-it-works.html and build-profiles.py disagree about {figure}')
 
 if problems:
     print('\n'.join(problems))

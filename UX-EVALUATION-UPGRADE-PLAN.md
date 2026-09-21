@@ -19,7 +19,11 @@ Also shipped: 0.2 (`python scripts/check-site.py`: stray attribute text, dead in
 typeface, Book/Enquire honesty and ordering; proven against the original X-03 markup) and 5.4 (the map and
 the list under it are both written by `build-map.py`: filled dot = available now, hollow = planned, live
 places first, with a key; Perth and the Snowy Mountains added). D4 still decides which hollow dots stay.
-Open: header "Book now" label (D1), 0.1, 0.3, Phase 4, 5.5. Dropped: 3.5 (the homepage shows no
+Phase 4, the part that needs nobody's permission: How it works now shows one real psychology example
+(Paula Garrido's published $253, less the $149 rebate, $104 to pay) and Medicare's own rebate figures with
+a link to the schedule; the GOALS profiles carry the same rebate figures. No range was invented. Rebates
+are indexed each 1 July: update `MBS_REBATE_*` and the page together; `check-site.py` fails if they drift.
+Open: header "Book now" label (D1), 0.1, 0.3, 4.1 for OT and coaching, emailing the practices for fees (D3), 4.3, 5.5. Dropped: 3.5 (the homepage shows no
 per-category counts, so there is nothing to generate).
 
 ## How to read this
