@@ -15,7 +15,12 @@ text link on Learn rather than a footer link on every page).
 Staged, needs one click: 1.1. Cause found: both beehiiv forms had `form_field_height: 0px` and a unitless
 `form_width: 400`, so field and button collapsed to 26px. Corrected values are saved as **drafts**;
 publish each from its beehiiv form editor.
-Open: header "Book now" label (D1), Phase 0, 3.2 on Our Story and The Network, 3.5, Phase 4, 5.4 (map, D4), 5.5.
+Also shipped: 0.2 (`python scripts/check-site.py`: stray attribute text, dead internal links, a second
+typeface, Book/Enquire honesty and ordering; proven against the original X-03 markup) and 5.4 (the map and
+the list under it are both written by `build-map.py`: filled dot = available now, hollow = planned, live
+places first, with a key; Perth and the Snowy Mountains added). D4 still decides which hollow dots stay.
+Open: header "Book now" label (D1), 0.1, 0.3, Phase 4, 5.5. Dropped: 3.5 (the homepage shows no
+per-category counts, so there is nothing to generate).
 
 ## How to read this
 

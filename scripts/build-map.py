@@ -9,13 +9,18 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 MAINLAND = [(142.5,-10.7),(143.5,-14.0),(145.3,-15.5),(145.8,-16.9),(146.3,-18.3),(146.8,-19.3),(148.6,-20.3),(149.2,-21.1),(150.2,-22.5),(150.8,-23.4),(151.3,-23.9),(152.3,-24.8),(153.2,-25.3),(153.1,-26.5),(153.0,-27.5),(153.4,-28.0),(153.6,-28.6),(153.1,-30.3),(152.9,-31.4),(152.5,-32.2),(151.8,-32.9),(151.2,-33.9),(150.9,-34.4),(150.7,-35.1),(150.1,-36.3),(149.9,-37.1),(149.9,-37.5),(148.0,-37.9),(146.4,-39.1),(145.5,-38.4),(144.9,-38.3),(143.5,-38.9),(142.5,-38.4),(141.6,-38.4),(140.5,-38.0),(139.9,-36.8),(139.6,-36.0),(138.6,-35.0),(138.1,-35.6),(137.5,-35.6),(137.0,-35.4),(137.8,-33.2),(137.3,-33.6),(136.7,-34.6),(135.9,-34.7),(135.2,-33.6),(134.2,-32.9),(133.7,-32.1),(132.5,-31.9),(131.1,-31.5),(128.9,-31.7),(126.0,-32.3),(124.0,-33.0),(121.9,-33.9),(119.9,-34.0),(117.9,-35.0),(116.0,-34.8),(115.1,-34.4),(115.0,-33.5),(115.7,-32.1),(115.5,-30.5),(114.9,-29.6),(114.6,-28.8),(114.1,-27.6),(113.2,-26.2),(113.7,-24.9),(113.6,-23.5),(114.1,-21.9),(115.1,-21.6),(116.7,-20.6),(118.6,-20.3),(120.5,-19.7),(122.2,-18.0),(122.9,-16.4),(123.6,-17.3),(124.4,-16.2),(125.0,-15.5),(126.0,-14.0),(127.2,-14.2),(128.2,-15.0),(129.5,-14.8),(130.0,-13.4),(130.8,-12.4),(131.5,-11.6),(132.5,-11.2),(133.8,-11.8),(135.0,-12.1),(136.0,-12.0),(136.8,-12.2),(136.5,-14.0),(135.5,-15.0),(136.2,-15.8),(137.0,-16.0),(138.0,-16.8),(139.5,-17.5),(140.8,-17.5),(141.5,-15.0),(141.6,-12.7),(142.0,-11.2)]
 TASMANIA = [(144.7,-40.7),(145.8,-40.9),(146.5,-41.1),(147.5,-40.9),(148.3,-40.9),(148.3,-42.2),(147.9,-43.2),(146.9,-43.6),(146.0,-43.5),(145.2,-42.2),(144.6,-41.2)]
 
-CITIES = [  # name, lon, lat, label position
-    ('Cairns',      145.77, -16.92, 'right'),
-    ('Townsville',  146.82, -19.26, 'right'),
-    ('Brisbane',    153.03, -27.47, 'right-up'),
-    ('Gold Coast',  153.40, -28.02, 'right-down'),
-    ('Sydney',      151.21, -33.87, 'right'),
-    ('Melbourne',   144.96, -37.81, 'left-down'),
+# live = somebody in the network practises there today (see CLINICIANS in build-profiles.py); the rest are
+# planned. A live dot is filled and a planned one is hollow, on the map and in the list under it, and the
+# list puts the live places first. east = on the dotted east-coast route.
+CITIES = [  # name, state, lon, lat, label position, live, east
+    ('Cairns',          'QLD', 145.77, -16.92, 'right',      False, True),
+    ('Townsville',      'QLD', 146.82, -19.26, 'right',      False, True),
+    ('Brisbane',        'QLD', 153.03, -27.47, 'right-up',   True,  True),
+    ('Gold Coast',      'QLD', 153.40, -28.02, 'right-down', False, True),
+    ('Sydney',          'NSW', 151.21, -33.87, 'right',      True,  True),
+    ('Snowy Mountains', 'NSW', 148.62, -36.41, 'right',      True,  True),
+    ('Melbourne',       'VIC', 144.96, -37.81, 'left-down',  False, True),
+    ('Perth',           'WA',  115.86, -31.95, 'right',      True,  False),
 ]
 
 SX, SY = 10.0, 11.2          # x scale, y scale (compensates for latitude)
@@ -101,7 +106,7 @@ def loop(x, y, rad, seed):
         pts.append((x + q * math.cos(a), y + q * math.sin(a) * 0.94))
     return open_path(pts)
 
-route_pts = [proj(lon, lat) for _, lon, lat, _ in CITIES]
+route_pts = [proj(lon, lat) for _, _, lon, lat, _, _, east in CITIES if east]
 dense = []
 for (xa, ya), (xb, yb) in zip(route_pts, route_pts[1:]):
     for k in range(6): dense.append((xa + (xb - xa) * k / 6, ya + (yb - ya) * k / 6))
@@ -109,16 +114,16 @@ dense.append(route_pts[-1])
 route = open_path(wobble(dense, 77, 1.1))
 
 markers = []
-for idx, (name, lon, lat, pos) in enumerate(CITIES):
+for idx, (name, state, lon, lat, pos, live, east) in enumerate(CITIES):
     x, y = proj(lon, lat)
     slug = name.lower().replace(' ', '-')
     dx, dy, anchor = {'right': (16, 5, 'start'), 'right-up': (16, -2, 'start'), 'right-down': (16, 14, 'start'), 'left-down': (-15, 16, 'end')}[pos]
-    markers.append(f'''<g class="au-marker" data-city-marker="{slug}">
-<g class="au-dot" style="transform-origin:{x:.1f}px {y:.1f}px"><circle cx="{x:.1f}" cy="{y:.1f}" r="5.6" fill="{GOLD}"/><path d="{loop(x, y, 7.6, 100 + idx)}" fill="none" stroke="{INK}" stroke-width="1.9" stroke-linecap="round"/></g>
+    markers.append(f'''<g class="au-marker{'' if live else ' au-marker--planned'}" data-city-marker="{slug}">
+<g class="au-dot" style="transform-origin:{x:.1f}px {y:.1f}px"><circle cx="{x:.1f}" cy="{y:.1f}" r="5.6" fill="{GOLD if live else PAPER}"/><path d="{loop(x, y, 7.6, 100 + idx)}" fill="none" stroke="{INK}" stroke-width="1.9" stroke-linecap="round"/></g>
 <text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
-<title id="au-map-title">Hand-drawn map of Australia with dots marking planned ADHDme service locations: {', '.join(c[0] for c in CITIES)}</title>
+<title id="au-map-title">Hand-drawn map of Australia with dots marking where ADHDme clinicians practise now ({', '.join(c[0] for c in CITIES if c[5])}) and where the network plans to grow ({', '.join(c[0] for c in CITIES if not c[5])})</title>
 <defs>{base}<clipPath id="au-land">{clip}</clipPath></defs>
 <g fill="{PAPER}" transform="translate(2.5 3)">{fill}</g>
 <g clip-path="url(#au-land)" fill="none" stroke="{PENCIL}" stroke-width="1" stroke-linecap="round" opacity=".5">{''.join(hatch)}</g>
@@ -130,6 +135,12 @@ svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3
 
 p = ROOT / 'our-story.html'; s = p.read_text(encoding='utf-8')
 s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
+stops = ''.join(
+    f'<li class="au-stop{"" if live else " au-stop--planned"}"><button type="button" class="au-stop__b" data-city="{name.lower().replace(" ", "-")}" aria-label="{name}, {"available now" if live else "planned"}">'
+    f'<span class="au-stop__dot" aria-hidden="true"></span><span class="au-stop__name">{name}</span><span class="au-stop__state">{state}</span></button></li>'
+    for name, state, _, _, _, live, _ in sorted(CITIES, key=lambda c: not c[5]))
+s, n = re.subn(r'(<ol class="au-row[^>]*>).*?(</ol>)', lambda m: m.group(1) + stops + m.group(2), s, count=1, flags=re.S)
+assert n == 1, 'our-story.html: no <ol class="au-row"> to fill' 
 with open(p, 'w', encoding='utf-8', newline='') as fh:  # newline= on write_text needs Python 3.10+
     fh.write(s)
 print(f'map: hand-drawn, {len(hatch)} hatch lines, {len(CITIES)} dots, viewBox {tuple(round(v) for v in VB)}')

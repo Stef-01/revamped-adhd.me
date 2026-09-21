@@ -149,6 +149,13 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-stop__state { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #1e547a; }
 .au-stop__b:hover, .au-stop__b:focus-visible, .au-stop__b.is-hot { background: rgba(255,255,255,.7); }
 .au-stop__b:hover .au-stop__dot, .au-stop__b:focus-visible .au-stop__dot, .au-stop__b.is-hot .au-stop__dot { transform: scale(1.25); }
+/* Planned places: the same dot, hollow. The key under the list says so in words. */
+.au-stop--planned .au-stop__dot { background: #fdfbf7; }
+.au-stop--planned .au-stop__name { color: #3d556b; }
+.au-marker--planned .au-label { fill: #3d556b; }
+.au-key { display: flex; justify-content: center; gap: 22px; margin: 18px 0 0; font-size: 13px; font-weight: 600; color: #1e547a; }
+.au-key__item { display: inline-flex; align-items: center; gap: 8px; }
+.au-key .au-stop__dot { width: 12px; height: 12px; border-width: 2px; box-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .au-marker, .au-stop__b, .au-stop__dot { transition: none; } }
 
 /* ---- ADHDme Weekly: beehiiv subscribe embeds ----
@@ -217,4 +224,5 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-row .au-stop__name { font-size: 16px; white-space: nowrap; }
 .au-row .au-stop__state { display: none; }
 @media (min-width: 560px) { .au-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 520px; } }
-@media (min-width: 900px) { .au-row { display: flex; flex-wrap: nowrap; justify-content: center; gap: 6px; max-width: none; } .au-row .au-stop__b { width: auto; padding: 6px 16px 6px 8px; } .au-row .au-stop__name { font-size: 17px; } }
+/* Eight places: four live on the first line, four planned on the second */
+@media (min-width: 900px) { .au-row { grid-template-columns: repeat(4, auto); justify-content: center; gap: 6px 10px; max-width: none; } .au-row .au-stop__b { width: auto; padding: 6px 16px 6px 8px; } .au-row .au-stop__name { font-size: 17px; } }
