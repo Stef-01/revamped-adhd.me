@@ -147,17 +147,14 @@ REACH_FEES = dict(
     notes=[
         'REACH ADHD does not publish a session fee. It quotes one when you enquire, and its enquiry form asks what '
         'you had in mind, so the number is settled before anything is booked.',
-        'Coaching can be government-funded. If you work, or are self-employed, for at least eight hours a week, the '
-        'Employment Assistance Fund covers supports for employees with disability, ADHD included, under Specialist '
-        'Mental Health Support. REACH puts it at <strong>around $1,770.44 including GST a year</strong>, indexed and '
-        'subject to change. You apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
+        'Coaching can be government-funded. If you work, or are self-employed, at least eight hours a week, the '
+        'Employment Assistance Fund covers ADHD coaching under Specialist Mental Health Support. REACH puts it at '
+        '<strong>around $1,770.44 including GST a year</strong>, indexed and subject to change. You apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
         'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with supporting '
-        'documentation from a GP or specialist; your employer confirms the job, and you can ask for an exemption '
-        'rather than disclose the diagnosis. Applications are usually assessed within ten business days, and you '
-        'claim the cost back. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
+        'documentation from a GP or specialist, and can ask for an exemption rather than disclose the diagnosis to '
+        'your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
         'decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
-        + REACH_JOBACCESS + '">guide to the fund</a> sets out the steps, and the practice runs free sessions to help '
-        'people through the application.',
+        + REACH_JOBACCESS + '">guide</a> has the steps, and the practice runs free sessions to help with the application.',
         'REACH is not a registered NDIS provider, but says self-managed and plan-managed participants can still claim '
         'session fees. For children, it says the NDIS is usually the only funding route.',
         '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
@@ -712,12 +709,12 @@ CLINICIANS = [
     ),
     dict(
         slug='fiona-alexander', id='fiona-alexander', category='coach',
-        name='Fiona Alexander', short='Fiona Alexander', role='ADHD Coach and Co-Founder',
+        name='Fiona Alexander', short='Fiona Alexander', role='ADHD Coach',
         # REACH's coaches write their own bios in the first person and none of them states a pronoun,
         # so the field is left empty rather than guessed; meta_line drops it.
         pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
-        descriptor='ADHD coach & co-founder',
+        descriptor='ADHD coach',
         description='Twenty-five years of teaching behind the coaching, starting from how your own brain works rather than a generic plan.',
         chips=['Executive functioning', 'Students & families', 'Able & gifted learners'],
         telehealth=True,
@@ -754,9 +751,9 @@ CLINICIANS = [
     ),
     dict(
         slug='debbie-hirte', id='debbie-hirte', category='coach',
-        name='Debbie Hirte', short='Debbie Hirte', role='ADHD Coach and Co-Founder', pronouns='',
+        name='Debbie Hirte', short='Debbie Hirte', role='ADHD Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
-        descriptor='ADHD coach & co-founder',
+        descriptor='ADHD coach',
         description='Nearly three decades in schools, spent advocating for neurodivergent students and the families around them.',
         chips=['Executive functioning', 'Children & teens', 'Gifted & talented'],
         telehealth=True,
@@ -1157,18 +1154,18 @@ def render_main(c, size, sizes):
     </div>
   </div>
 </div>
-<section class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16" data-reveal aria-labelledby="fees-title">
+<div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+  {SECTION.format('Experience', '<ul class="lg:col-span-8 list-none p-0 m-0 text-[17px]" data-declared-by="clinician">' + ''.join(f'<li class="py-2.5 border-b border-[#e8e6df]">{esc(x)}</li>' for x in c['experience']) + '</ul>')}
+  {SECTION.format('About', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]" data-declared-by="clinician">' + ''.join(f'<p class="m-0">{esc(p)}</p>' for p in c['about']) + '</div>')}
+  {SECTION.format('Details', '<dl class="lg:col-span-8 m-0">' + ''.join(DETAIL_ROW.format(esc(k), v) for k, v in details) + '</dl>')}
+</div>
+<section class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16" data-reveal aria-labelledby="fees-title">
   <h2 id="fees-title" class="lg:col-span-4 text-2xl font-extrabold tracking-tight text-[#1a1c1c]">{esc(fees['heading'])}</h2>
   <div class="lg:col-span-8 flex flex-col gap-5">{figures}
 {chr(10).join(f'    <p class="text-[17px] text-[#2b2820] max-w-[62ch]">{note}</p>' for note in fees['notes'])}
   </div>
 </section>
-<div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-  {SECTION.format('Experience', '<ul class="lg:col-span-8 list-none p-0 m-0 text-[17px]" data-declared-by="clinician">' + ''.join(f'<li class="py-2.5 border-b border-[#e8e6df]">{esc(x)}</li>' for x in c['experience']) + '</ul>')}
-  {SECTION.format('About', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]" data-declared-by="clinician">' + ''.join(f'<p class="m-0">{esc(p)}</p>' for p in c['about']) + '</div>')}
-  {SECTION.format('Details', '<dl class="lg:col-span-8 m-0">' + ''.join(DETAIL_ROW.format(esc(k), v) for k, v in details) + '</dl>')}
-  <p class="lg:col-span-12 pt-6 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} Everything above is {esc(c['short'])}’s own declaration; the headings are ours.</p>
-</div>
+<p class="mt-8 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} Everything above is {esc(c['short'])}’s own declaration; the headings are ours.</p>
 </article>
 
 <section class="max-w-[1140px] mx-auto px-5 md:px-8 pb-20" aria-labelledby="also-title">

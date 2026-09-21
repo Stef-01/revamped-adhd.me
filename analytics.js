@@ -176,6 +176,10 @@
 
   // How far down a clinician's page somebody actually got, by the landmarks every profile carries:
   // the hero they land on, the fee table, the "Also in the network" row, then the foot of the page.
+  // The fee table now sits at the foot of the profile rather than under the hero, so 'fees' means
+  // "read the whole profile", not "scrolled past the booking button". The rung kept its name so the
+  // series does not split; it is worth re-anchoring to the Experience block if a mid-page rung is
+  // wanted back, which would be a new vocabulary value.
   // The ADHDme Weekly dialog: what it did, and what earned it. newsletter-invite.js raises these.
   // Whether anybody actually subscribed is beehiiv's to say — the form carries utm_content=popup.
   var INVITE_ACTIONS = ['shown', 'dismissed'];
@@ -632,8 +636,8 @@
     // ---------------------------------------------------------------- how the page was read
     // Profile pages put the booking button in the hero, so "did they see the call to action" is
     // true of nearly everybody and worth nothing. What is worth something is how far past it they
-    // went: somebody who read the fee table and left is a different person from somebody who never
-    // scrolled, and only one of them is a lost booking.
+    // went: somebody who read all the way to the fee table and left is a different person from
+    // somebody who never scrolled, and only one of them is a lost booking.
     //
     // Sent once, when the page goes away, carrying the deepest landmark reached, the seconds the
     // page actually held the screen, and whether the reading ended in a handoff. A booking click

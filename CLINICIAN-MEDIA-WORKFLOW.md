@@ -82,8 +82,8 @@ records — do not go hunting beyond them without a reason.
 | Samantha Courtney | Psychologist, eating disorders (CEDC-MH) | GOALS team | @goals.psychology |
 | Paula Garrido | Clinical psychologist, ADHD-CCSP | [Wellness Psychology Clinic](https://wellnesspsychologyclinic.com.au/doctor/clinpsych-paula-garrido/) | [@wellnesspsychologyclinic.au](https://www.instagram.com/wellnesspsychologyclinic.au/) |
 | Lara Schulz | Neurotherapy practitioner & director | [Neurotherapy Clinics Australia](https://www.ncau.com.au/about/) | [@neurotherapy_clinics_australia](https://www.instagram.com/neurotherapy_clinics_australia/) |
-| Fiona Alexander | ADHD coach & co-founder | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
-| Debbie Hirte | ADHD coach & co-founder | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Fiona Alexander | ADHD coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Debbie Hirte | ADHD coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
 | Romney Taylor | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
 | Erin Lysle | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
 | Donna Italiano | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
