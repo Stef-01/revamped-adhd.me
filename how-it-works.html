@@ -52,7 +52,7 @@
 <main id="main" class="w-full bg-[#fcfbfa]">
 <div class="flex flex-col w-full relative">
 <!-- Hero: full-bleed campus photograph -->
-<section class="relative w-full overflow-hidden text-white min-h-[640px] md:min-h-[740px] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-8 pb-28 md:pb-36" aria-labelledby="hiw-title">
+<section class="relative w-full overflow-hidden text-white min-h-[520px] md:min-h-[600px] flex flex-col justify-between px-6 sm:px-10 lg:px-16 pt-8 pb-16 md:pb-24" aria-labelledby="hiw-title">
 <div class="absolute inset-0 z-0">
 <picture><source type="image/webp" srcset="assets/campus-768.webp 768w, assets/campus.webp 1148w" sizes="100vw"><img width="1148" height="624" fetchpriority="high" decoding="async" src="assets/campus.jpg" alt="Student studying on a bench with a laptop in a sunny university campus courtyard" class="w-full h-full object-cover object-[center_30%]"></picture>
 <div class="absolute inset-0 bg-gradient-to-t from-[#0b1a2a]/85 via-[#0b1a2a]/25 to-[#0b1a2a]/20 pointer-events-none"></div>
@@ -62,12 +62,12 @@
 <div class="relative z-10 max-w-[1140px] mx-auto w-full flex flex-wrap items-center justify-between gap-3 hero-in">
 </div>
 <!-- Bottom row: headline and actions -->
-<div class="relative z-10 max-w-[1140px] mx-auto w-full pt-40 sm:pt-56 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+<div class="relative z-10 max-w-[1140px] mx-auto w-full pt-24 sm:pt-32 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
 <div class="max-w-3xl hero-in hero-in-2">
 <h1 id="hiw-title" class="font-display-hero text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight drop-shadow-md">
 Find your clinician and book. <span class="text-[#f1bc31] italic font-editorial-quote font-normal">That’s it.</span>
 </h1>
-<p class="text-[17px] sm:text-[19px] text-white/90 max-w-2xl mt-5 leading-relaxed drop-shadow">Read what each clinician says about their own work, then book on the practice’s own page. No account, no referral needed.</p>
+<p class="text-[17px] sm:text-[19px] text-white/90 max-w-2xl mt-5 leading-relaxed drop-shadow">Read what each clinician says about their own work, then book a time or enquire on the practice’s own page. No account, no referral needed.</p>
 </div>
 <div class="flex flex-col sm:flex-row lg:flex-col items-stretch sm:items-center lg:items-end gap-3.5 shrink-0 hero-in hero-in-3">
 <a class="btn-press inline-flex items-center justify-center h-[52px] px-8 rounded-full bg-[#f1bc31] hover:bg-[#f7cf63] text-[#1a1c1c] text-[15px] font-bold transition-all shadow-[0_6px_20px_rgba(0,0,0,0.25)] hover:-translate-y-0.5" href="the-doctors.html">
@@ -79,9 +79,9 @@ Find your clinician <span class="ml-2 text-lg" aria-hidden="true">→</span>
 <!-- Visual 3-Step Flow: Connected Minimalist Cards -->
 <section class="max-w-[1140px] mx-auto w-full px-gutter md:px-margin pt-16 pb-6">
 <div>
-<ol class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 list-none p-0 m-0 ">
-  <li class="pt-6 border-t border-[#e8e6df]"><span class="block text-sm font-bold text-[#5f5e59] tabular-nums">1</span><h2 class="mt-2 text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Read the clinicians</h2><p class="mt-2 text-[17px] text-[#5f5e59] max-w-[40ch]">Each clinician’s page is their own account of how they work.</p></li>
-  <li class="pt-6 border-t border-[#e8e6df]"><span class="block text-sm font-bold text-[#5f5e59] tabular-nums">2</span><h2 class="mt-2 text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Book with the practice</h2><p class="mt-2 text-[17px] text-[#5f5e59] max-w-[40ch]">The practice’s own booking page opens in a new tab. No account here, no referral needed.</p></li>
+<ol class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10 list-none p-0 m-0">
+  <li class="pt-7 border-t-[3px] border-[#1a1c1c]"><span class="block text-[40px] sm:text-[48px] leading-none font-extrabold tracking-tight text-[#1a1c1c] tabular-nums" aria-hidden="true">1</span><h2 class="mt-4 text-[26px] sm:text-[30px] leading-[1.12] font-extrabold tracking-tight text-[#1a1c1c]">Choose a clinician</h2><p class="mt-3 text-[17px] leading-relaxed text-[#5f5e59] max-w-[42ch]">Each clinician’s page is their own account of how they work, where they practise and what it costs.</p></li>
+  <li class="pt-7 border-t-[3px] border-[#1a1c1c]"><span class="block text-[40px] sm:text-[48px] leading-none font-extrabold tracking-tight text-[#1a1c1c] tabular-nums" aria-hidden="true">2</span><h2 class="mt-4 text-[26px] sm:text-[30px] leading-[1.12] font-extrabold tracking-tight text-[#1a1c1c]">Book a time, or enquire</h2><p class="mt-3 text-[17px] leading-relaxed text-[#5f5e59] max-w-[42ch]">Some practices keep an online diary: pick a time and it is booked. Others take an enquiry and reply to arrange one. The button on each page says which. Either way it opens the practice’s own page in a new tab.</p></li>
 </ol></div></section>
 <!-- Cognitive Accessibility & Trust Chips Section -->
 <section class="max-w-[1140px] mx-auto w-full px-gutter md:px-margin pb-16" aria-labelledby="cost-title">
@@ -89,26 +89,27 @@ Find your clinician <span class="ml-2 text-lg" aria-hidden="true">→</span>
   <h2 id="cost-title" class="text-[32px] sm:text-[40px] font-extrabold tracking-tight text-[#1a1c1c]">What a diagnosis costs</h2>
   <dl class="mt-8 m-0 max-w-[38rem]">
     <div class="flex items-baseline gap-6 py-4 border-b border-[#e8e6df]"><dt class="shrink-0 min-w-[4.5ch] text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1a1c1c] tabular-nums">$299</dt><dd class="m-0 text-[17px] text-[#5f5e59]">Initial consultation</dd></div>
-    <div class="flex items-baseline gap-6 py-4 border-b border-[#e8e6df]"><dt class="shrink-0 min-w-[4.5ch] text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1a1c1c] tabular-nums">$199</dt><dd class="m-0 text-[17px] text-[#5f5e59]">Follow-up</dd></div>
-    <div class="flex items-baseline gap-6 py-4"><dt class="shrink-0 min-w-[4.5ch] text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1a1c1c] tabular-nums">$498</dt><dd class="m-0 text-[17px] font-semibold text-[#1a1c1c]">Both together &mdash; the assessment and diagnosis</dd></div>
+    <div class="flex items-baseline gap-6 py-4"><dt class="shrink-0 min-w-[4.5ch] text-4xl sm:text-5xl font-extrabold tracking-tight text-[#1a1c1c] tabular-nums">$199</dt><dd class="m-0 text-[17px] text-[#5f5e59]">Follow-up</dd></div>
+    <div class="flex items-baseline gap-6 pt-4 border-t-2 border-[#1a1c1c]"><dt class="shrink-0 min-w-[9ch] sm:min-w-[10.8ch] text-[20px] font-extrabold tracking-tight text-[#1a1c1c] tabular-nums">$498 in total</dt><dd class="m-0 text-[17px] text-[#5f5e59]">The two together are the full assessment and diagnosis</dd></div>
   </dl>
-  <p class="mt-7 text-[15px] leading-relaxed text-[#5f5e59] max-w-[54ch]">No Medicare rebate. That is what a GP assessment costs; psychologists and allied health set their own fees, shown on each clinician’s page. The practice sets and charges the fee; ADHDme receives no part of it.</p>
+  <p class="mt-12 text-[22px] sm:text-[26px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c] max-w-[28ch]">The practice sets and charges the fee. ADHDme receives no part of it.</p>
+  <p class="mt-5 text-[15px] leading-relaxed text-[#5f5e59] max-w-[54ch]">No Medicare rebate on a GP assessment. Psychologists, allied health clinicians and coaches set their own fees, described on each clinician’s page.</p>
 </div>
 </section>
 <!-- Call to Action Banner (Signature Brand Golden Yellow #f1bc31 Container) -->
 <section class="max-w-[1140px] mx-auto w-full px-gutter md:px-margin pb-20">
-<div data-reveal class="p-8 md:p-12 rounded-3xl border border-[#b9d6ee]" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);" flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+<div data-reveal class="p-8 md:p-12 rounded-3xl border border-[#b9d6ee] flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
 <div class="max-w-xl space-y-3">
 <h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight font-headline-md leading-tight">
             Ready to find your clinician?
           </h2>
 <p class="text-[15px] text-[#1e547a] font-medium">
-            Read the clinicians, then book on the practice’s own page.
+            Read the clinicians, then book or enquire on the practice’s own page.
           </p>
 </div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0">
 <a class="h-[52px] px-8 rounded-full bg-on-surface text-white text-[15px] font-semibold hover:bg-inverse-surface transition-all flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" data-path="the-doctors" href="the-doctors.html">
-            See the clinicians <span class="text-[#f1bc31]">→</span>
+            Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span>
 </a>
 <p class="text-[13px] text-[#1e547a] font-medium">
             No account or sign-up required.

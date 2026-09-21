@@ -150,18 +150,14 @@
 <section class="w-full pb-16 lg:pb-20 px-gutter-mobile lg:px-gutter max-w-[1240px] mx-auto"><div data-reveal class="text-[#1a1c1c] rounded-3xl p-8 lg:p-16 relative overflow-hidden shadow-md border border-[#b9d6ee]" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
 <div class="relative z-10 max-w-2xl">
 <h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-[#1a1c1c] mb-4">
-Ready to walk with us?
+Ready to find your clinician?
 </h2>
-<form class="flex flex-col sm:flex-row items-stretch gap-3 max-w-lg" id="waitlist-form" action="the-doctors.html" method="get">
-<button class="h-12 px-8 rounded-full bg-black text-white font-label-md text-label-md font-bold hover:bg-black/85 active:scale-95 transition-all flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5 whitespace-nowrap cursor-pointer" type="submit">
-<span class="">Book</span>
-<span class="w-1.5 h-1.5 rounded-full bg-[#f1bc31]"></span>
-<svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-</button>
+<div class="flex flex-col sm:flex-row items-stretch gap-3 max-w-lg">
+<a href="the-doctors.html" data-path="the-doctors" class="btn-press h-12 px-8 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5 whitespace-nowrap">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a>
 <a href="how-it-works.html" data-path="how-it-works" class="h-12 px-6 rounded-full bg-white hover:bg-[#f6fafe] text-[#1a1c1c] border border-[#b9d6ee] font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
 <span class="">Explore how it works</span>
 </a>
-</form>
+</div>
 <p class="font-label-sm text-label-sm text-[#1e547a] mt-4 flex items-center gap-2 font-medium">
 <svg class="w-4 h-4 shrink-0 text-[#1e547a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
 <span class="">No account or sign-up required.</span>
@@ -206,29 +202,6 @@ Ready to walk with us?
 </div>
 </div>
 </footer>
-<script>
-  (function() {
-    const form = document.getElementById('waitlist-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        const btn = form.querySelector('button');
-        const input = form.querySelector('input');
-        if (btn && input) {
-          e.preventDefault();
-          btn.innerHTML = '<svg class="w-[18px] h-[18px] shrink-0 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 0 1-14.5 4.6M4 12a8 8 0 0 1 14.5-4.6M18 4v4h-4M6 20v-4h4"/></svg><span>Welcome aboard...</span>';
-          btn.disabled = true;
-          setTimeout(() => {
-            btn.innerHTML = '<svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l5 5L19 7"/></svg><span>You are on the list!</span>';
-            btn.classList.remove('bg-[#f1bc31]', 'text-black');
-            btn.classList.add('bg-white', 'text-[#1a1c1c]');
-            input.value = '';
-            input.placeholder = "We will see you inside very soon!";
-          }, 800);
-        }
-      });
-    }
-  })();
-</script>
 <script src="analytics-config.js" defer></script>
 <script src="assets/js/site.min.js" defer></script>
 

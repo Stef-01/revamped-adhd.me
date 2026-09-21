@@ -1033,6 +1033,19 @@ def chip_row(c):
     """The clinician's interest chips, with the telehealth marker first when they offer it."""
     return (TELEHEALTH_PILL if c['telehealth'] else '') + ''.join(CHIP.format(esc(x)) for x in c['chips'])
 BOOK_HREF = 'the-doctors.html#{}'
+
+# A diary you can pick a time in, or a form the practice answers. The button says which, and each
+# list on The Network puts the diaries first: the easiest people to reach are the first ones you meet.
+ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book')
+
+
+def books_online(c):
+    return any(host in c['book_href'] for host in ONLINE_DIARIES)
+
+
+def book_verb(c):
+    return 'Book' if books_online(c) else 'Enquire'
+
 ARROW_BACK = '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>'
 ICONS = {
     'instagram': '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
@@ -1067,7 +1080,7 @@ def deck_card(c, size, eager):
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
   </a>
   <div class="flex flex-wrap gap-2 pt-3">{chip_row(c)}</div>
-  <div class="pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="Book with {esc(c['name'])}" href="{c['slug']}.html">Book <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
+  <div class="pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="{book_verb(c)} with {esc(c['name'])}" href="{c['slug']}.html">{book_verb(c)} <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>'''
 
 
@@ -1149,7 +1162,7 @@ def render_main(c, size, sizes):
     <p class="text-[20px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
     <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">
-      <a class="btn-press inline-flex items-center gap-2 h-13 px-7 py-4 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">Book with {esc(c['short'])} <span aria-hidden="true">→</span></a>
+      <a class="btn-press inline-flex items-center gap-2 h-13 px-7 py-4 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
       <span class="text-[13px] text-[#5f5e59]">{esc(c['book_hint'])}</span>{pills}
     </div>
   </div>
@@ -1197,9 +1210,10 @@ def render_page(c, shell, sizes):
 
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
-    eager_id = next((c['id'] for c in CLINICIANS if c['category'] == DEFAULT_PANEL), None)
+    ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))  # stable: CLINICIANS order holds within each half
+    eager_id = next((c['id'] for c in ordered if c['category'] == DEFAULT_PANEL), None)
     for category, panel in PANELS.items():
-        members = [c for c in CLINICIANS if c['category'] == category]
+        members = [c for c in ordered if c['category'] == category]
         pat = re.compile(r'(<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + r'"[^>]*><ul[^>]*>\n)(.*?)(</ul></div>)', re.S)
         found = pat.findall(deck)
         if not members:

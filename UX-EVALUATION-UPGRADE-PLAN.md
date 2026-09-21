@@ -6,6 +6,17 @@ Our Story, The Network and the profile pages). Every finding was checked against
 the evaluator's word alone; where the code disagrees with the evaluation, or shows something the
 evaluation missed, that is said.
 
+## Status (2026-09-21)
+
+Shipped: 1.2–1.6, Phase 2 (labels are **Book** / **Enquire**, driven by `books_online()` in
+`build-profiles.py`; each list on The Network puts online diaries first, by order alone), 3.1, 3.3, 3.4,
+5.1, 5.2 (Featured deleted: every section fits one row, so any Featured card was a repeat), 5.3 (a quiet
+text link on Learn rather than a footer link on every page).
+Staged, needs one click: 1.1. Cause found: both beehiiv forms had `form_field_height: 0px` and a unitless
+`form_width: 400`, so field and button collapsed to 26px. Corrected values are saved as **drafts**;
+publish each from its beehiiv form editor.
+Open: header "Book now" label (D1), Phase 0, 3.2 on Our Story and The Network, 3.5, Phase 4, 5.4 (map, D4), 5.5.
+
 ## How to read this
 
 - **IDs**: `HP` homepage, `HIW` how it works, `LRN` learn, `OS` our story, `NET` network and profiles.

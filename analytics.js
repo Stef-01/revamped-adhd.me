@@ -190,7 +190,7 @@
   // pair of panels, and the closing banner.
   var LANDING_CONTROLS = ['nav-learn', 'nav-cta', 'nav-doctors', 'nav-approach',
     'hero-diagnosis', 'hero-psychology',
-    'door-diagnosis', 'door-psychology', 'door-allied',
+    'door-diagnosis', 'door-psychology', 'door-allied', 'door-coaches',
     'final-diagnosis', 'final-psychology'];
   // Every page that loads this bundle, in the words a dashboard should read back. Anything not
   // listed counts as 'other' rather than being refused, so a new page is never silently uncounted.
