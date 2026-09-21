@@ -1232,7 +1232,7 @@ def render_deck(deck, sizes):
         if len(found) != 1:
             raise BuildError(f'the-doctors.html: panel "{panel}" needs exactly one <div role="tabpanel" id="panel-{panel}"><ul>…</ul></div> to hold '
                              f'{", ".join(c["name"] for c in members)}; found {len(found)}. Replace the "Expected soon" placeholder with '
-                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid grid-cols-1 sm:grid-cols-2 gap-10 md:gap-12 list-none p-0 m-0">\n</ul></div>')
+                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 list-none p-0 m-0">\n</ul></div>')
         cards = '\n'.join(deck_card(c, sizes[c['id']], c['id'] == eager_id) for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)
     return deck
