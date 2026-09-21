@@ -125,7 +125,7 @@ def related_card(p):
 
 
 def section():
-    return f'''<!-- BLOG --><section id="blog" class="w-full pb-16 lg:pb-20 px-gutter-mobile lg:px-gutter max-w-[1240px] mx-auto">
+    return f'''<!-- BLOG --><section id="blog" class="w-full pb-16 lg:pb-20 px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto">
 <div data-reveal class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
 <div><h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-on-surface mt-2">From the blog.</h2></div>
 </div>
@@ -162,7 +162,7 @@ def post_page(p, head, footer, others):
     src = ''.join(f'<li><a class="font-semibold text-[#1d64c2] hover:underline" href="{h}"{EXT if h.startswith("http") else ""}>{t}</a></li>' for t, h in p['sources'])
     more = ''.join(related_card(o) for o in others)
     return f'''{head}<main id="main" class="w-full bg-surface">
-<article class="max-w-[760px] mx-auto px-gutter-mobile lg:px-gutter pt-12 pb-10">
+<article class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10">
 <a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="our-story.html#blog">{ARROW_BACK}Back to Our Story</a>
 <div class="flex items-center gap-3 text-[13px] font-bold mb-4"><span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p['category']}</span><span class="text-neutral-500 font-medium">{nice(p['date'])} · {p['read']} read · The ADHDme team</span></div>
 <h1 class="hero-in font-display-hero text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.08] font-extrabold tracking-tight text-on-surface mb-6">{p['title']}</h1>
@@ -172,9 +172,9 @@ def post_page(p, head, footer, others):
 <div class="mt-10 p-6 rounded-2xl bg-[#faf9f6] border border-[#eeebe5]"><h2 class="text-[15px] font-bold text-[#5f5e59] mb-3">Sources and further reading</h2><ul class="space-y-2 text-sm">{src}</ul></div>
 <div class="mt-10 bg-[#f1bc31] rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-black/10">
 <div><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">Browse profiles freely. No account or sign-up required.</p></div>
-<a class="btn-press shrink-0 h-12 px-7 rounded-full bg-black text-white font-bold text-[15px] flex items-center gap-2 hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
+<a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </article>
-<section class="max-w-[1240px] mx-auto px-gutter-mobile lg:px-gutter pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
+<section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
 </main>
 {footer}'''
 

@@ -1163,8 +1163,8 @@ def render_main(c, size, sizes):
                    + '\n    </dl>')
     return f'''<main id="main" class="w-full bg-[#FAFAF7]">
 <script type="application/ld+json">{jsonld(c)}</script>
-<div class="max-w-[1140px] mx-auto px-5 md:px-8 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The network</a></div>
-<article class="max-w-[1140px] mx-auto px-5 md:px-8 pt-6 pb-16">
+<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The network</a></div>
+<article class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-16">
 <div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
   <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', '(min-width: 1024px) 420px, 100vw', 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
   <div class="lg:col-span-7 flex flex-col gap-5">
@@ -1173,7 +1173,7 @@ def render_main(c, size, sizes):
     <p class="text-[20px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
     <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">
-      <a class="btn-press inline-flex items-center gap-2 h-13 px-7 py-4 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
+      <a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
       <span class="text-[13px] text-[#5f5e59]">{esc(c['book_hint'])}</span>{pills}
     </div>
   </div>
@@ -1192,7 +1192,7 @@ def render_main(c, size, sizes):
 <p class="mt-8 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} Everything above is {esc(c['short'])}’s own declaration; the headings are ours.</p>
 </article>
 
-<section class="max-w-[1140px] mx-auto px-5 md:px-8 pb-20" aria-labelledby="also-title">
+<section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-20" aria-labelledby="also-title">
 <h2 id="also-title" class="text-2xl font-extrabold tracking-tight text-[#1a1c1c] mb-5">Also in the network</h2>
 <div class="flex flex-col sm:flex-row flex-wrap gap-8 sm:gap-12">
 {chr(10).join(also_link(o, sizes[o['id']]) for o in others(c))}

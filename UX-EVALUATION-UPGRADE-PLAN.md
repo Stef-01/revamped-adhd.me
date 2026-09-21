@@ -41,6 +41,19 @@ Open, and why: 0.1 needs a PostHog personal API key, which is not on this machin
 the main form's button label shortened to "Join free" so it stops wrapping on phones.
 per-category counts, so there is nothing to generate).
 
+## House rules (consistency pass, 2026-09-21)
+
+One of each, on every page and in every generator:
+- **Page width and gutter:** `max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12`, the header's. Logo, headline and
+  content share a left edge. Reading columns (legal, blog, 760px) stay narrow by design.
+- **Page colour:** `#FAFAF7` (also the `surface` and `background` tokens). No white or off-white `<main>`.
+- **Headings:** H1 `text-[36px] sm:text-[44px] lg:text-[52px]`; section H2 `text-[32px] sm:text-[40px] leading-[1.1]`;
+  both extrabold, tracking-tight, Plus Jakarta Sans. The homepage's display lines are the only exception.
+- **Muted text:** `#5f5e59`.
+- **In-page button:** `h-12 px-7 rounded-full text-[15px] font-bold`, ink `#1a1c1c` or yellow `#f1bc31`.
+  Hero buttons are 52px; card buttons 44px. (`h-13` was never a real Tailwind class.)
+- **Category pills:** the Network's white pill group, `rounded-[28px]` so it survives wrapping; Learn uses the same.
+
 ## How to read this
 
 - **IDs**: `HP` homepage, `HIW` how it works, `LRN` learn, `OS` our story, `NET` network and profiles.
