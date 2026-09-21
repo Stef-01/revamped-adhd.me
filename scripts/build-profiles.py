@@ -1033,7 +1033,7 @@ CHIP = '<span class="px-3.5 py-1.5 rounded-full text-sm font-semibold text-[#1a1
 # by scanning the deck rather than opening each profile. Warm tint sets it apart from the interest chips
 # without competing with the yellow booking button.
 TELEHEALTH_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
-                   'text-[#1a1c1c] bg-[#fdfbf7] border border-[#ebd8ab]">'
+                   'text-[#1e547a] bg-[#dcedfa] border border-[#b9d6ee]">'
                    '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
                    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
                    '<rect x="2" y="6" width="13" height="12" rx="2.5"/><path d="M15 10.5 22 7v10l-7-3.5z"/></svg>'
