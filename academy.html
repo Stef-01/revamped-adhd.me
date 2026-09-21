@@ -597,6 +597,10 @@ iconify-icon{display:inline-block; vertical-align:-.12em}
 @media (max-width:760px){ .journey__grid{grid-template-columns:1fr} .branch__head{gap:var(--s4)} .branch__i{font-size:40px} .path__i{font-size:22px; right:var(--s4); top:var(--s4)} }
 @media print{ .branch[hidden]{display:block} .journey__grid,.branch__next{display:none} .h2__i,.path__i{display:none} }
 
+/* ---------- marks: the tick or cross covers the badge and centres in it, so the hidden letter cannot push it off ---------- */
+.q__k, .nav__n{position:relative}
+.q[data-done] .q__k::after, .nav__item[data-done="1"] .nav__n::after{position:absolute; inset:0; display:grid; place-items:center; line-height:1}
+
 /* ---------- icon polish ---------- */
 .nav__n iconify-icon{font-size:15px}
 .nav__item[data-done="1"] .nav__n iconify-icon{display:none}
