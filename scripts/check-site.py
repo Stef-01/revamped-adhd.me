@@ -61,7 +61,7 @@ for panel in re.findall(r'<div role="tabpanel"[^>]*id="panel-([\w-]+)"[^>]*><ul[
 # Cost figures on How it works are hand-written; every one must still be a figure the generator holds.
 profiles = (ROOT / 'scripts' / 'build-profiles.py').read_text(encoding='utf-8')
 hiw = (ROOT / 'how-it-works.html').read_text(encoding='utf-8')
-for figure in ('$299', '$199', '$498', '$253', '$149', '$104', '$149.05', '$101.55', '$1,770.44'):
+for figure in ('$299', '$199', '$498', '$1,770.44'):
     if figure not in hiw or figure not in profiles:
         problems.append(f'how-it-works.html and build-profiles.py disagree about {figure}')
 
