@@ -582,13 +582,11 @@ CLINICIANS = [
     dict(
         slug='lara-schulz', id='lara-schulz', category='allied',
         name='Lara Schulz', short='Lara Schulz', role='Neurotherapy Practitioner and Director', pronouns='she/her',
-        practice='Neurotherapy Clinics Australia', place='Jindabyne & Snowy Mountains',
+        practice='Neurotherapy Clinics Australia', place='Jindabyne & telehealth',
         descriptor='Neurotherapy practitioner & director',
-        description='QEEG brain mapping and neurotherapy in the Snowy Mountains, with the scan read and discussed before any training starts.',
+        description='QEEG brain mapping and neurotherapy, with the scan read and discussed with you before any training starts.',
         chips=['QEEG brain mapping', 'ERP assessment', 'Neurostimulation'],
-        # Neurotherapy needs the equipment and the client in the same room, and the practice offers no
-        # remote option, so the marker stays off.
-        telehealth=False,
+        telehealth=True,
         book_href=NCAU + 'contact-us/',
         book_hint='Opens Neurotherapy Clinics Australia’s contact form, in a new tab. Appointments are arranged with the practice rather than booked online.',
         links=[
@@ -635,7 +633,8 @@ CLINICIANS = [
             'Lara came to this work as a client, for her own learning difficulties, and changed careers after her own child needed neurofeedback. Having completed a Masters of Business Management at Charles Sturt University, she enrolled in the Graduate Diploma in Psychology through the University of New South Wales to extend her knowledge of psychological functioning, which she describes as integral to her neurotherapy practice. She says she has always felt passionately about wanting to help and reassure anyone with learning difficulties, ADHD or any other disability that they are no different from anyone else: “We just think differently and that is something to nurture and be proud of”.',
         ],
         details=[
-            ('Reach', 'Clinic appointments in Jindabyne, serving the Snowy Mountains, Cooma and the Snowy Monaro region'),
+            ('Reach', 'Clinic appointments in Jindabyne, serving the Snowy Mountains, Cooma and the Snowy Monaro, '
+                      'and telehealth Australia-wide'),
             ('Appointments', 'A two-hour first appointment, then a 30-minute consultation on the findings; training sessions run 30 minutes'),
             ('Billing', 'Set and quoted by the practice for each person; payment plans can be arranged'),
             ('Wheelchair access', 'Not declared'),
@@ -648,8 +647,7 @@ CLINICIANS = [
                          'Neurofield neurotherapy training, Santa Barbara, California'],
             same_as=[NCAU + 'about/', 'https://www.instagram.com/neurotherapy_clinics_australia/'],
             works_for=dict(url=NCAU, telephone='+61 418 216 077', locality='Jindabyne', state='NSW'),
-            # She sees people in one town, so the country-wide default would overstate it.
-            area='Snowy Mountains, NSW, Australia', area_type='Place',
+            area='Australia',
         ),
     ),
 ]
@@ -808,8 +806,7 @@ def jsonld(c):
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
              'worksFor': {'@type': 'MedicalBusiness', 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
                           'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'}},
-             # A clinician who only sees people in one town gets a Place rather than the whole country.
-             'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}
+             'areaServed': {'@type': 'Country', 'name': s['area']}}
     else:
         raise BuildError(f"{c['name']}: unknown schema type {s['type']!r}")
     d['memberOf'] = {'@id': SITE + '/#org'}
