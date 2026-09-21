@@ -223,6 +223,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-row .au-stop__b { width: 100%; padding: 6px 12px 6px 6px; gap: 10px; }
 .au-row .au-stop__name { font-size: 16px; white-space: nowrap; }
 .au-row .au-stop__state { display: none; }
+/* On a phone the columns take their width from the names, so the longest one is never cut */
+@media (max-width: 559px) { .au-row { grid-template-columns: repeat(2, auto); justify-content: center; max-width: none; } .au-row .au-stop__b { gap: 8px; padding: 6px 4px; } .au-row .au-stop__name { font-size: 15px; } }
 @media (min-width: 560px) { .au-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 520px; } }
 /* Eight places: four live on the first line, four planned on the second */
 @media (min-width: 900px) { .au-row { grid-template-columns: repeat(4, auto); justify-content: center; gap: 6px 10px; max-width: none; } .au-row .au-stop__b { width: auto; padding: 6px 16px 6px 8px; } .au-row .au-stop__name { font-size: 17px; } }

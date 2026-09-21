@@ -23,7 +23,14 @@ Phase 4, the part that needs nobody's permission: How it works now shows one rea
 (Paula Garrido's published $253, less the $149 rebate, $104 to pay) and Medicare's own rebate figures with
 a link to the schedule; the GOALS profiles carry the same rebate figures. No range was invented. Rebates
 are indexed each 1 July: update `MBS_REBATE_*` and the page together; `check-site.py` fails if they drift.
-Open: header "Book now" label (D1), 0.1, 0.3, 4.1 for OT and coaching, emailing the practices for fees (D3), 4.3, 5.5. Dropped: 3.5 (the homepage shows no
+Since then: the beehiiv form fixes are published and verified live (fields 48px and 44px tall); the header
+button reads "Find your clinician" on every page (D1); the booking blog post explains Book and Enquire; How
+it works covers occupational therapy and coaching costs (4.1); on phones the homepage photograph keeps its
+faces, with the sentence and buttons beneath it; `.vercelignore` keeps these notes off the public site;
+the fee and response-time email to the practices is drafted in `FEE-REQUEST-EMAIL-DRAFT.md`, unsent (D2, D3).
+Open, and why: 0.1 needs a PostHog personal API key, which is not on this machine; 0.3 and 5.5 need people;
+4.3 waits on 0.1; D4 (which hollow dots stay) is Stefan's call. One beehiiv draft is waiting for Publish:
+the main form's button label shortened to "Join free" so it stops wrapping on phones.
 per-category counts, so there is nothing to generate).
 
 ## How to read this

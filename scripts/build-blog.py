@@ -67,7 +67,7 @@ POSTS = [
       body=[
        'Most people with ADHD have already spent years navigating systems that seem designed for someone else. Forms that ask the same thing three times. Waitlists with no end date. A referral to get a referral. We built ADHDme to remove as much of that as we could.',
        '<strong>Step one is browsing.</strong> Every clinician in the network has a public profile: who they are, where they consult, what they focus on, and what an appointment costs before any rebate. You can read all of it without signing up. There is no gate between you and the information.',
-       '<strong>Step two is booking.</strong> When a profile feels right, the Book button takes you straight to that practice’s own booking page. You pick a time, and that is it. ADHDme does not charge a platform fee and does not ask for payment upfront.',
+       '<strong>Step two is booking, or asking.</strong> When a profile feels right, its button says Book or Enquire. Book opens that practice’s own diary: you pick a time, and that is it. Enquire opens the practice’s own form, and they reply to arrange a time. ADHDme does not charge a platform fee and does not ask for payment upfront.',
        'That is deliberately the whole process. Executive function is exactly the resource ADHD makes scarce, so a booking flow that demands a lot of it is a booking flow that quietly filters out the people it exists for.',
        'If you are unsure which clinician to start with, our GPs are the usual first step for assessment and prescribing. Psychologists and allied health practitioners support what comes after, from therapy to workplace adjustments.'],
       sources=[('How it works', 'how-it-works.html'), ('The Network', 'the-doctors.html')]),

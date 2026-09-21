@@ -38,7 +38,7 @@
 <a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html">How it works</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="the-doctors.html">The Network</a><a class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="learn.html">Learn</a><a aria-current="page" class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold bg-[#1a1c1c] text-white shadow-sm transition-all" href="our-story.html">Our Story</a>
 </nav>
 <div class="flex items-center gap-3">
-<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-[15px] font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html"><span class="flex items-center gap-1.5 whitespace-nowrap">Book now <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
+<a class="btn-press inline-flex items-center justify-center h-11 px-5 rounded-full bg-[#1a1c1c] text-white text-[15px] font-semibold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_-2px_rgba(24,24,27,0.18)] hover:-translate-y-0.5" href="the-doctors.html"><span class="flex items-center gap-1.5 whitespace-nowrap">Find your clinician <span class="text-[#f1bc31] font-bold" aria-hidden="true">→</span></span></a>
 <button aria-controls="mobile-nav" aria-expanded="false" aria-label="Open menu" class="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full bg-black/5 hover:bg-black/10 text-[#1a1c1c] transition-colors" data-menu-toggle type="button">
 <svg data-icon-open width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
 <svg data-icon-close hidden width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -113,29 +113,6 @@
 </div>
 </div>
 </footer>
-<script>
-  (function() {
-    const form = document.getElementById('waitlist-form');
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        const btn = form.querySelector('button');
-        const input = form.querySelector('input');
-        if (btn && input) {
-          e.preventDefault();
-          btn.innerHTML = '<svg class="w-[18px] h-[18px] shrink-0 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 0 1-14.5 4.6M4 12a8 8 0 0 1 14.5-4.6M18 4v4h-4M6 20v-4h4"/></svg><span>Welcome aboard...</span>';
-          btn.disabled = true;
-          setTimeout(() => {
-            btn.innerHTML = '<svg class="w-[18px] h-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l5 5L19 7"/></svg><span>You are on the list!</span>';
-            btn.classList.remove('bg-[#f1bc31]', 'text-black');
-            btn.classList.add('bg-white', 'text-[#1a1c1c]');
-            input.value = '';
-            input.placeholder = "We will see you inside very soon!";
-          }, 800);
-        }
-      });
-    }
-  })();
-</script>
 <script src="analytics-config.js" defer></script>
 <script src="assets/js/site.min.js" defer></script>
 
