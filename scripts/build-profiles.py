@@ -1240,10 +1240,9 @@ def render_deck(deck, sizes):
 
 # ---------------------------------------------------------------- the landing page
 
-# The landing page routes; it does not list. The one thing it states from the data is how many
-# practitioners there are, between a <!-- BEGIN:GENERATED count-all --> pair, so the number cannot
-# quietly go wrong when the network grows.
-LANDING_REGIONS = ['count-all']
+# The landing page routes; it does not list, and since it was pared back to a headline and four words it
+# states nothing from the data at all. Name a region here (and fill it in render_landing) if it ever does.
+LANDING_REGIONS = []
 
 
 def region(page, name, body, where):
@@ -1258,8 +1257,8 @@ def region(page, name, body, where):
 
 
 def render_landing(page, sizes):
-    """index.html with the practitioner count refilled."""
-    return region(page, 'count-all', str(len(CLINICIANS)), 'index.html')
+    """index.html, which currently carries no generated regions."""
+    return page
 
 
 # ---------------------------------------------------------------- checks

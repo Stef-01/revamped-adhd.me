@@ -189,7 +189,6 @@
   // The header's four, then the landing page's two doors wherever they appear: the hero card, the
   // pair of panels, and the closing banner.
   var LANDING_CONTROLS = ['nav-learn', 'nav-cta', 'nav-doctors', 'nav-approach',
-    'hero-diagnosis', 'hero-psychology',
     'door-diagnosis', 'door-psychology', 'door-allied', 'door-coaches'];
   // Every page that loads this bundle, in the words a dashboard should read back. Anything not
   // listed counts as 'other' rather than being refused, so a new page is never silently uncounted.
