@@ -28,6 +28,11 @@ button reads "Find your clinician" on every page (D1); the booking blog post exp
 it works covers occupational therapy and coaching costs (4.1); on phones the homepage photograph keeps its
 faces, with the sentence and buttons beneath it; `.vercelignore` keeps these notes off the public site;
 the fee and response-time email to the practices is drafted in `FEE-REQUEST-EMAIL-DRAFT.md`, unsent (D2, D3).
+Reversed on Stefan's direction: 3.3 and 3.4. The four cards with descriptions and cost lines were too much
+to read on a landing page for this audience. They are now four words (Assessment, Therapy, Daily life,
+Coaching), each a full-width row that fills with its colour under the pointer while the others step back.
+Costs and eligibility stay on How it works and the profiles, one click in. The hero sentence was cut to nine
+words for the same reason. Rule for the landing page from here: vision first, detail behind a click.
 Open, and why: 0.1 needs a PostHog personal API key, which is not on this machine; 0.3 and 5.5 need people;
 4.3 waits on 0.1; D4 (which hollow dots stay) is Stefan's call. One beehiiv draft is waiting for Publish:
 the main form's button label shortened to "Join free" so it stops wrapping on phones.
