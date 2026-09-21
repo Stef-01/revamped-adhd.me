@@ -58,6 +58,10 @@ WPC = 'https://wellnesspsychologyclinic.com.au/'
 # Neurotherapy Clinics Australia, five clinics; Lara Schulz practises at the Jindabyne one.
 NCAU = 'https://www.ncau.com.au/'
 
+# Neutral Minds Psychology, Ashgrove in Brisbane. Jess Katsamatsas is its psychologist and its director.
+NMP = 'https://www.neutralmindspsychology.com.au/'
+NMP_BOOK = 'https://clientportal.zandahealth.com/clientportal/neutralmindspsychology/appointment-booking'
+
 # GOALS Psychology, Fortitude Valley. One clinic, eight clinicians, so the shared facts sit here once.
 GOALS = 'https://www.goalspsychology.com/'
 GOALS_BOOK = 'https://www.halaxy.com/book/goals-psychology/location/726621'
@@ -949,6 +953,72 @@ CLINICIANS = [
                          'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)', 'Associate Certified Coach (ACC)'],
             same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
             works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='jessica-katsamatsas', id='jessica-katsamatsas', category='psychologist',
+        name='Jessica Katsamatsas', short='Jess', role='Psychologist and Director',
+        pronouns='',  # not declared anywhere on the practice's site
+        practice='Neutral Minds Psychology', place='Brisbane & telehealth',
+        descriptor='Psychologist & director',
+        description='Therapy as a space where you can take a breath, put the mask down, and be a little more human.',
+        chips=['Neurodivergent adults', 'Neurodiversity-affirming', 'Trauma-informed'],
+        telehealth=True,
+        book_href=NMP_BOOK,
+        book_hint='Opens Neutral Minds Psychology’s booking page on Zanda, in a new tab.',
+        links=[
+            ('instagram', '@neutralmindspsychology', 'https://www.instagram.com/neutralmindspsychology/'),
+            ('website', 'neutralmindspsychology.com.au', NMP),
+        ],
+        fees=dict(
+            heading='What a session costs',
+            # The practice publishes the fee but not the rebate, so only the fee is a figure.
+            figures=[('$220', 'Per session')],
+            notes=[
+                'Medicare rebates are available with a valid referral and a Mental Health Care Plan from your GP. '
+                'The practice does not publish the rebate amount, so ask what it is and what the gap will be when '
+                'you book.',
+                'Sessions run 50 minutes, for adults 18 and over, in person at Ashgrove or by telehealth anywhere in '
+                'Australia.',
+                'NDIS participants who are self-managed or plan-managed are seen at the current NDIS fee schedule '
+                'rate rather than this one.',
+                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+                'It is published here so the cost is settled before you book rather than at the first session.',
+            ],
+        ),
+        qualifications='Registered psychologist',
+        languages=[],
+        experience=[
+            'Registered psychologist and director, Neutral Minds Psychology, Ashgrove',
+            'Individual supportive psychological counselling for adults 18 and over',
+            'Cognitive Behavioural Therapy (CBT), Acceptance and Commitment Therapy (ACT) and mindfulness',
+            'Attachment-focused, trauma-informed and somatic-informed practice',
+            'Anxiety, burnout, low self-esteem, relationship difficulties and attachment wounds',
+            'Neurodiversity-affirming care for young neurodivergent adults',
+            'Psychological integration support for experiences undertaken outside formal therapeutic settings',
+            'NDIS participants who are self-managed and plan-managed',
+        ],
+        about=[
+            'Hi, I’m Jess, a psychologist who believes therapy should feel like a space where you can take a breath, put the mask down, and be a little more human.',
+            'I work primarily with young neurodivergent adults who may be navigating anxiety, burnout, low self-esteem, relationship difficulties, attachment wounds, or the lingering impact of past experiences. Many of the people I work with have spent a long time trying to understand why everyday life can feel harder than it seems to for everyone else. They may be used to overthinking, people-pleasing, masking, holding everything together, or feeling like they’re constantly trying to keep up.',
+            'As someone passionate about neurodiversity-affirming care, I also understand that healing and growth don’t have to mean becoming “less neurodivergent” or learning to fit yourself into someone else’s idea of what life should look like. Sometimes, therapy is about understanding yourself more deeply, letting go of strategies that no longer serve you, and creating a life that actually works for you.',
+            'My work draws on evidence-based approaches including CBT, ACT and mindfulness, alongside attachment-focused, trauma-informed and somatic-informed perspectives. I have a particular interest in the ways our early relationships and experiences can shape how we see ourselves, connect with others and cope with the world around us.',
+            'My approach to therapy is warm, collaborative and down-to-earth. I’m not here to tell you how you should feel or hand you a list of strategies and send you on your way. Instead, we’ll work together to better understand your experiences, patterns, relationships and nervous system, while finding practical ways to make life feel more manageable.',
+            'You don’t need to have the right words. You don’t need to know exactly what you want to work on. You just need a place to start. We can figure out the rest together.',
+        ],
+        details=[
+            ('Reach', 'In-person appointments in Ashgrove, Brisbane, and telehealth Australia-wide'),
+            ('Appointments', '50-minute sessions for adults 18 and over; booked online through the practice’s portal'),
+            ('Billing', '$220 per session, Medicare rebate with a referral and Mental Health Care Plan; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='Neutral Minds Psychology is an independent practice: it sets its own fees, availability and clinical approach, and ADHDme receives no part of what you pay.',
+        schema=dict(
+            type='Person',
+            credentials=['Registered psychologist'],
+            same_as=[NMP + 'about', 'https://www.instagram.com/neutralmindspsychology/'],
+            works_for=dict(url=NMP, telephone='0494 642 583', locality='Ashgrove', state='QLD'),
             area='Australia',
         ),
     ),

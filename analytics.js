@@ -128,6 +128,12 @@
       name: 'Kate Dallimore', category: 'coach',
       practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
       expertise: ['executive-function', 'coaching', 'trauma'], ages: ['teens', 'adults']
+    },
+    'jessica-katsamatsas': {
+      booking: /zandahealth\.com\/clientportal\/neutralmindspsychology/, profile: 'jessica-katsamatsas.html',
+      name: 'Jessica Katsamatsas', category: 'psychologist',
+      practice: 'Neutral Minds Psychology', destination: 'zanda',
+      expertise: ['therapy', 'neuroaffirming', 'trauma'], ages: ['adults']
     }
   };
 
@@ -152,7 +158,7 @@
   var CLINICIAN_NAMES = column('name');
   var CATEGORIES = column('category');        // gp · psychologist · allied · coach
   var PRACTICES = column('practice');
-  var DESTINATIONS = column('destination');   // healthengine · halaxy · clinic-form · clinic-contact
+  var DESTINATIONS = column('destination');   // healthengine · halaxy · zanda · clinic-form · clinic-contact
   // Where on the site the click happened, and which link on that page it was. A page may grow a
   // second booking link; mark it with data-booking-link="..." and add the name here.
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];

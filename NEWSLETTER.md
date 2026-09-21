@@ -444,7 +444,7 @@ Not the source material — the finished sentence.
 Issue #1 does not include the block, because there are no approved tips yet and a
 placeholder in a sendable draft is how a placeholder gets sent.
 
-One thing the roster makes obvious: eight of the eighteen practitioners share a single
+One thing the roster makes obvious: eight of the nineteen practitioners share a single
 practice Instagram (`@goals.psychology`). Expect most finds to be attributable to GOALS
 Psychology rather than to an individual, unless a post names its author.
 
