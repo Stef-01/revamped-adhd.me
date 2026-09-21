@@ -601,6 +601,44 @@ iconify-icon{display:inline-block; vertical-align:-.12em}
 .q__k, .nav__n{position:relative}
 .q[data-done] .q__k::after, .nav__item[data-done="1"] .nav__n::after{position:absolute; inset:0; display:grid; place-items:center; line-height:1}
 
+/* ---------- notes: a panel beside the module, one note per section, kept in this browser ---------- */
+:root{--notes-w:360px}
+.notes-tab{position:fixed; right:0; top:50%; z-index:45; transform:translateY(-50%); writing-mode:vertical-rl; display:flex; align-items:center; gap:var(--s2);
+  padding:var(--s4) var(--s3); border:1px solid var(--line-2); border-right:0; border-radius:var(--r) 0 0 var(--r); background:var(--bg); color:var(--ink);
+  font-family:inherit; font-size:var(--t2); line-height:var(--l2); font-weight:700; letter-spacing:.02em; cursor:pointer; box-shadow:var(--shadow-2);
+  transition:transform .25s var(--ease), opacity .2s var(--ease)}
+.notes-tab:hover{transform:translateY(-50%) translateX(-3px)}
+.notes-tab iconify-icon{font-size:18px; color:var(--accent)}
+.notes-tab[data-has="1"]::after{content:""; width:7px; height:7px; border-radius:50%; background:var(--accent)}
+.app[data-notes="1"] ~ .notes-tab, .notes-tab[aria-expanded="true"]{opacity:0; pointer-events:none}
+.notes{position:fixed; top:0; right:0; bottom:0; width:var(--notes-w); z-index:50; display:flex; flex-direction:column; gap:var(--s3);
+  padding:var(--s5); background:var(--bg); border-left:1px solid var(--line); box-shadow:var(--shadow-2);
+  transform:translateX(100%); visibility:hidden; transition:transform .35s var(--ease), visibility 0s linear .35s}
+.notes[data-open="1"]{transform:none; visibility:visible; transition:transform .35s var(--ease), visibility 0s}
+.notes__head{display:flex; align-items:center; justify-content:space-between; gap:var(--s3)}
+.notes__k{margin:0; font-size:11px; line-height:var(--l1); font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
+.notes__close{font-size:22px}
+.notes__lab{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+.notes__sel{width:100%; min-height:44px; padding:0 var(--s3); border:1px solid var(--line-2); border-radius:12px; background:var(--paper); color:var(--ink);
+  font-family:inherit; font-size:var(--t2); font-weight:700}
+.notes__ta{flex:1 1 auto; min-height:0; width:100%; resize:none; padding:var(--s4); border:1px solid var(--line-2); border-radius:var(--r); background:var(--paper); color:var(--ink);
+  font-family:inherit; font-size:16px; line-height:1.6}
+.notes__sel:focus-visible, .notes__ta:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.notes__foot{display:flex; align-items:center; justify-content:space-between; gap:var(--s3); font-size:var(--t1); line-height:var(--l1); color:var(--ink-3)}
+.notes__dl{flex:none; min-height:36px; padding:0 var(--s4); border:1px solid var(--line-2); border-radius:var(--r-pill); background:var(--bg); color:var(--ink);
+  font-family:inherit; font-size:var(--t1); font-weight:700; cursor:pointer}
+.notes__dl:disabled{opacity:.45; cursor:default}
+@media (min-width:1280px){ .app[data-notes="1"]>main{padding-right:var(--notes-w)} }
+@media (max-width:1279px){
+  .notes-tab{top:auto; bottom:var(--s5); right:var(--s4); transform:none; writing-mode:horizontal-tb; padding:0 var(--s4); min-height:48px; border:1px solid var(--line-2); border-radius:var(--r-pill)}
+  .notes-tab:hover{transform:none}
+  .notes{top:auto; left:0; width:auto; height:46dvh; border-left:0; border-top:1px solid var(--line); border-radius:var(--r-lg) var(--r-lg) 0 0; padding:var(--s4) var(--s4) var(--s4);
+    transform:translateY(100%)}
+  .app[data-notes="1"]>main{padding-bottom:46dvh}
+}
+@media (max-width:1279px) and (min-width:1001px){ .notes{left:var(--sidebar)} }
+@media (prefers-reduced-motion:reduce){ .notes, .notes-tab{transition:none} }
+
 /* ---------- icon polish ---------- */
 .nav__n iconify-icon{font-size:15px}
 .nav__item[data-done="1"] .nav__n iconify-icon{display:none}
@@ -1562,6 +1600,14 @@ iconify-icon{display:inline-block; vertical-align:-.12em}
   </div>
 </main>
 </div>
+<button class="notes-tab noprint" type="button" data-notes-open aria-expanded="false" aria-controls="notes"><iconify-icon icon="ph:note-pencil-duotone"></iconify-icon><span>Notes</span></button>
+<aside class="notes noprint" id="notes" aria-label="Your notes">
+  <div class="notes__head"><p class="notes__k">Your notes</p><button class="iconbtn notes__close" type="button" data-notes-close aria-label="Close notes">×</button></div>
+  <label class="notes__lab" for="notes-sec">Notes for</label>
+  <select class="notes__sel" id="notes-sec"></select>
+  <textarea class="notes__ta" id="notes-text" aria-label="Notes for this section" placeholder="Type as you read. Saved as you go."></textarea>
+  <div class="notes__foot"><span data-notes-status>Saved in this browser only.</span><button class="notes__dl" type="button" data-notes-dl>Download all</button></div>
+</aside>
 <script>
 /* ADHDme Clinical Academy — course behaviour.
    Formative questions mark on selection; module tests mark on submit.
@@ -1856,6 +1902,97 @@ iconify-icon{display:inline-block; vertical-align:-.12em}
     document.documentElement.setAttribute('data-theme', next);
     set('theme', next);
   });
+
+  /* ---------- notes: one per section, follows the section you are reading ---------- */
+  (function () {
+    var panel = document.getElementById('notes');
+    var tab = document.querySelector('[data-notes-open]');
+    var app = document.querySelector('.app');
+    if (!panel || !tab || !app) return;
+    var sel = document.getElementById('notes-sec');
+    var ta = document.getElementById('notes-text');
+    var dl = panel.querySelector('[data-notes-dl]');
+    var status = panel.querySelector('[data-notes-status]');
+
+    /* the sections are the ones the contents list links to */
+    var items = [].slice.call(document.querySelectorAll('.nav__item[href^="#"]')).map(function (a) {
+      var t = a.querySelector('.nav__t');
+      var n = a.getAttribute('data-nav');
+      return { id: a.getAttribute('href').slice(1), title: (n ? 'Module ' + n + ' · ' : '') + (t ? t.textContent.trim() : '') };
+    });
+    if (!items.length) return;
+    var current = items[0].id;
+
+    function label(it) { return (get('note.' + it.id) ? '• ' : '') + it.title; }
+    function anyNotes() { return items.some(function (it) { return !!get('note.' + it.id); }); }
+    function refresh() {
+      items.forEach(function (it, i) { sel.options[i].text = label(it); });
+      var has = anyNotes();
+      dl.disabled = !has;
+      tab.setAttribute('data-has', has ? '1' : '0');
+    }
+    function show(id) {
+      current = id;
+      sel.value = id;
+      ta.value = get('note.' + id) || '';
+    }
+
+    items.forEach(function (it) { sel.add(new Option(label(it), it.id)); });
+
+    /* storage can be blocked; say so rather than lose notes quietly */
+    set('note.probe', '1');
+    if (get('note.probe') !== '1') status.textContent = 'This browser is blocking storage, so notes will not be kept.';
+    del('note.probe');
+
+    ta.addEventListener('input', function () {
+      if (ta.value.trim()) set('note.' + current, ta.value); else del('note.' + current);
+      refresh();
+    });
+    sel.addEventListener('change', function () { show(sel.value); });
+
+    /* follow the reader, but never swap the text out from under someone typing */
+    function follow() {
+      if (document.activeElement === ta || document.activeElement === sel) return;
+      var a = document.querySelector('.nav__item[aria-current="true"]');
+      var id = a && a.getAttribute('href').slice(1);
+      if (id && id !== current) show(id);
+    }
+    /* wait for the outline highlight above to settle on the new section first */
+    var settle;
+    window.addEventListener('scroll', function () {
+      clearTimeout(settle);
+      settle = setTimeout(follow, 200);
+    }, { passive: true });
+    ta.addEventListener('blur', follow);
+
+    function open(yes) {
+      panel.setAttribute('data-open', yes ? '1' : '0');
+      app.setAttribute('data-notes', yes ? '1' : '0');
+      tab.setAttribute('aria-expanded', yes ? 'true' : 'false');
+      set('notes.open', yes ? '1' : '0');
+      if (yes) { follow(); show(current); }
+    }
+    tab.addEventListener('click', function () { open(true); ta.focus({ preventScroll: true }); });
+    panel.querySelector('[data-notes-close]').addEventListener('click', function () { open(false); tab.focus(); });
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') { open(false); tab.focus(); } });
+
+    dl.addEventListener('click', function () {
+      var out = ['ADHDme Clinical Academy: my notes', ''];
+      items.forEach(function (it) {
+        var v = get('note.' + it.id);
+        if (v) out.push(it.title, '-'.repeat(it.title.length), v.trim(), '');
+      });
+      var url = URL.createObjectURL(new Blob([out.join('\n')], { type: 'text/plain' }));
+      var a = document.createElement('a');
+      a.href = url; a.download = 'adhdme-academy-notes.txt';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    });
+
+    refresh();
+    show(current);
+    if (get('notes.open') === '1' && window.matchMedia('(min-width:1280px)').matches) open(true);
+  })();
 
   /* ---------- printing: reveal every answer and rationale ---------- */
   window.addEventListener('beforeprint', function () {
