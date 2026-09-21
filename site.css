@@ -98,7 +98,10 @@ html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }
   ::view-transition-group(portrait-kate-row), ::view-transition-group(portrait-ellie-putland), ::view-transition-group(portrait-lachlan-avent),
   ::view-transition-group(portrait-samantha-courtney), ::view-transition-group(portrait-lauren-poulos), ::view-transition-group(portrait-alice-bui),
   ::view-transition-group(portrait-meera-lakhani), ::view-transition-group(portrait-flynn-simonis),
-  ::view-transition-group(portrait-lara-schulz) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  ::view-transition-group(portrait-lara-schulz), ::view-transition-group(portrait-fiona-alexander),
+  ::view-transition-group(portrait-debbie-hirte), ::view-transition-group(portrait-romney-taylor),
+  ::view-transition-group(portrait-erin-lysle), ::view-transition-group(portrait-donna-italiano),
+  ::view-transition-group(portrait-kate-dallimore) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 }
 /* A block that arrives via a page transition is already on screen: no second reveal */
 .js [data-reveal].no-anim, .js [data-reveal].no-anim img { transition: none !important; }

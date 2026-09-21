@@ -35,7 +35,7 @@ PORTRAITS = 'assets/clinicians'
 
 # The Network: which tab panel each category's cards go in. The first clinician in the default panel
 # is the one card that loads eagerly; every other card is lazy.
-PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health'}
+PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health', 'coach': 'coaches'}
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -116,6 +116,64 @@ GOALS_FEES_PROVISIONAL = goals_fees(
 GOALS_FEES_OT = goals_fees(
     'Occupational therapy is not covered by a Mental Health Treatment Plan. It is commonly funded through the NDIS, '
     'private health extras, or a GP’s chronic disease management plan; the clinic can tell you what applies to you.')
+
+# REACH ADHD Coaching and Consultancy, Perth. One practice, six coaches, so the shared facts sit here once.
+# Coaching is not a registered health profession, which is why the disclosure says so and why worksFor is a
+# ProfessionalService rather than the MedicalBusiness the clinics get.
+REACH = 'https://www.reachadhd.com.au/'
+REACH_BOOK = REACH + 'contact/'
+REACH_BOOK_HINT = 'Opens REACH ADHD’s enquiry form, in a new tab. Coaching is arranged with the practice rather than booked online.'
+REACH_PLACE = 'Perth & online'
+REACH_LINKS = [
+    ('instagram', '@reach_adhd_coaching', 'https://www.instagram.com/reach_adhd_coaching/'),
+    ('website', 'reachadhd.com.au', REACH),
+]
+REACH_REACH = 'Coaching online, and in person in Perth'
+REACH_APPOINTMENTS = ('An initial consultation, then sessions weekly, fortnightly or as needed; the practice suggests '
+                      'starting with six fortnightly sessions')
+REACH_BILLING = 'Set and quoted by the practice; JobAccess funding may cover it'
+REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice: it sets its own fees, availability '
+                    'and coaching approach, and ADHDme receives no part of what you pay. ADHD coaching is not a '
+                    'registered health profession, and it is not assessment, diagnosis or therapy.')
+REACH_WORKS_FOR = dict(type='ProfessionalService', url=REACH, telephone='(08) 6361 3506', locality='Perth', state='WA')
+REACH_JOBACCESS = REACH + 'unlocking-support-how-adhd-coaching-can-be-funded-through-jobaccess/'
+
+# Another practice that publishes no price list, so no figures: same rule as GOALS and NCAU above. What it does
+# publish, and what almost nobody looking at a coach knows, is that the work can be government-funded — so the
+# notes carry that, with REACH's own figure and their guide to claiming it.
+REACH_FEES = dict(
+    heading='What coaching costs',
+    figures=[],
+    notes=[
+        'REACH ADHD does not publish a session fee. It quotes one when you enquire, and its enquiry form asks what '
+        'you had in mind, so the number is settled before anything is booked.',
+        'Coaching can be government-funded. If you work, or are self-employed, for at least eight hours a week, the '
+        'Employment Assistance Fund covers supports for employees with disability, ADHD included, under Specialist '
+        'Mental Health Support. REACH puts it at <strong>around $1,770.44 including GST a year</strong>, indexed and '
+        'subject to change. You apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
+        'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with supporting '
+        'documentation from a GP or specialist; your employer confirms the job, and you can ask for an exemption '
+        'rather than disclose the diagnosis. Applications are usually assessed within ten business days, and you '
+        'claim the cost back. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
+        'decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
+        + REACH_JOBACCESS + '">guide to the fund</a> sets out the steps, and the practice runs free sessions to help '
+        'people through the application.',
+        'REACH is not a registered NDIS provider, but says self-managed and plan-managed participants can still claim '
+        'session fees. For children, it says the NDIS is usually the only funding route.',
+        '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+        'It is described here rather than shown as a number because the practice has not published one, and a guess '
+        'would be worse than nothing.',
+    ],
+)
+
+
+def reach_details():
+    return [
+        ('Reach', REACH_REACH),
+        ('Appointments', REACH_APPOINTMENTS),
+        ('Billing', REACH_BILLING),
+        ('Wheelchair access', 'Not declared'),
+    ]
 
 CLINICIANS = [
     dict(
@@ -652,6 +710,240 @@ CLINICIANS = [
             area='Snowy Mountains, NSW, Australia', area_type='Place',
         ),
     ),
+    dict(
+        slug='fiona-alexander', id='fiona-alexander', category='coach',
+        name='Fiona Alexander', short='Fiona Alexander', role='ADHD Coach and Co-Founder',
+        # REACH's coaches write their own bios in the first person and none of them states a pronoun,
+        # so the field is left empty rather than guessed; meta_line drops it.
+        pronouns='',
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD coach & co-founder',
+        description='Twenty-five years of teaching behind the coaching, starting from how your own brain works rather than a generic plan.',
+        chips=['Executive functioning', 'Students & families', 'Able & gifted learners'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BA(Primary Ed) BEd AACC ACC',
+        languages=[],
+        experience=[
+            'Co-founder, REACH ADHD Coaching and Consultancy, Perth',
+            '25 years teaching in local and international schools',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Associate Certified Coach (ACC), International Coaching Federation',
+            'Bachelor of Arts (Primary School Education)',
+            'Bachelor of Education',
+            'Teaching and Learning for Able/Gifted Children',
+        ],
+        about=[
+            'Throughout my 25 years in education, I’ve had the privilege of teaching children from all walks of life, each with their own strengths and unique ways of thinking. It didn’t take long for me to recognise that every student learns differently and that diversity in learning is something to be celebrated. This realisation inspired me to specialise in ADHD education, where I could focus on supporting neurodivergent students and their families.',
+            'My teaching journey has taken me across both local and international schools, and in every classroom, I’ve learned just as much as my students. Understanding how your brain works is the first step in overcoming challenges, and it’s incredibly rewarding to help students and families discover that. My coaching approach is about guiding individuals through this journey of self-discovery, helping them embrace who they are, and confidently navigating the learning process.',
+            'I’m passionate about helping clients thrive in their own way. Together, we can make learning an empowering experience that brings out the best in you.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Arts (Primary School Education)', 'Bachelor of Education',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)',
+                         'Associate Certified Coach (ACC), International Coaching Federation'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='debbie-hirte', id='debbie-hirte', category='coach',
+        name='Debbie Hirte', short='Debbie Hirte', role='ADHD Coach and Co-Founder', pronouns='',
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD coach & co-founder',
+        description='Nearly three decades in schools, spent advocating for neurodivergent students and the families around them.',
+        chips=['Executive functioning', 'Children & teens', 'Gifted & talented'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BA(Early Childhood Ed) AACC ACC',
+        languages=[],
+        experience=[
+            'Co-founder, REACH ADHD Coaching and Consultancy, Perth',
+            'Nearly 30 years in independent schools as classroom teacher, specialist and Gifted and Talented Specialist',
+            'Mentoring educators, and co-designing Individual Education Plans with families and schools',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Associate Certified Coach (ACC), International Coaching Federation',
+            'Bachelor of Arts (Early Childhood Education)',
+        ],
+        about=[
+            'With nearly three decades in Independent schools, my commitment to supporting neurodivergent students and their families has been a driving force throughout my career. I’ve had the opportunity to work as a classroom teacher, specialist, and later, as a Gifted and Talented Specialist, advocating for students and helping them succeed both academically and socially.',
+            'Over the years, I’ve developed a deep understanding of the unique challenges neurodivergent individuals face. My role has allowed me to mentor educators, collaborate with families, and support students through tailored strategies designed to meet their needs. Working closely with this incredible community has only strengthened my passion for helping individuals embrace their unique brain wiring.',
+            'Through ADHD coaching, my goal is to help students and families see that differences in learning are something to be embraced, not feared. I’m here to provide the tools and strategies that enable growth and success, helping every individual step into their best self with confidence.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Arts (Early Childhood Education)', 'Gifted and Talented Specialist',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)',
+                         'Associate Certified Coach (ACC), International Coaching Federation'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='romney-taylor', id='romney-taylor', category='coach',
+        name='Romney Taylor', short='Romney Taylor', role='ADHD Consultant Coach', pronouns='',
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD consultant coach',
+        description='Twenty-three years in classrooms, and a conviction that no two minds work the same way.',
+        chips=['Executive functioning', 'Students', 'Advocacy & inclusion'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BSc GradDipEd AACC ACC',
+        languages=[],
+        experience=[
+            'Consultant coach, REACH ADHD Coaching and Consultancy, Perth',
+            '23 years working with students across local and interstate schools',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Associate Certified Coach (ACC), International Coaching Federation',
+            'Bachelor of Science',
+            'Graduate Diploma in Education',
+            'Mini-COGE, gifted and talented education',
+        ],
+        about=[
+            'For the past 23 years, I’ve worked with students across diverse local and interstate schools, and one of the most important things I’ve learned is that no two minds work the same. Recognising this truth inspired me to pursue specialist training as an ADHD coach, allowing me to focus on supporting neurodivergent individuals in a way that celebrates their strengths and addresses their unique challenges.',
+            'As a consultant coach to REACH ADHD it provides me the opportunity to create a safe and inclusive space where neurodiverse students can feel heard and understood. It’s incredibly rewarding to help them develop strategies that fit their individual needs, whether that’s in the classroom, in relationships, or at home. My passion for advocacy drives me to promote awareness and acceptance for all neurodiverse individuals, building a culture of inclusivity in every environment I work in.',
+            'Watching my clients grow and achieve goals they once thought were out of reach is the most fulfilling part of my work. Together, we’ll work towards success in a way that is meaningful to you.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Science', 'Graduate Diploma in Education',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)',
+                         'Associate Certified Coach (ACC), International Coaching Federation'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='erin-lysle', id='erin-lysle', category='coach',
+        name='Erin Lysle', short='Erin Lysle', role='ADHD Consultant Coach', pronouns='',
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD consultant coach',
+        description='Thirty-four years of teaching, and strategies built to fit the person rather than the diagnosis.',
+        chips=['Executive functioning', 'Self-confidence', 'Social skills'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BA BEd AACC',
+        languages=[],
+        experience=[
+            'Consultant coach, REACH ADHD Coaching and Consultancy, Perth',
+            'Over 34 years teaching across a wide range of educational settings',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Bachelor of Arts',
+            'Bachelor of Education',
+        ],
+        about=[
+            'With over 34 years of teaching experience, I’ve had the privilege of working across a wide range of educational settings. Over time, I’ve come to understand just how varied and complex ADHD can be for each individual, and this insight has shaped my approach as an ADHD coach. I bring together my expertise in education with a deep understanding of ADHD, crafting strategies that truly connect with each client.',
+            'As a consulting coach to REACH ADHD, my priority is meeting each person where they are. I believe in creating a supportive, positive environment where clients feel encouraged to explore new strategies and tackle challenges head-on. Whether we’re focusing on building self-confidence, improving executive functioning, or enhancing social skills, my coaching is centred around empathy, patience, and understanding.',
+            'My role is to help clients not only manage ADHD traits but to help them grow in a way that aligns with their personal goals and values. I celebrate every milestone with my clients, big or small, and I’m dedicated to equipping them with tools that lead to long-lasting success.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Arts', 'Bachelor of Education',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='donna-italiano', id='donna-italiano', category='coach',
+        name='Donna Italiano', short='Donna Italiano', role='ADHD Consultant Coach',
+        pronouns='she/her',  # the only one of the six whose bio states it
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD consultant coach',
+        description='Two decades across school communities, and a belief that connection is what makes learning possible.',
+        chips=['Executive functioning', 'Emotional regulation', 'Neurodivergent-affirming'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BA BEd AACC',
+        languages=[],
+        experience=[
+            'Consultant coach, REACH ADHD Coaching and Consultancy, Perth',
+            'Over two decades across Australian and international school communities',
+            'Secondary education: ATAR Economics and Business Management, Special Needs Support, Commerce and Sport',
+            'Middle-management leadership, and roles in professional services, governance and community sport',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Bachelor of Arts',
+            'Bachelor of Education',
+        ],
+        about=[
+            'With over two decades of experience across Australian and international school communities, Donna Italiano is an ADHD coach, consultant, and educator with a deep understanding of how learning, wellbeing, and performance intersect. Her background spans secondary education, ATAR Economics and Business Management, Special Needs Support, Commerce, and Sport, giving her a whole-person perspective on education that integrates neuroscience, emotional safety, and compassion.',
+            'Throughout her career, Donna has taught and mentored thousands of students, led middle-management teams, supported both high-performing and neurodivergent learners, and contributed beyond the classroom through roles in professional services, governance, and community sport. These diverse experiences have shaped her belief that connection is foundational to learning, and that understanding how the brain works is key to unlocking confidence, regulation, and growth.',
+            'As a consultant coach with REACH ADHD, Donna focuses on ADHD, executive functioning, emotional regulation, and neurodivergent-affirming practice. She is passionate about creating safe, inclusive spaces where students and families feel seen, understood, and supported. Donna works alongside young people to help them understand their unique brain wiring, build practical strategies, and move toward their goals with clarity, confidence, and self-belief.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Arts', 'Bachelor of Education',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='kate-dallimore', id='kate-dallimore', category='coach',
+        name='Kate Dallimore', short='Kate Dallimore', role='ADHD Consultant Coach', pronouns='',
+        practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
+        descriptor='ADHD consultant coach',
+        description='A physiotherapy and teaching background, brought to trauma-informed coaching for people who have not felt understood.',
+        chips=['Trauma-informed', 'Executive functioning', 'Neurodiversity-affirming'],
+        telehealth=True,
+        book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
+        links=REACH_LINKS,
+        fees=REACH_FEES,
+        qualifications='ADHD coach, BSc(Physio Hons) PGDipPhysio MTeach AACC ACC',
+        languages=[],
+        experience=[
+            'Consultant coach, REACH ADHD Coaching and Consultancy, Perth',
+            'Over 30 years across healthcare, secondary and tertiary education, mentoring and leadership',
+            'Supporting people through ongoing stress, anxiety, overwhelm and complex life experiences',
+            'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
+            'Associate Certified Coach (ACC)',
+            'Bachelor of Science (Physiotherapy) with Honours',
+            'Postgraduate Diploma in Respiratory Physiotherapy',
+            'Master of Teaching (Secondary)',
+        ],
+        about=[
+            'I bring over 30 years of experience across healthcare, secondary and tertiary education, mentoring, leadership and community involvement to my work as an ADHD Consultant Coach. Across my career, I have been drawn to supporting people who have not always felt understood, helping them feel safe enough to recognise their strengths, trust themselves and take the next step. My work with students, families, clients and professionals has always centred on creating calm, supportive spaces where people feel heard, respected and able to build confidence and belief in themselves.',
+            'As an ADHD Consultant Coach with REACH ADHD, I bring a warm, neurodiversity-affirming and trauma-informed approach to supporting individuals with ADHD and executive functioning challenges. My experience supporting people navigating ongoing stress, anxiety, overwhelm and complex life experiences has shaped the way I coach, with a strong focus on safety, trust, empathy and respect.',
+            'I believe meaningful growth begins with connection and a genuine sense of belonging. My coaching is collaborative and strengths-based, helping clients better understand their unique brain wiring, recognise what is already working, develop practical strategies and move toward their goals with greater clarity, confidence and self-trust.',
+        ],
+        details=reach_details(),
+        disclosure=REACH_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Science (Physiotherapy) with Honours',
+                         'Postgraduate Diploma in Respiratory Physiotherapy', 'Master of Teaching (Secondary)',
+                         'AACC ADHD Coach, ADHD Coaching Academy (ADDCA)', 'Associate Certified Coach (ACC)'],
+            same_as=[REACH + 'meet-the-coaches/', 'https://www.instagram.com/reach_adhd_coaching/'],
+            works_for=REACH_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -806,7 +1098,8 @@ def jsonld(c):
              'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'image': image,
              'sameAs': s['same_as'],
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
-             'worksFor': {'@type': 'MedicalBusiness', 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
+             # Not every practice in the network is a health service: coaching is a ProfessionalService.
+             'worksFor': {'@type': w.get('type', 'MedicalBusiness'), 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
                           'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'}},
              # A clinician who only sees people in one town gets a Place rather than the whole country.
              'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}

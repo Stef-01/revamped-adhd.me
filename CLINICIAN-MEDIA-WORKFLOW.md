@@ -67,7 +67,7 @@ publish, so there was nothing to harvest.
 
 ## The roster
 
-Twelve practitioners, five practices. Sources are what the site's own structured data
+Eighteen practitioners, six practices. Sources are what the site's own structured data
 records — do not go hunting beyond them without a reason.
 
 | Clinician | Role | Practice profile | Social |
@@ -82,10 +82,16 @@ records — do not go hunting beyond them without a reason.
 | Samantha Courtney | Psychologist, eating disorders (CEDC-MH) | GOALS team | @goals.psychology |
 | Paula Garrido | Clinical psychologist, ADHD-CCSP | [Wellness Psychology Clinic](https://wellnesspsychologyclinic.com.au/doctor/clinpsych-paula-garrido/) | [@wellnesspsychologyclinic.au](https://www.instagram.com/wellnesspsychologyclinic.au/) |
 | Lara Schulz | Neurotherapy practitioner & director | [Neurotherapy Clinics Australia](https://www.ncau.com.au/about/) | [@neurotherapy_clinics_australia](https://www.instagram.com/neurotherapy_clinics_australia/) |
+| Fiona Alexander | ADHD coach & co-founder | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Debbie Hirte | ADHD coach & co-founder | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Romney Taylor | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Erin Lysle | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Donna Italiano | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
+| Kate Dallimore | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
 | Dr Anu Saxena | GP, MD FRACGP | [HealthEngine, Double Bay](https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121) | — |
 | Dr Anubhav Saxena | GP, MBBS FRACGP | [HealthEngine, Beecroft](https://healthengine.com.au/doctor/nsw/beecroft/dr-anubhav-saxena/p123180) | — |
 
-Note the shape of this: eight of twelve share one practice Instagram. Expect to attribute
+Note the shape of this: eight of eighteen share one practice Instagram. Expect to attribute
 most finds to **GOALS Psychology** rather than an individual, unless a post names its
 author. Do not guess which clinician wrote a practice post.
 
@@ -165,7 +171,7 @@ model it is not a blocker, because the content does not depend on the find.
 
 ## Cadence
 
-Run it once a month, not weekly. Twelve practitioners sharing three practice accounts will
+Run it once a month, not weekly. Eighteen practitioners sharing four practice accounts will
 not generate fresh material every seven days, and a block that recycles thin tips is worse
 than no block.
 

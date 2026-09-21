@@ -92,6 +92,42 @@
       name: 'Lara Schulz', category: 'allied',
       practice: 'Neurotherapy Clinics Australia', destination: 'clinic-contact',
       expertise: ['brain-mapping', 'neurotherapy'], ages: ['children', 'teens', 'adults']
+    },
+    'fiona-alexander': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'fiona-alexander.html',
+      name: 'Fiona Alexander', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'education', 'coaching'], ages: ['children', 'teens', 'adults']
+    },
+    'debbie-hirte': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'debbie-hirte.html',
+      name: 'Debbie Hirte', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'education', 'coaching'], ages: ['children', 'teens']
+    },
+    'romney-taylor': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'romney-taylor.html',
+      name: 'Romney Taylor', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'education', 'coaching'], ages: ['children', 'teens']
+    },
+    'erin-lysle': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'erin-lysle.html',
+      name: 'Erin Lysle', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'coaching', 'social-skills'], ages: ['children', 'teens', 'adults']
+    },
+    'donna-italiano': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'donna-italiano.html',
+      name: 'Donna Italiano', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'coaching', 'emotional-regulation'], ages: ['children', 'teens']
+    },
+    'kate-dallimore': {
+      booking: /reachadhd\.com\.au\/contact/, profile: 'kate-dallimore.html',
+      name: 'Kate Dallimore', category: 'coach',
+      practice: 'REACH ADHD Coaching and Consultancy', destination: 'clinic-contact',
+      expertise: ['executive-function', 'coaching', 'trauma'], ages: ['teens', 'adults']
     }
   };
 
@@ -114,7 +150,7 @@
 
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var CLINICIAN_NAMES = column('name');
-  var CATEGORIES = column('category');        // gp · psychologist · allied
+  var CATEGORIES = column('category');        // gp · psychologist · allied · coach
   var PRACTICES = column('practice');
   var DESTINATIONS = column('destination');   // healthengine · halaxy · clinic-form · clinic-contact
   // Where on the site the click happened, and which link on that page it was. A page may grow a
