@@ -33,6 +33,9 @@ to read on a landing page for this audience. They are now four words (Assessment
 Coaching), each a full-width row that fills with its colour under the pointer while the others step back.
 Costs and eligibility stay on How it works and the profiles, one click in. The hero sentence was cut to nine
 words for the same reason. Rule for the landing page from here: vision first, detail behind a click.
+The rest of the homepage followed: "The wait was never the care." stands alone as one large line, the
+closing call to action (a repeat of the hero buttons) is gone, and the newsletter block is a heading, the
+form and one line. The homepage is now hero, four words, one statement, one form.
 Open, and why: 0.1 needs a PostHog personal API key, which is not on this machine; 0.3 and 5.5 need people;
 4.3 waits on 0.1; D4 (which hollow dots stay) is Stefan's call. One beehiiv draft is waiting for Publish:
 the main form's button label shortened to "Join free" so it stops wrapping on phones.
