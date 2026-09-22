@@ -1153,7 +1153,7 @@ CLINICIANS = [
     dict(
         slug='sarah-savage', id='sarah-savage', category='exercise-physiology',
         name='Sarah Savage', short='Sarah', role='Senior Exercise Physiologist', pronouns='',  # not declared on the practice's site
-        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Exercise physiologist',
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior exercise physiologist',
         description='Exercise as medicine: programs that make moving feel achievable, empowering and enjoyable.',
         chips=['Exercise as Medicine', 'Pilates & hydrotherapy', 'Older adults'],
         exercise=True,
@@ -1206,7 +1206,7 @@ CLINICIANS = [
     dict(
         slug='tom-hissey', id='tom-hissey', category='allied',
         name='Tom Hissey', short='Tom', role='Senior Physiotherapist', pronouns='',  # not declared on the practice's site
-        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior physiotherapist',
         description='Occupational rehabilitation and musculoskeletal physiotherapy from an Army veteran who has been through rehab himself.',
         chips=['Musculoskeletal physio', 'Return to function', 'Army veteran'],
         exercise=True,
