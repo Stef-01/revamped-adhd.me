@@ -124,13 +124,13 @@ PAGES = [
       description='Clinical psychologists and an exercise physiologist with rooms in Bundall, a GP assessment by phone, and Brisbane clinics an hour up the M1. What each can do for ADHD on the Gold Coast, stated plainly.',
       lede='The Gold Coast now has ADHDme clinicians in the room: a psychology and exercise physiology team at Atlantis Recovery Centre in Bundall. What it does not have yet is a GP who prescribes, so this page says who does what, where the assessment comes from, and what it costs.',
       who=[gold_coast, gps_remote, qld_psychologists], who_heading='Who a Gold Coast patient can see',
-      who_note='The Bundall team sees people in their rooms. The GP is Sydney-based and takes phone consultations. The Brisbane psychologists have rooms in Fortitude Valley and Ashgrove and also work by telehealth.',
+      who_note='The Bundall team sees people in their rooms. Both GPs are Sydney-based and see people remotely. The Brisbane psychologists have rooms in Fortitude Valley and Ashgrove and also work by telehealth.',
       sections=[
        ('In the room, in Bundall', [
         f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied-health centre at 25 Upton Street, Bundall, with clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists under one roof. The practice says its model, which blends therapy with movement-based work, suits ADHD, anxiety and trauma, and that each psychology journey starts with a comprehensive assessment. Booking is on the practice’s HotDoc page, in a new tab, with no referral and no account.',
         'A psychologist can assess ADHD and treat it with therapy, but cannot prescribe. The practice publishes no fee; it quotes one when you book, and works with DVA, the NDIS, private health funds, WorkCover, and GP Mental Health Treatment Plans.']),
        ('A GP assessment by phone', [
-        f'The network’s GPs are in Sydney. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} declares phone consultations, so a Gold Coast patient can start with him without travelling. Whether the whole assessment can be done by phone, and what has to happen in person, is the practice’s call, so ask when you book.',
+        f'The network’s GPs are in Sydney, and both see people remotely: {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} by phone consultation and {a("Dr Anu Saxena", "dr-anu-saxena.html")} by telehealth, so a Gold Coast patient can start with either without travelling. Whether the whole assessment can be done remotely, and what has to happen in person, is the practice’s call, so ask when you book.',
         GP_COST_PARA,
         'One thing to know about medication. ' + QLD_GP_PARA]),
        ('Psychologists an hour up the M1', [
@@ -140,7 +140,7 @@ PAGES = [
         f'Diagnosis is the start, not the end. The {a("treatment after diagnosis", "adhd-treatment-after-diagnosis.html")} page walks through what usually follows: medication and its reviews, therapy, occupational therapy for daily life, coaching, and the parts you can do yourself. On the Gold Coast, {a("Sarah Savage", "sarah-savage.html")} covers the exercise part in person.']),
       ],
       faqs=[
-       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'Psychologists and an exercise physiologist, yes, at Atlantis Recovery Centre in Bundall. A GP who assesses and prescribes, not yet on the Gold Coast; the network’s GP takes phone consultations from Sydney.'),
+       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'Psychologists and an exercise physiologist, yes, at Atlantis Recovery Centre in Bundall. A GP who assesses and prescribes, not yet on the Gold Coast; the network’s two GPs both see people remotely from Sydney.'),
        ('Can a GP diagnose ADHD in Queensland?', 'Yes. Since 1 December 2025 a specialist GP in Queensland can diagnose ADHD in an adult and prescribe stimulant medication. GPs have been able to prescribe for children in Queensland since 2017.'),
        ('Do I need a referral?', 'No. Every clinician on ADHDme is booked or enquired with directly, on the practice’s own page. A GP will write a Mental Health Treatment Plan if you want Medicare to pay part of psychology sessions.'),
        ('What does it cost on the Gold Coast?', f'Atlantis Recovery Centre quotes its fee when you book and accepts DVA, NDIS, private health, WorkCover and Medicare plans. The GP assessment by phone is {GP_TOTAL} in total across two consultations, with no Medicare rebate.'),
@@ -154,13 +154,13 @@ PAGES = [
       description='Queensland GPs can now diagnose and treat adult ADHD. What that means in Brisbane, who in the ADHDme network sees Brisbane patients, and what it costs.',
       lede='Queensland is the first state to let a GP diagnose adult ADHD and prescribe for it. That changes what a Brisbane search for an ADHD GP can find. Here is where the ADHDme network stands today, stated plainly.',
       who=any_of(gps_remote, brisbane_psychologists, brisbane_allied), who_heading='Who sees Brisbane patients today',
-      who_note='The GP is in Sydney and takes phone consultations; no Brisbane GP has joined the network yet. The psychologists and the occupational therapist have rooms in Fortitude Valley and Ashgrove.',
+      who_note='Both GPs are in Sydney and see people remotely; no Brisbane GP has joined the network yet. The psychologists and the occupational therapist have rooms in Fortitude Valley and Ashgrove.',
       sections=[
        ('What a Queensland GP can now do', [
         QLD_GP_PARA,
         'For a Brisbane patient this removes the step that used to take longest: waiting months for a psychiatrist to confirm what a GP had already seen. It does not remove the assessment itself. A good GP assessment is still a long first appointment, a baseline, and a review.']),
        ('The GPs in the network, and where they are', [
-        f'ADHDme’s two GPs both practise in Sydney. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} declares phone consultations, so a Brisbane patient can start with him without travelling; {a("Dr Anu Saxena", "dr-anu-saxena.html")} sees people in her practice only. A NSW GP works under NSW rules on medication, which are moving in stages through 2026, so ask the practice what can be started by phone and what cannot.',
+        f'ADHDme’s two GPs both practise in Sydney, and both see people remotely: {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} by phone consultation and {a("Dr Anu Saxena", "dr-anu-saxena.html")} by telehealth, so a Brisbane patient can start with either without travelling. A NSW GP works under NSW rules on medication, which are moving in stages through 2026, so ask the practice what can be started by phone and what cannot.',
         'Brisbane GPs will be listed here as they join. The network grows by clinicians declaring how they work rather than by ADHDme signing them up in bulk, which is slower and the reason the list is honest.']),
        ('What the assessment involves', [('list', WHAT_ASSESSMENT)]),
        ('What it costs', [
@@ -171,7 +171,7 @@ PAGES = [
       ],
       faqs=[
        ('Can a GP in Brisbane prescribe ADHD medication for adults?', 'Yes, since 1 December 2025, if the GP holds FRACGP or FACRRM fellowship. They can diagnose, start medication, adjust it and continue it. Whether a particular practice offers this is up to the practice.'),
-       ('Does ADHDme have a Brisbane GP?', 'Not yet. The network’s GPs are in Sydney, one of whom takes phone consultations. Brisbane psychologists and an occupational therapist are in the network now.'),
+       ('Does ADHDme have a Brisbane GP?', 'Not yet. The network’s two GPs are in Sydney and both see people remotely. Brisbane psychologists and an occupational therapist are in the network now.'),
        ('Do I need a referral to see an ADHD GP?', 'No. A GP is booked directly. A referral is only needed for a psychiatrist, which is exactly the step Queensland’s reform lets a GP replace for many adults.'),
        ('How long does an ADHD assessment take with a GP?', 'Two appointments in the network’s model: a long first consultation and a follow-up. Some people need an extra 30-minute clinical review where more history or records are needed, and the practice explains the cost of that before it is booked.'),
       ],
@@ -187,7 +187,7 @@ PAGES = [
       sections=[
        ('Route one: a GP', [
         QLD_GP_PARA,
-        f'In the network, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} takes phone consultations from Sydney. He works under NSW rules on medication; the assessment itself does not depend on which state you are in. ' + GP_COST_PARA]),
+        f'In the network, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} takes phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} works by telehealth, both from Sydney. They work under NSW rules on medication; the assessment itself does not depend on which state you are in. ' + GP_COST_PARA]),
        ('Route two: a psychologist', [
         f'A psychologist can assess and diagnose ADHD, and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessment, in the room in Fortitude Valley or by telehealth. A psychologist’s assessment report is often what a GP or psychiatrist then works from. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start every psychology journey with a comprehensive assessment; the practice says its model suits ADHD.',
         PSY_COST_PARA]),
@@ -203,7 +203,7 @@ PAGES = [
        ('Can a GP diagnose ADHD in Queensland?', 'Yes, since 1 December 2025, for adults, if the GP holds FRACGP or FACRRM fellowship. For children, Queensland GPs have prescribed since 2017.'),
        ('How much does an ADHD assessment cost in Queensland?', f'Through the network’s GP model, {GP_TOTAL} across two consultations, no Medicare rebate. A psychologist’s assessment is priced by the psychologist and shown on their profile. A private psychiatrist is usually the most expensive route, and the one with the longest wait.'),
        ('Do I need a referral for an ADHD assessment?', 'Not for a GP or a psychologist. Only a psychiatrist needs a GP referral.'),
-       ('Can I be assessed by telehealth in Queensland?', 'Yes. The network’s GP takes phone consultations and every listed psychologist works by telehealth. The practice will tell you which parts, if any, need to happen in person.'),
+       ('Can I be assessed by telehealth in Queensland?', 'Yes. Both of the network’s GPs see people remotely, and every listed psychologist works by telehealth. The practice will tell you which parts, if any, need to happen in person.'),
        ('What happens after the diagnosis?', 'Treatment is chosen with you: medication with a prescriber, therapy with a psychologist, occupational therapy for daily life, coaching, and the parts you can do yourself. The treatment after diagnosis page sets it out.'),
       ],
       related=['adhd-gp-brisbane', 'adhd-doctor-gold-coast', 'adhd-assessment-online', 'adhd-treatment-after-diagnosis']),
@@ -218,7 +218,7 @@ PAGES = [
       sections=[
        ('The two GPs, and where they are', [
         f'{a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} works at Beecroft Family &amp; Skin Cancer Clinic, in Beecroft and Double Bay, and takes phone consultations. His assessment starts from a documented physical baseline and looks at ADHD alongside sleep, cardiovascular and metabolic health rather than on its own.',
-        f'{a("Dr Anu Saxena", "dr-anu-saxena.html")} works at Bay Health Clinic in Double Bay and Hornsby, in the practice only. She came to medicine through psychology, has completed an endorsed ADHD prescriber course, and speaks Hindi and Urdu as well as English.',
+        f'{a("Dr Anu Saxena", "dr-anu-saxena.html")} works at Bay Health Clinic in Double Bay and Hornsby, and by telehealth. She came to medicine through psychology, has completed an endorsed ADHD prescriber course, and speaks Hindi and Urdu as well as English.',
         'Both are booked on Healthengine, the practice’s own diary, in a new tab. Both have declared a commercial or personal connection with ADHDme, which is stated on each profile.']),
        ('What it costs', [GP_COST_PARA,
         'Some people need an additional 30-minute clinical review where further history, records or a medical assessment are needed. If that applies to you, the practice explains why and discusses the cost before it is booked.']),
@@ -233,7 +233,7 @@ PAGES = [
        ('Can a GP diagnose ADHD in NSW?', 'NSW is introducing this in stages. Trained GPs have continued existing stimulant prescriptions since September 2025, and the stage in which trained GPs assess, diagnose and start medication is rolling out through 2026. The GPs in the network assess ADHD now; ask the practice what they can prescribe on the day.'),
        ('How much is an ADHD assessment in Sydney?', f'{GP_FEE[0][0]} for the first consultation and {GP_FEE[1][0]} for the follow-up, {GP_TOTAL} in total, with no Medicare rebate. The practice sets and charges the fee.'),
        ('Do I need a referral?', 'No. Both GPs are booked directly on their practice’s Healthengine page.'),
-       ('Where in Sydney?', 'Beecroft and Double Bay (Dr Anubhav Saxena), and Double Bay and Hornsby (Dr Anu Saxena). Dr Anubhav Saxena also takes phone consultations.'),
+       ('Where in Sydney?', 'Beecroft and Double Bay (Dr Anubhav Saxena), and Double Bay and Hornsby (Dr Anu Saxena). Both also see people remotely: phone consultations with Dr Anubhav Saxena, telehealth with Dr Anu Saxena.'),
       ],
       related=['adhd-assessment-online', 'adhd-treatment-after-diagnosis', 'adhd-psychologist', 'adhd-assessment-queensland']),
 
@@ -241,7 +241,7 @@ PAGES = [
       seo='ADHD assessment online in Australia: what telehealth can and cannot do',
       title='ADHD assessment online: what telehealth can and cannot do.',
       description='A GP assessment by phone and psychologists by telehealth, Australia-wide, with published fees and no referral. What can be done on a screen, what needs a room, and how state rules on medication apply.',
-      lede='Most of an ADHD assessment is a conversation, and a conversation travels. In the ADHDme network a GP takes phone consultations and every psychologist works by telehealth, so a patient anywhere in Australia can start this week. Some parts still need a room. This page says which.',
+      lede='Most of an ADHD assessment is a conversation, and a conversation travels. In the ADHDme network both GPs see people remotely and every psychologist works by telehealth, so a patient anywhere in Australia can start this week. Some parts still need a room. This page says which.',
       who=telehealth_clinical, who_heading='Who works by phone or telehealth',
       who_note='Everybody listed has declared remote appointments. The telehealth marker on each profile is set from what the clinician actually declares, not assumed.',
       sections=[

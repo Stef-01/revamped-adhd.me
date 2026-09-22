@@ -41,7 +41,7 @@ To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line,
 
 Two fields carry more than they look like:
 
-- `telehealth` is a bool, and the only thing that draws the telehealth pill. The pill is one fixed marker — same icon, same wording, always first in the chip row, on the deck card and the profile — so "can I be seen remotely?" is answered by scanning `the-doctors.html` rather than opening every profile. Set it from what the clinician actually declares; `dr-anu-saxena` is `False` because she declares practice appointments only.
+- `telehealth` is a bool, and the only thing that draws the telehealth pill. The pill is one fixed marker — same icon, same wording, always first in the chip row, on the deck card and the profile — so "can I be seen remotely?" is answered by scanning `the-doctors.html` rather than opening every profile. Set it from what the clinician actually declares; `lara-schulz` is `False` because she declares clinic appointments in Jindabyne only.
 - `fees['figures']` may be empty, for a clinic that does not publish a fee. The figure row is then skipped and the `notes` carry the explanation instead. Don't fill it with an estimate: the whole point of the section is that the number is settled before the appointment, and a wrong number is worse than an honest "the clinic quotes it when you book". GOALS Psychology is the current example, and its Medicare wording differs by registration, so there are three note sets (`GOALS_FEES`, `GOALS_FEES_PROVISIONAL`, `GOALS_FEES_OT`) rather than one.
 
 ## Service map
