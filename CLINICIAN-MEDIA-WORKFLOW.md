@@ -67,7 +67,7 @@ publish, so there was nothing to harvest.
 
 ## The roster
 
-Nineteen practitioners, seven practices. Sources are what the site's own structured data
+Twenty-six practitioners, eight practices. Sources are what the site's own structured data
 records — do not go hunting beyond them without a reason.
 
 | Clinician | Role | Practice profile | Social |
@@ -91,6 +91,13 @@ records — do not go hunting beyond them without a reason.
 | Kate Dallimore | ADHD consultant coach | [REACH coaches](https://www.reachadhd.com.au/meet-the-coaches/) | [@reach_adhd_coaching](https://www.instagram.com/reach_adhd_coaching/) |
 | Dr Anu Saxena | GP, MD FRACGP | [HealthEngine, Double Bay](https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121) | — |
 | Dr Anubhav Saxena | GP, MBBS FRACGP | [HealthEngine, Beecroft](https://healthengine.com.au/doctor/nsw/beecroft/dr-anubhav-saxena/p123180) | — |
+| Bart Traynor | Clinical psychologist & director | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Jeff Leech | Clinical psychologist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Michael Rehardt | Provisional psychologist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Sarah Savage | Senior exercise physiologist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Dr Yuri Lima | Physiotherapist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Tom Hissey | Senior physiotherapist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
+| Lester Rafanan | Physiotherapist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
 
 Note the shape of this: eight of nineteen share one practice Instagram. Expect to attribute
 most finds to **GOALS Psychology** rather than an individual, unless a post names its

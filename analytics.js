@@ -134,6 +134,48 @@
       name: 'Jessica Katsamatsas', category: 'psychologist',
       practice: 'Neutral Minds Psychology', destination: 'zanda',
       expertise: ['therapy', 'neuroaffirming', 'trauma'], ages: ['adults']
+    },
+    'bart-traynor': {
+      booking: /atlantis-recovery-centre\/doctors\/bart-traynor-1/, profile: 'bart-traynor.html',
+      name: 'Bart Traynor', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy', 'performance', 'supervision'], ages: ['adults']
+    },
+    'jeff-leech': {
+      booking: /atlantis-recovery-centre\/doctors/, profile: 'jeff-leech.html',
+      name: 'Jeff Leech', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy', 'trauma', 'performance'], ages: ['adults']
+    },
+    'michael-rehardt': {
+      booking: /atlantis-recovery-centre\/doctors/, profile: 'michael-rehardt.html',
+      name: 'Michael Rehardt', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy'], ages: ['adults']
+    },
+    'sarah-savage': {
+      booking: /atlantis-recovery-centre\/doctors\/sarah-savage/, profile: 'sarah-savage.html',
+      name: 'Sarah Savage', category: 'allied',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['exercise-physiology', 'physical-health'], ages: ['adults']
+    },
+    'yuri-lima': {
+      booking: /atlantis-recovery-centre\/doctors/, profile: 'yuri-lima.html',
+      name: 'Dr Yuri Lima', category: 'allied',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
+    },
+    'tom-hissey': {
+      booking: /atlantis-recovery-centre\/doctors/, profile: 'tom-hissey.html',
+      name: 'Tom Hissey', category: 'allied',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
+    },
+    'lester-rafanan': {
+      booking: /atlantis-recovery-centre\/doctors/, profile: 'lester-rafanan.html',
+      name: 'Lester Rafanan', category: 'allied',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health', 'ndis'], ages: ['adults']
     }
   };
 

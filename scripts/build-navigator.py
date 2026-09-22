@@ -74,6 +74,7 @@ DOMAINS = [
   dict(key='burnout', label='Stress and burnout', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('kate-dallimore', 'Ongoing stress, anxiety, overwhelm'),
+   ('jeff-leech', 'Trauma, anxiety, depression and performance'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed')]),
   dict(key='confidence', label='Confidence and handling feedback', who=[
    ('erin-lysle', 'Self-confidence'),
@@ -81,6 +82,7 @@ DOMAINS = [
    ('donna-italiano', 'Emotional regulation · Neurodivergent-affirming')]),
   dict(key='career', label='Career decisions', who=[
    ('kate-row', 'Career counselling and post-schooling decision making'),
+   ('bart-traynor', 'Career and performance pressures · Life transitions'),
    ('romney-taylor', 'Advocacy & inclusion'),
    ('kate-dallimore', 'Mentoring and leadership across healthcare and education')]),
  ]),
@@ -100,6 +102,7 @@ DOMAINS = [
    ('flynn-simonis', 'Emotional regulation needs in children')]),
   dict(key='body', label='Sleep and physical health', who=[
    ('anubhav-saxena', 'Baseline physical screening · Integrative care'),
+   ('sarah-savage', 'Exercise as medicine · Pilates & hydrotherapy'),
    ('anu-saxena', 'Mental health focus · Women’s health')]),
  ]),
  dict(key='relationships', label='Relationships', tint='#fbd8cf', aspects=[
@@ -131,6 +134,7 @@ DOMAINS = [
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course')]),
   dict(key='mood', label='Anxiety and low mood', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
+   ('jeff-leech', 'Anxiety & depression · Schema therapy & ACT'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
    ('ellie-putland', 'Trauma-informed · CBT, ACT & DBT'),
    ('alice-bui', 'Trauma-informed · CALD & refugee clients')]),

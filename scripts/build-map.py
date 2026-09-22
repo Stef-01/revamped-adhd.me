@@ -16,7 +16,7 @@ CITIES = [  # name, state, lon, lat, label position, live, east
     ('Cairns',          'QLD', 145.77, -16.92, 'right',      False, True),
     ('Townsville',      'QLD', 146.82, -19.26, 'right',      False, True),
     ('Brisbane',        'QLD', 153.03, -27.47, 'right-up',   True,  True),
-    ('Gold Coast',      'QLD', 153.40, -28.02, 'right-down', False, True),
+    ('Gold Coast',      'QLD', 153.40, -28.02, 'right-down', True,  True),
     ('Sydney',          'NSW', 151.21, -33.87, 'right',      True,  True),
     ('Snowy Mountains', 'NSW', 148.62, -36.41, 'right',      True,  True),
     ('Melbourne',       'VIC', 144.96, -37.81, 'left-down',  False, True),
