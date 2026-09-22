@@ -187,6 +187,49 @@ def reach_details():
         ('Wheelchair access', 'Not declared'),
     ]
 
+# Atlantis Recovery Centre, Bundall: the first practice with rooms on the Gold Coast. It publishes no fee
+# for any discipline, so the figures are empty and the notes carry the funding routes it names instead.
+# Nobody there has declared telehealth, so nobody carries the pill. The portraits are illustrations until
+# the practice supplies photographs (scripts/build-placeholder-portraits.py).
+ARC = 'https://atlantisrc.com.au/'
+ARC_BOOK = 'https://www.hotdoc.com.au/medical-centres/bundall-QLD-4217/atlantis-recovery-centre/doctors'
+ARC_BOOK_HINT = 'Opens Atlantis Recovery Centre’s booking page on HotDoc, in a new tab.'
+ARC_PLACE = 'Bundall, Gold Coast'
+ARC_LINKS = [('website', 'atlantisrc.com.au', ARC)]
+ARC_REACH = 'Clinic appointments in Bundall, on the Gold Coast'
+ARC_APPOINTMENTS = 'Times set with the practice; booked online through HotDoc'
+ARC_BILLING = 'Quoted by the practice; DVA, NDIS, private health, WorkCover and Medicare plans accepted'
+ARC_ACCESS = 'Yes: the practice describes the clinic as purpose-built and all-abilities accessible'
+ARC_DISCLOSURE = ('Atlantis Recovery Centre is an independent practice: it sets its own fees, availability and clinical '
+                  'approach, and ADHDme receives no part of what you pay.')
+ARC_WORKS_FOR = dict(url=ARC, telephone='(07) 5610 2312', locality='Bundall', state='QLD')
+ARC_SCHEMA = dict(same_as=[ARC + 'team/'], works_for=ARC_WORKS_FOR, area='Gold Coast, QLD, Australia', area_type='Place')
+ARC_FEES = dict(
+    heading='What a session costs',
+    figures=[],
+    notes=[
+        'Atlantis Recovery Centre does not publish a fee. It quotes one when you book, so the number is settled '
+        'before the first appointment.',
+        'The practice takes private clients and works with DVA, the NDIS, private health funds, WorkCover, and '
+        'GP Mental Health Treatment Plans and chronic condition management plans. It says bulk billing is '
+        'available with conditions.',
+        'NDIS participants are not asked to sign a service agreement, so funds are not locked to the practice.',
+        '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+        'It is described here rather than shown as a number because the practice has not published one, and a '
+        'guess would be worse than nothing.',
+    ],
+)
+
+
+def arc_details():
+    return [
+        ('Reach', ARC_REACH),
+        ('Appointments', ARC_APPOINTMENTS),
+        ('Billing', ARC_BILLING),
+        ('Wheelchair access', ARC_ACCESS),
+    ]
+
+
 CLINICIANS = [
     dict(
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
@@ -1022,6 +1065,191 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    dict(
+        slug='bart-traynor', id='bart-traynor', category='psychologist',
+        name='Bart Traynor', short='Bart', role='Clinical Psychologist and Director', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist & director',
+        description='Straight-talking clinical psychology aimed at functioning better in everyday life, not just feeling better in the room.',
+        chips=['Performance & career', 'Life transitions', 'Clinical supervisor'],
+        telehealth=False,
+        book_href=ARC_BOOK + '/bart-traynor-1', book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Clinical psychologist',
+        languages=[],
+        experience=[
+            'Clinical psychologist, director and co-owner, Atlantis Recovery Centre, Bundall',
+            'AHPRA board-approved clinical supervisor',
+            'Complex challenges, career and performance pressures, and major life transitions',
+            'Supervision and professional development for clinicians',
+            'Member, Australian Association of Psychologists',
+            'Member, Association of Applied Sports Psychology',
+        ],
+        about=[
+            'Bart is a passionate, straight-talking Clinical Psychologist who believes mental health support should help people function better in everyday life—not just feel better in the therapy room. He works with clients facing complex challenges, career and performance pressures, and major life transitions, while also supporting clinicians through supervision and professional development.',
+            'As Director of Atlantis Recovery Centre, Bart leads an integrated approach that brings together psychology, movement, physical rehabilitation, and performance. His warm, practical style helps people build resilience, improve both mental and physical fitness, and create meaningful, lasting change.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Clinical psychologist', 'AHPRA board-approved clinical supervisor'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='jeff-leech', id='jeff-leech', category='psychologist',
+        name='Jeff Leech', short='Jeff', role='Clinical Psychologist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist',
+        description='Evidence-based care for trauma, anxiety and depression, and for performing at your best.',
+        chips=['Trauma', 'Anxiety & depression', 'Schema therapy & ACT'],
+        telehealth=False,
+        book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Clinical psychologist, MClinPsych BPsychSc(Hons)',
+        languages=[],
+        experience=[
+            'Clinical psychologist, Atlantis Recovery Centre, Bundall',
+            'Schema Therapy, Acceptance and Commitment Therapy (ACT) and Activity-Based Psychotherapy',
+            'Trauma, anxiety, depression and performance',
+            'Advanced training in Psychedelic-Assisted Therapy, in progress',
+            'Master of Clinical Psychology, University of Queensland',
+            'Bachelor of Psychological Science (Honours), Southern Cross University',
+            'Background in outdoor education, military service, emergency services and adventure and endurance events',
+        ],
+        about=[
+            'Jeff is passionate about helping people overcome life’s most complex challenges. Whether you’re recovering from trauma, managing anxiety or depression, or striving to perform at your best, Jeff provides personalised, evidence-based care using Schema Therapy, ACT, and Activity-Based Psychotherapy. He is also completing advanced training in Psychedelic-Assisted Therapy, combining proven approaches with emerging treatments to help clients achieve lasting change.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Master of Clinical Psychology, University of Queensland', 'Bachelor of Psychological Science (Honours), Southern Cross University'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='michael-rehardt', id='michael-rehardt', category='psychologist',
+        name='Michael Rehardt', short='Michael', role='Provisional Psychologist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Provisional psychologist',
+        description='A thoughtful, creative and practical approach, on a final Master of Clinical Psychology placement.',
+        chips=['Provisional psychologist', 'Master of Clinical Psychology', 'Aboriginal artist'],
+        telehealth=False,
+        book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Provisional psychologist',
+        languages=[],
+        experience=[
+            'Provisional psychologist on a final externship placement, Atlantis Recovery Centre, Bundall',
+            'Master of Clinical Psychology, Griffith University, in progress',
+            'Building clinical experience across a range of presentations',
+            'Aboriginal artist and former competitive sprinter',
+        ],
+        about=[
+            'Michael is completing his final externship placement at Atlantis Recovery Centre as part of his Master of Clinical Psychology at Griffith University. He brings a thoughtful, creative and practical approach to his work and is continuing to build his clinical experience across a range of presentations. Outside psychology, Michael is also an Aboriginal artist and former competitive sprinter, bringing creativity, discipline and a unique perspective to the Atlantis team.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Provisional psychologist', 'Master of Clinical Psychology, Griffith University (in progress)'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='sarah-savage', id='sarah-savage', category='allied',
+        name='Sarah Savage', short='Sarah', role='Senior Exercise Physiologist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Exercise physiologist',
+        description='Exercise as medicine: programs that make moving feel achievable, empowering and enjoyable.',
+        chips=['Exercise physiology', 'Pilates & hydrotherapy', 'Older adults'],
+        telehealth=False,
+        book_href=ARC_BOOK + '/sarah-savage', book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Exercise physiologist, BExSc GradDipExSc',
+        languages=[],
+        experience=[
+            'Senior exercise physiologist, Atlantis Recovery Centre, Bundall',
+            'Pilates, Functional Range Conditioning and hydrotherapy',
+            'Particular interest in supporting older adults',
+            'Bachelor and Graduate Diploma in Exercise Science, Griffith University',
+        ],
+        about=[
+            '‘Exercise as Medicine’ … Sarah lives and breathes her mantra. Sarah is passionate about helping people move with confidence, build strength, and enjoy a better quality of life. She has a particular interest in supporting older adults and brings warmth, intelligence, and genuine care to every session.',
+            'Sarah combines her Exercise Physiology expertise with Pilates, Functional Range Conditioning, and hydrotherapy to create safe, personalised programs that make exercise feel achievable, empowering, and enjoyable.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Bachelor of Exercise Science, Griffith University', 'Graduate Diploma in Exercise Science, Griffith University'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='yuri-lima', id='yuri-lima', category='allied',
+        name='Dr Yuri Lima', short='Yuri', role='Physiotherapist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
+        description='Orthopaedic and sports rehabilitation, with the client educated and active in their own recovery.',
+        chips=['Sports rehabilitation', 'Orthopaedic rehab', 'PhD, ACL injuries'],
+        telehealth=False,
+        book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Physiotherapist, PhD, Master in Rehabilitation Sciences',
+        languages=['English', 'Portuguese'],
+        experience=[
+            'Physiotherapist, Atlantis Recovery Centre, Bundall',
+            'Orthopaedic and sports rehabilitation',
+            'PhD investigating ACL injuries in athletes',
+            'Master in Rehabilitation Sciences',
+        ],
+        about=[
+            'With a lifelong passion for movement and sports, Yuri’s approach combines clinical expertise in orthopaedic and sports rehabilitation and patient-centred care to help clients return to their optimal level of function and performance. He believes in empowering individuals through education and active involvement in their recovery process. He is also committed to advancing the field of physiotherapy by holding a Master in Rehabilitation Sciences and a PhD where he investigated ACL injuries in Athletes.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['PhD', 'Master in Rehabilitation Sciences'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='tom-hissey', id='tom-hissey', category='allied',
+        name='Tom Hissey', short='Tom', role='Senior Physiotherapist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
+        description='Occupational rehabilitation and musculoskeletal physiotherapy from an Army veteran who has been through rehab himself.',
+        chips=['Musculoskeletal physio', 'Return to function', 'Army veteran'],
+        telehealth=False,
+        book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Physiotherapist',
+        languages=[],
+        experience=[
+            'Senior physiotherapist, Atlantis Recovery Centre, Bundall',
+            'Occupational rehabilitation and musculoskeletal physiotherapy',
+            'Overseas work supporting UK military personnel',
+            'High-performance setting in Glasgow: runners, HYROX athletes and footballers',
+            'Australian Army veteran',
+        ],
+        about=[
+            'Tom is an incredibly welcoming Australian Army veteran with experience in both occupational rehabilitation and musculoskeletal physiotherapy, including overseas work supporting UK military personnel. He specialises in helping people return to full function, from young athletes to older clients, drawing on experience in a high-performance setting in Glasgow working with runners, HYROX athletes, and footballers.',
+            'Having gone through back surgery and rehab himself, Tom understands what recovery really takes. He combines clinical expertise with genuine care, helping clients rebuild strength and confidence as part of Atlantis’s whole person approach to movement and wellbeing.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Physiotherapist'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='lester-rafanan', id='lester-rafanan', category='allied',
+        name='Lester Rafanan', short='Lester', role='Physiotherapist', pronouns='',  # not declared on the practice's site
+        practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
+        description='Evidence-based, personalised physiotherapy, from injury and chronic pain to staying active.',
+        chips=['Doctor of Physiotherapy', 'Strength & conditioning', 'NDIS supports'],
+        telehealth=False,
+        book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
+        links=ARC_LINKS,
+        fees=ARC_FEES,
+        qualifications='Physiotherapist, Doctor of Physiotherapy, Bond University',
+        languages=[],
+        experience=[
+            'Physiotherapist, Atlantis Recovery Centre, Bundall',
+            'Doctor of Physiotherapy, Bond University',
+            'Background in personal training, strength and conditioning, and competitive sport',
+            'Injury and surgery recovery, chronic pain, return to sport and NDIS supports',
+        ],
+        about=[
+            'Lester Rafanan graduated with a Doctor of Physiotherapy from Bond University and has a background in personal training, strength and conditioning, and competitive sport, giving Lester a strong understanding of movement, performance, and injury prevention.',
+            'He takes an evidence-based, personalised approach to physiotherapy, whether you’re recovering from an injury or surgery, managing chronic pain, returning to sport, accessing NDIS supports, or simply wanting to stay active. Every treatment plan is tailored to your goals so you can move with confidence.',
+        ],
+        details=arc_details(),
+        disclosure=ARC_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Doctor of Physiotherapy, Bond University'], **ARC_SCHEMA),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -1117,7 +1345,7 @@ BOOK_HREF = 'the-doctors.html#{}'
 
 # A diary you can pick a time in, or a form the practice answers. The button says which, and each
 # list on The Network puts the diaries first: the easiest people to reach are the first ones you meet.
-ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book')
+ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au')
 
 
 def books_online(c):

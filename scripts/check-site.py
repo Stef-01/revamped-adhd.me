@@ -17,7 +17,7 @@ import sys
 from html.parser import HTMLParser
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book')  # keep in step with build-profiles.py
+ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au')  # keep in step with build-profiles.py
 problems = []
 
 

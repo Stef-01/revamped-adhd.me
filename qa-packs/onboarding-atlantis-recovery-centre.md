@@ -1,11 +1,17 @@
 # Onboarding pack: Atlantis Recovery Centre, Bundall (Gold Coast)
 
-STATUS: staged, not built. Nothing here is on the site yet.
+STATUS: built from the practice's team page, with illustrated placeholder portraits. Seven profiles
+are live in the data: Bart Traynor, Jeff Leech, Michael Rehardt, Sarah Savage, Dr Yuri Lima, Tom
+Hissey and Lester Rafanan. Jade Evans (co-owner, business operations) is not a clinician and is not
+listed. Heather Cameron and Steven Walker appear on HotDoc but not on the practice's team page, so
+they are not listed either.
 
-The practice's own pages (atlantisrc.com.au and atlantisrecoverycentre.com.au), its HotDoc diary and
-every directory that mirrors it were unreachable from the build environment, so this pack holds what
-could be verified from search results and names what the practice has to supply. A profile page is
-the clinician's own account of how they work; nothing below is written as if it were.
+Still to come from the practice, per person: a photograph (the six portrait files are illustrations
+until then; `scripts/build-placeholder-portraits.py` made them), whether they offer telehealth
+(nobody carries the pill until declared), pronouns if wanted, and any fee they will publish. One
+correction was made to the team page text: "injurty" to "injury" in Lester Rafanan's bio.
+
+The sections below are the record of what was verified before the team page arrived.
 
 ## The practice, verified
 
@@ -149,4 +155,4 @@ take `book_href=ARC_BOOK` (the clinic diary) until a personal HotDoc page is con
 ## Sent / returned
 
 Sent:      —
-Returned:  —
+Returned:  2026-09-22, team page text supplied by ADHDme
