@@ -268,7 +268,7 @@ CLINICIANS = [
         practice='Bay Health Clinic', place='Double Bay & Hornsby', descriptor=None,
         description='Brings a mental-health focus to general practice, with psychology training behind it.',
         chips=['Mental health focus', 'Women’s health', 'Hindi & Urdu'],
-        telehealth=False,
+        telehealth=True,
         book_href='https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121', book_hint=HEALTHENGINE_HINT,
         links=[],
         fees=GP_FEES,
@@ -290,7 +290,7 @@ CLINICIANS = [
             'Anu is an experienced GP at Bay Health Clinic in Double Bay, and a Fellow of the Royal Australian College of General Practitioners. She came to medicine through psychology, a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University, with a background in psychiatry and general medicine: hospital training across NSW, including Blacktown and Bathurst, rotations in cardiology, paediatrics and psychiatry, and the Sydney Child Health Program through the Sydney Children\'s Hospital Network; she holds a Diploma of Child Health. Her clinical interests are ADHD, mental health, women\'s health and functional medicine. She has completed an endorsed ADHD prescriber course, is training in Focused Psychological Strategies, and is completing further qualifications in functional medicine, nutrition, lifestyle medicine and health coaching. Of Indian origin and speaking Hindi and Urdu, she values culturally sensitive, holistic and patient-centred care. Outside medicine she enjoys travelling, learning about different cultures, charity and community work, and staying active through sport, cricket and tennis included.',
         ],
         details=[
-            ('Reach', 'Practice appointments in Double Bay and Hornsby'),
+            ('Reach', 'Practice appointments in Double Bay and Hornsby, and telehealth'),
             ('Appointments', 'Appointment lengths set with the practice'),
             ('Billing', GP_BILLING),
             ('Wheelchair access', 'Not declared'),
