@@ -203,7 +203,14 @@
     'learn.html': 'learn', 'our-story.html': 'our-story', 'measurement.html': 'measurement',
     'privacy.html': 'privacy', 'terms.html': 'terms', 'automated-decisions.html': 'automated-decisions',
     'blog-body-doubling.html': 'blog', 'blog-how-booking-works.html': 'blog',
-    'blog-late-diagnosis.html': 'blog', '404.html': 'not-found'
+    'blog-late-diagnosis.html': 'blog', '404.html': 'not-found',
+    'care-navigator.html': 'navigator',
+    'adhd-services.html': 'service', 'adhd-doctor-gold-coast.html': 'service',
+    'adhd-gp-brisbane.html': 'service', 'adhd-assessment-queensland.html': 'service',
+    'adhd-assessment-sydney.html': 'service', 'adhd-assessment-online.html': 'service',
+    'adhd-treatment-after-diagnosis.html': 'service', 'adhd-exercise-physiologist.html': 'service',
+    'adhd-psychologist.html': 'service', 'adhd-psychologist-brisbane.html': 'service',
+    'adhd-occupational-therapist.html': 'service', 'adhd-coach.html': 'service'
   };
   var PAGE_NAMES = unique(Object.keys(PAGES).map(function (k) { return PAGES[k]; }).concat(['profile', 'other']));
 

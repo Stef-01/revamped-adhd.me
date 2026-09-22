@@ -91,6 +91,30 @@ of a phone's width; the longer label only repeats the heading anyway.
 `newsletter-invite` events record `shown` and `dismissed` with what triggered them. Whether anybody
 subscribed is beehiiv's to answer — that is what `utm_content=popup` is for.
 
+## Search pages
+
+The pages that answer a high-intent search (ADHD doctor Gold Coast, ADHD GP Brisbane, ADHD assessment Queensland, ADHD treatment after diagnosis, ADHD exercise physiologist, ADHD psychologist, and so on) are generated from `PAGES` in `scripts/build-seo-pages.py`, along with `adhd-services.html`, the index that links them. Edit the data there, then rebuild:
+
+```bash
+python3 scripts/build-seo-pages.py
+```
+
+`python3 scripts/build-seo-pages.py --check` exits non-zero and names any page on disk that differs from what the data would produce. Run it before committing a hand edit to one of those pages, because the next rebuild overwrites them; the fix is to move the edit into the data.
+
+They are kept out of the way on purpose: not in the header, not in the mobile menu. The one route to them from the rest of the site is the "ADHD care near you" link in every footer, which points at `adhd-services.html`; that link is what stops them being orphans a crawler never reaches. Each page carries a breadcrumb, an FAQ with `FAQPage` JSON-LD, and links to its neighbours, and every one is in `sitemap.xml` and named `service` in `analytics.js`.
+
+Three things keep them honest. The clinician lists are selected from `CLINICIANS` in `scripts/build-profiles.py` by discipline, state and telehealth, so a page cannot name a clinician the network does not have, and a page whose filter matches nobody refuses to build. The fee figures are the same constants the profiles use. And where the network has nothing for the query yet (an exercise physiologist, a Gold Coast clinician, a Brisbane GP), the page says so in the first screen and points at what exists, rather than implying otherwise. The page shell is lifted from `how-it-works.html` at build time, so header and footer changes reach these pages on the next rebuild.
+
+## Care navigator
+
+`care-navigator.html` is a two-level bubble map: pick where ADHD gets in the way (School, Work, Home, Relationships, Health), then the part of it, and the clinicians whose profiles say they work on exactly that appear underneath. It is generated from `DOMAINS` in `scripts/build-navigator.py`; edit the tree there and rebuild:
+
+```bash
+python3 scripts/build-navigator.py
+```
+
+`--check` exits non-zero if the page on disk differs. Each clinician under an aspect is named by id with the reason quoted from their own profile (a chip or an experience line), and the build refuses an id that is not in `CLINICIANS`, so the map cannot claim a focus a profile does not declare. Every result panel is in the HTML; the page's own script only chooses which one shows and where the bubbles sit, and with JavaScript off the whole tree reads as a list. It has its own item in the header, Navigator, and the landing page also links to it under "Four ways in".
+
 ## Styles, scripts and fonts
 
 Every page loads one stylesheet and one script bundle:
