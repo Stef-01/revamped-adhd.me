@@ -206,6 +206,10 @@ The events already there cannot be deleted, but they are excluded: the project's
 
 **Our own browsing, on the real site**, is a second source of the same problem. The site never asks who anybody is, so PostHog's Internal/Test cohort had nobody in it. `?internal=1` on any page marks that browser for good and sets `$internal_or_test_user`, which the cohort reads; `?internal=0` clears it. Use it once on every device you browse the site from.
 
+### Testing it without being filtered out
+
+posthog-js refuses to capture anything from a user agent it reads as a bot, and it does so **silently**: the library loads, the recorder loads, `has_opted_out_capturing()` is false, and no request is ever made. `HeadlessChrome` in the UA is enough. An hour went into chasing that as a bug in this file; `posthog._is_bot()` in the console answers it in a second. Drive a real headful browser when checking that events land, and mark it with `?internal=1` first.
+
 ### Telling a real booking from a click
 
 Two things separate a handoff that could have become an appointment from one that could not, and the dashboard now reads both.
