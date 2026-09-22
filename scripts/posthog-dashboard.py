@@ -235,6 +235,7 @@ select properties.clinician_name                                        as clini
           dateDiff('day', maxIf(timestamp, event = 'booking-outbound'), now())) as days_since
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event in ('deck-card-opened', 'profile-viewed', 'booking-outbound')
   and properties.clinician_name is not null
@@ -269,6 +270,7 @@ select properties.clinician_name                                      as clinici
              / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_visitors
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event in ('profile-viewed', 'booking-outbound', 'booking-returned')
   and properties.clinician_name is not null
@@ -295,6 +297,7 @@ select properties.practice                                            as practic
              / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_visitors
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event in ('profile-viewed', 'booking-outbound', 'booking-returned')
   and properties.practice is not null
@@ -315,6 +318,7 @@ select properties.clinician_name                              as clinician,
        round(avg(toFloat(properties.away)), 0)                as avg_seconds_away
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event = 'booking-returned'
 group by clinician
@@ -330,10 +334,12 @@ select properties.clinician_name   as clinician,
        round(100.0 * uniq(person_id)
              / nullIf((select uniq(person_id) from events
                        where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
                          and event = 'profile-viewed'), 0), 1) as pct_of_all_readers
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event = 'profile-viewed'
   and properties.clinician_name is not null
@@ -351,6 +357,7 @@ select properties.clinician_name                          as clinician,
        countIf(event = 'booking-outbound')                as handoffs
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event in ('profile-viewed', 'booking-outbound')
   and properties.clinician_name is not null
@@ -368,12 +375,14 @@ select properties.clinician_name    as clinician,
        max(timestamp)               as last_read
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event = 'profile-viewed'
   and properties.clinician_name is not null
   and properties.clinician_name not in (
         select properties.clinician_name from events
         where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day and event = 'booking-outbound')
 group by clinician
 order by readers desc""")),
@@ -390,6 +399,7 @@ select arrayJoin(JSONExtract(ifNull(properties.expertise, '[]'), 'Array(String)'
              / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event in ('profile-viewed', 'booking-outbound')
   and properties.expertise is not null
@@ -408,6 +418,7 @@ select properties.clinician_name                                  as clinician,
        round(avgIf(toFloat(properties.dwell), properties.acted = 'no'), 0) as avg_seconds_before_leaving
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
   and event = 'profile-engaged'
 group by clinician
@@ -431,6 +442,7 @@ select properties.content_post                          as post,
              / nullIf(uniqIf(person_id, event = 'page-viewed'), 0), 1) as pct
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 90 day
   and event in ('page-viewed', 'booking-outbound')
   and properties.content_post is not null
@@ -448,6 +460,7 @@ select toStartOfWeek(timestamp)                     as week,
        countIf(event = 'booking-outbound')          as handoffs
 from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
+  and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 90 day
   and event in ('page-viewed', 'booking-outbound')
 group by week, theme
