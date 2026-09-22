@@ -194,14 +194,16 @@ def header_for(shell_header):
 
 
 # ---------------------------------------------------------------- the map
-# Bubbles are buttons positioned by the script on a square stage; the ink lines between them are one SVG
-# underneath, redrawn on each change with a small, seeded wobble so they read as hand-drawn, like the map
-# on Our Story. Colours are the domain tints. With JavaScript off the stage is hidden and the list shows.
+# Bubbles are buttons positioned by the script on a square stage. No connector lines: the ring says what
+# belongs to the centre, a soft halo in the domain tint sits behind the chosen domain, and each ring springs
+# out of the centre with a short stagger, so the motion is the connection. Before anyone taps, the domain
+# bubbles drift slowly on their own small orbits. Both respect prefers-reduced-motion. Colours are the
+# domain tints. With JavaScript off the stage is hidden and the list shows.
 STYLE = '''<style>
 .nav-stage{position:relative;aspect-ratio:1/1;max-width:640px;margin:0 auto;}
-.nav-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
-.nav-lines path{fill:none;stroke:#1a1c1c;stroke-width:2.2;stroke-linecap:round;opacity:.55;}
-.bubble{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%) scale(var(--s,1));width:var(--w,22%);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;text-align:center;padding:8%;margin:0;border:2.5px solid #1a1c1c;background:var(--tint,#f6f4ee);color:#1a1c1c;font:700 15px/1.2 inherit;font-family:inherit;cursor:pointer;border-radius:52% 48% 47% 53%/56% 44% 56% 44%;box-shadow:0 6px 18px -8px rgba(0,0,0,.25);transition:left .55s cubic-bezier(.2,.8,.2,1),top .55s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),opacity .35s,width .45s cubic-bezier(.2,.8,.2,1);}
+.nav-halo{position:absolute;left:50%;top:50%;width:64%;aspect-ratio:1/1;transform:translate(-50%,-50%) scale(.6);border-radius:50%;background:radial-gradient(circle,var(--tint,#f6f4ee) 0%,var(--tint,#f6f4ee) 35%,rgba(250,250,247,0) 72%);opacity:0;pointer-events:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1),background .4s;}
+.nav-halo.is-on{opacity:.9;transform:translate(-50%,-50%) scale(1);}
+.bubble{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%) scale(var(--s,1));width:var(--w,22%);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;text-align:center;padding:8%;margin:0;border:2.5px solid #1a1c1c;background:var(--tint,#f6f4ee);color:#1a1c1c;font:700 15px/1.2 inherit;font-family:inherit;cursor:pointer;border-radius:52% 48% 47% 53%/56% 44% 56% 44%;box-shadow:0 6px 18px -8px rgba(0,0,0,.25);transition:left .6s cubic-bezier(.34,1.45,.64,1),top .6s cubic-bezier(.34,1.45,.64,1),transform .5s cubic-bezier(.34,1.5,.64,1),opacity .35s,width .45s cubic-bezier(.2,.8,.2,1),margin .5s ease,background .3s,color .3s;}
 .bubble:nth-child(odd){border-radius:47% 53% 55% 45%/44% 58% 42% 56%;}
 .bubble:hover,.bubble:focus-visible{transform:translate(-50%,-50%) scale(calc(var(--s,1) * 1.06));outline:none;}
 .bubble:focus-visible{box-shadow:0 0 0 4px #fff,0 0 0 6.5px #1a1c1c;}
@@ -209,6 +211,13 @@ STYLE = '''<style>
 .bubble.is-centre{--w:30%;font-size:18px;box-shadow:0 10px 26px -10px rgba(0,0,0,.35);}
 .bubble.is-dim{opacity:.35;}
 .bubble.is-on{background:#1a1c1c;color:#fff;}
+.nav-stage.is-idle .bubble{animation:nav-drift 8s ease-in-out infinite alternate;}
+.nav-stage.is-idle .bubble:nth-child(2){animation-duration:9.5s;animation-delay:-3s;}
+.nav-stage.is-idle .bubble:nth-child(3){animation-duration:7s;animation-delay:-5s;}
+.nav-stage.is-idle .bubble:nth-child(4){animation-duration:10s;animation-delay:-2s;}
+.nav-stage.is-idle .bubble:nth-child(5){animation-duration:8.5s;animation-delay:-6.5s;}
+.nav-stage.is-idle .bubble:nth-child(6){animation-duration:7.5s;animation-delay:-1s;}
+@keyframes nav-drift{0%{margin:0 0 0 0}30%{margin:-7px 0 0 5px}60%{margin:5px 0 0 -6px}100%{margin:-4px 0 0 -7px}}
 .nav-crumb{display:none;flex-wrap:wrap;gap:8px;justify-content:center;}
 .nav-crumb button{font:600 14px/1 inherit;font-family:inherit;padding:8px 14px;border-radius:999px;border:1.5px solid #e8e6df;background:#fff;color:#1a1c1c;cursor:pointer;}
 .nav-crumb button:hover{border-color:#1a1c1c;}
@@ -217,35 +226,45 @@ STYLE = '''<style>
 .no-js .nav-stage,.no-js .nav-crumb,.no-js .nav-results{display:none;}
 .nav-results[hidden]{display:none;}
 @media (max-width:520px){.bubble{font-size:13px;padding:6%;}.bubble.is-centre{font-size:15px;}}
-@media (prefers-reduced-motion:reduce){.bubble{transition:none;}}
+@media (prefers-reduced-motion:reduce){.bubble,.nav-halo{transition:none;}.nav-stage.is-idle .bubble{animation:none;}}
 </style>'''
 
 SCRIPT = r'''<script>
 (function(){
-  var stage=document.getElementById('nav-stage'),lines=document.getElementById('nav-lines'),crumb=document.getElementById('nav-crumb'),results=document.getElementById('nav-results'),intro=document.getElementById('nav-intro');
+  var stage=document.getElementById('nav-stage'),halo=document.getElementById('nav-halo'),crumb=document.getElementById('nav-crumb'),results=document.getElementById('nav-results'),intro=document.getElementById('nav-intro');
   if(!stage)return;
   var TREE=JSON.parse(document.getElementById('nav-tree').textContent);
   var state={domain:null,aspect:null};
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function bubble(id){return stage.querySelector('[data-bubble="'+id+'"]');}
-  function place(el,x,y,w,s){el.style.setProperty('--x',x+'%');el.style.setProperty('--y',y+'%');if(w)el.style.setProperty('--w',w+'%');el.style.setProperty('--s',s||1);}
+  function place(el,x,y,w,s){el.style.setProperty('--x',x+'%');el.style.setProperty('--y',y+'%');if(w)el.style.setProperty('--w',w+'%');el.style.setProperty('--s',s==null?1:s);}
   function ring(n,r){var out=[];for(var i=0;i<n;i++){var a=-Math.PI/2+i*2*Math.PI/n;out.push([50+r*Math.cos(a),50+r*Math.sin(a)]);}return out;}
-  // A slightly wobbly ink line from the centre to each bubble, seeded by index so it never jitters.
-  function line(x1,y1,x2,y2,seed){var mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy)||1,k=(((seed*7919)%13)-6)/6*Math.min(4,len/6);return 'M'+x1+' '+y1+' Q'+(mx-dy/len*k)+' '+(my+dx/len*k)+' '+x2+' '+y2;}
-  function draw(pts,dot){lines.innerHTML=(dot?'<circle cx="50" cy="50" r="1.6" fill="#1a1c1c"/>':'')+pts.map(function(p,i){var vis=[50,50,p[0],p[1]];var d=vis[2]-vis[0],e=vis[3]-vis[1],l=Math.sqrt(d*d+e*e)||1;return '<path d="'+line(50+d/l*15,50+e/l*15,p[0]-d/l*11,p[1]-e/l*11,i+1)+'"/>';}).join('');}
+  // A ring grows out of the centre: each bubble starts there at size zero and springs to its place, one
+  // after another. The motion is what says "these belong to the centre"; there are no lines to say it.
+  function spawn(el,x,y,w,i){
+    if(reduced||!el.hidden){el.hidden=false;place(el,x,y,w,1);return;}
+    el.hidden=false;el.style.transition='none';place(el,50,50,w,0);void el.offsetWidth;
+    el.style.transition='';el.style.transitionDelay=(i*70)+'ms';place(el,x,y,w,1);
+    el.addEventListener('transitionend',function done(){el.style.transitionDelay='';el.removeEventListener('transitionend',done);});
+  }
   function render(){
     var domains=TREE.map(function(d){return d.key;});
-    stage.querySelectorAll('.bubble').forEach(function(b){b.hidden=true;b.classList.remove('is-centre','is-dim','is-on');b.setAttribute('aria-pressed','false');});
+    stage.querySelectorAll('.bubble').forEach(function(b){b.classList.remove('is-centre','is-dim','is-on');b.setAttribute('aria-pressed','false');});
     if(!state.domain){
+      stage.querySelectorAll('.bubble[data-bubble^="a:"]').forEach(function(b){b.hidden=true;});
       var pts=ring(domains.length,37);
-      domains.forEach(function(k,i){var b=bubble('d:'+k);b.hidden=false;place(b,pts[i][0],pts[i][1],24,1);});
-      draw(pts,true);crumb.style.display='none';results.hidden=true;intro.hidden=false;
+      domains.forEach(function(k,i){var b=bubble('d:'+k);b.classList.remove('is-centre');spawn(b,pts[i][0],pts[i][1],24,i);});
+      halo.classList.remove('is-on');stage.classList.add('is-idle');
+      crumb.style.display='none';results.hidden=true;intro.hidden=false;
     }else{
+      stage.classList.remove('is-idle');
       var d=TREE.filter(function(x){return x.key===state.domain;})[0],c=bubble('d:'+d.key);
+      stage.querySelectorAll('.bubble').forEach(function(b){var id=b.getAttribute('data-bubble');if(id!=='d:'+d.key&&id.indexOf('a:'+d.key+':')!==0)b.hidden=true;});
       c.hidden=false;c.classList.add('is-centre');c.setAttribute('aria-pressed','true');place(c,50,50,30,1);
+      halo.style.setProperty('--tint',c.style.getPropertyValue('--tint'));halo.classList.add('is-on');
       var pts=ring(4,36);
-      d.aspects.forEach(function(a,i){var b=bubble('a:'+d.key+':'+a.key);b.hidden=false;place(b,pts[i][0],pts[i][1],26,1);
+      d.aspects.forEach(function(a,i){var b=bubble('a:'+d.key+':'+a.key);spawn(b,pts[i][0],pts[i][1],26,i);
         if(state.aspect){if(a.key===state.aspect){b.classList.add('is-on');b.setAttribute('aria-pressed','true');}else b.classList.add('is-dim');}});
-      draw(pts);
       crumb.style.display='flex';crumb.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-current',String(x.getAttribute('data-domain')===d.key));});
       intro.hidden=true;
       results.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.getAttribute('data-panel')!==(state.aspect?d.key+':'+state.aspect:'');});
@@ -299,7 +318,7 @@ def build():
 <div id="nav-crumb" class="nav-crumb mt-6" aria-label="Change domain">{''.join(crumbs)}</div>
 </div>
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
-<div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><svg id="nav-lines" class="nav-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>{''.join(bubbles)}</div>
+<div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><div id="nav-halo" class="nav-halo" aria-hidden="true"></div>{''.join(bubbles)}</div>
 <section id="nav-results" class="nav-results max-w-[900px] mx-auto pt-10 border-t border-[#e8e6df]" aria-live="polite" hidden>{''.join(panels)}
 <p class="mt-10"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">See the whole network <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
 </section>
