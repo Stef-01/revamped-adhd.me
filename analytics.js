@@ -204,6 +204,7 @@
     'privacy.html': 'privacy', 'terms.html': 'terms', 'automated-decisions.html': 'automated-decisions',
     'blog-body-doubling.html': 'blog', 'blog-how-booking-works.html': 'blog',
     'blog-late-diagnosis.html': 'blog', '404.html': 'not-found',
+    'care-navigator.html': 'navigator',
     'adhd-services.html': 'service', 'adhd-doctor-gold-coast.html': 'service',
     'adhd-gp-brisbane.html': 'service', 'adhd-assessment-queensland.html': 'service',
     'adhd-assessment-sydney.html': 'service', 'adhd-assessment-online.html': 'service',

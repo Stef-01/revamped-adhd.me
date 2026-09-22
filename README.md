@@ -105,6 +105,16 @@ They are kept out of the way on purpose: not in the header, not in the mobile me
 
 Three things keep them honest. The clinician lists are selected from `CLINICIANS` in `scripts/build-profiles.py` by discipline, state and telehealth, so a page cannot name a clinician the network does not have, and a page whose filter matches nobody refuses to build. The fee figures are the same constants the profiles use. And where the network has nothing for the query yet (an exercise physiologist, a Gold Coast clinician, a Brisbane GP), the page says so in the first screen and points at what exists, rather than implying otherwise. The page shell is lifted from `how-it-works.html` at build time, so header and footer changes reach these pages on the next rebuild.
 
+## Care navigator
+
+`care-navigator.html` is a two-level bubble map: pick where ADHD gets in the way (School, Work, Home, Relationships, Health), then the part of it, and the clinicians whose profiles say they work on exactly that appear underneath. It is generated from `DOMAINS` in `scripts/build-navigator.py`; edit the tree there and rebuild:
+
+```bash
+python3 scripts/build-navigator.py
+```
+
+`--check` exits non-zero if the page on disk differs. Each clinician under an aspect is named by id with the reason quoted from their own profile (a chip or an experience line), and the build refuses an id that is not in `CLINICIANS`, so the map cannot claim a focus a profile does not declare. Every result panel is in the HTML; the page's own script only chooses which one shows and where the bubbles sit, and with JavaScript off the whole tree reads as a list. The landing page links to it under "Four ways in".
+
 ## Styles, scripts and fonts
 
 Every page loads one stylesheet and one script bundle:
