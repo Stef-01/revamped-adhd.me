@@ -113,7 +113,7 @@ Three things keep them honest. The clinician lists are selected from `CLINICIANS
 python3 scripts/build-navigator.py
 ```
 
-`--check` exits non-zero if the page on disk differs. Each clinician under an aspect is named by id with the reason quoted from their own profile (a chip or an experience line), and the build refuses an id that is not in `CLINICIANS`, so the map cannot claim a focus a profile does not declare. Every result panel is in the HTML; the page's own script only chooses which one shows and where the bubbles sit, and with JavaScript off the whole tree reads as a list. The landing page links to it under "Four ways in".
+`--check` exits non-zero if the page on disk differs. Each clinician under an aspect is named by id with the reason quoted from their own profile (a chip or an experience line), and the build refuses an id that is not in `CLINICIANS`, so the map cannot claim a focus a profile does not declare. Every result panel is in the HTML; the page's own script only chooses which one shows and where the bubbles sit, and with JavaScript off the whole tree reads as a list. It has its own item in the header, Navigator, and the landing page also links to it under "Four ways in".
 
 ## Styles, scripts and fonts
 

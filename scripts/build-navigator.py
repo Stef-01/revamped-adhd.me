@@ -177,13 +177,20 @@ def head_for(shell_head):
 
 
 def header_for(shell_header):
-    active = ('aria-current="page" class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold '
+    active = ('aria-current="page" class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold '
               'bg-[#1a1c1c] text-white shadow-sm transition-all" href="how-it-works.html"')
-    inactive = ('class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold text-[#1a1c1c]/80 '
+    inactive = ('class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold text-[#1a1c1c]/80 '
                 'hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html"')
     if shell_header.count(active) != 1 or shell_header.count('<a aria-current="page" href="how-it-works.html">') != 1:
         raise SystemExit('build-navigator: how-it-works.html header does not mark How it works current where expected')
-    return shell_header.replace(active, inactive).replace('<a aria-current="page" href="how-it-works.html">', '<a href="how-it-works.html">')
+    out = shell_header.replace(active, inactive).replace('<a aria-current="page" href="how-it-works.html">', '<a href="how-it-works.html">')
+    nav_inactive = ('class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold text-[#1a1c1c]/80 '
+                    'hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="care-navigator.html"')
+    nav_active = ('aria-current="page" class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold '
+                  'bg-[#1a1c1c] text-white shadow-sm transition-all" href="care-navigator.html"')
+    if out.count(nav_inactive) != 1 or out.count('<a href="care-navigator.html">Navigator<span') != 1:
+        raise SystemExit('build-navigator: how-it-works.html header has no Navigator item to mark current')
+    return out.replace(nav_inactive, nav_active).replace('<a href="care-navigator.html">Navigator<span', '<a aria-current="page" href="care-navigator.html">Navigator<span')
 
 
 # ---------------------------------------------------------------- the map

@@ -466,9 +466,9 @@ def head_for(shell_head, slug, seo, description):
 
 def header_for(shell_header):
     """The header with no item marked current: these pages sit outside the primary navigation."""
-    active = ('aria-current="page" class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold '
+    active = ('aria-current="page" class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold '
               'bg-[#1a1c1c] text-white shadow-sm transition-all" href="how-it-works.html"')
-    inactive = ('class="whitespace-nowrap px-3.5 lg:px-5 py-2 rounded-full text-[15px] font-semibold text-[#1a1c1c]/80 '
+    inactive = ('class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold text-[#1a1c1c]/80 '
                 'hover:text-[#1a1c1c] hover:bg-black/5 transition-all" href="how-it-works.html"')
     if shell_header.count(active) != 1 or shell_header.count('<a aria-current="page" href="how-it-works.html">') != 1:
         raise SystemExit('build-seo-pages: how-it-works.html header does not mark How it works current where expected')
