@@ -238,12 +238,10 @@ group by clinician
 order by booked desc, read_page desc""")),
 
         ('Provider leaderboard — clicks against likely bookings (30 days)',
-         'The ranking table. unique_visitors is people, not page views. diary_people went to a '
-         'live diary where an appointment can actually be made; enquiry_people could only send a '
-         'message. likely_booked is the honest proxy: a diary handoff they did NOT bounce straight '
-         'back from — booking links open in a new tab, so a return inside two minutes means they '
-         'looked and left, and no return at all means they stayed. It is an estimate and it is '
-         'named as one; the only ground truth is the practice’s own diary.',
+         'The ranking table. unique_visitors is people, not page views. diary_people reached a '
+         'live diary where an appointment can be made; enquiry_people could only send a message. '
+         'likely_booked is a proxy, not a count: a diary handoff they did not bounce back from '
+         'within two minutes. The only ground truth is the practice’s own diary.',
          sql("""
 select properties.clinician_name                                      as clinician,
        anyIf(properties.practice, event = 'profile-viewed')           as practice,
@@ -645,6 +643,28 @@ def app_host(host):
 
 # --------------------------------------------------------------------------- the run
 
+# PostHog caps a description at 400 characters and rejects the whole object with a 400 when it is
+# longer. Found the hard way, twenty tiles into a run: the dashboard was left half built. Check
+# every payload before the first request instead.
+DESCRIPTION_LIMIT = 400
+
+
+def audit():
+    over = [(kind, name, len(note))
+            for kind, items in (('tile', tiles()), ('cohort', cohorts()), ('playlist', playlists()))
+            for name, note, _ in items if len(note) > DESCRIPTION_LIMIT]
+    if over:
+        lines = '\n'.join(f'  {k} "{n}" — {c} characters' for k, n, c in over)
+        raise SystemExit(f'posthog-dashboard: {len(over)} description(s) over the '
+                         f'{DESCRIPTION_LIMIT}-character limit PostHog enforces:\n{lines}')
+    names = [n for _, items in (('t', tiles()), ('c', cohorts()), ('p', playlists()))
+             for n, _, _ in items]
+    dupes = sorted({n for n in names if names.count(n) > 1})
+    if dupes:
+        raise SystemExit('posthog-dashboard: two objects share a name, so each run would '
+                         'overwrite the other: ' + ', '.join(dupes))
+
+
 def sync(client, prune=False):
     dashboards = client.collect(client.api('/dashboards/'))
     existing = next((d for d in dashboards if d.get('name') == DASHBOARD), None)
@@ -700,7 +720,11 @@ def sync(client, prune=False):
         print(f'  replay · skipped ({e})')
         return board_id
     for name, note, filters in playlists():
-        payload = {'name': name, 'description': note, 'filters': filters, 'pinned': True}
+        # `type` is required and is not inferred from the payload: without it the endpoint answers
+        # 400 "Must provide a valid playlist type". 'filters' is a standing query, as against a
+        # 'collection', which is a hand-picked list of recordings.
+        payload = {'name': name, 'description': note, 'type': 'filters',
+                   'filters': filters, 'pinned': True}
         found = have.get(name)
         try:
             if found:
@@ -729,6 +753,7 @@ def main(argv):
               'or pass --dry-run to see what would be sent.', file=sys.stderr)
         return 2
 
+    audit()
     host = app_host(args.host)
     client = PostHog(host, token, args.project, dry_run=args.dry_run)
     if args.dry_run and not args.project:
