@@ -45,7 +45,7 @@ def esc(text):
 # the profile. A clinician can sit under several aspects; a reason is always in their own words.
 DOMAINS = [
  dict(key='school', label='School', tint='#f1bc31', aspects=[
-  dict(key='focus', label='Focus in class', who=[
+  dict(key='focus', label='Concentrating in class', who=[
    ('fiona-alexander', 'Executive functioning · Students & families'),
    ('romney-taylor', 'Executive functioning · Students'),
    ('debbie-hirte', 'Executive functioning · Children & teens'),
@@ -55,18 +55,18 @@ DOMAINS = [
    ('erin-lysle', 'Executive functioning · Self-confidence'),
    ('romney-taylor', 'Executive functioning · Students'),
    ('debbie-hirte', 'Executive functioning · Gifted & talented')]),
-  dict(key='friends', label='Friendships', who=[
+  dict(key='friends', label='Friendships at school', who=[
    ('erin-lysle', 'Social skills · Self-confidence'),
    ('flynn-simonis', 'Group social and movement programs for children'),
    ('ellie-putland', 'Young people · Trauma-informed')]),
-  dict(key='system', label='Getting the school on side', who=[
+  dict(key='system', label='School support and adjustments', who=[
    ('debbie-hirte', 'Co-designing Individual Education Plans with families and schools'),
    ('meera-lakhani', 'Educational & developmental · Previously a psychologist in a school'),
    ('flynn-simonis', 'FCA report writing · Home & school visits'),
    ('lachlan-avent', 'Autism & ADHD assessment · Children to adults')]),
  ]),
  dict(key='work', label='Work', tint='#cfe4f6', aspects=[
-  dict(key='done', label='Getting things done', who=[
+  dict(key='done', label='Starting and finishing tasks', who=[
    ('fiona-alexander', 'Executive functioning'),
    ('kate-dallimore', 'Executive functioning · Trauma-informed'),
    ('donna-italiano', 'Executive functioning · Emotional regulation'),
@@ -75,17 +75,17 @@ DOMAINS = [
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('kate-dallimore', 'Ongoing stress, anxiety, overwhelm'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed')]),
-  dict(key='confidence', label='Confidence and feedback', who=[
+  dict(key='confidence', label='Confidence and handling feedback', who=[
    ('erin-lysle', 'Self-confidence'),
    ('jessica-katsamatsas', 'Low self-esteem · Neurodivergent adults'),
    ('donna-italiano', 'Emotional regulation · Neurodivergent-affirming')]),
-  dict(key='career', label='Career and what next', who=[
+  dict(key='career', label='Career decisions', who=[
    ('kate-row', 'Career counselling and post-schooling decision making'),
    ('romney-taylor', 'Advocacy & inclusion'),
    ('kate-dallimore', 'Mentoring and leadership across healthcare and education')]),
  ]),
  dict(key='home', label='Home', tint='#dbe9d3', aspects=[
-  dict(key='routines', label='Routines and the daily grind', who=[
+  dict(key='routines', label='Daily routines and chores', who=[
    ('donna-italiano', 'Executive functioning · Emotional regulation'),
    ('kate-dallimore', 'Executive functioning'),
    ('flynn-simonis', 'Sensory profiles and functional challenges, in clinic and at home')]),
@@ -94,21 +94,20 @@ DOMAINS = [
    ('lauren-poulos', 'PCIT & early intervention · Toddlers & children'),
    ('flynn-simonis', 'Paediatric OT · Parent training'),
    ('debbie-hirte', 'Children & teens')]),
-  dict(key='emotions', label='Big feelings at home', who=[
+  dict(key='emotions', label='Meltdowns and emotional outbursts', who=[
    ('donna-italiano', 'Emotional regulation'),
    ('ellie-putland', 'Young people · CBT, ACT & DBT'),
    ('flynn-simonis', 'Emotional regulation needs in children')]),
-  dict(key='body', label='Sleep, food and the body', who=[
+  dict(key='body', label='Sleep and physical health', who=[
    ('anubhav-saxena', 'Baseline physical screening · Integrative care'),
-   ('samantha-courtney', 'Eating disorders · CEDC-MH credentialed'),
    ('anu-saxena', 'Mental health focus · Women’s health')]),
  ]),
  dict(key='relationships', label='Relationships', tint='#fbd8cf', aspects=[
-  dict(key='partner', label='Partner and family', who=[
+  dict(key='partner', label='Partner and family relationships', who=[
    ('jessica-katsamatsas', 'Relationship difficulties and attachment wounds'),
    ('kate-row', 'Communication and social skills building'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed')]),
-  dict(key='rejection', label='Rejection and sensitivity', who=[
+  dict(key='rejection', label='Rejection sensitivity', who=[
    ('jessica-katsamatsas', 'Attachment wounds · Low self-esteem'),
    ('donna-italiano', 'Emotional regulation'),
    ('paula-garrido', 'ADHD & autism certified · Trauma-informed')]),
@@ -116,18 +115,18 @@ DOMAINS = [
    ('erin-lysle', 'Social skills'),
    ('kate-row', 'Social skills building'),
    ('flynn-simonis', 'Group social programs for children')]),
-  dict(key='conflict', label='Conflict and repair', who=[
+  dict(key='conflict', label='Arguments and conflict', who=[
    ('kate-row', 'Communication skills · CBT, ACT & MI'),
    ('ellie-putland', 'DBT · Working collaboratively with families'),
    ('lachlan-avent', 'Emotion Focussed Therapy')]),
  ]),
  dict(key='health', label='Health', tint='#dad9eb', aspects=[
-  dict(key='assessment', label='Getting assessed', who=[
+  dict(key='assessment', label='ADHD assessment and diagnosis', who=[
    ('anubhav-saxena', 'Structured adult ADHD assessment'),
    ('anu-saxena', 'Endorsed ADHD prescriber course'),
    ('lachlan-avent', 'Autism & ADHD assessment'),
    ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment')]),
-  dict(key='medication', label='Medication and the body', who=[
+  dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course')]),
   dict(key='mood', label='Anxiety and low mood', who=[
@@ -135,15 +134,53 @@ DOMAINS = [
    ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
    ('ellie-putland', 'Trauma-informed · CBT, ACT & DBT'),
    ('alice-bui', 'Trauma-informed · CALD & refugee clients')]),
-  dict(key='eating', label='Eating and appetite', who=[
+  dict(key='eating', label='Appetite and eating problems', who=[
    ('samantha-courtney', 'Eating disorders · CEDC-MH credentialed'),
    ('anubhav-saxena', 'Baseline physical screening')]),
  ]),
 ]
 
+# ---------------------------------------------------------------- icons
+# One line drawing per bubble, inline SVG on a 24-box, stroked in the bubble's own text colour.
+ICONS = {
+ 'school': '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v14H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V6.5M20 18v2.5H6.5"/>',
+ 'work': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/>',
+ 'home': '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/>',
+ 'relationships': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/>',
+ 'health': '<path d="M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z"/>',
+ 'school:focus': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+ 'school:homework': '<path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
+ 'school:friends': '<circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M15 13.5c3 0 5.5 2 5.5 5"/>',
+ 'school:system': '<path d="M3 20h18"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M12 8v3"/>',
+ 'work:done': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l3 3 5-6"/>',
+ 'work:burnout': '<rect x="3" y="8" width="15" height="8" rx="2"/><path d="M18 10.5h2.5v3H18"/><path d="M6.5 11v2"/>',
+ 'work:confidence': '<path d="M7 11v9H4v-9z"/><path d="M7 11l4-7c1.5 0 2.5 1 2.5 2.5V10h5a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17.5 20H7"/>',
+ 'work:career': '<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ 'home:routines': '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+ 'home:parenting': '<circle cx="9" cy="6.5" r="3"/><circle cx="17" cy="11" r="2.2"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><path d="M15 20c0-2.4 1-4 2.5-4s2.5 1.6 2.5 4"/>',
+ 'home:emotions': '<path d="M7 16a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 16"/><path d="M13 13l-2 4h3l-2 4"/>',
+ 'home:body': '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+ 'relationships:partner': '<path d="M9 18s-6-3.6-6-7.6A3.2 3.2 0 0 1 9 8.4a3.2 3.2 0 0 1 6 2c0 4-6 7.6-6 7.6z"/><path d="M15.5 6.5a3 3 0 0 1 5.5 1.7c0 3-4 5.6-5.2 6.3"/>',
+ 'relationships:rejection': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/><path d="M12 7.6l-1.5 4 3 2-1.5 4"/>',
+ 'relationships:social': '<circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2"/><path d="M9.5 9.5h.01M14.5 9.5h.01"/>',
+ 'relationships:conflict': '<path d="M4 5h9v7H8l-3 2.5V12H4z"/><path d="M13 9h7v7h-1v2.5L16 16h-3v-2"/>',
+ 'health:assessment': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ 'health:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
+ 'health:mood': '<path d="M7 17a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 17z"/>',
+ 'health:eating': '<path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 3v18"/><path d="M17 3c-2 1.5-2.5 5-2.5 8h2.5v10"/>',
+}
+
+
+def icon(key):
+    return (f'<svg class="bubble__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+            f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[key]}</svg>')
+
+
 for d in DOMAINS:
     assert len(d['aspects']) == 4, f"{d['label']}: four aspects, not {len(d['aspects'])}"
+    assert d['key'] in ICONS, f"{d['label']}: no icon"
     for asp in d['aspects']:
+        assert f"{d['key']}:{asp['key']}" in ICONS, f"{d['label']} › {asp['label']}: no icon"
         for cid, _ in asp['who']:
             if cid not in BY_ID:
                 raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
@@ -194,14 +231,18 @@ def header_for(shell_header):
 
 
 # ---------------------------------------------------------------- the map
-# Bubbles are buttons positioned by the script on a square stage; the ink lines between them are one SVG
-# underneath, redrawn on each change with a small, seeded wobble so they read as hand-drawn, like the map
-# on Our Story. Colours are the domain tints. With JavaScript off the stage is hidden and the list shows.
+# Bubbles are buttons positioned by the script on a square stage. No connector lines: the ring says what
+# belongs to the centre, a soft halo in the domain tint sits behind the chosen domain, and each ring springs
+# out of the centre with a short stagger, so the motion is the connection. Before anyone taps, the domain
+# bubbles drift slowly on their own small orbits. Both respect prefers-reduced-motion. Colours are the
+# domain tints. With JavaScript off the stage is hidden and the list shows.
 STYLE = '''<style>
 .nav-stage{position:relative;aspect-ratio:1/1;max-width:640px;margin:0 auto;}
-.nav-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;}
-.nav-lines path{fill:none;stroke:#1a1c1c;stroke-width:2.2;stroke-linecap:round;opacity:.55;}
-.bubble{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%) scale(var(--s,1));width:var(--w,22%);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;text-align:center;padding:8%;margin:0;border:2.5px solid #1a1c1c;background:var(--tint,#f6f4ee);color:#1a1c1c;font:700 15px/1.2 inherit;font-family:inherit;cursor:pointer;border-radius:52% 48% 47% 53%/56% 44% 56% 44%;box-shadow:0 6px 18px -8px rgba(0,0,0,.25);transition:left .55s cubic-bezier(.2,.8,.2,1),top .55s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),opacity .35s,width .45s cubic-bezier(.2,.8,.2,1);}
+.nav-halo{position:absolute;left:50%;top:50%;width:64%;aspect-ratio:1/1;transform:translate(-50%,-50%) scale(.6);border-radius:50%;background:radial-gradient(circle,var(--tint,#f6f4ee) 0%,var(--tint,#f6f4ee) 35%,rgba(250,250,247,0) 72%);opacity:0;pointer-events:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1),background .4s;}
+.nav-halo.is-on{opacity:.9;transform:translate(-50%,-50%) scale(1);}
+.bubble{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%) scale(var(--s,1));width:var(--w,22%);aspect-ratio:1/1;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;text-align:center;padding:9%;margin:0;border:2.5px solid #1a1c1c;background:var(--tint,#f6f4ee);color:#1a1c1c;font:700 15px/1.2 inherit;font-family:inherit;cursor:pointer;border-radius:52% 48% 47% 53%/56% 44% 56% 44%;box-shadow:0 6px 18px -8px rgba(0,0,0,.25);transition:left .6s cubic-bezier(.34,1.45,.64,1),top .6s cubic-bezier(.34,1.45,.64,1),transform .5s cubic-bezier(.34,1.5,.64,1),opacity .35s,width .45s cubic-bezier(.2,.8,.2,1),margin .5s ease,background .3s,color .3s;}
+.bubble__icon{width:24px;height:24px;flex:none;opacity:.85;}
+.bubble.is-centre .bubble__icon{width:30px;height:30px;}
 .bubble:nth-child(odd){border-radius:47% 53% 55% 45%/44% 58% 42% 56%;}
 .bubble:hover,.bubble:focus-visible{transform:translate(-50%,-50%) scale(calc(var(--s,1) * 1.06));outline:none;}
 .bubble:focus-visible{box-shadow:0 0 0 4px #fff,0 0 0 6.5px #1a1c1c;}
@@ -209,6 +250,13 @@ STYLE = '''<style>
 .bubble.is-centre{--w:30%;font-size:18px;box-shadow:0 10px 26px -10px rgba(0,0,0,.35);}
 .bubble.is-dim{opacity:.35;}
 .bubble.is-on{background:#1a1c1c;color:#fff;}
+.nav-stage.is-idle .bubble{animation:nav-drift 8s ease-in-out infinite alternate;}
+.nav-stage.is-idle .bubble:nth-child(2){animation-duration:9.5s;animation-delay:-3s;}
+.nav-stage.is-idle .bubble:nth-child(3){animation-duration:7s;animation-delay:-5s;}
+.nav-stage.is-idle .bubble:nth-child(4){animation-duration:10s;animation-delay:-2s;}
+.nav-stage.is-idle .bubble:nth-child(5){animation-duration:8.5s;animation-delay:-6.5s;}
+.nav-stage.is-idle .bubble:nth-child(6){animation-duration:7.5s;animation-delay:-1s;}
+@keyframes nav-drift{0%{margin:0 0 0 0}30%{margin:-7px 0 0 5px}60%{margin:5px 0 0 -6px}100%{margin:-4px 0 0 -7px}}
 .nav-crumb{display:none;flex-wrap:wrap;gap:8px;justify-content:center;}
 .nav-crumb button{font:600 14px/1 inherit;font-family:inherit;padding:8px 14px;border-radius:999px;border:1.5px solid #e8e6df;background:#fff;color:#1a1c1c;cursor:pointer;}
 .nav-crumb button:hover{border-color:#1a1c1c;}
@@ -216,36 +264,46 @@ STYLE = '''<style>
 .js .nav-list{display:none;}
 .no-js .nav-stage,.no-js .nav-crumb,.no-js .nav-results{display:none;}
 .nav-results[hidden]{display:none;}
-@media (max-width:520px){.bubble{font-size:13px;padding:6%;}.bubble.is-centre{font-size:15px;}}
-@media (prefers-reduced-motion:reduce){.bubble{transition:none;}}
+@media (max-width:520px){.bubble{font-size:12px;line-height:1.15;padding:7%;gap:4px;}.bubble__icon{width:18px;height:18px;}.bubble.is-centre{font-size:14px;}.bubble.is-centre .bubble__icon{width:24px;height:24px;}}
+@media (prefers-reduced-motion:reduce){.bubble,.nav-halo{transition:none;}.nav-stage.is-idle .bubble{animation:none;}}
 </style>'''
 
 SCRIPT = r'''<script>
 (function(){
-  var stage=document.getElementById('nav-stage'),lines=document.getElementById('nav-lines'),crumb=document.getElementById('nav-crumb'),results=document.getElementById('nav-results'),intro=document.getElementById('nav-intro');
+  var stage=document.getElementById('nav-stage'),halo=document.getElementById('nav-halo'),crumb=document.getElementById('nav-crumb'),results=document.getElementById('nav-results'),intro=document.getElementById('nav-intro');
   if(!stage)return;
   var TREE=JSON.parse(document.getElementById('nav-tree').textContent);
   var state={domain:null,aspect:null};
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function bubble(id){return stage.querySelector('[data-bubble="'+id+'"]');}
-  function place(el,x,y,w,s){el.style.setProperty('--x',x+'%');el.style.setProperty('--y',y+'%');if(w)el.style.setProperty('--w',w+'%');el.style.setProperty('--s',s||1);}
+  function place(el,x,y,w,s){el.style.setProperty('--x',x+'%');el.style.setProperty('--y',y+'%');if(w)el.style.setProperty('--w',w+'%');el.style.setProperty('--s',s==null?1:s);}
   function ring(n,r){var out=[];for(var i=0;i<n;i++){var a=-Math.PI/2+i*2*Math.PI/n;out.push([50+r*Math.cos(a),50+r*Math.sin(a)]);}return out;}
-  // A slightly wobbly ink line from the centre to each bubble, seeded by index so it never jitters.
-  function line(x1,y1,x2,y2,seed){var mx=(x1+x2)/2,my=(y1+y2)/2,dx=x2-x1,dy=y2-y1,len=Math.sqrt(dx*dx+dy*dy)||1,k=(((seed*7919)%13)-6)/6*Math.min(4,len/6);return 'M'+x1+' '+y1+' Q'+(mx-dy/len*k)+' '+(my+dx/len*k)+' '+x2+' '+y2;}
-  function draw(pts,dot){lines.innerHTML=(dot?'<circle cx="50" cy="50" r="1.6" fill="#1a1c1c"/>':'')+pts.map(function(p,i){var vis=[50,50,p[0],p[1]];var d=vis[2]-vis[0],e=vis[3]-vis[1],l=Math.sqrt(d*d+e*e)||1;return '<path d="'+line(50+d/l*15,50+e/l*15,p[0]-d/l*11,p[1]-e/l*11,i+1)+'"/>';}).join('');}
+  // A ring grows out of the centre: each bubble starts there at size zero and springs to its place, one
+  // after another. The motion is what says "these belong to the centre"; there are no lines to say it.
+  function spawn(el,x,y,w,i){
+    if(reduced||!el.hidden){el.hidden=false;place(el,x,y,w,1);return;}
+    el.hidden=false;el.style.transition='none';place(el,50,50,w,0);void el.offsetWidth;
+    el.style.transition='';el.style.transitionDelay=(i*70)+'ms';place(el,x,y,w,1);
+    el.addEventListener('transitionend',function done(){el.style.transitionDelay='';el.removeEventListener('transitionend',done);});
+  }
   function render(){
     var domains=TREE.map(function(d){return d.key;});
-    stage.querySelectorAll('.bubble').forEach(function(b){b.hidden=true;b.classList.remove('is-centre','is-dim','is-on');b.setAttribute('aria-pressed','false');});
+    stage.querySelectorAll('.bubble').forEach(function(b){b.classList.remove('is-centre','is-dim','is-on');b.setAttribute('aria-pressed','false');});
     if(!state.domain){
-      var pts=ring(domains.length,37);
-      domains.forEach(function(k,i){var b=bubble('d:'+k);b.hidden=false;place(b,pts[i][0],pts[i][1],24,1);});
-      draw(pts,true);crumb.style.display='none';results.hidden=true;intro.hidden=false;
+      stage.querySelectorAll('.bubble[data-bubble^="a:"]').forEach(function(b){b.hidden=true;});
+      var small=window.innerWidth<520,pts=ring(domains.length,small?35:37);
+      domains.forEach(function(k,i){var b=bubble('d:'+k);b.classList.remove('is-centre');spawn(b,pts[i][0],pts[i][1],small?28:24,i);});
+      halo.classList.remove('is-on');stage.classList.add('is-idle');
+      crumb.style.display='none';results.hidden=true;intro.hidden=false;
     }else{
+      stage.classList.remove('is-idle');
       var d=TREE.filter(function(x){return x.key===state.domain;})[0],c=bubble('d:'+d.key);
+      stage.querySelectorAll('.bubble').forEach(function(b){var id=b.getAttribute('data-bubble');if(id!=='d:'+d.key&&id.indexOf('a:'+d.key+':')!==0)b.hidden=true;});
       c.hidden=false;c.classList.add('is-centre');c.setAttribute('aria-pressed','true');place(c,50,50,30,1);
-      var pts=ring(4,36);
-      d.aspects.forEach(function(a,i){var b=bubble('a:'+d.key+':'+a.key);b.hidden=false;place(b,pts[i][0],pts[i][1],26,1);
+      halo.style.setProperty('--tint',c.style.getPropertyValue('--tint'));halo.classList.add('is-on');
+      var small=window.innerWidth<520,pts=ring(4,small?34:36);
+      d.aspects.forEach(function(a,i){var b=bubble('a:'+d.key+':'+a.key);spawn(b,pts[i][0],pts[i][1],small?31:27,i);
         if(state.aspect){if(a.key===state.aspect){b.classList.add('is-on');b.setAttribute('aria-pressed','true');}else b.classList.add('is-dim');}});
-      draw(pts);
       crumb.style.display='flex';crumb.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-current',String(x.getAttribute('data-domain')===d.key));});
       intro.hidden=true;
       results.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.getAttribute('data-panel')!==(state.aspect?d.key+':'+state.aspect:'');});
@@ -277,11 +335,11 @@ def build():
 
     bubbles, crumbs, panels, listing = [], ['<button type="button" data-domain="">Start again</button>'], [], []
     for d in DOMAINS:
-        bubbles.append(f'<button type="button" class="bubble" data-bubble="d:{d["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{esc(d["label"])}</button>')
+        bubbles.append(f'<button type="button" class="bubble" data-bubble="d:{d["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(d["key"])}<span>{esc(d["label"])}</span></button>')
         crumbs.append(f'<button type="button" data-domain="{d["key"]}">{esc(d["label"])}</button>')
         items = []
         for asp in d['aspects']:
-            bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{esc(asp["label"])}</button>')
+            bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(f"{d['key']}:{asp['key']}")}<span>{esc(asp["label"])}</span></button>')
             cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
             panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
                           f'<p class="mt-2 text-[15px] text-[#5f5e59]">Clinicians whose profiles say they work on this. The reason is in their own words.</p>'
@@ -299,7 +357,7 @@ def build():
 <div id="nav-crumb" class="nav-crumb mt-6" aria-label="Change domain">{''.join(crumbs)}</div>
 </div>
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
-<div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><svg id="nav-lines" class="nav-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>{''.join(bubbles)}</div>
+<div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><div id="nav-halo" class="nav-halo" aria-hidden="true"></div>{''.join(bubbles)}</div>
 <section id="nav-results" class="nav-results max-w-[900px] mx-auto pt-10 border-t border-[#e8e6df]" aria-live="polite" hidden>{''.join(panels)}
 <p class="mt-10"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">See the whole network <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
 </section>
