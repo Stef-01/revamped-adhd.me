@@ -407,8 +407,30 @@
   if (params.get('analytics') === 'off') { try { localStorage.setItem(OPTOUT_KEY, '1'); } catch (e) {} }
   if (params.get('analytics') === 'on') { try { localStorage.removeItem(OPTOUT_KEY); } catch (e) {} }
 
+  // Somewhere other than the live site: validate and drop, the same as an unconfigured key. A
+  // month of localhost browsing had put a quarter of the project's events on the same clinician
+  // pages the provider comparison ranks, and nothing downstream could tell them apart.
+  // An empty or absent list means "anywhere", which is what this did before.
+  function offProduction() {
+    var allowed = config.productionHosts;
+    if (!allowed || !allowed.length) return false;
+    return allowed.indexOf(location.hostname) === -1;
+  }
+
+  // Our own browsing, on the real site. The site never asks who anybody is, so PostHog's standing
+  // "Internal / Test users" cohort — which reads $internal_or_test_user — had nobody in it and
+  // filter_test_accounts filtered nothing. ?internal=1 marks this browser for good; ?internal=0
+  // clears it. It is the founder reading their own site, not demand for a clinician.
+  var INTERNAL_KEY = 'adhdme-internal';
+  if (params.get('internal') === '1') { try { localStorage.setItem(INTERNAL_KEY, '1'); } catch (e) {} }
+  if (params.get('internal') === '0') { try { localStorage.removeItem(INTERNAL_KEY); } catch (e) {} }
+  function internalVisitor() {
+    try { return localStorage.getItem(INTERNAL_KEY) === '1'; } catch (e) { return false; }
+  }
+
   function optedOut() {
     if (navigator.globalPrivacyControl === true) return true;
+    if (offProduction()) return true;
     try { return localStorage.getItem(OPTOUT_KEY) === '1'; } catch (e) { return false; }
   }
 
@@ -539,10 +561,15 @@
       adhdme_entry_utm_campaign: params.get('utm_campaign') || 'none'
     };
   }
+  // Read by PostHog's standing "Internal / Test users" cohort, which every tile and playlist
+  // built with filter_test_accounts then excludes.
+  function internalProps() {
+    return internalVisitor() ? { $internal_or_test_user: true } : {};
+  }
   function personSet() {
     var rows = outboundRows();
     var last = rows.length ? rows[rows.length - 1] : null;
-    var props = {
+    var props = spec(internalProps(), {
       adhdme_last_seen: new Date().toISOString(),
       adhdme_last_page: pageName,
       adhdme_profiles_viewed: profilesSeen().length,
@@ -556,7 +583,7 @@
       // How many different clinicians this person has gone to book with. One is somebody who
       // found their person; five is somebody still looking, and a different problem.
       adhdme_clinicians_tried: unique(rows.map(function (r) { return r.clinicianId; }).filter(Boolean)).length
-    };
+    });
     if (last) {
       props.adhdme_last_booking_clinician = last.name || 'unknown';
       props.adhdme_last_booking_category = last.category || 'unknown';
@@ -613,6 +640,11 @@
           recordHeaders: false,
           recordBody: false
         },
+        // The project had console capture on, which puts whatever any script logs into the
+        // recording — including this file's own ?debug=analytics output, event names and
+        // properties and all. A recording should hold what a visitor did, not what our code said
+        // about them while they did it.
+        enable_recording_console_log: false,
         // Page-load and Web Vitals timings, so "which profile pages are slow" is answerable
         // without a second tool. Off would leave the replay timeline with no performance track.
         capture_performance: true,
@@ -693,6 +725,8 @@
         globalPrivacyControl: navigator.globalPrivacyControl === true,
         consentRequired: needsConsent,
         consentGiven: consentGiven(),
+        offProduction: offProduction(),
+        internal: internalVisitor(),
         posthog: !!config.posthogKey,
         ga: !!config.gaId,
         visitor: shortId()
@@ -965,7 +999,9 @@
       statusEl.textContent = s.optedOut
         ? (s.globalPrivacyControl
             ? 'Off. Your browser sends a Global Privacy Control signal and this site honours it.'
-            : 'Off. This browser is opted out; nothing is counted or sent.')
+            : s.offProduction
+              ? 'Off. This is not the live site, so events are checked and dropped here.'
+              : 'Off. This browser is opted out; nothing is counted or sent.')
         : sinks.length
           ? 'On. Counts from this browser go to ' + sinks.join(' and ') + '. You are ' + s.visitor + ' there, and that is the whole of it.'
           : 'On, with nowhere to send. Events are checked against the list above and dropped; no request leaves this page.';

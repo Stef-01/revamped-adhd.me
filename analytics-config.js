@@ -12,6 +12,15 @@ window.ADHDME = {
   posthogKey: 'phc_nCTxy7xwt9hCTwZradey4xhWqwXraFc63S3TjRnV575d',
   // Where that project lives: https://us.i.posthog.com, https://eu.i.posthog.com, or your own host.
   posthogHost: 'https://us.i.posthog.com',
+
+  // The only hostnames allowed to send. Anywhere else — localhost, a Vercel preview, somebody's
+  // fork — validates its events and drops them, exactly as an unconfigured key does.
+  //
+  // This is not belt and braces, it is a repair. A month of dev browsing on localhost:5173 had
+  // put 1,324 events into the production project, a quarter of everything in it, and they landed
+  // on the same clinician pages the provider comparison ranks. There is no way to tell them apart
+  // afterwards, so the fix has to be that they never arrive.
+  productionHosts: ['www.adhdme.au', 'adhdme.au'],
   // Where the library itself is served from. Empty derives it from posthogHost
   // (us.i → us-assets.i, eu.i → eu-assets.i), which is what PostHog Cloud wants.
   posthogAssetHost: '',

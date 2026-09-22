@@ -196,6 +196,16 @@ The question this setup exists to answer: **who is on the site, and how many of 
 
 `scripts/posthog-dashboard.py` also creates cohorts, which are the literal "show me each person" lists: everybody who clicked a booking link, everybody who did that for a psychologist, for allied health, for a GP, for exercise physiology, for a coach, and everybody who read a profile and did not book. It is idempotent — it matches insights and cohorts by name and updates them in place, so re-running it after editing the tile list never leaves a second copy behind.
 
+### Only the live site counts
+
+`productionHosts` in `analytics-config.js` lists the hostnames allowed to send. Anywhere else — `localhost`, a Vercel preview, a fork — validates its events and drops them, exactly as an unconfigured key does, and the PostHog library is never even loaded.
+
+This is a repair, not caution. A month of development on `localhost:5173` had put **1,324 events into the production project, about a quarter of everything in it**, landing on the same clinician pages the provider comparison ranks. Nothing downstream could tell them from real visits.
+
+The events already there cannot be deleted, but they are excluded: the project's `test_account_filters` now carries a `$host` condition alongside the Internal/Test cohort, and every tile is built with `filterTestAccounts`, with the HogQL tiles carrying the same condition in their `WHERE`. A tile you build by hand in the UI will not have it — turn on "Filter out internal and test users".
+
+**Our own browsing, on the real site**, is a second source of the same problem. The site never asks who anybody is, so PostHog's Internal/Test cohort had nobody in it. `?internal=1` on any page marks that browser for good and sets `$internal_or_test_user`, which the cohort reads; `?internal=0` clears it. Use it once on every device you browse the site from.
+
 ### Telling a real booking from a click
 
 Two things separate a handoff that could have become an appointment from one that could not, and the dashboard now reads both.
