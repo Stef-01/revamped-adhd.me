@@ -196,6 +196,22 @@ The question this setup exists to answer: **who is on the site, and how many of 
 
 `scripts/posthog-dashboard.py` also creates cohorts, which are the literal "show me each person" lists: everybody who clicked a booking link, everybody who did that for a psychologist, for allied health, for a GP, for exercise physiology, for a coach, and everybody who read a profile and did not book. It is idempotent — it matches insights and cohorts by name and updates them in place, so re-running it after editing the tile list never leaves a second copy behind.
 
+### Telling a real booking from a click
+
+Two things separate a handoff that could have become an appointment from one that could not, and the dashboard now reads both.
+
+**A diary is not an enquiry.** Healthengine, Halaxy and HotDoc land in a live diary where an appointment is made on the spot. Zanda and the clinic contact forms can only end in somebody being emailed back. Counted in one bar, a practice with a form looks like it converts as well as one with an open diary. `booking-outbound` carries `handoff_kind` for this, and the split is not a separate opinion: it is `ONLINE_DIARIES` in `scripts/build-profiles.py`, already what decides whether a card's button reads Book or Enquire, and what `check-site.py` enforces. Zanda counts as an enquiry despite its URL saying `appointment-booking`, because the button says "Enquire". **Keep `DESTINATION_KIND` in `analytics.js` in step with that tuple**; a destination missing from the map counts as an enquiry, which understates rather than flatters.
+
+**How long the practice's page held them.** Booking links open in a new tab, so the page survives the handoff and can time the tab next door. `booking-returned` reports the gap in bands — under thirty seconds is a glance, minutes is a form being filled in. The *absence* of the event is the strong signal: a handoff nobody comes back from is somebody who stayed. A return after more than two hours is dropped, because that is a closed laptop.
+
+`likely_booked` on the two leaderboard tiles is those two combined: diary handoffs, minus the ones that bounced back inside two minutes. **It is a proxy and every tile says so.** Somebody who closed the tab entirely looks exactly like somebody who completed a form. The only ground truth is the practice's own diary, which is why every booking link still carries the `utm_source=adhd-me` tail.
+
+### Session replay
+
+On, set by `posthogSessionRecording` in `analytics-config.js`. Defensible on a health-adjacent site because of how it is configured in `analytics.js`: every input is masked before the recording is made (`maskAllInputs`), so the newsletter email is never in one and neither is any field a future form grows; anything marked `data-private` is blanked; request headers and bodies are not recorded; cross-origin iframes are not recorded, so the beehiiv embed and the practice's booking page are both out of reach. The opt-out, Global Privacy Control and the button on `measurement.html` stop it with every other sink.
+
+Three playlists are built alongside the dashboard, so nobody has to scroll a thousand recordings: *they went to book*, *bounced off the booking page*, and *read the fees and left*.
+
 ### The taxonomy
 
 `analytics.js` declares every event and every property value. Anything else is refused and logged as `analytics-refused` rather than becoming a row that looks real. `?debug=analytics` on any page prints both to the console.
@@ -208,7 +224,8 @@ The question this setup exists to answer: **who is on the site, and how many of 
 | `deck-viewed` | The Network was opened, and how many cards it held |
 | `deck-card-opened` | which clinician card was pressed, and their discipline |
 | `profile-viewed` | whose page, their discipline, their practice, which surface they came from |
-| `booking-outbound` | who they went to book with, their discipline, their practice, where the link lands, which surface, and which named link |
+| `booking-outbound` | who they went to book with, their discipline, their practice, where the link lands, which surface, which named link, and whether that link is a live diary or an enquiry form |
+| `booking-returned` | they came back to this tab from the practice's page, and roughly how long they were gone |
 
 ### Expertise, and what the network is short of
 
