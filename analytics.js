@@ -200,7 +200,28 @@
   var CLINICIAN_NAMES = column('name');
   var CATEGORIES = column('category');        // gp · psychologist · allied · exercise-physiology · coach
   var PRACTICES = column('practice');
-  var DESTINATIONS = column('destination');   // healthengine · halaxy · zanda · clinic-form · clinic-contact
+  var DESTINATIONS = column('destination');   // healthengine · halaxy · hotdoc · zanda · clinic-form · clinic-contact
+  // What the handoff actually was. A live diary can end in an appointment on the spot; an enquiry
+  // form can only end in somebody being emailed back. Counting them in one bar makes a practice
+  // with a contact form look like it converts as well as one with an open diary, which is the
+  // single most misleading thing this dashboard could say.
+  //
+  // The split is not a new opinion: it is ONLINE_DIARIES in scripts/build-profiles.py, which is
+  // already what decides whether a card's button says Book or Enquire, and which check-site.py
+  // enforces. Zanda is an enquiry here because it is an enquiry there — Jessica's button reads
+  // "Enquire with Jess" — even though its URL says appointment-booking. Keep the three in step;
+  // a destination missing from this map is counted as an enquiry, which understates rather than
+  // flatters.
+  var DESTINATION_KIND = {
+    healthengine: 'diary', halaxy: 'diary', hotdoc: 'diary',
+    zanda: 'enquiry', 'clinic-form': 'enquiry', 'clinic-contact': 'enquiry'
+  };
+  var HANDOFF_KINDS = ['diary', 'enquiry'];
+  // How long the practice's own page held them before they came back to this tab. Booking links
+  // open in a new tab, so this tab stays alive and can time the visit next door — the closest this
+  // site can honestly get to "did they actually book". The bands, not the raw seconds, are what a
+  // dashboard reads: a diary form takes minutes to fill in, and a glance takes seconds.
+  var AWAY_BANDS = ['under-30s', '30s-2m', '2m-10m', 'over-10m'];
   // Where on the site the click happened, and which link on that page it was. A page may grow a
   // second booking link; mark it with data-booking-link="..." and add the name here.
   var BOOKING_SURFACES = ['network', 'profile', 'finder', 'examples', 'demo'];
@@ -315,8 +336,20 @@
     'booking-outbound': spec(WHO, SOUGHT, CAME, {
       practice: { kind: 'vocabulary', values: PRACTICES },
       destination: { kind: 'vocabulary', values: DESTINATIONS },
+      handoff_kind: { kind: 'vocabulary', values: HANDOFF_KINDS },
       surface: { kind: 'vocabulary', values: BOOKING_SURFACES },
       link: { kind: 'vocabulary', values: BOOKING_LINKS }
+    }),
+    // They came back to this tab from the practice's page. The event is the RETURN, so its absence
+    // is the good outcome: a handoff nobody came back from is somebody who stayed and finished, or
+    // closed the laptop. Read it with 'away' — under thirty seconds is a glance at a page that did
+    // not suit, minutes is a form being filled in.
+    'booking-returned': spec(WHO, SOUGHT, CAME, {
+      practice: { kind: 'vocabulary', values: PRACTICES },
+      destination: { kind: 'vocabulary', values: DESTINATIONS },
+      handoff_kind: { kind: 'vocabulary', values: HANDOFF_KINDS },
+      away: { kind: 'count' },
+      away_band: { kind: 'vocabulary', values: AWAY_BANDS }
     })
   };
 
@@ -515,7 +548,14 @@
       adhdme_profiles_viewed: profilesSeen().length,
       adhdme_booking_clicks: rows.length,
       adhdme_booked_categories: unique(rows.map(function (r) { return r.category; }).filter(Boolean)),
-      adhdme_booked_clinicians: unique(rows.map(function (r) { return r.name; }).filter(Boolean))
+      adhdme_booked_clinicians: unique(rows.map(function (r) { return r.name; }).filter(Boolean)),
+      // Split on the person row too, so the Persons list can be sorted by the handoffs that could
+      // have ended in an appointment rather than by every click together.
+      adhdme_diary_handoffs: rows.filter(function (r) { return r.kind === 'diary'; }).length,
+      adhdme_enquiry_handoffs: rows.filter(function (r) { return r.kind === 'enquiry'; }).length,
+      // How many different clinicians this person has gone to book with. One is somebody who
+      // found their person; five is somebody still looking, and a different problem.
+      adhdme_clinicians_tried: unique(rows.map(function (r) { return r.clinicianId; }).filter(Boolean)).length
     };
     if (last) {
       props.adhdme_last_booking_clinician = last.name || 'unknown';
@@ -559,6 +599,23 @@
         capture_pageview: true,
         capture_pageleave: true,
         disable_session_recording: config.posthogSessionRecording !== true,
+        // Replay, when it is on, is deliberately blunt about what it keeps. Every input is masked
+        // before it is recorded, so the one field on this site anybody can type into — the
+        // newsletter email — is never in a recording, and neither is anything a future form grows.
+        // Anything marked data-private is blanked as well. The practice's booking page is a
+        // different origin in a different tab and was never recordable from here.
+        session_recording: {
+          maskAllInputs: true,
+          maskInputOptions: { password: true, email: true, tel: true, text: true, textarea: true },
+          maskTextSelector: '[data-private]',
+          recordCrossOriginIframes: false,
+          // The bodies of network requests can carry anything; the timings cannot. Keep the timings.
+          recordHeaders: false,
+          recordBody: false
+        },
+        // Page-load and Web Vitals timings, so "which profile pages are slow" is answerable
+        // without a second tool. Off would leave the replay timeline with no performance track.
+        capture_performance: true,
         persistence: 'localStorage+cookie',
         loaded: function (ph) {
           posthog = ph;
@@ -778,6 +835,49 @@
     if (rows.length > 500) rows = rows.slice(-500);
     writeLocal(OUTBOUND_KEY, rows);
   }
+
+  // ------------------------------------------------------------------ did the handoff hold?
+  // The one question this site could never answer was whether a booking followed the click, and
+  // it still cannot answer it outright — no diary will tell a third party. But booking links open
+  // in a new tab, which leaves this page running and able to time the tab next door. Somebody who
+  // is gone four minutes was filling something in. Somebody back in eight seconds looked and left.
+  //
+  // So the event raised here is the RETURN, and its ABSENCE is the strong signal: a handoff with
+  // no return is somebody who never came back to us. The dashboard reads the pair — handoffs
+  // against returns — rather than either alone. It is a proxy, named as one everywhere it appears.
+  var handoff = null;
+
+  function awayBand(seconds) {
+    if (seconds < 30) return 'under-30s';
+    if (seconds < 120) return '30s-2m';
+    if (seconds < 600) return '2m-10m';
+    return 'over-10m';
+  }
+
+  function watchReturn(id, person, kind) {
+    handoff = { id: id, practice: person.practice, destination: person.destination,
+                kind: kind, leftAt: 0 };
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (!handoff) return;
+    if (document.visibilityState === 'hidden') {
+      handoff.leftAt = handoff.leftAt || Date.now();
+      return;
+    }
+    if (!handoff.leftAt) return;                       // hidden never happened; nothing to time
+    var seconds = Math.round((Date.now() - handoff.leftAt) / 1000);
+    var h = handoff;
+    handoff = null;
+    // Two hours away is a closed laptop, not a reading of a booking page. Counting it would drag
+    // every average upwards with the one number that means nothing.
+    if (seconds > 7200) return;
+    track('booking-returned', withVisit(spec(who(h.id), {
+      practice: h.practice, destination: h.destination, handoff_kind: h.kind,
+      away: seconds, away_band: awayBand(seconds)
+    })));
+  });
+
   document.addEventListener('click', function (e) {
     var a = e.target instanceof Element ? e.target.closest('a[href^="http"]') : null;
     if (!a) return;
@@ -797,11 +897,17 @@
     tallyOutbound({
       clinicianId: id, name: person.name, category: person.category, practice: person.practice,
       destination: person.destination, surface: surf, link: link,
+      kind: DESTINATION_KIND[person.destination] || 'enquiry',
       day: new Date().toISOString().slice(0, 10), at: Date.now()
     });
+    var kind = DESTINATION_KIND[person.destination] || 'enquiry';
     track('booking-outbound', withVisit(spec(who(id), {
-      practice: person.practice, destination: person.destination, surface: surf, link: link
+      practice: person.practice, destination: person.destination, handoff_kind: kind,
+      surface: surf, link: link
     })));
+    // The link opens in a new tab, so this page survives the handoff and can time the one next
+    // door. From here the only question left is how long they stayed there.
+    watchReturn(id, person, kind);
     try { window.dispatchEvent(new Event('adhdme-booking-click')); } catch (err2) {}
     // The person row carries the running count, so the Persons list answers "how many booking links
     // has this visitor followed, and for whom" without a query.

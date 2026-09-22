@@ -157,6 +157,41 @@ def tiles():
          'Who gets read. Pair it with the booking bars to see whose page is doing the work.',
          trend('profile-viewed', breakdown='clinician_name', display='ActionsBarValue')),
 
+        ('Unique visitors by clinician',
+         'Distinct people who opened each clinician’s page — the audience number, with one person '
+         'reloading four times counted once. This is the fair comparison between two clinicians; '
+         'the view count above is not.',
+         trend('profile-viewed', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
+
+        ('Unique visitors by practice',
+         'The same people count rolled up to the practice, so GOALS Psychology’s eight clinicians '
+         'read as one audience rather than eight small ones.',
+         trend('profile-viewed', math='dau', breakdown='practice', display='ActionsBarValue')),
+
+        ('Unique visitors by clinician, by week',
+         'Who is growing and who is going quiet. Weekly, and per person, so a single busy day '
+         'does not read as a trend.',
+         trend('profile-viewed', math='dau', breakdown='clinician_name',
+               display='ActionsLineGraph', interval='week', window='-90d')),
+
+        ('Diary bookings against enquiries',
+         'The split that matters: a live diary (Healthengine, Halaxy) can end in an appointment '
+         'there and then; a clinic contact form can only end in somebody being emailed back. '
+         'Counting them together flatters whoever has a form.',
+         trend('booking-outbound', breakdown='handoff_kind', display='ActionsBarValue')),
+
+        ('Diary handoffs — people, by clinician',
+         'Distinct people who went to a live diary, per clinician. The closest thing on this '
+         'dashboard to "who is getting real bookings".',
+         trend('booking-outbound', math='dau', breakdown='clinician_name',
+               display='ActionsBarValue', properties=equals('handoff_kind', 'diary'))),
+
+        ('How long they stayed on the practice’s page',
+         'Booking links open in a new tab, so this site can time the tab next door. Under thirty '
+         'seconds is a glance; minutes is a form being filled in. A handoff that never comes back '
+         'raises nothing here at all, and that is the best outcome.',
+         trend('booking-returned', breakdown='away_band', display='ActionsBarValue')),
+
         ('Cards opened on the network deck',
          'Which clinician card people press on The Network.',
          trend('deck-card-opened', breakdown='clinician_name', display='ActionsBarValue')),
@@ -201,6 +236,118 @@ where timestamp > now() - interval 30 day
   and properties.clinician_name is not null
 group by clinician
 order by booked desc, read_page desc""")),
+
+        ('Provider leaderboard — clicks against likely bookings (30 days)',
+         'The ranking table. unique_visitors is people, not page views. diary_people went to a '
+         'live diary where an appointment can actually be made; enquiry_people could only send a '
+         'message. likely_booked is the honest proxy: a diary handoff they did NOT bounce straight '
+         'back from — booking links open in a new tab, so a return inside two minutes means they '
+         'looked and left, and no return at all means they stayed. It is an estimate and it is '
+         'named as one; the only ground truth is the practice’s own diary.',
+         sql("""
+select properties.clinician_name                                      as clinician,
+       anyIf(properties.practice, event = 'profile-viewed')           as practice,
+       anyIf(properties.category, event = 'profile-viewed')           as discipline,
+       uniqIf(person_id, event = 'profile-viewed')                    as unique_visitors,
+       countIf(event = 'booking-outbound')                            as handoff_clicks,
+       uniqIf(person_id, event = 'booking-outbound')                  as handoff_people,
+       uniqIf(person_id, event = 'booking-outbound'
+              and properties.handoff_kind = 'diary')                  as diary_people,
+       uniqIf(person_id, event = 'booking-outbound'
+              and properties.handoff_kind = 'enquiry')                as enquiry_people,
+       greatest(0, countIf(event = 'booking-outbound'
+                           and properties.handoff_kind = 'diary')
+                 - countIf(event = 'booking-returned'
+                           and properties.handoff_kind = 'diary'
+                           and properties.away_band in ('under-30s', '30s-2m')))
+                                                                      as likely_booked,
+       countIf(event = 'booking-returned'
+               and properties.away_band = 'under-30s')                as bounced_straight_back,
+       round(100.0 * uniqIf(person_id, event = 'booking-outbound')
+             / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_visitors
+from events
+where timestamp > now() - interval 30 day
+  and event in ('profile-viewed', 'booking-outbound', 'booking-returned')
+  and properties.clinician_name is not null
+group by clinician
+order by likely_booked desc, diary_people desc, unique_visitors desc""")),
+
+        ('Practice leaderboard (30 days)',
+         'The same table one level up. A practice with eight clinicians should be compared with '
+         'other practices, not with one solo coach.',
+         sql("""
+select properties.practice                                            as practice,
+       uniq(properties.clinician_name)                                as clinicians_seen,
+       uniqIf(person_id, event = 'profile-viewed')                    as unique_visitors,
+       uniqIf(person_id, event = 'booking-outbound')                  as handoff_people,
+       uniqIf(person_id, event = 'booking-outbound'
+              and properties.handoff_kind = 'diary')                  as diary_people,
+       greatest(0, countIf(event = 'booking-outbound'
+                           and properties.handoff_kind = 'diary')
+                 - countIf(event = 'booking-returned'
+                           and properties.handoff_kind = 'diary'
+                           and properties.away_band in ('under-30s', '30s-2m')))
+                                                                      as likely_booked,
+       round(100.0 * uniqIf(person_id, event = 'booking-outbound')
+             / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_visitors
+from events
+where timestamp > now() - interval 30 day
+  and event in ('profile-viewed', 'booking-outbound', 'booking-returned')
+  and properties.practice is not null
+group by practice
+order by likely_booked desc, unique_visitors desc""")),
+
+        ('Clicks that did not hold (30 days)',
+         'The other side of the leaderboard: handoffs where they were back on this site within two '
+         'minutes. A high rate here against a healthy click count means the booking page itself is '
+         'losing them — a full diary, a surprise fee, a login wall — not this site.',
+         sql("""
+select properties.clinician_name                              as clinician,
+       any(properties.destination)                            as lands_on,
+       count()                                                as returns,
+       countIf(properties.away_band = 'under-30s')            as under_30s,
+       countIf(properties.away_band = '30s-2m')               as half_to_two_min,
+       countIf(properties.away_band in ('2m-10m', 'over-10m')) as long_enough_to_book,
+       round(avg(toFloat(properties.away)), 0)                as avg_seconds_away
+from events
+where timestamp > now() - interval 30 day
+  and event = 'booking-returned'
+group by clinician
+order by under_30s desc""")),
+
+        ('Share of the network’s attention (30 days)',
+         'What proportion of everybody who read any clinician page read this one. Says whether '
+         'the network is spreading demand or funnelling it all at two people.',
+         sql("""
+select properties.clinician_name   as clinician,
+       any(properties.practice)    as practice,
+       uniq(person_id)             as unique_visitors,
+       round(100.0 * uniq(person_id)
+             / nullIf((select uniq(person_id) from events
+                       where timestamp > now() - interval 30 day
+                         and event = 'profile-viewed'), 0), 1) as pct_of_all_readers
+from events
+where timestamp > now() - interval 30 day
+  and event = 'profile-viewed'
+  and properties.clinician_name is not null
+group by clinician
+order by unique_visitors desc""")),
+
+        ('New against returning visitors, by clinician (30 days)',
+         'Whether a clinician’s audience is new arrivals or the same people coming back to decide. '
+         'Somebody on their third read of one profile is close to acting and has not yet.',
+         sql("""
+select properties.clinician_name                          as clinician,
+       uniq(person_id)                                    as people,
+       count()                                            as views,
+       round(count() / nullIf(uniq(person_id), 0), 2)     as views_per_person,
+       countIf(event = 'booking-outbound')                as handoffs
+from events
+where timestamp > now() - interval 30 day
+  and event in ('profile-viewed', 'booking-outbound')
+  and properties.clinician_name is not null
+group by clinician
+order by views_per_person desc""")),
 
         ('Starved of referrals',
          'Listed, read, and not booked once in 30 days. Supply health: a clinician nobody is sent '
@@ -345,6 +492,45 @@ def cohorts():
              }]},
          ]}}),
     ]
+    out += [
+        ('Went to a live diary (90 days)',
+         'Everybody who followed a link to Healthengine or Halaxy, where an appointment can '
+         'actually be made — as opposed to a clinic contact form.',
+         behavioural('booking-outbound', properties=equals('handoff_kind', 'diary'))),
+
+        ('Likely booked — diary, no quick return (90 days)',
+         'Went to a live diary and did not come straight back to this site. The nearest thing to '
+         'a list of people who booked. A proxy: somebody who closed the tab entirely looks the '
+         'same as somebody who completed a form.',
+         {'properties': {'type': 'AND', 'values': [
+             {'type': 'AND', 'values': [{
+                 'key': 'booking-outbound', 'type': 'behavioral', 'value': 'performed_event',
+                 'event_type': 'events', 'time_value': 90, 'time_interval': 'day',
+                 'event_filters': equals('handoff_kind', 'diary'),
+             }]},
+             {'type': 'AND', 'values': [{
+                 'key': 'booking-returned', 'type': 'behavioral', 'value': 'performed_event',
+                 'event_type': 'events', 'time_value': 90, 'time_interval': 'day',
+                 'event_filters': [{'key': 'away_band', 'value': ['under-30s', '30s-2m'],
+                                    'operator': 'exact', 'type': 'event'}],
+                 'negation': True,
+             }]},
+         ]}}),
+
+        ('Bounced off the booking page (90 days)',
+         'Followed a booking link and was back here within thirty seconds. Something on the '
+         'practice’s page turned them around, and it is worth knowing what.',
+         behavioural('booking-returned',
+                     properties=[{'key': 'away_band', 'value': ['under-30s'],
+                                  'operator': 'exact', 'type': 'event'}])),
+
+        ('Still shopping — three or more clinicians tried (90 days)',
+         'Followed booking links for three or more different clinicians. Not a happy customer: '
+         'somebody who cannot get in anywhere.',
+         {'properties': {'type': 'AND', 'values': [{'type': 'AND', 'values': [
+             {'key': 'adhdme_clinicians_tried', 'type': 'person', 'value': '3', 'operator': 'gte'},
+         ]}]}}),
+    ]
     for key, label in CATEGORIES:
         out.append((
             f'Clicked a booking link — {label} (90 days)',
@@ -352,6 +538,40 @@ def cohorts():
             behavioural('booking-outbound', properties=equals('category', key)),
         ))
     return out
+
+
+# --------------------------------------------------------------------------- the replay lists
+# Replay is only worth having if you never have to scroll a thousand recordings to find the one
+# that matters. Each playlist below is a standing question; PostHog fills it as recordings arrive.
+
+def replay_filter(event, days=30, properties=None):
+    node = {'id': event, 'name': event, 'type': 'events', 'order': 0}
+    if properties:
+        node['properties'] = properties
+    return {'events': [node], 'date_from': f'-{days}d', 'filter_test_accounts': True}
+
+
+def playlists():
+    return [
+        ('Watch: they went to book',
+         'Every recording that ends in a booking link being followed. Watch these first — this is '
+         'what the site working looks like.',
+         replay_filter('booking-outbound')),
+        ('Watch: bounced off the booking page',
+         'They followed a booking link and were back within thirty seconds. The most useful '
+         'thirty seconds of video on this dashboard: whatever turned them around is on screen.',
+         replay_filter('booking-returned',
+                       properties=[{'key': 'away_band', 'value': ['under-30s'],
+                                    'operator': 'exact', 'type': 'event'}])),
+        ('Watch: read the fees and left',
+         'Got as far down a clinician’s page as the fee table and never pressed anything. Where '
+         'the cost conversation is actually being lost.',
+         replay_filter('profile-engaged',
+                       properties=[{'key': 'acted', 'value': ['no'], 'operator': 'exact',
+                                    'type': 'event'},
+                                   {'key': 'depth', 'value': ['fees', 'network', 'end'],
+                                    'operator': 'exact', 'type': 'event'}])),
+    ]
 
 
 # --------------------------------------------------------------------------- the API
@@ -469,6 +689,28 @@ def sync(client, prune=False):
         else:
             client.request('POST', client.api('/cohorts/'), payload)
             print(f'  people · created  {name}')
+
+    # Replay playlists. Matched by name like everything else, so a re-run updates rather than
+    # duplicates. The endpoint is newer than the rest of the API and not on every plan; a failure
+    # here should not lose the dashboard that already built, so it is reported and stepped over.
+    try:
+        have = {p.get('name'): p for p in client.collect(client.api('/session_recording_playlists/'))
+                if p.get('name')}
+    except SystemExit as e:
+        print(f'  replay · skipped ({e})')
+        return board_id
+    for name, note, filters in playlists():
+        payload = {'name': name, 'description': note, 'filters': filters, 'pinned': True}
+        found = have.get(name)
+        try:
+            if found:
+                client.request('PATCH', client.api(f'/session_recording_playlists/{found["short_id"]}/'), payload)
+                print(f'  replay · updated  {name}')
+            else:
+                client.request('POST', client.api('/session_recording_playlists/'), payload)
+                print(f'  replay · created  {name}')
+        except SystemExit as e:
+            print(f'  replay · failed   {name} ({e})')
 
     return board_id
 

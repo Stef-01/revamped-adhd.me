@@ -23,9 +23,14 @@ window.ADHDME = {
   // PostHog's own click/pressed-element capture, on top of the declared events. The declared events
   // are what the dashboards are built on; this is the safety net for links nobody thought to name.
   posthogAutocapture: true,
-  // Session replay. Off deliberately: this is a health-adjacent site and a recording is a much
-  // larger thing to hold than a click count. Turning it on is a decision, not a default.
-  posthogSessionRecording: false,
+  // Session replay. On, as a decision rather than a default — this is a health-adjacent site and a
+  // recording is a much larger thing to hold than a click count. What makes it defensible here:
+  // every input is masked before recording (analytics.js), so the newsletter email is never in a
+  // recording and there is nothing else on these pages to type into; the practice's booking page
+  // is a different origin in another tab and was never recordable; and the opt-out, Global Privacy
+  // Control and the measurement.html button stop it with everything else. privacy.html and
+  // measurement.html say so in plain words.
+  posthogSessionRecording: true,
 
   // GA4 — the aggregate sink, kept from the earlier setup. A measurement ID (G-XXXXXXX) sends the
   // same declared events, cookieless and without advertising signals.
