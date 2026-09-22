@@ -43,7 +43,7 @@ WINDOW = '-30d'
 
 # The categories analytics.js sends, in the words the site uses for them.
 CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'),
-              ('coach', 'Coaches')]
+              ('exercise-physiology', 'Exercise physiology'), ('coach', 'Coaches')]
 
 
 # --------------------------------------------------------------------------- query shorthand
@@ -133,7 +133,7 @@ def tiles():
          trend('booking-outbound', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
 
         ('Booking clicks by discipline',
-         'Psychologist, allied health, GP or coach. The site’s own four categories.',
+         'Psychologist, allied health, GP, exercise physiology or coach. The site’s own five categories.',
          trend('booking-outbound', breakdown='category', display='ActionsBarValue')),
 
         ('Booking clicks by practice',

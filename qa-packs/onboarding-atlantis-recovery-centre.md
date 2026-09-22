@@ -1,13 +1,15 @@
 # Onboarding pack: Atlantis Recovery Centre, Bundall (Gold Coast)
 
-STATUS: built from the practice's team page, with illustrated placeholder portraits. Seven profiles
+STATUS: built from the practice's team page, with the practice's own portraits. Seven profiles
 are live in the data: Bart Traynor, Jeff Leech, Michael Rehardt, Sarah Savage, Dr Yuri Lima, Tom
 Hissey and Lester Rafanan. Jade Evans (co-owner, business operations) is not a clinician and is not
 listed. Heather Cameron and Steven Walker appear on HotDoc but not on the practice's team page, so
 they are not listed either.
 
-Still to come from the practice, per person: a photograph (the six portrait files are illustrations
-until then; `scripts/build-placeholder-portraits.py` made them), whether they offer telehealth
+The portraits are now the practice's own headshots, taken from its media library once the site's
+WordPress REST API turned out to answer even though the HTML sits behind a bot interstitial.
+
+Still to come from the practice, per person: whether they offer telehealth
 (nobody carries the pill until declared), pronouns if wanted, and any fee they will publish. One
 correction was made to the team page text: "injurty" to "injury" in Lester Rafanan's bio.
 
@@ -59,8 +61,7 @@ Enquire.
 
 Per person, in this order of importance:
 
-1. **A square portrait**, at least 800px, that the practice owns the rights to. The build makes the
-   six files (`<id>.jpg`, `-640`, `-320`, and WebP) from it and refuses to run without them.
+1. ~~**A square portrait**~~ Done: the practice's own 1254px headshots, resized to the six files.
 2. **Their own bio**, in their words, as on the practice's team page. The `about` paragraphs are
    theirs verbatim; the `description` and `chips` are ours, drawn from it.
 3. **Full name and registration** (surname for Jeff; confirm Michael Young's provisional status and

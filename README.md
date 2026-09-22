@@ -167,7 +167,7 @@ It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Page
 
 ## Analytics, attribution and privacy
 
-The question this setup exists to answer: **who is on the site, and how many of them clicked through to book with each psychologist, allied health clinician, GP or coach.** PostHog holds the people, the closed taxonomy in `analytics.js` holds the events, and `scripts/posthog-dashboard.py` builds the tiles that read them back.
+The question this setup exists to answer: **who is on the site, and how many of them clicked through to book with each psychologist, allied health clinician, GP, exercise physiologist or coach.** PostHog holds the people, the closed taxonomy in `analytics.js` holds the events, and `scripts/posthog-dashboard.py` builds the tiles that read them back.
 
 ### Switching it on
 
@@ -194,7 +194,7 @@ The question this setup exists to answer: **who is on the site, and how many of 
 
 `posthogPersonProfiles: 'always'` gives every browser a person row, so PostHog's Persons list has somebody in it without this site ever calling `identify()`. Each row carries a random label (`Visitor 3f9a21`), when it first arrived and what referred it, how many profiles it has read, how many booking links it has followed, and who the last one was for. No name, no email, nothing typed into anything — there is nothing on these pages to type into. Session replay is off by default, deliberately; turning it on is a decision, not a default.
 
-`scripts/posthog-dashboard.py` also creates cohorts, which are the literal "show me each person" lists: everybody who clicked a booking link, everybody who did that for a psychologist, for allied health, for a GP, for a coach, and everybody who read a profile and did not book. It is idempotent — it matches insights and cohorts by name and updates them in place, so re-running it after editing the tile list never leaves a second copy behind.
+`scripts/posthog-dashboard.py` also creates cohorts, which are the literal "show me each person" lists: everybody who clicked a booking link, everybody who did that for a psychologist, for allied health, for a GP, for exercise physiology, for a coach, and everybody who read a profile and did not book. It is idempotent — it matches insights and cohorts by name and updates them in place, so re-running it after editing the tile list never leaves a second copy behind.
 
 ### The taxonomy
 

@@ -35,7 +35,8 @@ PORTRAITS = 'assets/clinicians'
 
 # The Network: which tab panel each category's cards go in. The first clinician in the default panel
 # is the one card that loads eagerly; every other card is lazy.
-PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health', 'coach': 'coaches'}
+PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health',
+          'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -1071,6 +1072,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist & director',
         description='Straight-talking clinical psychology aimed at functioning better in everyday life, not just feeling better in the room.',
         chips=['Performance & career', 'Life transitions', 'Clinical supervisor'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK + '/bart-traynor-1', book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1099,6 +1101,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist',
         description='Evidence-based care for trauma, anxiety and depression, and for performing at your best.',
         chips=['Trauma', 'Anxiety & depression', 'Schema therapy & ACT'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1127,6 +1130,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Provisional psychologist',
         description='A thoughtful, creative and practical approach, on a final Master of Clinical Psychology placement.',
         chips=['Provisional psychologist', 'Master of Clinical Psychology', 'Aboriginal artist'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1147,11 +1151,12 @@ CLINICIANS = [
         schema=dict(type='Person', credentials=['Provisional psychologist', 'Master of Clinical Psychology, Griffith University (in progress)'], **ARC_SCHEMA),
     ),
     dict(
-        slug='sarah-savage', id='sarah-savage', category='allied',
+        slug='sarah-savage', id='sarah-savage', category='exercise-physiology',
         name='Sarah Savage', short='Sarah', role='Senior Exercise Physiologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Exercise physiologist',
         description='Exercise as medicine: programs that make moving feel achievable, empowering and enjoyable.',
-        chips=['Exercise physiology', 'Pilates & hydrotherapy', 'Older adults'],
+        chips=['Exercise as Medicine', 'Pilates & hydrotherapy', 'Older adults'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK + '/sarah-savage', book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1178,6 +1183,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Orthopaedic and sports rehabilitation, with the client educated and active in their own recovery.',
         chips=['Sports rehabilitation', 'Orthopaedic rehab', 'PhD, ACL injuries'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1203,6 +1209,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Occupational rehabilitation and musculoskeletal physiotherapy from an Army veteran who has been through rehab himself.',
         chips=['Musculoskeletal physio', 'Return to function', 'Army veteran'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1230,6 +1237,7 @@ CLINICIANS = [
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Evidence-based, personalised physiotherapy, from injury and chronic pain to staying active.',
         chips=['Doctor of Physiotherapy', 'Strength & conditioning', 'NDIS supports'],
+        exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
         links=ARC_LINKS,
@@ -1338,9 +1346,21 @@ TELEHEALTH_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 
                    'Telehealth</span>')
 
 
+# The second fixed marker. Some practices treat movement as the treatment rather than an extra, and a
+# reader scanning the deck cannot tell that from an interest chip. Same shape and position rule as the
+# telehealth pill: one wording, one icon, always ahead of the interest chips. Set it from `exercise`.
+EXERCISE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
+                 'text-[#3c5c3a] bg-[#e4f0e1] border border-[#bcd8b6]">'
+                 '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+                 'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                 '<path d="M6.5 6.5v11M3.5 9v5M17.5 6.5v11M20.5 9v5M6.5 12h11"/></svg>'
+                 'Exercise-based</span>')
+
+
 def chip_row(c):
-    """The clinician's interest chips, with the telehealth marker first when they offer it."""
-    return (TELEHEALTH_PILL if c['telehealth'] else '') + ''.join(CHIP.format(esc(x)) for x in c['chips'])
+    """The clinician's interest chips, behind the markers they carry: telehealth, then exercise."""
+    markers = (TELEHEALTH_PILL if c['telehealth'] else '') + (EXERCISE_PILL if c.get('exercise') else '')
+    return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'])
 BOOK_HREF = 'the-doctors.html#{}'
 
 # A diary you can pick a time in, or a form the practice answers. The button says which, and each
@@ -1394,10 +1414,10 @@ def deck_card(c, size, eager):
 
 
 def also_link(c, size):
-    return (f'<a class="inline-flex items-center gap-5 group" href="{c["slug"]}.html">'
-            f'{portrait_span(c, size, "span", "block w-24 ", "96px", "loading=\"lazy\" decoding=\"async\"", "w-full h-full object-cover object-[center_30%]")}'
-            f'<span><strong class="block text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">{esc(c["name"])}</strong>'
-            f'<span class="block text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span></a>')
+    return (f'<a class="flex items-center gap-4 group min-w-0" href="{c["slug"]}.html">'
+            f'{portrait_span(c, size, "span", "block w-20 shrink-0 ", "96px", "loading=\"lazy\" decoding=\"async\"", "w-full h-full object-cover object-[center_30%]")}'
+            f'<span class="min-w-0"><strong class="block text-[19px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">{esc(c["name"])}</strong>'
+            f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span></a>')
 
 
 def jsonld(c):
@@ -1492,7 +1512,7 @@ def render_main(c, size, sizes):
 
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-20" aria-labelledby="also-title">
 <h2 id="also-title" class="text-2xl font-extrabold tracking-tight text-[#1a1c1c] mb-5">Also in the network</h2>
-<div class="flex flex-col sm:flex-row flex-wrap gap-8 sm:gap-12">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 items-start">
 {chr(10).join(also_link(o, sizes[o['id']]) for o in others(c))}
 </div>
 </section>

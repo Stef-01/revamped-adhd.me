@@ -99,7 +99,7 @@ records — do not go hunting beyond them without a reason.
 | Tom Hissey | Senior physiotherapist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
 | Lester Rafanan | Physiotherapist | [Atlantis team](https://atlantisrc.com.au/team/) | — |
 
-Note the shape of this: eight of nineteen share one practice Instagram. Expect to attribute
+Note the shape of this: eight of twenty-six share one practice Instagram. Expect to attribute
 most finds to **GOALS Psychology** rather than an individual, unless a post names its
 author. Do not guess which clinician wrote a practice post.
 
@@ -179,7 +179,7 @@ model it is not a blocker, because the content does not depend on the find.
 
 ## Cadence
 
-Run it once a month, not weekly. Nineteen practitioners sharing five practice accounts will
+Run it once a month, not weekly. Twenty-six practitioners sharing five practice accounts will
 not generate fresh material every seven days, and a block that recycles thin tips is worse
 than no block.
 

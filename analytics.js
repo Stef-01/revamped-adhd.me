@@ -155,7 +155,7 @@
     },
     'sarah-savage': {
       booking: /atlantis-recovery-centre\/doctors\/sarah-savage/, profile: 'sarah-savage.html',
-      name: 'Sarah Savage', category: 'allied',
+      name: 'Sarah Savage', category: 'exercise-physiology',
       practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
       expertise: ['exercise-physiology', 'physical-health'], ages: ['adults']
     },
@@ -198,7 +198,7 @@
 
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var CLINICIAN_NAMES = column('name');
-  var CATEGORIES = column('category');        // gp · psychologist · allied · coach
+  var CATEGORIES = column('category');        // gp · psychologist · allied · exercise-physiology · coach
   var PRACTICES = column('practice');
   var DESTINATIONS = column('destination');   // healthengine · halaxy · zanda · clinic-form · clinic-contact
   // Where on the site the click happened, and which link on that page it was. A page may grow a
