@@ -325,9 +325,25 @@ SCRIPT = r'''<script>
 
 
 def who_card(cid, why):
+    """One clinician under an aspect: portrait, name, role and place, and the declared reason.
+
+    Built here rather than from profiles.also_link. The reason chip has to sit in the same text column as
+    the name, which also_link has no slot for; the portrait has to be top-aligned so every row in the grid
+    starts on one line; and a clinician appears under many aspects, so the portrait cannot carry
+    also_link's id and view-transition-name without repeating both a dozen times on one page.
+    """
     c = BY_ID[cid]
-    return (f'<li class="flex flex-col gap-2">{profiles.also_link(c, profiles.portrait_size(c))}'
-            f'<span class="ml-[116px] inline-flex self-start px-3 py-1 rounded-full text-[13px] font-semibold text-[#1a1c1c] bg-[#f6f4ee] border border-[#e8e6df]">{esc(why)}</span></li>')
+    portrait = (f'<span class="block w-[72px] shrink-0 self-start {profiles.PORTRAIT_BOX}">'
+                + profiles.picture(c, profiles.portrait_size(c), '72px', 'loading="lazy" decoding="async"',
+                                   'w-full h-full object-cover object-[center_30%]') + '</span>')
+    return (f'<li class="h-full"><a class="group flex h-full gap-4 min-w-0" href="{c["slug"]}.html">{portrait}'
+            f'<span class="min-w-0 flex-1 flex flex-col">'
+            f'<strong class="block text-[17px] leading-[1.3] font-extrabold tracking-tight text-[#1a1c1c] '
+            f'group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(c["name"])}</strong>'
+            f'<span class="block mt-1 text-[14px] leading-[1.35] font-semibold text-[#5f5e59]">{esc(profiles.subline(c))}</span>'
+            f'<span class="block mt-auto pt-2.5"><span class="inline-block px-2.5 py-1 rounded-full text-[12px] '
+            f'leading-[1.35] font-semibold text-[#5f5e59] bg-[#f6f4ee] border border-[#e8e6df]">{esc(why)}</span></span>'
+            f'</span></a></li>')
 
 
 def build():
@@ -347,8 +363,8 @@ def build():
             cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
             panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
                           f'<p class="mt-2 text-[15px] text-[#5f5e59]">Clinicians whose profiles say they work on this. The reason is in their own words.</p>'
-                          f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 list-none p-0 m-0">{cards}</ul></div>')
-            items.append(f'<li class="py-4"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(asp["label"])}</h3><ul class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 list-none p-0 m-0">{cards}</ul></li>')
+                          f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></div>')
+            items.append(f'<li class="py-4"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(asp["label"])}</h3><ul class="mt-4 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></li>')
         listing.append(f'<section class="pt-10 border-t border-[#e8e6df]"><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])}</h2><ul class="list-none p-0 m-0 divide-y divide-[#e8e6df]">{"".join(items)}</ul></section>')
 
     tree = [dict(key=d['key'], aspects=[dict(key=a['key']) for a in d['aspects']]) for d in DOMAINS]
@@ -357,7 +373,7 @@ def build():
     return f'''{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
 <h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">Where does ADHD get in the way?</h1>
-<p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto">Pick a place, then the part of it. The clinicians whose profiles say they work on exactly that appear underneath.</p>
+<p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto">Choose a pressure point you’d like support with, then select the area of life it relates to. We’ll help you find clinicians who understand what you’re navigating.</p>
 <div id="nav-crumb" class="nav-crumb mt-6" aria-label="Change domain">{''.join(crumbs)}</div>
 </div>
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
