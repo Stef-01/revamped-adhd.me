@@ -252,3 +252,28 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 @media (max-width: 520px) { .way { flex-direction: column; align-items: flex-start; gap: 10px; } .way__who { font-size: 16px; gap: 8px; } .way__arrow { width: 20px; height: 20px; } }
 @media (hover: none) { .ways:hover .way:not(:hover) .way__what, .ways:hover .way:not(:hover) .way__who { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .way, .way::before, .way__what, .way__who, .way__arrow { transition: none; } }
+
+/* Care navigator: the care pathway, four stops on one line */
+.journey { list-style: none; margin: 0; padding: 0; position: relative; display: grid; grid-template-columns: 1fr; gap: 20px; }
+.journey::before { content: ""; position: absolute; left: 21px; top: 24px; bottom: 24px; border-left: 2px dashed #cfcac0; }
+.journey__step { position: relative; display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; align-items: start; }
+.journey__n { position: relative; z-index: 1; width: 44px; height: 44px; display: grid; place-items: center; border: 2.5px solid #1a1c1c; border-radius: 52% 48% 47% 53% / 56% 44% 56% 44%; background: var(--tint, #f6f4ee); color: #1a1c1c; font-weight: 800; font-size: 17px; box-shadow: 0 6px 18px -8px rgba(0,0,0,.25); }
+.journey__step:nth-child(even) .journey__n { border-radius: 47% 53% 55% 45% / 44% 58% 42% 56%; }
+.journey__card { padding: 22px 22px 24px; height: 100%; display: flex; flex-direction: column; }
+.journey__link { display: inline-block; margin-top: auto; padding-top: 16px; font-size: 15px; font-weight: 700; color: #1a1c1c; text-decoration: underline; text-decoration-color: #f1bc31; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.journey__link--light { color: #fff; }
+.journey__along { display: flex; gap: 10px; align-items: flex-start; margin: 24px 0 0; padding: 14px 18px; border-radius: 999px; background: #fdf3d6; border: 1px solid #ebd8ab; color: #1a1c1c; font-size: 15px; line-height: 1.5; font-weight: 600; max-width: 72ch; }
+.journey__along svg { flex: none; margin-top: 2px; color: #c99a1a; }
+@media (min-width: 700px) {
+  .journey { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+  .journey::before { display: none; }
+  .journey__step { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 14px; }
+  .journey__step::before { content: ""; position: absolute; left: 44px; right: -24px; top: 21px; border-top: 2px dashed #cfcac0; }
+  .journey__step:nth-child(2n)::before { right: 0; }
+}
+@media (min-width: 1024px) {
+  .journey { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .journey__step:nth-child(2n)::before { right: -24px; }
+  .journey__step:last-child::before { display: none; }
+}
+@media (max-width: 699px) { .journey__along { border-radius: 24px; } }
