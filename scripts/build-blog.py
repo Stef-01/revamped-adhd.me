@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build blog post pages and the "From the blog" section on our-story.html.
+"""Build the blog post pages.
 
     python3 scripts/build-blog.py          # write the pages
     python3 scripts/build-blog.py --check  # exit 1 if any page on disk differs from what would be written
 
-Owns: blog-*.html in full, the <!-- BLOG --> … <!-- /BLOG --> section on our-story.html, and the title
-and hook lines of each blog card on learn.html (the rest of each card, and where it sits, stay hand-made).
+Owns: blog-*.html in full, and the title and hook lines of each blog card on learn.html (the rest of each
+card, and where it sits, stay hand-made).
 A hand edit to any of that is lost on the next build; put the change here instead, and run --check before
 committing so a page that has drifted is caught rather than silently reverted.
 
@@ -306,14 +306,6 @@ def nice(d):
 # Two card shapes, because the two places that show a post want different things. On Our Story the
 # cards sit in a row of three and carry no chrome: image, title, hook, matching the Learn tiles.
 # On a post page the "More from the blog" pair is a genuine aside, so it keeps its box.
-def story_card(p):
-    return (f'<a class="group block" href="{p["slug"]}.html">'
-            f'<span class="block aspect-[3/2] overflow-hidden rounded-lg bg-[#f6f4ee]">'
-            f'<img width="960" height="540" loading="lazy" decoding="async" alt="" class="w-full h-full object-cover" src="assets/blog/{p["slug"]}.svg"></span>'
-            f'<span class="block mt-4 text-[22px] leading-[1.25] font-semibold tracking-tight text-[#1a1c1c] group-hover:underline decoration-2 underline-offset-4">{p["title"]}</span>'
-            f'<span class="block mt-2 text-[15px] leading-relaxed text-[#5f5e59]">{p["hook"]}</span></a>')
-
-
 def related_card(p):
     return f'''<a href="{p['slug']}.html" data-reveal class="group rounded-2xl bg-white border border-black/[0.06] flex flex-col overflow-hidden shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
 <div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img width="960" height="540" loading="lazy" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
@@ -323,16 +315,6 @@ def related_card(p):
 <p class="text-[15px] text-on-surface-variant leading-relaxed">{p['hook']}</p>
 <div class="mt-auto pt-3 border-t border-black/[0.06] flex items-center justify-between text-[13px]"><span class="text-neutral-500 font-medium">{nice(p['date'])}</span><span class="inline-flex items-center gap-1 font-bold text-[#1a1c1c]">Read{ARROW_NE}</span></div>
 </div></a>'''
-
-
-def section():
-    return f'''<!-- BLOG --><section id="blog" class="w-full pb-16 lg:pb-20 px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto">
-<div data-reveal class="flex items-end justify-between gap-4 mb-8">
-<div><h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-on-surface mt-2">From the blog.</h2></div>
-<a class="text-[15px] font-semibold text-[#1a1c1c] underline decoration-2 underline-offset-4 whitespace-nowrap hover:text-[#5f5e59] transition-colors" href="learn.html">All articles <span aria-hidden="true">→</span></a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">{''.join(story_card(p) for p in sorted(POSTS, key=lambda p: p['date'], reverse=True)[:3])}</div>
-</section><!-- /BLOG -->'''
 
 
 def head_for(p, head):
@@ -401,7 +383,7 @@ def opening(p):
     meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-[#5f5e59] font-medium">{nice(p["date"])} · {p["read"]} read · The ADHDme team</span>'
     if not p.get('landing'):
         return f'''<article class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10">
-<a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="our-story.html#blog">{ARROW_BACK}Back to Our Story</a>
+<a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="learn.html">{ARROW_BACK}Back to Learn</a>
 <div class="flex items-center gap-3 text-[13px] font-bold mb-4">{meta}</div>
 <h1 class="hero-in font-display-hero text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.08] font-extrabold tracking-tight text-on-surface mb-6">{p['title']}</h1>
 <p class="hero-in hero-in-2 font-editorial-quote text-[22px] leading-relaxed text-on-surface-variant mb-8">{p['hook']}</p>
@@ -468,10 +450,28 @@ def post_page(p, head, footer, others):
 {footer}'''
 
 
+# Posts borrow Our Story's shell, but they sit under Learn, so the nav marks Learn as the current page.
+NAV_CURRENT = ('aria-current="page" class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] '
+               'font-semibold bg-[#1a1c1c] text-white shadow-sm transition-all"')
+NAV_OTHER = ('class="whitespace-nowrap px-2 lg:px-5 py-2 rounded-full text-[14px] lg:text-[15px] font-semibold '
+             'text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5 transition-all"')
+
+
+def learn_current(head):
+    for old, new in [(f'<a {NAV_CURRENT} href="our-story.html">', f'<a {NAV_OTHER} href="our-story.html">'),
+                     (f'<a {NAV_OTHER} href="learn.html">', f'<a {NAV_CURRENT} href="learn.html">'),
+                     ('<a aria-current="page" href="our-story.html">', '<a href="our-story.html">'),
+                     ('<a href="learn.html">', '<a aria-current="page" href="learn.html">')]:
+        if head.count(old) != 1:
+            raise SystemExit(f'build-blog: expected one {old[:60]!r}… in our-story.html\'s header')
+        head = head.replace(old, new)
+    return head
+
+
 def build():
     """Every file this script owns, as {path: text}."""
     story = (ROOT / 'our-story.html').read_text(encoding='utf-8')
-    head = story[:story.index('<main')]
+    head = learn_current(story[:story.index('<main')])
     footer = story[story.index('<footer'):]
     out = {}
     for p in POSTS:
@@ -479,9 +479,6 @@ def build():
         i = POSTS.index(p)
         others = [POSTS[(i + k) % len(POSTS)] for k in (1, 2)]  # the pair after this one, wrapping
         out[ROOT / f"{p['slug']}.html"] = post_page(p, head_for(p, head), footer, others)
-    if '<!-- BLOG -->' not in story:
-        raise SystemExit('build-blog: our-story.html has no <!-- BLOG --> … <!-- /BLOG --> section to fill')
-    out[ROOT / 'our-story.html'] = re.sub(r'<!-- BLOG -->.*?<!-- /BLOG -->', lambda _m: section(), story, count=1, flags=re.S)
     out[ROOT / 'learn.html'] = learn_cards((ROOT / 'learn.html').read_text(encoding='utf-8'))
     return out
 
