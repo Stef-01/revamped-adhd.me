@@ -149,7 +149,7 @@ POSTS = [
       seo='Just diagnosed with ADHD? What to do next',
       description='Just diagnosed with ADHD? What to read first, who to see, what medication and therapy involve in Australia, and which decisions can safely wait.', category='After diagnosis', date='2026-09-16', read='7 min', cover=cover_what_now,
       title='I’ve been diagnosed with ADHD. What now?',
-      lede='A diagnosis explains a lot about the past, and it can open many doors at once. You don’t have to go through all of them this week. Below is the order most people find workable, what each step involves, and what it costs in Australia.',
+      lede='You don’t have to deal with everything at once. This guide sets out a workable order, what each step involves and what it costs.',
       body=[
        'The first feeling after a diagnosis is usually relief. The second is often closer to vertigo, as medication, therapy, coaching, telling people and a new view of the past all arrive together. It helps to sort out what needs deciding now from what can wait.',
        ('h2', 'Week one: let it sink in'),
@@ -170,12 +170,12 @@ POSTS = [
        'In month one, start a medication trial with a GP and write down the three things you want it to change. In month two or three, see a psychologist, usually for six to ten sessions in the first year. Alongside that, make one change on your own. The most common are exercise just before the hardest part of the day, or a fixed wake time. Then review how it’s going before you add anything else.',
        'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and what they charge, and a bad fit is the most expensive thing in ADHD care.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html'), ('How booking works', 'how-it-works.html')]),
- dict(slug='blog-adhd-support-beyond-medication', landing=True, tint='#d0e4de',
+ dict(slug='blog-adhd-support-beyond-medication', landing=True, tint='#f6ecce',
       hook='Four kinds of help beyond a pill.',
       seo='ADHD support beyond medication: what works',
       description='Therapy, occupational therapy, coaching and daily habits for ADHD: what each one helps with, who provides it, what it costs, and how to choose.', category='Treatment', date='2026-09-09', read='7 min', cover=cover_beyond_medication,
       title='ADHD support beyond medication: what else works.',
-      lede='Medication is the best-evidenced single treatment for ADHD, and it still only covers part of what ADHD affects. Whether you take it, can’t take it or would prefer not to, the supports below have evidence behind them, and each one is for something different.',
+      lede='Medication is the best-evidenced single treatment, but it covers only part of what ADHD affects. These supports have evidence behind them, with or without it.',
       body=[
        'A stimulant sharpens attention while it’s active. It won’t teach you a skill, repair a relationship or reorganise your kitchen, and it won’t quiet the voice saying you should have sorted this out years ago. Each support below works on one of those.',
        ('h2', 'Psychological therapy'),
@@ -195,12 +195,12 @@ POSTS = [
        ('h2', 'How to choose'),
        'Start by naming the problem. If it’s how you feel about yourself, try therapy. If it’s the practical side of the day, see an OT. If it’s starting and finishing things, try coaching, and for an afternoon slump, exercise just before it. Try one thing at once, set a date to review it, and read the profiles before you book.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('World Federation of ADHD International Consensus Statement', 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8328933/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html')]),
- dict(slug='blog-adhd-and-exercise', landing=True, tint='#dad9eb',
+ dict(slug='blog-adhd-and-exercise', landing=True, tint='#f6ecce',
       hook='Twenty minutes for an hour of focus.',
       seo='ADHD and exercise: when, how much, and safety',
       description='Exercise gives a small, short-lived lift in attention. When to schedule it, what changes if you take stimulants, and how to keep it going for months.', category='Daily life', date='2026-09-02', read='6 min', cover=cover_exercise,
       title='ADHD and exercise: what it does, when to do it, and how to keep doing it.',
-      lede='Exercise is the one lifestyle change for ADHD with a measurable effect on attention. The effect is smaller and shorter than the internet suggests, but if you time it well it’s still one of the best tools you have. This guide covers what the evidence supports and the safety points that change if you take a stimulant.',
+      lede='Exercise is the one lifestyle change with a measurable effect on attention. What the evidence supports, how to time it, and what changes on stimulants.',
       body=[
        ('h2', 'What the evidence shows'),
        'Twenty to thirty minutes of moderate aerobic exercise gives a small to moderate lift in attention, working memory and self-control for roughly an hour afterwards. That finding has held up across studies. Aerobic exercise, meaning anything that keeps you breathing harder for a sustained stretch, has the best support. Mind-body exercise such as yoga shows a small effect, and there are too few studies of coordinative exercise to say.',
@@ -225,7 +225,7 @@ POSTS = [
       seo='ADHD at work in Australia: adjustments and funding',
       description='Reasonable adjustments for ADHD at work, whether you need to disclose, what Australian law says, and how JobAccess can fund coaching and equipment.', category='Work', date='2026-08-26', read='7 min', cover=cover_workplace,
       title='ADHD at work: the adjustments that help, and how to ask for them.',
-      lede='Most ADHD difficulties at work come from a mismatch between how your brain works and a workplace designed for someone else’s. Australian law gives you a right to reasonable adjustments, and a government fund pays for some of them. This guide covers what to ask for and how to ask.',
+      lede='Australian law gives you a right to reasonable adjustments at work, and a government fund pays for some. What to ask for, and how.',
       body=[
        ('h2', 'Where it shows up'),
        'The pattern is similar in most jobs: strong in a crisis, weaker in the quiet weeks. Common trouble spots include open-plan noise, long meetings with no agenda, tasks with no deadline or one three months away, emails that need a decision, and the morning after a late night. Knowing your own trouble spots is the first adjustment, because it tells you what to ask for.',
@@ -246,12 +246,12 @@ POSTS = [
        'Put it in writing, keep it brief, and suggest a solution along with the problem. For example: “I work best with a written summary after briefings and a weekly fifteen-minute check-in. Can we try that for a month?” A trial with a review date is easier to agree to than a permanent change, and once it has worked for a month it usually becomes permanent on its own.',
        'If it goes badly, both the Australian Human Rights Commission and the Fair Work Ombudsman take complaints about disability discrimination at work. Most requests never get that far, and most managers are relieved to be told what would help.'],
       sources=[('JobAccess: Employment Assistance Fund', 'https://www.jobaccess.gov.au/'), ('Australian Human Rights Commission: disability discrimination', 'https://humanrights.gov.au/our-work/disability-rights'), ('ADHD coaching in Australia', 'adhd-coach.html')]),
- dict(slug='blog-adhd-nutrition', landing=True, tint='#d0e4de',
+ dict(slug='blog-adhd-nutrition', landing=True, tint='#f6ecce',
       hook='Eat at set times, even without hunger.',
       seo='ADHD and nutrition: diet, supplements, appetite',
       description='No diet treats ADHD, but stimulants often affect appetite. How to plan meals around that, what the evidence says on supplements, and when to see a GP.', category='Daily life', date='2026-08-19', read='6 min', cover=cover_nutrition,
       title='ADHD and nutrition: what the evidence says.',
-      lede='Search “ADHD diet” and you’ll find a hundred confident answers, and the evidence supports almost none of them. It does support regular meals planned around what stimulant medication does to appetite, which is simpler and cheaper than most of what’s on offer. This guide sets out that plan, then what the evidence says about the rest.',
+      lede='Most ADHD diet advice has little evidence behind it. Regular meals planned around medication’s effect on appetite do, and they’re simpler and cheaper.',
       body=[
        ('h2', 'Appetite on stimulants'),
        'Reduced appetite is the most common side effect of stimulants. Hunger disappears through the middle of the day and comes back hard in the evening. That’s how people end up under-eating until six, over-eating until midnight, and losing weight without meaning to.',
@@ -270,12 +270,12 @@ POSTS = [
        ('h2', 'Where a dietitian fits'),
        'For most adults with ADHD, the plan above covers what nutrition can offer, and you don’t need a professional for it. Medical nutrition therapy, eating disorders and complex conditions alongside ADHD are work for an Accredited Practising Dietitian, and a GP chronic condition management plan gives a partial Medicare rebate. Tell your GP about all the supplements you take. Most people don’t, and interactions with ADHD medication do happen.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('Dietitians Australia: find an Accredited Practising Dietitian', 'https://dietitiansaustralia.org.au/'), ('ADHD support beyond medication', 'blog-adhd-support-beyond-medication.html')]),
- dict(slug='blog-adhd-executive-functioning', landing=True, tint='#dad9eb',
+ dict(slug='blog-adhd-executive-functioning', landing=True, tint='#f6ecce',
       hook='The skills that run your week.',
       seo='ADHD and executive functioning: what helps',
       description='Executive function covers starting, planning, finishing, remembering and managing feelings. How ADHD affects it, and the strategies with evidence.', category='Daily life', date='2026-08-12', read='7 min', cover=cover_executive,
       title='ADHD and executive functioning: what it is, and what helps.',
-      lede='Attention is the word in the diagnosis, but executive function is what runs your week: starting, planning, holding a thought, finishing, and handling the feeling when things go wrong. Understanding it can change what you try, and what you stop blaming yourself for.',
+      lede='Executive function is what runs your week: starting, planning, finishing and handling setbacks. Understanding it changes what you try, and what you blame yourself for.',
       body=[
        ('h2', 'What executive function is'),
        'Executive functions are the skills your brain uses to manage itself and turn an intention into something finished. They include working memory, which holds the plan in mind; inhibition, which stops you doing the wrong thing; task initiation, which gets you started on the right one; planning and sequencing; time perception; and emotional regulation. In ADHD these skills are present but unreliable, which is why you can handle a crisis brilliantly and then leave an envelope unopened for three weeks.',
@@ -319,9 +319,9 @@ def related_card(p):
 <div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img width="960" height="540" loading="lazy" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
 <div class="p-5 sm:p-6 flex flex-col gap-3 flex-1">
 <div class="flex items-center justify-between gap-2 text-[13px] font-bold"><span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p['category']}</span><span class="text-neutral-500 font-medium">{p['read']} read</span></div>
-<h3 class="font-editorial-quote text-[22px] leading-snug text-on-surface group-hover:text-[#1d64c2] transition-colors">{p['title']}</h3>
+<h3 class="font-editorial-quote text-[22px] leading-snug text-on-surface group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{p['title']}</h3>
 <p class="text-[15px] text-on-surface-variant leading-relaxed">{p['hook']}</p>
-<div class="mt-auto pt-3 border-t border-black/[0.06] flex items-center justify-between text-[13px]"><span class="text-neutral-500 font-medium">{nice(p['date'])}</span><span class="inline-flex items-center gap-1 font-bold text-[#1d64c2]">Read{ARROW_NE}</span></div>
+<div class="mt-auto pt-3 border-t border-black/[0.06] flex items-center justify-between text-[13px]"><span class="text-neutral-500 font-medium">{nice(p['date'])}</span><span class="inline-flex items-center gap-1 font-bold text-[#1a1c1c]">Read{ARROW_NE}</span></div>
 </div></a>'''
 
 
@@ -395,8 +395,7 @@ def opening(p):
 </div>
 <div class="hero-in hero-in-3 rounded-3xl overflow-hidden border border-black/[0.06] shadow-sm aspect-video bg-[#f6f1e6]"><img width="960" height="540" fetchpriority="high" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover"></div>
 </div></section>
-<article id="guide" class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10 scroll-mt-24">
-<p class="hero-in hero-in-2 font-editorial-quote text-[22px] leading-relaxed text-on-surface-variant mb-8">{p['hook']}</p>'''
+<article id="guide" class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10 scroll-mt-24">'''
 
 
 def post_ld(p):
@@ -416,7 +415,7 @@ def post_ld(p):
 def post_page(p, head, footer, others):
     paras = ''.join(body_block(b) for b in p['body'])
     EXT = ' target="_blank" rel="noopener noreferrer"'
-    src = ''.join(f'<li><a class="font-semibold text-[#1d64c2] hover:underline" href="{h}"{EXT if h.startswith("http") else ""}>{t}</a></li>' for t, h in p['sources'])
+    src = ''.join(f'<li><a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="{h}"{EXT if h.startswith("http") else ""}>{t}</a></li>' for t, h in p['sources'])
     more = ''.join(related_card(o) for o in others)
     return f'''{head}<main id="main" class="w-full bg-surface">
 {opening(p)}
