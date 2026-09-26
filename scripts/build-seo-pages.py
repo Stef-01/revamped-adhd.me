@@ -520,7 +520,7 @@ def prose(sections):
                 parts.append('<ul class="mt-4 space-y-3 pl-5 list-disc marker:text-[#f1bc31]">' + ''.join(f'<li class="{P}">{item}</li>' for item in b[1]) + '</ul>')
             else:
                 parts.append(f'<p class="mt-4 {P}">{b}</p>')
-        out.append(f'<details class="group border-t border-[#e8e6df] py-5"><summary class="{SUMMARY}"><h2 id="s{i}" class="text-[19px] sm:text-[21px] font-bold tracking-tight text-[#1a1c1c]">{esc(h)}</h2>{PLUS}</summary>{"".join(parts)}</details>')
+        out.append(f'<details class="group border-t border-[#e8e6df] py-5"><summary class="{SUMMARY}"><h2 id="s{i}" class="text-[19px] sm:text-[22px] font-bold tracking-tight text-[#1a1c1c]">{esc(h)}</h2>{PLUS}</summary>{"".join(parts)}</details>')
     return ''.join(out)
 
 

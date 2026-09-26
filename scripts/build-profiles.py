@@ -1674,7 +1674,7 @@ def render_main(c, size, sizes):
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
     <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
-    <p class="text-[20px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
+    <p class="text-[19px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
     <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">
       <a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
