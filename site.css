@@ -54,7 +54,7 @@ a.btn-press:active, button.btn-press:active { transform: scale(.97); }
 
 /* Australia map behind the logo on The Doctors page */
 .au-map { width: 100%; height: 100%; overflow: visible; }
-.au-label { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15px; font-weight: 500; fill: #1a1c1c; paint-order: stroke; stroke: #d9eaf8; stroke-width: 3px; stroke-linejoin: round; }
+.au-label { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15px; font-weight: 500; fill: #1a1c1c; paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; }
 .au-pulse { fill: #f1bc31; opacity: .55; transform-origin: center; transform-box: fill-box; animation: au-pulse 2.4s ease-out infinite; }
 .au-marker:nth-child(odd) .au-pulse { animation-delay: .8s; }
 @keyframes au-pulse { 0% { transform: scale(.4); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
@@ -149,16 +149,16 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-line { list-style: none; margin-left: 0; padding: 0; position: relative; display: grid; gap: 2px; }
 .au-line::before { content: ""; position: absolute; left: 12px; top: 22px; bottom: 22px; width: 2px; background-image: linear-gradient(#1a1c1c 50%, transparent 50%); background-size: 2px 9px; opacity: .45; }
 .au-stop__b { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 6px 14px 6px 4px; border: 0; border-radius: 9999px; background: transparent; font: inherit; color: #1a1c1c; text-align: left; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
-.au-stop__dot { width: 18px; height: 18px; flex: none; border-radius: 50%; background: #f1bc31; border: 3px solid #1a1c1c; box-shadow: 0 0 0 4px #d3e6f6; transition: transform .2s ease; }
+.au-stop__dot { width: 18px; height: 18px; flex: none; border-radius: 50%; background: #f1bc31; border: 3px solid #1a1c1c; box-shadow: 0 0 0 4px #ffffff; transition: transform .2s ease; }
 .au-stop__name { font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
-.au-stop__state { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #1e547a; }
-.au-stop__b:hover, .au-stop__b:focus-visible, .au-stop__b.is-hot { background: rgba(255,255,255,.7); }
+.au-stop__state { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #4f4634; }
+.au-stop__b:hover, .au-stop__b:focus-visible, .au-stop__b.is-hot { background: #f5f2ea; }
 .au-stop__b:hover .au-stop__dot, .au-stop__b:focus-visible .au-stop__dot, .au-stop__b.is-hot .au-stop__dot { transform: scale(1.25); }
 /* Planned places: the same dot, hollow. The key under the list says so in words. */
 .au-stop--planned .au-stop__dot { background: #fdfbf7; }
-.au-stop--planned .au-stop__name { color: #3d556b; }
-.au-marker--planned .au-label { fill: #3d556b; }
-.au-key { display: flex; justify-content: center; gap: 22px; margin: 18px 0 0; font-size: 13px; font-weight: 600; color: #1e547a; }
+.au-stop--planned .au-stop__name { color: #4f4634; }
+.au-marker--planned .au-label { fill: #4f4634; }
+.au-key { display: flex; justify-content: center; gap: 22px; margin: 18px 0 0; font-size: 13px; font-weight: 600; color: #4f4634; }
 .au-key__item { display: inline-flex; align-items: center; gap: 8px; }
 .au-key .au-stop__dot { width: 12px; height: 12px; border-width: 2px; box-shadow: none; }
 @media (prefers-reduced-motion: reduce) { .au-marker, .au-stop__b, .au-stop__dot { transition: none; } }
