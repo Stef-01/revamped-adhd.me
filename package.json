@@ -2,13 +2,17 @@
   "name": "adhdme-site",
   "version": "1.0.0",
   "private": true,
-  "description": "ADHDme marketing site \u2014 static HTML with Tailwind CDN",
+  "description": "ADHDme marketing site — static HTML with Tailwind CDN",
   "scripts": {
     "dev": "node dev-server.js",
     "start": "node dev-server.js --no-reload",
     "build:css": "npx -y tailwindcss@3.4.17 -c tailwind.config.js -i assets/css/input.css -o assets/css/tailwind.css --minify && npx -y clean-css-cli -O1 -o assets/css/site.min.css assets/css/fonts.css site.css motion.css privacy.css assets/css/tailwind.css",
     "build:js": "npx -y terser site.js motion.js analytics.js privacy-consent.js newsletter-invite.js --compress --mangle -o assets/js/site.min.js",
-    "build": "npm run build:css && npm run build:js"
+    "build": "npm run build:css && npm run build:js",
+    "seo:html": "npx -y html-validate@11.16.0 \"*.html\"",
+    "seo:links": "npx -y linkinator@8.1.0 . --recurse --skip \"^https?://(?!localhost|127\\\\.0\\\\.0\\\\.1)\"",
+    "seo:lighthouse": "node scripts/seo-lighthouse.mjs",
+    "seo:check": "npm run seo:html && npm run seo:links"
   },
   "engines": {
     "node": ">=18"

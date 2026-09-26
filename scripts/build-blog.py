@@ -374,7 +374,7 @@ def opening(p):
     """How a post starts. A landing post opens full-width, in its own tint, with the title, a longer
     lede, the illustration and two calls to action, so it reads as a destination rather than a diary
     entry; then the article proper follows. An ordinary post keeps the small header and the cover."""
-    meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-neutral-500 font-medium">{nice(p["date"])} · {p["read"]} read · The ADHDme team</span>'
+    meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-[#5f5e59] font-medium">{nice(p["date"])} · {p["read"]} read · The ADHDme team</span>'
     if not p.get('landing'):
         return f'''<article class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10">
 <a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="our-story.html#blog">{ARROW_BACK}Back to Our Story</a>

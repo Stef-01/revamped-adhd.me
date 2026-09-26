@@ -1545,7 +1545,7 @@ def portrait_span(c, size, tag, extra_class, sizes, img_attrs, img_class):
 
 def deck_card(c, size, eager):
     img_attrs = 'loading="eager" fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
-    sizes = '(min-width: 1024px) 560px, (min-width: 640px) 50vw, 100vw'
+    sizes = '(min-width: 1280px) 264px, (min-width: 1024px) 22vw, (min-width: 768px) 30vw, 48vw'
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     return f'''<li data-reveal id="{c['id']}" class="flex flex-col min-w-0">
   <a class="block group" href="{c['slug']}.html">
@@ -1628,7 +1628,7 @@ def render_main(c, size, sizes):
 <div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The network</a></div>
 <article class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-16">
 <div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-  <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', '(min-width: 1024px) 420px, 100vw', 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
+  <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', '(min-width: 1280px) 376px, (min-width: 1024px) 30vw, 80vw', 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
     <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
