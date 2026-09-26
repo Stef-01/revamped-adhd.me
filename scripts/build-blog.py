@@ -133,7 +133,7 @@ POSTS = [
        'Our clinicians often suggest body doubling alongside other treatment, and it costs nothing to try tonight.'],
       sources=[('Harnessing Focus with Body Doubling, Psychology Today', 'https://www.psychologytoday.com/us/blog/empowered-with-adhd/202408/harnessing-focus-with-body-doubling-a-strategy-for-adhd'), ('Body Doubling for ADHD, Healthline', 'https://www.healthline.com/health/adhd/body-double-adhd')]),
  dict(slug='blog-late-diagnosis',
-      hook='The evidence is kinder than you’d expect.',          # the card line and the page's lede
+      hook='Why adults get missed, and what good care looks like.',          # the card line and the page's lede
       seo='Adult ADHD diagnosis: what the research says',
       description='Diagnosed with ADHD as an adult? What the research says about late diagnosis, why adults are often missed, and what good care looks like afterwards.', category='Late diagnosis', date='2026-08-05', read='4 min', cover=cover_late_diagnosis,
       title='Diagnosed with ADHD as an adult? What the research says.',
@@ -145,7 +145,7 @@ POSTS = [
        'If this sounds like you, the clinicians in our network specialise in this kind of conversation. You can read their profiles before you decide anything.'],
       sources=[('World Federation of ADHD International Consensus Statement', 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8328933/'), ('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('When Neurodivergent Burnout Reaches Its Breaking Point, ADDitude', 'https://www.additudemag.com/autistic-adhd-burnout-neurodivergent-masking/')]),
  dict(slug='blog-diagnosed-what-now', landing=True, tint='#f6ecce',
-      hook='A calm order for the first months.',
+      hook='What to decide now, and what can wait.',
       seo='Just diagnosed with ADHD? What to do next',
       description='Just diagnosed with ADHD? What to read first, who to see, what medication and therapy involve in Australia, and which decisions can safely wait.', category='After diagnosis', date='2026-09-16', read='7 min', cover=cover_what_now,
       title='I’ve been diagnosed with ADHD. What now?',

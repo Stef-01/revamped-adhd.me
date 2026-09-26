@@ -78,8 +78,7 @@ GOALS_REACH_VISITS = ('Clinic appointments in Fortitude Valley, telehealth Austr
 GOALS_APPOINTMENTS = '50-minute sessions; times set with the clinic'
 # From the clinic's own "How to find us": first floor of the Central Brunswick Complex, Suite 14A2.
 GOALS_ACCESS = 'Yes: level access from the same-level car park, with free one-hour client parking in the centre'
-GOALS_DISCLOSURE = ('GOALS Psychology is an independent practice. It sets its own fees and availability, and ADHDme '
-                    'takes no commission.')
+GOALS_DISCLOSURE = 'GOALS Psychology is an independent practice.'
 GOALS_WORKS_FOR = dict(url=GOALS, telephone='0451 674 121', locality='Fortitude Valley', state='QLD')
 
 
@@ -145,8 +144,7 @@ REACH_REACH = 'Coaching online, and in person in Perth'
 REACH_APPOINTMENTS = ('An initial consultation, then sessions weekly, fortnightly or as needed; the practice suggests '
                       'starting with six fortnightly sessions')
 REACH_BILLING = 'Set and quoted by the practice; JobAccess funding may cover it'
-REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice. It sets its own fees and '
-                    'availability, and ADHDme takes no commission. ADHD coaching is not a registered health '
+REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice. ADHD coaching is not a registered health '
                     'profession. Coaches do not assess, diagnose or provide therapy.')
 REACH_WORKS_FOR = dict(type='ProfessionalService', url=REACH, telephone='(08) 6361 3506', locality='Perth', state='WA')
 REACH_JOBACCESS = REACH + 'unlocking-support-how-adhd-coaching-can-be-funded-through-jobaccess/'
@@ -203,8 +201,7 @@ ARC_REACH = 'Clinic appointments in Bundall, on the Gold Coast'
 ARC_APPOINTMENTS = 'Times set with the practice; booked online through HotDoc'
 ARC_BILLING = 'Quoted by the practice; DVA, NDIS, private health, WorkCover and Medicare plans accepted'
 ARC_ACCESS = 'Yes: the practice describes the clinic as purpose-built and all-abilities accessible'
-ARC_DISCLOSURE = ('Atlantis Recovery Centre is an independent practice. It sets its own fees and availability, and '
-                  'ADHDme takes no commission.')
+ARC_DISCLOSURE = 'Atlantis Recovery Centre is an independent practice.'
 ARC_WORKS_FOR = dict(url=ARC, telephone='(07) 5610 2312', locality='Bundall', state='QLD')
 ARC_SCHEMA = dict(same_as=[ARC + 'team/'], works_for=ARC_WORKS_FOR, area='Gold Coast, QLD, Australia', area_type='Place')
 ARC_FEES = dict(
@@ -705,8 +702,7 @@ CLINICIANS = [
             ('Billing', '$180 per 60 minutes for an individual, $220 for couples and families; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Riverview Counselling is an independent practice. It sets its own fees and availability, and '
-                   'ADHDme takes no commission. Counsellors are registered with PACFA, not AHPRA.',
+        disclosure='Riverview Counselling is an independent practice. Counsellors are registered with PACFA, not AHPRA.',
         schema=dict(
             type='Person',
             credentials=['PACFA Registered Clinical counsellor (27633)', 'Post Graduate Diploma of Counselling',
@@ -820,7 +816,7 @@ CLINICIANS = [
             ('Billing', 'Set and quoted by the practice for each person; payment plans can be arranged'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Neurotherapy Clinics Australia is an independent practice. It sets its own fees and availability, and ADHDme takes no commission.',
+        disclosure='Neurotherapy Clinics Australia is an independent practice.',
         schema=dict(
             type='Person',
             credentials=['Graduate Diploma in Psychology, University of New South Wales',
@@ -1121,7 +1117,7 @@ CLINICIANS = [
             ('Billing', '$220 per session, Medicare rebate with a referral and Mental Health Care Plan; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Neutral Minds Psychology is an independent practice. It sets its own fees and availability, and ADHDme takes no commission.',
+        disclosure='Neutral Minds Psychology is an independent practice.',
         schema=dict(
             type='Person',
             credentials=['Registered psychologist'],
@@ -1378,8 +1374,7 @@ CLINICIANS = [
             ('Billing', '$85 per session, the same in person or online; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Lawson ADHD Solutions is an independent practice. It sets its own fees and availability, and '
-                   'ADHDme takes no commission. ADHD coaching is not a registered health profession. Coaches do not '
+        disclosure='Lawson ADHD Solutions is an independent practice. ADHD coaching is not a registered health profession. Coaches do not '
                    'assess, diagnose or provide therapy.',
         schema=dict(
             type='Person',
