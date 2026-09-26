@@ -109,12 +109,13 @@
     if (clicks >= CLICKS) fire('clicks');
   }, true);
 
-  // The foot of the page: somebody who has read to the end has read enough to be asked.
+  // The foot of the page: somebody who has read to the end has read enough to be asked. Only a
+  // footer reached by scrolling counts: on a short page it is in view on arrival (rule 1).
   if (window.IntersectionObserver) {
     var foot = document.querySelector('footer');
     if (foot) {
       var footWatch = new IntersectionObserver(function (entries) {
-        if (entries.some(function (e) { return e.isIntersecting; })) {
+        if (window.scrollY > 0 && entries.some(function (e) { return e.isIntersecting; })) {
           footWatch.disconnect();
           fire('foot');
         }

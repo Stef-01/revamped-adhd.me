@@ -480,17 +480,9 @@ def header_for(shell_header):
     return shell_header.replace(active, inactive).replace('<a aria-current="page" href="how-it-works.html">', '<a href="how-it-works.html">')
 
 
-def breadcrumb(items):
-    crumbs = []
-    for i, (text, href) in enumerate(items):
-        last = i == len(items) - 1
-        if last:
-            crumbs.append(f'<li aria-current="page" class="text-[#1a1c1c] font-semibold">{esc(text)}</li>')
-        else:
-            crumbs.append(f'<li><a class="hover:text-[#1a1c1c] hover:underline underline-offset-4" href="{href}">{esc(text)}</a></li>'
-                          f'<li aria-hidden="true">/</li>')
-    return (f'<nav aria-label="Breadcrumb" class="text-[13px] font-medium text-[#5f5e59]"><ol class="flex flex-wrap items-center gap-2 list-none p-0 m-0">'
-            + ''.join(crumbs) + '</ol></nav>')
+def short(p):
+    """The page's own title, as people see it in the H1, for the links between these pages."""
+    return p['title'].rstrip('.')
 
 
 def who_section(p):
@@ -542,7 +534,7 @@ def faq_section(faqs):
 def related_section(p):
     links = ''.join(
         f'<li><a class="group block rounded-2xl bg-white border border-[#e8e6df] p-5 hover:border-[#1a1c1c]/30 transition-colors" href="{r}.html">'
-        f'<span class="block text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(BY_SLUG[r]["seo"])}</span></a></li>'
+        f'<span class="block text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(BY_SLUG[r]))}</span></a></li>'
         for r in p['related'])
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-16" aria-labelledby="related-title">
 <h2 id="related-title" class="text-[15px] font-bold text-[#5f5e59]">Related pages</h2>
@@ -553,10 +545,10 @@ def related_section(p):
 
 def banner():
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-12">
-<div class="p-8 md:p-12 rounded-3xl border border-[#b9d6ee] flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
+<div class="p-8 md:p-12 rounded-3xl bg-[#f1bc31] border border-black/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
 <div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2></div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a>
-<p class="text-[13px] text-[#1e547a] font-medium">No account or sign-up needed.</p></div>
+<p class="text-[13px] text-black/75 font-medium">No account or sign-up needed.</p></div>
 </div></section>'''
 
 
@@ -577,9 +569,9 @@ def jsonld(p):
 
 def page(p, head, header, footer):
     return f'''{head_for(head, p['slug'], p['seo'], p['description'])}{header}<main id="main" class="w-full bg-[#FAFAF7]">
-<div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-4">
-{breadcrumb([('ADHDme', 'index.html'), ('ADHD care', f'{HUB}.html'), (p['seo'], f'{p["slug"]}.html')])}
-<h1 class="hero-in mt-6 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">{esc(p['title'])}</h1>
+<div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-6 pb-4">
+<a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{HUB}.html">{profiles.ARROW_BACK}ADHD care</a>
+<h1 class="hero-in mt-4 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">{esc(p['title'])}</h1>
 <p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">{esc(p['lede'])}</p>
 <div class="hero-in hero-in-3 mt-8 flex flex-wrap gap-3"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a><a class="{CTA_LIGHT}" href="how-it-works.html">How booking works</a></div>
 </div>
@@ -604,7 +596,7 @@ def hub_page(head, header, footer):
     for key, label in GROUPS:
         items = ''.join(
             f'<li><a class="group block py-5 border-t border-[#e8e6df]" href="{p["slug"]}.html">'
-            f'<span class="block text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(p["seo"])}</span></a></li>'
+            f'<span class="block text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(p))}</span></a></li>'
             for p in PAGES if p['group'] == key)
         groups += f'<section class="mt-12" aria-labelledby="g-{key}"><h2 id="g-{key}" class="{H2}">{label}</h2><ul class="mt-4 list-none p-0 m-0">{items}</ul></section>'
     url = f'{SITE}/{HUB}.html'
@@ -613,7 +605,6 @@ def hub_page(head, header, footer):
           'hasPart': [{'@type': 'WebPage', 'url': f'{SITE}/{p["slug"]}.html', 'name': p['seo']} for p in PAGES]}
     return f'''{head_for(head, HUB, HUB_SEO, HUB_DESCRIPTION)}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-16">
-{breadcrumb([('ADHDme', 'index.html'), ('ADHD care', f'{HUB}.html')])}
 <h1 class="hero-in mt-6 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">ADHD care, by place and by profession.</h1>
 <p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">Short guides to ADHD care in Australia, with costs and clinicians.</p>
 <div class="max-w-[760px]">{groups}</div>
