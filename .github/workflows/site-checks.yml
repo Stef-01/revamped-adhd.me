@@ -1,0 +1,35 @@
+name: Site checks
+
+# Every generated page is committed, so a pull request is checked for pages that are out of date with their
+# builder, for the site's own rules (check-site.py), for valid HTML, and for broken internal links.
+# build-sitemap.py --check is left to local runs: its <lastmod> dates come from commit dates, which differ on
+# the merge commit a pull request is tested on.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generated pages are up to date
+        run: |
+          for builder in build-profiles build-blog build-seo-pages build-navigator build-map; do
+            python3 scripts/$builder.py --check
+          done
+      - name: Site rules
+        run: python3 scripts/check-site.py
+      - name: Valid HTML and no broken internal links
+        run: npm run seo:check
