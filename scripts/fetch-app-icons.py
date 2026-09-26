@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Download each app's App Store icon for the Apps section on Learn, as a 128px PNG in assets/learn/apps/.
+"""Download each app's App Store icon for the Apps section on Learn, as a 128px lossless WebP in assets/learn/apps/.
 
     python3 scripts/fetch-app-icons.py      # needs internet access and Pillow
 
@@ -92,7 +92,7 @@ def main():
             continue
         im = Image.open(io.BytesIO(data)).convert('RGBA')
         im.thumbnail((SIZE, SIZE), Image.LANCZOS)
-        im.save(OUT / f'{slug}.png', optimize=True)
+        im.save(OUT / f'{slug}.webp', lossless=True, exact=True, method=6)
         print(f'{slug}: wrote {im.size[0]}x{im.size[1]}')
     if missing:
         print('no icon for: ' + ', '.join(missing))

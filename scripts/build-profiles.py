@@ -1547,13 +1547,23 @@ ICONS = {
 LINK_ARIA = {'instagram': '{practice} on Instagram, {label}', 'website': '{practice} website, {label}'}
 
 
+# How wide the portrait at the top of a profile is drawn. The hero preload in the <head> uses the same string, so the
+# browser fetches the one candidate the <picture> picks, not the full-size file as well.
+HERO_SIZES = '(min-width: 1280px) 376px, (min-width: 1024px) 30vw, 80vw'
+
+
+def srcset(c, size, ext):
+    """A portrait's candidates at 320, 640 and full size."""
+    base = f"{PORTRAITS}/{c['id']}"
+    return f'{base}-320.{ext} 320w, {base}-640.{ext} 640w, {base}.{ext} {size}w'
+
+
 def picture(c, size, sizes, img_attrs, img_class):
     """<picture> with WebP and JPEG candidates at 320, 640 and full size."""
     base = f"{PORTRAITS}/{c['id']}"
-    cands = lambda ext: f'{base}-320.{ext} 320w, {base}-640.{ext} 640w, {base}.{ext} {size}w'
-    return (f'<picture><source type="image/webp" srcset="{cands("webp")}" sizes="{sizes}">'
+    return (f'<picture><source type="image/webp" srcset="{srcset(c, size, "webp")}" sizes="{sizes}">'
             f'<img {img_attrs} width="{size}" height="{size}" alt="Portrait of {esc(c["name"])}" class="{img_class}" '
-            f'srcset="{cands("jpg")}" sizes="{sizes}" src="{base}.jpg"></picture>')
+            f'srcset="{srcset(c, size, "jpg")}" sizes="{sizes}" src="{base}.jpg"></picture>')
 
 
 def portrait_span(c, size, tag, extra_class, sizes, img_attrs, img_class):
@@ -1701,7 +1711,7 @@ def render_main(c, size, sizes):
 <div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The network</a></div>
 <article class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-16">
 <div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-  <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', '(min-width: 1280px) 376px, (min-width: 1024px) 30vw, 80vw', 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
+  <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', HERO_SIZES, 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
     <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
@@ -1751,6 +1761,9 @@ def render_page(c, shell, sizes):
     for k, v in tokens.items():
         page = page.replace('{{' + k + '}}', esc(v))
     page = page.replace('{{MAIN}}', render_main(c, sizes[c['id']], sizes))
+    page = page.replace('{{HERO_PRELOAD}}', f'<link rel="preload" as="image" href="{PORTRAITS}/{c["id"]}.webp" '
+                        f'imagesrcset="{srcset(c, sizes[c["id"]], "webp")}" imagesizes="{HERO_SIZES}" type="image/webp" '
+                        'fetchpriority="high">')
     left = re.findall(r'\{\{[A-Z_]+\}\}', page)
     if left:
         raise BuildError(f'unfilled tokens in shell: {sorted(set(left))}')
