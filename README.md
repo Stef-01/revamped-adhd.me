@@ -48,7 +48,7 @@ Two fields carry more than they look like:
 
 ## Service map
 
-The hand-drawn map of Australia on the Our Story page is generated SVG: a sketched, double-inked coastline with pencil hatching, and a looped dot for each city. The drawing is seeded, so it is identical on every build. To add or move a city, edit `CITIES` in `scripts/build-map.py` and rebuild:
+The hand-drawn map of Australia on the Our Story page is generated SVG: a sketched coastline and a looped dot for each place, filled where the network practises now and hollow where it plans to. The drawing is seeded, so it is identical on every build. Phones hide the labels, so the caption above the map names the same places; change both together. To add or move a place, edit `CITIES` in `scripts/build-map.py` and rebuild:
 
 ```bash
 python3 scripts/build-map.py
@@ -56,7 +56,7 @@ python3 scripts/build-map.py
 
 ## Blog
 
-The "From the blog" section on Our Story and the individual post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
+The post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
 
 The blog cards on Learn are placed by hand, but their title and hook lines come from `POSTS` too, so retitling a post updates its card. Each post carries `BlogPosting`, `WebPage` and `BreadcrumbList` structured data, and its share image is `assets/blog/og/<slug>.png`, a 1200x630 render of the cover (social platforms do not take SVG). After a cover changes, run `node scripts/build-og-images.cjs` (it needs Playwright; see the script's header).
 
@@ -64,16 +64,16 @@ The blog cards on Learn are placed by hand, but their title and hook lines come 
 python3 scripts/build-blog.py
 ```
 
-`python3 scripts/build-blog.py --check` exits non-zero and names any page on disk that differs from what the data would produce. Run it before committing a hand edit to Our Story's blog section or a post page, because the next build overwrites them; the fix is to move the edit into `POSTS`.
+`python3 scripts/build-blog.py --check` exits non-zero and names any page on disk that differs from what the data would produce. Run it before committing a hand edit to a post page, because the next build overwrites it; the fix is to move the edit into `POSTS`.
 
 Four fields per post are worth knowing:
 
 - `title` is the headline, on the card and as the page's `<h1>`, with its terminal punctuation.
-- `seo` is the same headline for `<title>`, `og:title` and `twitter:title`, without the trailing full stop and phrased to read as a link. Each post page starts from Our Story's `<head>` and rewrites every tag that names the page, so a post cannot ship Our Story's title, description and canonical URL to crawlers and share cards.
+- `seo` is the same headline for `<title>`, `og:title` and `twitter:title`, without the trailing full stop and phrased to read as a link. Each post page starts from Our Story's `<head>` and header and rewrites every tag that names the page, so a post cannot ship Our Story's title, description and canonical URL to crawlers and share cards. Posts sit under Learn, so their navigation marks Learn as the current page.
 - `description` is the meta and share-card description. It is not the opening line of the post; write it for someone deciding whether to click.
 - `hook` is the short line under the title on a card, and the lede on the post page itself. Aim for four or five words.
 
-Cards come in two shapes, on purpose. On Our Story they carry no chrome — image, title, hook — matching the Learn tiles. The "More from the blog" pair at the foot of a post keeps its box, because there it is a genuine aside rather than the page's own content. Icons are inline SVG; this site ships no icon font.
+The "More from the blog" pair at the foot of a post keeps its box, because there it is an aside rather than the page's own content. Icons are inline SVG; this site ships no icon font.
 
 ### The invitation dialog
 

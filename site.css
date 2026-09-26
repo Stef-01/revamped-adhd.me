@@ -52,9 +52,9 @@ a.btn-press:active, button.btn-press:active { transform: scale(.97); }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-/* Australia map behind the logo on The Doctors page */
+/* Australia map on Our Story */
 .au-map { width: 100%; height: 100%; overflow: visible; }
-.au-label { font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15px; font-weight: 500; fill: #1a1c1c; paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; }
+.au-label { font-size: 15px; font-weight: 600; fill: #1a1c1c; paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; }
 .au-pulse { fill: #f1bc31; opacity: .55; transform-origin: center; transform-box: fill-box; animation: au-pulse 2.4s ease-out infinite; }
 .au-marker:nth-child(odd) .au-pulse { animation-delay: .8s; }
 @keyframes au-pulse { 0% { transform: scale(.4); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
@@ -139,8 +139,7 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .tally-list li { font-weight: 500; line-height: 1.5; }
 .tally-list strong { font-weight: 700; }
 
-/* Our Story map: route line, and the city list that mirrors the markers */
-.au-route { stroke: #1a1c1c; stroke-width: 1.3; stroke-dasharray: 2 5; stroke-linecap: round; opacity: .55; }
+/* Our Story map: hovering a marker brings it forward */
 .au-marker { transition: opacity .25s ease; cursor: pointer; }
 .au-stage.is-focusing .au-marker { opacity: .3; }
 .au-stage.is-focusing .au-marker.is-hot { opacity: 1; }
@@ -148,20 +147,14 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-marker.is-hot .au-dot { transform: scale(1.7); }
 .au-line { list-style: none; margin-left: 0; padding: 0; position: relative; display: grid; gap: 2px; }
 .au-line::before { content: ""; position: absolute; left: 12px; top: 22px; bottom: 22px; width: 2px; background-image: linear-gradient(#1a1c1c 50%, transparent 50%); background-size: 2px 9px; opacity: .45; }
-.au-stop__b { position: relative; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 44px; padding: 6px 14px 6px 4px; border: 0; border-radius: 9999px; background: transparent; font: inherit; color: #1a1c1c; text-align: left; cursor: pointer; transition: background-color .2s ease, transform .2s ease; }
 .au-stop__dot { width: 18px; height: 18px; flex: none; border-radius: 50%; background: #f1bc31; border: 3px solid #1a1c1c; box-shadow: 0 0 0 4px #ffffff; transition: transform .2s ease; }
-.au-stop__name { font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
-.au-stop__state { margin-left: auto; font-size: 12px; font-weight: 700; letter-spacing: .08em; color: #4f4634; }
-.au-stop__b:hover, .au-stop__b:focus-visible, .au-stop__b.is-hot { background: #f5f2ea; }
-.au-stop__b:hover .au-stop__dot, .au-stop__b:focus-visible .au-stop__dot, .au-stop__b.is-hot .au-stop__dot { transform: scale(1.25); }
-/* Planned places: the same dot, hollow. The key under the list says so in words. */
+/* Planned places: the same dot, hollow. The key under the map says so in words. */
 .au-stop--planned .au-stop__dot { background: #fdfbf7; }
-.au-stop--planned .au-stop__name { color: #4f4634; }
 .au-marker--planned .au-label { fill: #4f4634; }
 .au-key { display: flex; justify-content: center; gap: 22px; margin: 18px 0 0; font-size: 13px; font-weight: 600; color: #4f4634; }
 .au-key__item { display: inline-flex; align-items: center; gap: 8px; }
 .au-key .au-stop__dot { width: 12px; height: 12px; border-width: 2px; box-shadow: none; }
-@media (prefers-reduced-motion: reduce) { .au-marker, .au-stop__b, .au-stop__dot { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .au-marker, .au-stop__dot { transition: none; } }
 
 /* ---- ADHDme Weekly: beehiiv subscribe embeds ----
    The page owns the type and the copy; the iframe is only the field and the button.
@@ -222,17 +215,6 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 @media (prefers-reduced-motion: reduce) {
   .weekly-invite[open], .weekly-invite.is-leaving { animation: none; }
 }
-
-/* Our Story: the cities in one row beneath the map */
-.au-row { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 8px; max-width: 360px; }
-.au-row .au-stop__b { width: 100%; padding: 6px 12px 6px 6px; gap: 10px; }
-.au-row .au-stop__name { font-size: 16px; white-space: nowrap; }
-.au-row .au-stop__state { display: none; }
-/* On a phone the columns take their width from the names, so the longest one is never cut */
-@media (max-width: 559px) { .au-row { grid-template-columns: repeat(2, auto); justify-content: center; max-width: none; } .au-row .au-stop__b { gap: 8px; padding: 6px 4px; } .au-row .au-stop__name { font-size: 15px; } }
-@media (min-width: 560px) { .au-row { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 520px; } }
-/* Eight places: four live on the first line, four planned on the second */
-@media (min-width: 900px) { .au-row { grid-template-columns: repeat(4, auto); justify-content: center; gap: 6px 10px; max-width: none; } .au-row .au-stop__b { width: auto; padding: 6px 16px 6px 8px; } .au-row .au-stop__name { font-size: 17px; } }
 
 /* ---- Landing: four ways in ----
    One word each. The row you point at fills with its colour and the others step back, so the
