@@ -614,7 +614,7 @@ CLINICIANS = [
         name='Meera Lakhani', short='Meera Lakhani', role='Educational and Developmental Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Educational & developmental psychologist',
         description='Autism, ADHD and cognitive assessment that leaves you understanding your own neurotype better.',
-        chips=['Autism & ADHD assessment', 'Cognitive assessment', 'Educational & developmental'],
+        chips=['Autism & ADHD assessment', 'Cognitive assessment', 'Young adults & families'],
         telehealth=True,
         # Meera is not one of the practitioners bookable on the clinic's Halaxy page, so this goes to the clinic instead.
         book_href=GOALS + 'contact',
@@ -1132,7 +1132,7 @@ CLINICIANS = [
         name='Michael Rehardt', short='Michael', role='Provisional Psychologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Provisional psychologist',
         description='A thoughtful, creative and practical approach, on a final Master of Clinical Psychology placement.',
-        chips=['Provisional psychologist', 'Master of Clinical Psychology', 'Aboriginal artist'],
+        chips=['Final placement', 'Master of Clinical Psychology', 'Aboriginal artist'],
         exercise=True,
         telehealth=False,
         book_href=ARC_BOOK, book_hint=ARC_BOOK_HINT,
