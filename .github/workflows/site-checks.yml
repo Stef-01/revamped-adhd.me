@@ -31,5 +31,5 @@ jobs:
           done
       - name: Site rules
         run: python3 scripts/check-site.py
-      - name: Valid HTML and no broken internal links
+      - name: On-page SEO rules, valid HTML and no broken internal links
         run: npm run seo:check
