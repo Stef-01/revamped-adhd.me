@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """On-page SEO rules for every page, checked from the committed HTML. Exit 1 on any failure.
 
+Every page must start with <!DOCTYPE html> (a comment before it can put old browsers in quirks mode).
+
 Indexable pages (no robots noindex) must:
   - be listed in sitemap.xml, and every sitemap URL must be an indexable page;
   - have a title of 30 to 60 characters including " · ADHDme" (legal pages may be shorter, and a profile whose
     name and role run over may exceed it, whole, rather than cut a word), unique across the site;
   - have a meta description of 110 to 160 characters, unique across the site;
   - have a canonical URL pointing at the page itself, and og:url, og:title and og:image to match;
+  - describe the share image in og:image:alt and twitter:image:alt;
   - have exactly one <h1>, and no heading that skips a level on the way down (h2 straight to h4);
   - give every <img> an alt attribute (empty is fine for decoration);
   - carry JSON-LD that parses.
@@ -68,6 +71,8 @@ def main():
         url = SITE + '/' + ('' if path.name == 'index.html' else path.name)
         noindex = bool(re.search(r'<meta name="robots" content="[^"]*noindex', text))
         say = lambda msg: problems.append(f'{path.name}: {msg}')
+        if not text.startswith('<!DOCTYPE html>'):
+            say('does not start with <!DOCTYPE html>')
         if noindex:
             if url in sitemap:
                 say('noindex, but listed in sitemap.xml')
@@ -96,9 +101,11 @@ def main():
             say(f'canonical is {canonical!r}, expected {url!r}')
         if meta(text, r'<meta property="og:url" content="([^"]+)"') != url:
             say('og:url does not match the canonical URL')
-        for tag in ('og:title', 'og:image'):
+        for tag in ('og:title', 'og:image', 'og:image:alt'):
             if not meta(text, rf'<meta property="{tag}" content="([^"]+)"'):
                 say(f'no {tag}')
+        if not meta(text, r'<meta name="twitter:image:alt" content="([^"]+)"'):
+            say('no twitter:image:alt')
 
         page = Page()
         page.feed(text)
