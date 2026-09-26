@@ -658,6 +658,77 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    # First in Allied health on purpose: counselling is the allied service people with ADHD reach for
+    # most, so she leads the panel. The deck sorts online diaries ahead of enquiry forms and keeps this
+    # file's order within each half, so her position here is what puts her at the top.
+    dict(
+        slug='trisha-harris', id='trisha-harris', category='allied',
+        name='Trisha Harris', short='Trisha', role='Clinical Counsellor', pronouns='she/her',
+        practice='Riverview Counselling', place='Glenbrook & telehealth',
+        descriptor='Clinical counsellor',
+        description='A safe space to handle the ‘right now’, with undivided attention that is just for you.',
+        chips=['Teens, adults & couples', 'NDIS participants', 'Lived experience'],
+        telehealth=True,
+        book_href=RVC_BOOK, book_hint='Opens Riverview Counselling’s booking page on Halaxy, in a new tab.',
+        links=[
+            ('instagram', '@riverviewcounselling_', 'https://www.instagram.com/riverviewcounselling_/'),
+            ('website', 'riverviewcounselling.com.au', RVC),
+        ],
+        fees=dict(
+            heading='What a session costs',
+            figures=[('$180', 'Individual, 60 minutes'), ('$220', 'Couples & family')],
+            notes=[
+                'Ninety minutes is $270 for an individual and $330 for couples and families. Weekends and anything '
+                'after 5pm carry a $25 surcharge. A deposit is taken when you book, and a cancellation inside 24 '
+                'hours is charged in full unless you reschedule.',
+                'NDIS participants are $156.16 per 60 minutes, which the practice says covers sessions, emails, '
+                'phone calls, letters and reports.',
+                'Counselling does not attract a Medicare rebate, so there is no Mental Health Treatment Plan or GP '
+                'referral to arrange first: the practice says to book straight in.',
+                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+                'It is published here so the cost is settled before you book rather than at the first session.',
+            ],
+        ),
+        qualifications='Clinical counsellor, PACFA Registered Clinical (27633), PGDipCouns',
+        languages=[],
+        experience=[
+            'Clinical counsellor, Riverview Counselling, Glenbrook',
+            'PACFA Registered Clinical counsellor, registration 27633',
+            'Over two decades working in mental health and counselling',
+            'Individuals, couples, families and teenagers, including NDIS participants',
+            'Attachment-based, CBT, compassion-focused, family systems, Internal Family Systems, person-centred, psychodynamic and solution-focused brief therapy',
+            'Registered career counsellor',
+            'Post Graduate Diploma of Counselling, 2014',
+            'Post Graduate Certificate in Education (Career Development), Australian Catholic University, 2011',
+            'Bachelor of Social Science (Criminology), Western Sydney University, 2003',
+        ],
+        about=[
+            'Hi, I’m Trisha, a Clinical Counsellor, mum of 4 (3 who have diagnosis\'), I have ADHD and run a business, so I absolutely understand how busy, stressful and chaotic life can get!',
+            'I work with individuals, couples and teens, including NDIS participants.',
+            'I understand the need for support, to be heard, to have undivided attention that is just for YOU. I can help you handle the \'right now\' with a safe space for you to plan for your future and reach your goals.',
+            'Supporting you, every step of the way.',
+        ],
+        details=[
+            ('Reach', 'Face-to-face sessions in Glenbrook in the Blue Mountains, and by phone and video'),
+            ('Appointments', '60 and 90-minute sessions, weekdays 10am to 4pm; the practice has a waiting list for late afternoons'),
+            ('Billing', '$180 per 60 minutes for an individual, $220 for couples and families; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='Riverview Counselling is an independent practice: it sets its own fees, availability and clinical '
+                   'approach, and ADHDme receives no part of what you pay. Counselling is registered with PACFA '
+                   'rather than AHPRA.',
+        schema=dict(
+            type='Person',
+            credentials=['PACFA Registered Clinical counsellor (27633)', 'Post Graduate Diploma of Counselling',
+                         'Post Graduate Certificate in Education (Career Development), Australian Catholic University',
+                         'Bachelor of Social Science (Criminology), Western Sydney University'],
+            same_as=[RVC, 'https://www.instagram.com/riverviewcounselling_/',
+                     'https://www.linkedin.com/in/trisha-harris',
+                     'https://www.psychologytoday.com/au/counselling/trisha-harris-riverview-counselling-glenbrook-nsw/880222'],
+            works_for=dict(url=RVC, telephone='(02) 4703 5077', locality='Glenbrook', state='NSW'),
+            area='Australia',
+        ),
+    ),
     dict(
         slug='flynn-simonis', id='flynn-simonis', category='allied',
         name='Flynn Simonis', short='Flynn Simonis', role='Occupational Therapist', pronouns='he/him',
@@ -1332,74 +1403,6 @@ CLINICIANS = [
             same_as=[LAS + 'about-me', 'https://www.instagram.com/lawsonadhdsolutions/',
                      'https://www.linkedin.com/in/adhdcoachalex'],
             works_for=dict(type='ProfessionalService', url=LAS, telephone='', locality='Sutherland', state='NSW'),
-            area='Australia',
-        ),
-    ),
-    dict(
-        slug='trisha-harris', id='trisha-harris', category='allied',
-        name='Trisha Harris', short='Trisha', role='Clinical Counsellor', pronouns='she/her',
-        practice='Riverview Counselling', place='Glenbrook & telehealth',
-        descriptor='Clinical counsellor',
-        description='A safe space to handle the ‘right now’, with undivided attention that is just for you.',
-        chips=['Teens, adults & couples', 'NDIS participants', 'Lived experience'],
-        telehealth=True,
-        book_href=RVC_BOOK, book_hint='Opens Riverview Counselling’s booking page on Halaxy, in a new tab.',
-        links=[
-            ('instagram', '@riverviewcounselling_', 'https://www.instagram.com/riverviewcounselling_/'),
-            ('website', 'riverviewcounselling.com.au', RVC),
-        ],
-        fees=dict(
-            heading='What a session costs',
-            figures=[('$180', 'Individual, 60 minutes'), ('$220', 'Couples & family')],
-            notes=[
-                'Ninety minutes is $270 for an individual and $330 for couples and families. Weekends and anything '
-                'after 5pm carry a $25 surcharge. A deposit is taken when you book, and a cancellation inside 24 '
-                'hours is charged in full unless you reschedule.',
-                'NDIS participants are $156.16 per 60 minutes, which the practice says covers sessions, emails, '
-                'phone calls, letters and reports.',
-                'Counselling does not attract a Medicare rebate, so there is no Mental Health Treatment Plan or GP '
-                'referral to arrange first: the practice says to book straight in.',
-                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                'It is published here so the cost is settled before you book rather than at the first session.',
-            ],
-        ),
-        qualifications='Clinical counsellor, PACFA Registered Clinical (27633), PGDipCouns',
-        languages=[],
-        experience=[
-            'Clinical counsellor, Riverview Counselling, Glenbrook',
-            'PACFA Registered Clinical counsellor, registration 27633',
-            'Over two decades working in mental health and counselling',
-            'Individuals, couples, families and teenagers, including NDIS participants',
-            'Attachment-based, CBT, compassion-focused, family systems, Internal Family Systems, person-centred, psychodynamic and solution-focused brief therapy',
-            'Registered career counsellor',
-            'Post Graduate Diploma of Counselling, 2014',
-            'Post Graduate Certificate in Education (Career Development), Australian Catholic University, 2011',
-            'Bachelor of Social Science (Criminology), Western Sydney University, 2003',
-        ],
-        about=[
-            'Hi, I’m Trisha, a Clinical Counsellor, mum of 4 (3 who have diagnosis\'), I have ADHD and run a business, so I absolutely understand how busy, stressful and chaotic life can get!',
-            'I work with individuals, couples and teens, including NDIS participants.',
-            'I understand the need for support, to be heard, to have undivided attention that is just for YOU. I can help you handle the \'right now\' with a safe space for you to plan for your future and reach your goals.',
-            'Supporting you, every step of the way.',
-        ],
-        details=[
-            ('Reach', 'Face-to-face sessions in Glenbrook in the Blue Mountains, and by phone and video'),
-            ('Appointments', '60 and 90-minute sessions, weekdays 10am to 4pm; the practice has a waiting list for late afternoons'),
-            ('Billing', '$180 per 60 minutes for an individual, $220 for couples and families; set and charged by the practice'),
-            ('Wheelchair access', 'Not declared'),
-        ],
-        disclosure='Riverview Counselling is an independent practice: it sets its own fees, availability and clinical '
-                   'approach, and ADHDme receives no part of what you pay. Counselling is registered with PACFA '
-                   'rather than AHPRA.',
-        schema=dict(
-            type='Person',
-            credentials=['PACFA Registered Clinical counsellor (27633)', 'Post Graduate Diploma of Counselling',
-                         'Post Graduate Certificate in Education (Career Development), Australian Catholic University',
-                         'Bachelor of Social Science (Criminology), Western Sydney University'],
-            same_as=[RVC, 'https://www.instagram.com/riverviewcounselling_/',
-                     'https://www.linkedin.com/in/trisha-harris',
-                     'https://www.psychologytoday.com/au/counselling/trisha-harris-riverview-counselling-glenbrook-nsw/880222'],
-            works_for=dict(url=RVC, telephone='(02) 4703 5077', locality='Glenbrook', state='NSW'),
             area='Australia',
         ),
     ),
