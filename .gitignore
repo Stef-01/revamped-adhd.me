@@ -6,3 +6,7 @@ node_modules/
 .playwright-cli/
 __pycache__/
 seo-reports/
+
+# screenshot output that once landed in the repo by mistake
+undefined/
+.impeccable/
