@@ -3,8 +3,8 @@
 
     python3 scripts/fetch-app-icons.py      # needs internet access and Pillow
 
-Each app is looked up in the Australian App Store by its id; an app with no iOS listing gives the icon its own
-website publishes (apple-touch-icon). Re-run when an app changes its icon.
+Each app is looked up in the Australian App Store by its id or name; an app in SITE_ONLY (whose App Store name
+is shared with an unrelated app) gives the icon its own website publishes. Re-run when an app changes its icon.
 """
 import io
 import json
@@ -38,6 +38,7 @@ APPS = {
 # Search terms for apps whose id is not pinned above; the first result whose name starts with the term wins.
 TERMS = {'focusmate': 'Focusmate', 'tiimo': 'Tiimo', 'finch': 'Finch', 'forest': 'Forest',
          'brainfm': 'Brain.fm', 'due': 'Due', 'habitica': 'Habitica', 'todoist': 'Todoist'}
+SITE_ONLY = {'focusmate'}   # "Focusmate" in the App Store is a different developer's app blocker
 UA = {'User-Agent': 'Mozilla/5.0 (ADHDme icon fetch)'}
 
 
@@ -78,7 +79,7 @@ def main():
     for slug, (app_id, site) in APPS.items():
         data = None
         try:
-            data = app_store(slug, app_id)
+            data = None if slug in SITE_ONLY else app_store(slug, app_id)
         except Exception as e:
             print(f'{slug}: App Store lookup failed: {e}')
         if data is None:
