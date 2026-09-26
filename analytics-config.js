@@ -4,8 +4,8 @@
 // without a rebuild. Every field below is optional. Leave them empty and nothing is sent anywhere —
 // events are still validated against the taxonomy in analytics.js and then dropped.
 //
-// After switching a sink on, update privacy.html's "Cookies and local storage" section and
-// measurement.html's channel list the same day.
+// After switching a sink on, update privacy.html's "Cookies and analytics" section and
+// measurement.html the same day.
 window.ADHDME = {
   // PostHog — the person-level sink. Project API key (starts with "phc_"), from
   // PostHog → Settings → Project → Project API key. Safe to ship in the browser.
