@@ -120,11 +120,11 @@ WHAT_ASSESSMENT = [
 PAGES = [
  dict(slug='adhd-doctor-gold-coast', group='place',
       seo='ADHD doctor Gold Coast: who to see and costs',
-      title='ADHD doctor on the Gold Coast: who to see and what it costs.',
+      title='ADHD doctor on the Gold Coast.',
       description=f'ADHD care on the Gold Coast: psychologists and an exercise physiologist in Bundall, plus a GP assessment by phone for {GP_TOTAL} in total.',
-      lede='ADHDme has a psychology and exercise physiology team at Atlantis Recovery Centre in Bundall. The network does not have a Gold Coast GP who prescribes yet. Its two GPs are in Sydney and see people by phone or telehealth.',
+      lede='ADHDme has psychologists and an exercise physiologist at Atlantis Recovery Centre in Bundall. Its two GPs are in Sydney and see people remotely.',
       who=[gold_coast, gps_remote, qld_psychologists], who_heading='Who you can see from the Gold Coast',
-      who_note='The Bundall team sees people in their rooms. The Brisbane psychologists have rooms in Fortitude Valley and Ashgrove and also offer telehealth.',
+      who_note='Bundall clinicians see people in person. The others also work by telehealth.',
       sections=[
        ('In person in Bundall', [
         f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied health centre at 25 Upton Street, Bundall. It has clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists. The practice says its approach, which combines therapy with movement-based work, suits ADHD, anxiety and trauma. Each psychology client starts with a comprehensive assessment. You book on the practice’s HotDoc page, which opens in a new tab. No referral needed, and you don’t need an account.',
@@ -150,9 +150,9 @@ PAGES = [
 
  dict(slug='adhd-gp-brisbane', group='place',
       seo='ADHD GP Brisbane: diagnosis, medication, costs',
-      title='ADHD GP in Brisbane: assessment without the psychiatrist wait.',
+      title='ADHD GP in Brisbane.',
       description=f'Queensland GPs can now diagnose adult ADHD and prescribe. Who sees Brisbane patients in the ADHDme network, and a GP assessment by phone for {GP_TOTAL}.',
-      lede='Queensland is the first state to let a GP diagnose adult ADHD and prescribe for it. ADHDme does not have a GP in Brisbane yet. Its two Sydney GPs see Brisbane patients remotely, and its Brisbane psychologists have rooms in Fortitude Valley and Ashgrove.',
+      lede='Queensland is the first state to let GPs diagnose adult ADHD and prescribe. ADHDme’s two GPs are in Sydney and see Brisbane patients remotely.',
       who=any_of(gps_remote, brisbane_psychologists, brisbane_allied), who_heading='Who sees Brisbane patients',
       who_note='The GPs are listed first, then the psychologists and the occupational therapist.',
       sections=[
@@ -179,11 +179,11 @@ PAGES = [
 
  dict(slug='adhd-assessment-queensland', group='place',
       seo='ADHD assessment Queensland: three routes, costs',
-      title='ADHD assessment in Queensland: three routes and what each costs.',
+      title='ADHD assessment in Queensland.',
       description='How ADHD assessment works in Queensland since the December 2025 reform: GP, psychologist or psychiatrist. No referral needed for a GP or psychologist.',
-      lede='In Queensland you can be assessed for ADHD by a GP, a psychologist or a psychiatrist. The routes differ in what happens afterwards, how long they take and what they cost. ADHDme lists GPs and psychologists who see Queensland patients. It does not list psychiatrists.',
+      lede='In Queensland, a GP, psychologist or psychiatrist can assess ADHD. ADHDme lists GPs and psychologists who see Queensland patients.',
       who_heading='Who sees Queensland patients',
-      who=[gps_remote, qld_psychologists, qld_allied], who_note='In-person rooms are in Brisbane and at Atlantis Recovery Centre in Bundall, on the Gold Coast. The Brisbane clinicians and the GPs also work by phone or telehealth, which is how people elsewhere in Queensland see them. Cairns and Townsville are on the network’s planned list.',
+      who=[gps_remote, qld_psychologists, qld_allied], who_note='Rooms in Brisbane and Bundall. The GPs and Brisbane clinicians also work by telehealth.',
       sections=[
        ('Route one: a GP', [
         QLD_GP_PARA,
@@ -210,9 +210,9 @@ PAGES = [
 
  dict(slug='adhd-assessment-sydney', group='place',
       seo='ADHD assessment Sydney: GP, $498, no referral',
-      title='ADHD assessment in Sydney with a GP: no referral, no waitlist to join.',
+      title='ADHD assessment in Sydney.',
       description=f'Two GPs assess and diagnose ADHD in Beecroft, Double Bay and Hornsby. {GP_TOTAL} across two consultations, no referral needed, with phone and telehealth options.',
-      lede='Two GPs in the ADHDme network assess ADHD in Sydney, at clinics in Beecroft, Double Bay and Hornsby. The fee is published before you book, and you book on the practice’s booking page. NSW’s rules on who can prescribe are changing in stages through 2026.',
+      lede='Two ADHDme GPs assess ADHD in Beecroft, Double Bay and Hornsby, with the fee published before you book.',
       who=nsw_clinical, who_heading='ADHD clinicians in Sydney',
       who_note='Both GPs assess and diagnose.',
       sections=[
@@ -239,11 +239,11 @@ PAGES = [
 
  dict(slug='adhd-assessment-online', group='place',
       seo='ADHD assessment online: what telehealth can do',
-      title='ADHD assessment online: what telehealth can and cannot do.',
+      title='ADHD assessment online.',
       description='Get assessed for ADHD by phone or telehealth anywhere in Australia, with no referral. Which parts can be done remotely and which need a clinic visit.',
-      lede='Most of an ADHD assessment is a conversation, which works by phone or video. Both GPs in the ADHDme network see people remotely, and its Brisbane and online psychologists offer telehealth, so you can start from anywhere in Australia. A few parts still need to be done in person.',
+      lede='Most of an ADHD assessment is a conversation, so it works by phone or video. A few parts still need to be in person.',
       who=telehealth_clinical, who_heading='Who works by phone or telehealth',
-      who_note='Everyone listed has declared remote appointments. The telehealth marker on each profile comes from what the clinician declares.',
+      who_note='Everyone listed offers remote appointments.',
       sections=[
        ('What can be done remotely', [
         'The developmental history, the rating scales, the check for other causes and the diagnosis itself can all be done by phone or video. So can therapy, which the network’s Brisbane and online psychologists offer by telehealth.',
@@ -267,9 +267,9 @@ PAGES = [
 
  dict(slug='adhd-treatment-after-diagnosis', group='after',
       seo='ADHD treatment after diagnosis: what happens next',
-      title='ADHD treatment after diagnosis: what happens next.',
+      title='ADHD treatment after diagnosis.',
       description='After an ADHD diagnosis: medication, therapy, OT and coaching. Who provides each, and how Medicare covers up to 10 psychology sessions a year.',
-      lede='Treatment after an ADHD diagnosis usually combines some of the following: medication, therapy, occupational therapy, coaching and changes you make yourself. Each section says who provides it in the ADHDme network and what it costs. None of it is compulsory, and you don’t have to start everything at once.',
+      lede='Treatment usually combines medication, therapy, occupational therapy, coaching and changes you make yourself. You don’t have to start everything at once.',
       who=None, who_heading=None, who_note=None,
       sections=[
        ('Medication and reviews', [
@@ -299,11 +299,11 @@ PAGES = [
 
  dict(slug='adhd-exercise-physiologist', group='profession',
       seo='ADHD exercise physiologist: benefits and funding',
-      title='ADHD and exercise physiology: what exercise can do and how to fund it.',
+      title='ADHD and exercise physiology.',
       description='How an exercise physiologist helps with ADHD, exercising safely on stimulants, and funding through a GP care plan. In person in Bundall on the Gold Coast.',
-      lede='Exercise has a measurable effect on attention, and stimulant medication changes how exercise should be prescribed. An exercise physiologist understands both. The ADHDme network has one, in Bundall on the Gold Coast. ESSA’s directory lists others, and a GP can write a plan that part-funds sessions.',
+      lede='Exercise has a measurable effect on attention, and stimulants change how it should be prescribed. ADHDme has one exercise physiologist, in Bundall on the Gold Coast.',
       who=exercise_physiologists, who_heading='Exercise physiology in the network',
-      who_note='In person at Atlantis Recovery Centre in Bundall, on the Gold Coast.',
+      who_note='Sees people in person.',
       sections=[
        ('What the evidence supports', [
         'Twenty to thirty minutes of moderate aerobic exercise gives a small to moderate lift in attention and executive function for about an hour afterwards. That hour is useful directly before study or demanding work. Aerobic exercise has the strongest evidence. Mind-body exercise shows a small effect, and there are too few studies of coordination exercise to say.',
@@ -329,11 +329,11 @@ PAGES = [
 
  dict(slug='adhd-psychologist', group='profession',
       seo='ADHD psychologist: assessment, therapy, costs',
-      title='ADHD psychologist: assessment and therapy in Brisbane, on the Gold Coast or by telehealth.',
+      title='ADHD psychologists: assessment and therapy.',
       description=f'ADHD psychologists assess, diagnose and provide therapy. With a GP’s Mental Health Treatment Plan, Medicare pays {REBATE_REG} or {REBATE_CLIN} a session.',
-      lede='A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe medication. If you want medication, you will also need a GP or psychiatrist. ADHDme lists psychologists in Brisbane, on the Gold Coast and online.',
+      lede='Psychologists assess, diagnose and treat ADHD with therapy, but can’t prescribe. ADHDme lists psychologists in Brisbane, on the Gold Coast and online.',
       who=psychologists, who_heading='The psychologists in the network',
-      who_note='The network’s psychologists have rooms in Brisbane and on the Gold Coast, and one clinic is online only. The Brisbane and online psychologists offer telehealth; the Gold Coast clinic has not declared it. Each profile gives the psychologist’s own description of their work and fees.',
+      who_note='Brisbane and online psychologists offer telehealth. The Gold Coast clinic sees people in person.',
       sections=[
        ('What an ADHD psychologist does', [
         'Assessment includes a developmental history, rating scales, sometimes cognitive testing, and a written report. Not all psychologists in the network assess. Those who do say so on their profile.',
@@ -357,11 +357,11 @@ PAGES = [
 
  dict(slug='adhd-psychologist-brisbane', group='profession',
       seo='ADHD psychologist Brisbane: assessment, telehealth',
-      title='ADHD psychologist in Brisbane: Fortitude Valley and Ashgrove.',
+      title='ADHD psychologist in Brisbane.',
       description='Eight ADHD psychologists at GOALS Psychology in Fortitude Valley and Neutral Minds in Ashgrove. ADHD and autism assessment, therapy and telehealth.',
-      lede='Most of the network’s psychologists are in Brisbane, at GOALS Psychology in Fortitude Valley and Neutral Minds Psychology in Ashgrove. They offer ADHD and autism assessment and therapy for children through to adults, and all of them also see people by telehealth.',
+      lede='ADHD and autism assessment and therapy at GOALS Psychology in Fortitude Valley and Neutral Minds Psychology in Ashgrove, for children through to adults.',
       who=brisbane_psychologists, who_heading='Psychologists with rooms in Brisbane',
-      who_note='All of them also offer telehealth. Each psychologist sets their own fee, shown on their profile.',
+      who_note='All also offer telehealth. Fees are on each profile.',
       sections=[
        ('The two clinics', [
         f'<strong>GOALS Psychology, Fortitude Valley.</strong> {profiles.GOALS_ACCESS}. Sessions are fifty minutes and booked on the clinic’s Halaxy page. Some of its psychologists also visit homes, schools and community settings. Each profile shows the fee and Medicare position, and says so if a fee is not published.',
@@ -382,11 +382,11 @@ PAGES = [
 
  dict(slug='adhd-occupational-therapist', group='profession',
       seo='ADHD occupational therapist: help with daily life',
-      title='ADHD occupational therapist: help with daily routines.',
+      title='ADHD occupational therapist.',
       description='How an occupational therapist helps with ADHD routines at home and school, and how OT is funded through the NDIS or a GP plan. Paediatric OT in Brisbane.',
-      lede='When ADHD makes the day itself hard (mornings, homework, the classroom, the kitchen, the mess), an occupational therapist changes the task and the environment so the day works better. ADHDme lists one paediatric OT, in Brisbane.',
+      lede='An occupational therapist adapts tasks and spaces so mornings, homework and home life work better. ADHDme lists one paediatric OT, in Brisbane.',
       who=occupational_therapists, who_heading='Occupational therapy in the network',
-      who_note='Paediatric OT in Brisbane: in clinic, at home, at school and by telehealth.',
+      who_note='In clinic, at home, at school and by telehealth.',
       sections=[
        ('What an OT does for ADHD', [
         'For children, OT uses play to build the skills home and school ask for. It covers sensory needs, routines that hold up on a bad morning, and reports for school, the NDIS or a functional capacity assessment. Some sessions happen in the clinic and some at home or school, where the difficulty shows up.',
@@ -407,11 +407,11 @@ PAGES = [
 
  dict(slug='adhd-coach', group='profession',
       seo='ADHD coaching in Australia: costs and JobAccess',
-      title='ADHD coaching in Australia: what a coach does and who pays for it.',
+      title='ADHD coaching in Australia.',
       description='ADHD coaching in Perth, Sutherland and online, what a session costs, and how JobAccess can fund it if you work at least eight hours a week.',
-      lede='ADHD coaching is practical help with starting, planning and finishing tasks, and with building systems that make those easier. Coaching is not therapy or medical treatment, and it is not a registered health profession, so check credentials and funding before you enquire.',
+      lede='ADHD coaching is practical help with starting, planning and finishing tasks. It isn’t therapy, and coaching isn’t a registered health profession.',
       who=coaches, who_heading='The coaches in the network',
-      who_note='Six coaches work at REACH ADHD Coaching and Consultancy in Perth, and Alex Lawson at Lawson ADHD Solutions in Sutherland. All of them also work online.',
+      who_note='Six coaches at REACH in Perth, and Alex Lawson in Sutherland. All also work online.',
       sections=[
        ('What coaching covers', [
         'A coach works with you on executive function in your actual week, such as the task you keep putting off or the plan that falls apart by Wednesday. Sessions are practical and focus on what comes next. A coach does not assess, diagnose or treat. If the difficulty is mood, anxiety or trauma, see a psychologist.',
@@ -512,6 +512,13 @@ def who_section(p):
 </div></section>'''
 
 
+# Sections and answers open on demand, so a page shows its topics and questions first.
+SUMMARY = 'flex items-center justify-between gap-6 cursor-pointer list-none [&::-webkit-details-marker]:hidden'
+PLUS = ('<span class="shrink-0 w-8 h-8 rounded-full border border-[#e8e6df] flex items-center justify-center text-[#1a1c1c] '
+        'transition-transform group-open:rotate-45" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" '
+        'stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>')
+
+
 def prose(sections):
     out = []
     for i, (h, blocks) in enumerate(sections):
@@ -521,14 +528,14 @@ def prose(sections):
                 parts.append('<ul class="mt-4 space-y-3 pl-5 list-disc marker:text-[#f1bc31]">' + ''.join(f'<li class="{P}">{item}</li>' for item in b[1]) + '</ul>')
             else:
                 parts.append(f'<p class="mt-4 {P}">{b}</p>')
-        out.append(f'<section aria-labelledby="s{i}" class="mt-12 first:mt-0"><h2 id="s{i}" class="{H2}">{esc(h)}</h2>{"".join(parts)}</section>')
+        out.append(f'<details class="group border-t border-[#e8e6df] py-5"><summary class="{SUMMARY}"><h2 id="s{i}" class="text-[19px] sm:text-[21px] font-bold tracking-tight text-[#1a1c1c]">{esc(h)}</h2>{PLUS}</summary>{"".join(parts)}</details>')
     return ''.join(out)
 
 
 def faq_section(faqs):
     items = ''.join(
-        f'<div class="py-5 border-t border-[#e8e6df]"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(q)}</h3>'
-        f'<p class="mt-2 {P}">{esc(ans)}</p></div>' for q, ans in faqs)
+        f'<details class="group py-5 border-t border-[#e8e6df]"><summary class="{SUMMARY}"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(q)}</h3>{PLUS}</summary>'
+        f'<p class="mt-2 {P}">{esc(ans)}</p></details>' for q, ans in faqs)
     return f'<section aria-labelledby="faq-title" class="mt-14"><h2 id="faq-title" class="{H2}">Common questions</h2><div class="mt-4">{items}</div></section>'
 
 

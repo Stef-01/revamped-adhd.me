@@ -46,7 +46,7 @@ GP_FEES = dict(
     figures=[('$299', 'Initial consultation'), ('$199', 'Follow-up consultation')],
     notes=[  # html
         'The two consultations make up the ADHD assessment and diagnosis, $498 in total.',
-        'Some people may require an additional 30-minute clinical review where further history, records or medical assessment are needed. If this applies to you, the practice will explain why and discuss the cost before any additional appointment is booked.',
+        'Some people need an extra 30-minute review. The practice explains why, and the cost, before booking it.',
         'There is no Medicare rebate for either consultation.',
         '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
@@ -108,8 +108,8 @@ def goals_fees(rebate_note):
         heading='What a session costs',
         figures=[],  # deliberately empty: the clinic has not published a fee, so there is no figure to show
         notes=[
-            'GOALS Psychology does not publish a session fee. The practice quotes its fee when you book. New '
-            'clients can also book a free 15-minute call online and ask about cost before their first session.',
+            'GOALS Psychology quotes its fee when you book. New clients can book a free 15-minute call to ask '
+            'about cost first.',
             rebate_note,
             '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
         ],
@@ -117,17 +117,17 @@ def goals_fees(rebate_note):
 
 
 GOALS_FEES = goals_fees(
-    'With a Mental Health Treatment Plan and referral from your GP, Medicare rebates part of the fee for up to 10 '
-    'sessions a year. From 1 July 2026 the rebate is ' + MBS_REBATE_REGISTERED + ' a session with a registered psychologist and '
-    + MBS_REBATE_CLINICAL + ' with a clinical psychologist (<a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 '
-    'underline-offset-4" target="_blank" rel="noopener noreferrer" href="' + MBS_SOURCE + '">Medicare Benefits Schedule</a>); '
-    'the clinic can tell you which applies and what the gap will be.')
+    'With a GP’s Mental Health Treatment Plan and referral, Medicare pays ' + MBS_REBATE_REGISTERED + ' a session with a '
+    'registered psychologist, or ' + MBS_REBATE_CLINICAL + ' with a clinical psychologist, for up to 10 sessions a year '
+    '(<a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 '
+    'underline-offset-4" target="_blank" rel="noopener noreferrer" href="' + MBS_SOURCE + '">Medicare Benefits Schedule</a>, '
+    'from 1 July 2026).')
 GOALS_FEES_PROVISIONAL = goals_fees(
-    'Sessions with a provisional psychologist do not attract a Medicare rebate. NDIS funding and some private health '
-    'extras may still cover them; the clinic can tell you what applies to you.')
+    'Provisional psychologist sessions have no Medicare rebate. The NDIS and some private health extras may cover '
+    'them.')
 GOALS_FEES_OT = goals_fees(
-    'Occupational therapy is not covered by a Mental Health Treatment Plan. It is commonly funded through the NDIS, '
-    'private health extras, or a GP’s chronic disease management plan; the clinic can tell you what applies to you.')
+    'A Mental Health Treatment Plan doesn’t cover OT. The NDIS, private health extras or a GP’s chronic disease '
+    'management plan often do.')
 
 # REACH ADHD Coaching and Consultancy, Perth. One practice, six coaches, so the shared facts sit here once.
 # Coaching is not a registered health profession, which is why the disclosure says so and why worksFor is a
@@ -163,18 +163,15 @@ REACH_FEES = dict(
     heading='What coaching costs',
     figures=[],
     notes=[
-        'REACH ADHD does not publish a session fee. Its enquiry form asks what you have in mind, and the practice '
-        'quotes its fee before anything is booked.',
-        'Coaching can be government funded. If you work, or are self-employed, at least eight hours a week, the '
-        'Employment Assistance Fund covers ADHD coaching under Specialist Mental Health Support. REACH puts it at '
-        '<strong>around $1,770.44 including GST a year</strong>, indexed and subject to change. You apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
-        'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with supporting '
-        'documentation from a GP or specialist. You can ask for an exemption so you do not have to disclose the '
-        'diagnosis to your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
+        'REACH quotes its fee when you enquire, before anything is booked.',
+        'If you work at least eight hours a week, the Employment Assistance Fund can pay for coaching: '
+        '<strong>around $1,770.44 including GST a year</strong>, REACH says. Apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
+        'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with documents '
+        'from a GP or specialist. You can ask for an exemption from telling your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
         'decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
-        + REACH_JOBACCESS + '">guide</a> has the steps, and the practice runs free sessions to help with the application.',
-        'REACH is not a registered NDIS provider, but says self-managed and plan-managed participants can still claim '
-        'session fees. For children, it says the NDIS is usually the only funding route.',
+        + REACH_JOBACCESS + '">guide</a> has the steps.',
+        'REACH isn’t a registered NDIS provider, but self-managed and plan-managed participants can claim. For '
+        'children, it says the NDIS is usually the only funding route.',
         '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
@@ -208,11 +205,10 @@ ARC_FEES = dict(
     heading='What a session costs',
     figures=[],
     notes=[
-        'Atlantis Recovery Centre does not publish a fee. The practice quotes its fee when you book.',
-        'The practice takes private clients and works with DVA, the NDIS, private health funds, WorkCover, and '
-        'GP Mental Health Treatment Plans and chronic condition management plans. It says bulk billing is '
+        'The practice quotes its fee when you book.',
+        'It works with DVA, the NDIS, private health funds, WorkCover and GP care plans, and says bulk billing is '
         'available with conditions.',
-        'NDIS participants are not asked to sign a service agreement, so funds are not locked to the practice.',
+        'NDIS participants don’t have to sign a service agreement.',
         '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
@@ -311,7 +307,7 @@ CLINICIANS = [
             figures=[('$253', 'Per session'), ('$149', 'Medicare rebate')],
             notes=[
                 'With the rebate, a session is $104 out of pocket.',
-                'The rebate needs a Mental Health Treatment Plan and referral from your GP. The clinic can tell you what to bring before you book, and how many rebated sessions a plan covers.',
+                'The rebate needs a Mental Health Treatment Plan and referral from your GP.',
                 'Sessions run for 60 minutes, by secure video.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
@@ -667,13 +663,11 @@ CLINICIANS = [
             heading='What a session costs',
             figures=[('$180', 'Individual, 60 minutes'), ('$220', 'Couples & family')],
             notes=[
-                'Ninety minutes is $270 for an individual and $330 for couples and families. Weekends and anything '
-                'after 5pm carry a $25 surcharge. A deposit is taken when you book, and a cancellation inside 24 '
-                'hours is charged in full unless you reschedule.',
+                'Ninety minutes is $270, or $330 for couples and families, plus $25 on weekends and after 5pm. '
+                'A deposit is taken when you book, and cancellations within 24 hours are charged in full.',
                 'NDIS participants are $156.16 per 60 minutes, which the practice says covers sessions, emails, '
                 'phone calls, letters and reports.',
-                'Counselling does not attract a Medicare rebate, so you do not need a Mental Health Treatment Plan '
-                'or GP referral. The practice says to book straight in.',
+                'Counselling has no Medicare rebate, so you don’t need a GP plan or referral.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
@@ -778,15 +772,10 @@ CLINICIANS = [
             # Another clinic with no published price list: same rule as GOALS above, so no figures.
             figures=[],
             notes=[
-                'Neurotherapy Clinics Australia does not publish a price list. It sets fees for each person and '
-                'quotes them when you get in touch. Payment plans can be arranged.',
-                'The quote covers a two-hour first appointment with two QEEG brain scans (eyes open and eyes closed), '
-                'a visual and an auditory ERP, your health history and your goals. A 30-minute consultation follows '
-                'to go through the findings and whether neurotherapy is an appropriate treatment for you. You keep a '
-                'copy of the typed report and the scan. Training sessions after that run 30 minutes, with a follow-up '
-                'brain scan after 25 to 30 of them.',
-                'The practice does not publish anything about Medicare, NDIS or private health cover. Ask what '
-                'applies to you when you ask for a quote.',
+                'The clinic quotes fees for each person when you get in touch. Payment plans can be arranged.',
+                'The quote covers a two-hour first appointment with QEEG brain scans, then a 30-minute results '
+                'consultation. Training sessions run 30 minutes, with a follow-up scan after 25 to 30 of them.',
+                'Ask about Medicare, NDIS or private health cover when you ask for a quote.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
@@ -1082,9 +1071,8 @@ CLINICIANS = [
             # The practice publishes the fee but not the rebate, so only the fee is a figure.
             figures=[('$220', 'Per session')],
             notes=[
-                'Medicare rebates are available with a valid referral and a Mental Health Care Plan from your GP. '
-                'The practice does not publish the rebate amount, so ask what it is and what the gap will be when '
-                'you book.',
+                'Medicare rebates apply with a GP’s referral and Mental Health Care Plan. Ask the rebate and the gap '
+                'when you book.',
                 'Sessions run 50 minutes, for adults 18 and over, in person at Ashgrove or by telehealth anywhere in '
                 'Australia.',
                 'Self-managed and plan-managed NDIS participants pay the current NDIS fee schedule rate instead.',
@@ -1338,12 +1326,10 @@ CLINICIANS = [
             notes=[
                 'The rate is the same for adults, parents and students, in person at Sutherland or online by Zoom. '
                 'A post-session plan costs an extra $15.',
-                'The first step is a free 20-minute discovery call to talk about whether coaching suits you, before '
-                'you book a session.',
+                'A free 20-minute discovery call comes first.',
                 # His FAQ's structured data still carries an older $65 online rate; his pricing page and his booking
                 # page both say $85, so $85 is what is shown. Worth a word to him either way.
-                'ADHD coaching does not attract a Medicare rebate, and the practice publishes no NDIS or private '
-                'health arrangement.',
+                'Coaching has no Medicare rebate, and the practice lists no NDIS or private health arrangement.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
@@ -1482,8 +1468,11 @@ def meta_description(c):
     return c['description']
 
 
-def others(c):
-    return [o for o in CLINICIANS if o is not c]
+def others(c, n=3):
+    """Three clinicians for 'Also in the network': the same practice first, then the same discipline, then roster order."""
+    rest = [o for o in CLINICIANS if o is not c]
+    ranked = sorted(rest, key=lambda o: (o['practice'] != c['practice'], o['category'] != c['category']))
+    return ranked[:n]
 
 
 # ---------------------------------------------------------------- fragments
@@ -1670,6 +1659,7 @@ def render_main(c, size, sizes):
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 items-start">
 {chr(10).join(also_link(o, sizes[o['id']]) for o in others(c))}
 </div>
+<p class="mt-8"><a class="text-[15px] font-semibold text-[#1a1c1c] underline decoration-2 underline-offset-4 hover:text-[#5f5e59] transition-colors" href="the-doctors.html">See the whole network <span aria-hidden="true">→</span></a></p>
 </section>
 </main>'''
 
