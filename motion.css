@@ -13,9 +13,6 @@
   transition: opacity 0.72s var(--m-ease), transform 0.8s var(--m-ease);
   transition-delay: calc(var(--stagger, 0) * 80ms);
 }
-.js [data-reveal="1"], .js [data-reveal="2"], .js [data-reveal="3"], .js [data-reveal="4"], .js [data-reveal="5"] {
-  transition-delay: calc(var(--stagger, 0) * 80ms);
-}
 .hero-in { animation-timing-function: var(--m-ease); animation-duration: 0.9s; }
 
 /* Settle: photographs inside a revealed block arrive from a slight zoom, like a lens finding focus */
@@ -57,21 +54,11 @@
 #mobile-nav:not([hidden]) { animation: nav-in 0.32s var(--m-ease) both; }
 #mobile-nav a { transition: background-color 0.2s var(--m-ease-ui); }
 
-/* Tilted photo cards: reveal keeps their tilt, hover still straightens them */
-.js .tilt-left[data-reveal], .js .tilt-center[data-reveal], .js .tilt-right[data-reveal] { transition-property: opacity, transform; }
-.js .tilt-left[data-reveal]:not(.is-visible) { transform: rotate(-3.5deg) translateY(30px); }
-.js .tilt-center[data-reveal]:not(.is-visible) { transform: translateY(24px); }
-.js .tilt-right[data-reveal]:not(.is-visible) { transform: rotate(3deg) translateY(32px); }
-.js .tilt-left[data-reveal].is-visible { transform: rotate(-3.5deg) translateY(6px); }
-.js .tilt-center[data-reveal].is-visible { transform: translateY(-8px); }
-.js .tilt-right[data-reveal].is-visible { transform: rotate(3deg) translateY(8px); }
-.js .tilt-left[data-reveal].is-visible:hover, .js .tilt-center[data-reveal].is-visible:hover, .js .tilt-right[data-reveal].is-visible:hover { transform: rotate(0deg) translateY(-4px) scale(1.02); }
 
 @media (prefers-reduced-motion: reduce) {
   .js [data-reveal] img, .js .hero-settle, .js .hero-drift, .js .hero-settle.hero-drift { transform: none !important; animation: none !important; transition: none !important; }
   .mark__stroke, .mark.is-drawn .mark__stroke { clip-path: none; transition: none; }
   #mobile-nav:not([hidden]) { animation: none; }
-  .js .tilt-left[data-reveal]:not(.is-visible), .js .tilt-center[data-reveal]:not(.is-visible), .js .tilt-right[data-reveal]:not(.is-visible) { opacity: 1; }
 }
 
 /* Marked phrases wrap again on very narrow screens; the drawn stroke only makes sense on one line */

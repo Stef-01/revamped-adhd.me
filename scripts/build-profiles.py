@@ -29,7 +29,6 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHELL = ROOT / 'scripts' / 'profile-shell.html'
 DECK = ROOT / 'the-doctors.html'
-LANDING = ROOT / 'index.html'
 SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
 SHARE_CARDS = 'assets/clinicians/og'
@@ -86,7 +85,7 @@ GOALS_WORKS_FOR = dict(url=GOALS, telephone='0451 674 121', locality='Fortitude 
 # Medicare rebates for a session of at least 50 minutes under a Mental Health Treatment Plan. These are the
 # government's figures, not any clinic's fee: MBS items 80110 (registered psychologist) and 80010 (clinical
 # psychologist), schedule fee updated 1 July 2026, read from the two pages below on 2026-09-21. They are
-# indexed each July; when they move, change them here and in how-it-works.html (check-site.py compares the two).
+# indexed each July; when they move, change them here. The profiles and the search pages read them from here.
 MBS_REBATE_REGISTERED = '$101.55'
 MBS_REBATE_CLINICAL = '$149.05'
 MBS_SOURCE = 'https://www9.health.gov.au/mbs/fullDisplay.cfm?type=item&q=80110&qt=item'
@@ -1798,13 +1797,6 @@ def render_deck(deck, sizes):
     return region(deck, 'deck-ld', deck_jsonld(), 'the-doctors.html')
 
 
-# ---------------------------------------------------------------- the landing page
-
-# The landing page routes; it does not list, and since it was pared back to a headline and four words it
-# states nothing from the data at all. Name a region here (and fill it in render_landing) if it ever does.
-LANDING_REGIONS = []
-
-
 def region(page, name, body, where):
     """Replace the contents of one <!-- BEGIN:GENERATED name --> … <!-- END:GENERATED name --> region."""
     start, end = f'<!-- BEGIN:GENERATED {name} -->', f'<!-- END:GENERATED {name} -->'
@@ -1814,11 +1806,6 @@ def region(page, name, body, where):
     if page.find(start, i + 1) >= 0 or page.find(end, j + 1) >= 0:
         raise BuildError(f'{where}: the "{name}" region is marked more than once')
     return page[:i + len(start)] + body + page[j:]
-
-
-def render_landing(page, sizes):
-    """index.html, which currently carries no generated regions."""
-    return page
 
 
 # ---------------------------------------------------------------- checks
@@ -1850,11 +1837,6 @@ def check_data():
             problems.append(f"analytics.js CLINICIANS does not declare {c['slug']}.html (profile views and booking clicks would be refused)")
         if f"::view-transition-group(portrait-{c['id']})" not in css:
             problems.append(f"site.css: add ::view-transition-group(portrait-{c['id']}) to the portrait transition rule")
-    landing = LANDING.read_text(encoding='utf-8')
-    for name in LANDING_REGIONS:
-        if f'<!-- BEGIN:GENERATED {name} -->' not in landing or f'<!-- END:GENERATED {name} -->' not in landing:
-            problems.append(f'index.html has no <!-- BEGIN:GENERATED {name} --> … <!-- END:GENERATED {name} --> region; '
-                            'the landing page cannot be filled from the data without it')
     if problems:
         raise BuildError('\n  '.join(['fix these first:'] + problems))
 
@@ -1865,7 +1847,6 @@ def build():
     shell = SHELL.read_text(encoding='utf-8')
     out = {ROOT / f"{c['slug']}.html": render_page(c, shell, sizes) for c in CLINICIANS}
     out[DECK] = render_deck(DECK.read_text(encoding='utf-8'), sizes)
-    out[LANDING] = render_landing(LANDING.read_text(encoding='utf-8'), sizes)
     return out
 
 

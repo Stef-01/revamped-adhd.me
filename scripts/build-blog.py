@@ -303,9 +303,7 @@ def nice(d):
     y, m, dd = d.split('-'); return f'{int(dd)} {MONTHS[int(m)-1]} {y}'
 
 # ------------------------------------------------------------ render
-# Two card shapes, because the two places that show a post want different things. On Our Story the
-# cards sit in a row of three and carry no chrome: image, title, hook, matching the Learn tiles.
-# On a post page the "More from the blog" pair is a genuine aside, so it keeps its box.
+# The "More from the blog" pair on a post page: a genuine aside, so it keeps its box.
 def related_card(p):
     return f'''<a href="{p['slug']}.html" data-reveal class="group rounded-2xl bg-white border border-black/[0.06] flex flex-col overflow-hidden shadow-[0_4px_24px_-4px_rgba(0,0,0,0.05)] hover:-translate-y-1 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1a1c1c]">
 <div class="aspect-video overflow-hidden bg-[#f6f1e6]"><img width="960" height="540" loading="lazy" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
