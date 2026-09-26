@@ -99,9 +99,12 @@ QLD_RULE = ('Queensland changed its rules on 1 December 2025. A specialist GP (o
 QLD_GP_PARA = (QLD_RULE + ' Queensland GPs have been able to prescribe for children since 2017. '
                'A GP in another state works under that state’s rules, so ask the practice what applies to you.')
 NSW_RULE = ('NSW is changing its rules in stages. Since September 2025, GPs who have completed the state’s training '
-            'can continue stimulant prescriptions that a psychiatrist started, for patients who are stable on treatment.')
-NSW_STAGE_TWO = ('A second stage, rolling out through 2026, lets trained GPs assess, diagnose and start medication '
-                 'themselves.')
+            'can apply to be continuation prescribers, who keep prescribing stimulants a psychiatrist started for '
+            'patients who are stable on treatment.')
+NSW_STAGE_TWO = ('In a second stage, rolling out through 2026, trained GPs can become endorsed prescribers, who assess, '
+                 'diagnose and start medication themselves.')
+# The release's own headline; eligibility is for NSW Health to say, so the page sends people there.
+NSW_FREE = 'https://www.nsw.gov.au/ministerial-releases/gps-to-provide-up-to-2500-free-adhd-consultations'
 NSW_GP_PARA = (NSW_RULE + ' ' + NSW_STAGE_TWO + ' What a GP can do depends on where they are in that process. '
                'Check the practice’s page, or ask at the first appointment.')
 WHAT_ASSESSMENT = [
@@ -223,8 +226,12 @@ PAGES = [
        ('What it costs', [GP_COST_PARA,
         'Some people need an extra 30-minute clinical review for further history, records or a medical assessment. If you do, the practice explains why and discusses the cost before booking it.']),
        ('What the assessment involves', [('list', WHAT_ASSESSMENT)]),
-       ('Medication in NSW in 2026', [
+       ('Other ways to get assessed', [
+        'A psychologist can assess and diagnose ADHD, usually with cognitive testing and a written report, but cannot prescribe. Fees vary by clinic, and a full psychological assessment usually costs more than a GP assessment.',
+        'A psychiatrist can assess, diagnose and prescribe. Medicare pays part of the fee with a GP referral, and waiting lists can be long. The network lists GPs and psychologists, not psychiatrists.']),
+       ('Medication and the NSW reforms', [
         NSW_GP_PARA,
+        f'The NSW Government has also announced {a("up to 2,500 free ADHD consultations with GPs", NSW_FREE)}. Ask the practice or NSW Health whether you are eligible.',
         'Whatever the rules allow, the network’s GPs take a baseline before starting anything, write a plan and review at set intervals.']),
        ('Therapy alongside', [
         f'{a("Paula Garrido", "paula-garrido.html")} is a clinical psychologist based in Sydney who works entirely by telehealth. She is certified in ADHD and autism clinical services and takes a neuroaffirming, trauma-informed approach. ' + PSY_COST_PARA]),
@@ -234,6 +241,8 @@ PAGES = [
        ('How much is an ADHD assessment in Sydney?', f'{GP_FEE[0][0]} for the first consultation and {GP_FEE[1][0]} for the follow-up, {GP_TOTAL} in total, with no Medicare rebate.'),
        ('Do I need a referral?', 'No referral needed. You book both GPs directly on their practice’s Healthengine page.'),
        ('Where in Sydney?', 'Dr Anubhav Saxena is in Beecroft and Double Bay, and Dr Anu Saxena is in Double Bay and Hornsby. Dr Anubhav Saxena also offers phone consultations, and Dr Anu Saxena offers telehealth.'),
+       ('Can a psychologist diagnose ADHD in Sydney?', 'Yes. A psychologist can assess and diagnose ADHD and write a report, but cannot prescribe medication.'),
+       ('Is there a free ADHD assessment in NSW?', 'The NSW Government has announced up to 2,500 free ADHD consultations with GPs. Ask the practice or NSW Health whether you are eligible.'),
       ],
       related=['adhd-assessment-online', 'adhd-treatment-after-diagnosis', 'adhd-psychologist', 'adhd-assessment-queensland']),
 
@@ -564,7 +573,7 @@ def jsonld(p):
     url = f'{SITE}/{p["slug"]}.html'
     graph = [
         {'@type': 'WebPage', '@id': url, 'url': url, 'name': p['seo'], 'description': p['description'],
-         'inLanguage': 'en-AU', 'isPartOf': {'@type': 'WebSite', 'name': 'ADHDme', 'url': SITE + '/'}},
+         'inLanguage': 'en-AU', 'isPartOf': {'@id': SITE + '/#site'}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'ADHD care', 'item': f'{SITE}/{HUB}.html'},
