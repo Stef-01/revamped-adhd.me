@@ -4,7 +4,7 @@ Static marketing site: HTML pages styled with a compiled Tailwind stylesheet, sh
 
 ## Run locally
 
-Requires Node 18 or newer. No install step.
+Requires Node 18 or newer. The dev server needs no install; the CSS and JS build does (`npm ci`, once). The page builders need Python 3.10 or newer, and the image scripts also need Pillow (`pip install -r requirements.txt`) and Playwright.
 
 ```bash
 npm run dev
@@ -12,20 +12,26 @@ npm run dev
 
 Opens at http://localhost:5173 with live reload (the page refreshes when you save a file). Use `PORT=3000 npm run dev` to change the port, or `npm start` for a plain server without live reload.
 
+`npm run pages` runs every page builder in the order they depend on each other; `npm run pages -- --check` exits 1 if any generated page is out of date, which is what CI runs.
+
 ## Pages
 
-| File | Page |
+| Pages | Made by |
 | --- | --- |
-| `index.html` | Landing (the practitioner count is generated — see below) |
-| `how-it-works.html` | How it works |
-| `the-doctors.html` | The Network (the file name predates the rename) |
-| `<slug>.html`, one per entry in `CLINICIANS` | Clinician profiles (generated) |
-| `learn.html` | Learn (micro-modules) |
-| `our-story.html` | Our Story |
+| `index.html`, `how-it-works.html`, `404.html` and the privacy, terms, automated-decisions and measurement pages | Hand-edited |
+| `the-doctors.html` (The Network; the file name predates the rename) | Hand-edited, with the cards and structured data from `build-profiles.py` |
+| `learn.html`, `our-story.html` | Hand-edited, with the blog card lines from `build-blog.py` and the map from `build-map.py` |
+| `<slug>.html`, one per entry in `CLINICIANS` | `build-profiles.py` |
+| `blog-*.html` | `build-blog.py` |
+| `adhd-*.html` | `build-seo-pages.py` |
+| `care-navigator.html` | `build-navigator.py` |
+| `academy.html`, `academy-login.html` | Hand-edited, with the tracks from `build-academy-tracks.py` |
+
+Every page outside the academy carries the same header and footer (`scripts/check-site.py` fails if one differs), so a nav or footer change goes into every hand-edited page, `scripts/profile-shell.html`, and the two shells the builders copy from: `how-it-works.html` and `our-story.html`.
 
 ## Clinician profiles
 
-One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html` and the practitioner count on the landing page, are generated from one data set, so they stay structurally identical and cannot drift apart as the network grows. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
+One profile page per entry in `CLINICIANS`, plus the cards inside each category panel on `the-doctors.html`, are generated from one data set, so they stay structurally identical and cannot drift apart as the network grows. Edit `CLINICIANS` in `scripts/build-profiles.py` (plain-text fields; the script escapes them), then rebuild:
 
 ```bash
 python3 scripts/build-profiles.py
@@ -34,8 +40,6 @@ python3 scripts/build-profiles.py
 `python3 scripts/build-profiles.py --check` exits non-zero and names any generated page on disk that differs from what the data would produce. Run it before committing a hand edit to one of those pages, because the next rebuild overwrites them; the fix is to move the edit into the data.
 
 The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors cannot go stale. A profile's share image is its card in `assets/clinicians/og/<id>.jpg` (1200x630: the whole portrait beside the name and role, since platforms crop a square portrait to 1.91:1 and lose the top of the head); until the card exists the profile shares the square portrait.
-
-On `index.html` the script owns exactly one thing: the practitioner count, between a `<!-- BEGIN:GENERATED count-all -->` / `<!-- END:GENERATED count-all -->` pair. The landing page routes people to a door; it deliberately does not list the network, so there is no roster to keep in step. Everything else on that page is left alone.
 
 On `the-doctors.html` it also writes an `ItemList` of every clinician (between the `deck-ld` markers), and on each profile it builds the search title and description from the name, role, practice and place, sized to fit a search result.
 
@@ -131,10 +135,11 @@ Every page loads one stylesheet and one script bundle:
 Edit the source files, never the bundles, then rebuild:
 
 ```bash
+npm ci          # once: the pinned build tools
 npm run build
 ```
 
-(`npm run build:css` and `npm run build:js` run the halves.) After adding or changing utility classes in any HTML file, the CSS build is required.
+(`npm run build:css` and `npm run build:js` run the halves.) After adding or changing utility classes in any HTML file, the CSS build is required; CI fails when a bundle doesn't match its sources.
 
 Fonts are self-hosted from `assets/fonts/`, one variable file per family: Plus Jakarta Sans (weights 200 to 800, 27 KB, Google's own latin file) and Newsreader (38 KB: Google's variable file instanced to weights 400 to 500 with the optical size pinned at 36, the display sizes this site uses). Both are under the SIL Open Font License. No page requests Google Fonts; the few icons on Our Story and the blog are inline SVG.
 
@@ -180,7 +185,7 @@ A post's `<lastmod>` is its publish date; any other page's is the date of the la
 
 After each push to main, `.github/workflows/indexnow.yml` runs `scripts/indexnow.py`, which tells Bing and the other [IndexNow](https://www.indexnow.org) engines which listed pages changed (ChatGPT search and Copilot answer from Bing's index; Google doesn't use IndexNow and reads the sitemap). The engines check the request against the key file at the site root. Run the workflow by hand to send every page.
 
-Three tools, run through `npx` at pinned versions like the build tools, so nothing is installed:
+Three tools, run through `npx` at pinned versions:
 
 ```bash
 npm run seo:check        # check-seo.py's on-page rules, html-validate on every page, then linkinator over every internal link
@@ -201,9 +206,11 @@ npm run check:overwhelm    # exit 1 if any page is over a limit
 
 It measures each page in a browser at 1280x900: visible words (text inside a closed `<details>` doesn't count), reading words on the first screen, the longest paragraph or list item, and the words in the headline and the paragraph under it. The limits for each type of page are in `RULES` at the top of `scripts/overwhelm-check.cjs`. It saves first-screen screenshots, desktop and phone, to `seo-reports/overwhelm/`, with Lyra's home page alongside when the network allows, and lists every page that gained words since the previous run. It needs Playwright: set `PLAYWRIGHT_PATH` and `CHROME_PATH` as for `build-og-images.cjs`.
 
+To prove a change leaves every page looking the same, `FULL=1 SHOTS_DIR=seo-reports/base` takes whole-page screenshots; run it before and after (with another `SHOTS_DIR`) and compare them with the pixelmatch loop in the script's header.
+
 ## Deploy
 
-It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder). It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, and `/index.html` to `/`, so search engines see one copy of each page.
+It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder), and skips `npm install`. `.vercelignore` keeps the builders, tooling config and the bundles' sources off the site. It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, and `/index.html` to `/`, so search engines see one copy of each page.
 
 ## Analytics, attribution and privacy
 

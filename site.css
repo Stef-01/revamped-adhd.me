@@ -23,13 +23,8 @@ body { text-rendering: optimizeLegibility; }
 #mobile-nav a[aria-current="page"] { background: #1a1c1c; color: #fff; }
 
 /* Scroll reveal */
-.js [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); will-change: opacity, transform; }
+.js [data-reveal] { opacity: 0; transform: translateY(22px); will-change: opacity, transform; }  /* timing: motion.css */
 [data-reveal].is-visible { opacity: 1; transform: none; }
-[data-reveal="1"] { transition-delay: .08s; }
-[data-reveal="2"] { transition-delay: .16s; }
-[data-reveal="3"] { transition-delay: .24s; }
-[data-reveal="4"] { transition-delay: .32s; }
-[data-reveal="5"] { transition-delay: .40s; }
 
 /* Pressed feedback on primary buttons */
 a.btn-press:active, button.btn-press:active { transform: scale(.97); }
