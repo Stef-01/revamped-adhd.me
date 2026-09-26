@@ -33,13 +33,13 @@ python3 scripts/build-profiles.py
 
 `python3 scripts/build-profiles.py --check` exits non-zero and names any generated page on disk that differs from what the data would produce. Run it before committing a hand edit to one of those pages, because the next rebuild overwrites them; the fix is to move the edit into the data.
 
-The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors and the og:image size cannot go stale.
+The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{TOKENS}}` the script fills in. Portraits are square JPEG and WebP at 320, 640 and full size in `assets/clinicians/` (`<id>.jpg`, `<id>-640.jpg`, `<id>-320.jpg` and the `.webp` equivalents); the full size is read from the file, so `srcset` descriptors cannot go stale. A profile's share image is its card in `assets/clinicians/og/<id>.jpg` (1200x630: the whole portrait beside the name and role, since platforms crop a square portrait to 1.91:1 and lose the top of the head); until the card exists the profile shares the square portrait.
 
 On `index.html` the script owns exactly one thing: the practitioner count, between a `<!-- BEGIN:GENERATED count-all -->` / `<!-- END:GENERATED count-all -->` pair. The landing page routes people to a door; it deliberately does not list the network, so there is no roster to keep in step. Everything else on that page is left alone.
 
 On `the-doctors.html` it also writes an `ItemList` of every clinician (between the `deck-ld` markers), and on each profile it builds the search title and description from the name, role, practice and place, sized to fit a search result.
 
-To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, until `index.html` still carries the count region, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup). A brand-new category also needs its tab button beside the others and its name in the `categories` array in `the-doctors.html`’s script, or the tab will not switch to it.
+To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild, run `node scripts/build-og-images.cjs` for the share card, and rebuild once more so the profile uses it. The script refuses to write until all of those are in place, until `index.html` still carries the count region, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup). A brand-new category also needs its tab button beside the others and its name in the `categories` array in `the-doctors.html`’s script, or the tab will not switch to it.
 
 Two fields carry more than they look like:
 
@@ -201,7 +201,7 @@ It measures each page in a browser at 1280x900: visible words (text inside a clo
 
 ## Deploy
 
-It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).
+It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder). It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, so search engines see one copy of the site.
 
 ## Analytics, attribution and privacy
 

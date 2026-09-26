@@ -494,7 +494,8 @@ def who_section(p):
         people += [c for c in CLINICIANS if f(c) and c not in people]
     if not people:
         raise SystemExit(f'build-seo-pages: {p["slug"]} selects no clinicians; fix the filter or drop the section')
-    cards = ''.join(f'<li>{profiles.also_link(c, profiles.portrait_size(c))}</li>' for c in people)
+    # The first row of the roster is on the first screen at desktop width, so its portraits load at once.
+    cards = ''.join(f'<li>{profiles.also_link(c, profiles.portrait_size(c), eager=i < 2)}</li>' for i, c in enumerate(people))
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 py-12" aria-labelledby="who-title">
 <div class="pt-10 border-t border-[#e8e6df]">
 <h2 id="who-title" class="{H2}">{esc(p['who_heading'])}</h2>
@@ -600,9 +601,13 @@ def hub_page(head, header, footer):
             for p in PAGES if p['group'] == key)
         groups += f'<section class="mt-12" aria-labelledby="g-{key}"><h2 id="g-{key}" class="{H2}">{label}</h2><ul class="mt-4 list-none p-0 m-0">{items}</ul></section>'
     url = f'{SITE}/{HUB}.html'
-    ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': url, 'url': url, 'name': HUB_SEO,
-          'description': HUB_DESCRIPTION, 'inLanguage': 'en-AU',
-          'hasPart': [{'@type': 'WebPage', 'url': f'{SITE}/{p["slug"]}.html', 'name': p['seo']} for p in PAGES]}
+    ld = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': HUB_SEO, 'description': HUB_DESCRIPTION,
+         'inLanguage': 'en-AU', 'isPartOf': {'@id': SITE + '/#site'}, 'breadcrumb': {'@id': url + '#breadcrumb'},
+         'hasPart': [{'@type': 'WebPage', 'url': f'{SITE}/{p["slug"]}.html', 'name': p['seo']} for p in PAGES]},
+        {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
+            {'@type': 'ListItem', 'position': 2, 'name': 'ADHD care', 'item': url}]}]}
     return f'''{head_for(head, HUB, HUB_SEO, HUB_DESCRIPTION)}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-16">
 <h1 class="hero-in mt-6 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">ADHD care, by place and by profession.</h1>

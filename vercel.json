@@ -3,6 +3,19 @@
   "framework": null,
   "buildCommand": "echo 'Static site: the CSS and JS bundles are committed, nothing to build here'",
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "adhd-lovat.vercel.app"
+        }
+      ],
+      "destination": "https://www.adhdme.au/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

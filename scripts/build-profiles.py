@@ -32,9 +32,10 @@ DECK = ROOT / 'the-doctors.html'
 LANDING = ROOT / 'index.html'
 SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
+SHARE_CARDS = 'assets/clinicians/og'
 
-# The Network: which tab panel each category's cards go in. The first clinician in the default panel
-# is the one card that loads eagerly; every other card is lazy.
+# The Network: which tab panel each category's cards go in. The first row of the default panel loads
+# eagerly (its first card at high priority); every other card is lazy.
 PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health',
           'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
 DEFAULT_PANEL = 'gp'
@@ -1420,6 +1421,18 @@ def portrait_size(c):
     return sizes['']
 
 
+def share_image(c, size):
+    """og:image path, width and height: the clinician's 1200x630 share card (scripts/build-og-images.cjs renders it from
+    this page) once it exists, else the square portrait, which platforms crop to 1.91:1."""
+    card = ROOT / SHARE_CARDS / f"{c['id']}.jpg"
+    if not card.exists():
+        return f"{PORTRAITS}/{c['id']}.jpg", size, size
+    w, h = jpeg_size(card)
+    if (w, h) != (1200, 630):
+        raise BuildError(f"{card.relative_to(ROOT)} is {w}x{h}; share cards must be 1200x630")
+    return f"{SHARE_CARDS}/{c['id']}.jpg", w, h
+
+
 def subline(c):
     """Under the name on the deck card and the 'Also in the network' link."""
     return f"{c['descriptor']} · {c['place']}" if c['descriptor'] else c['place']
@@ -1538,11 +1551,14 @@ def portrait_span(c, size, tag, extra_class, sizes, img_attrs, img_class):
             f'{picture(c, size, sizes, img_attrs, img_class)}</{tag}>')
 
 
+DECK_COLUMNS = 4   # cards in a row of the deck at desktop width (lg:grid-cols-4)
 DECK_CHIPS = 2   # interest chips on a deck card: four stacked chips made each card a column of pills on a phone
 
 
-def deck_card(c, size, eager):
-    img_attrs = 'loading="eager" fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
+def deck_card(c, size, rank):
+    """rank: the card's place in the first row of the panel shown on arrival (0 is the first), else None."""
+    img_attrs = ('loading="eager" fetchpriority="high" decoding="async"' if rank == 0 else
+                 'loading="eager" decoding="async"' if rank is not None else 'loading="lazy" decoding="async"')
     sizes = '(min-width: 1280px) 264px, (min-width: 1024px) 22vw, (min-width: 768px) 30vw, 48vw'
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     return f'''<li data-reveal id="{c['id']}" class="flex flex-col min-w-0">
@@ -1555,9 +1571,10 @@ def deck_card(c, size, eager):
 </li>'''
 
 
-def also_link(c, size):
+def also_link(c, size, eager=False):
+    loading = f'loading="{"eager" if eager else "lazy"}" decoding="async"'
     return (f'<a class="flex items-center gap-4 group min-w-0" href="{c["slug"]}.html">'
-            f'{portrait_span(c, size, "span", "block w-20 shrink-0 ", "96px", "loading=\"lazy\" decoding=\"async\"", "w-full h-full object-cover object-[center_30%]")}'
+            f'{portrait_span(c, size, "span", "block w-20 shrink-0 ", "96px", loading, "w-full h-full object-cover object-[center_30%]")}'
             f'<span class="min-w-0"><strong class="block text-[19px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">{esc(c["name"])}</strong>'
             f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span></a>')
 
@@ -1714,9 +1731,11 @@ def render_page(c, shell, sizes):
     # rel=expect blocks the first render until the last named portrait on the page is parsed, so the
     # cross-document view transition captures a whole page rather than a half-parsed one.
     last = (others(c) or [c])[-1]
+    og_image, og_width, og_height = share_image(c, sizes[c['id']])
     tokens = {
         'NAME': c['name'], 'SLUG': c['slug'], 'ID': c['id'], 'SITE': SITE, 'EXPECT_ID': last['id'],
-        'DESCRIPTION': meta_description(c), 'OG_TITLE': og_title(c), 'PORTRAIT_SIZE': str(sizes[c['id']]),
+        'DESCRIPTION': meta_description(c), 'OG_TITLE': og_title(c), 'OG_IMAGE': og_image,
+        'OG_WIDTH': str(og_width), 'OG_HEIGHT': str(og_height), 'OG_ALT': f'Portrait of {og_title(c)}',
     }
     page = shell
     for k, v in tokens.items():
@@ -1748,7 +1767,8 @@ def deck_jsonld():
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
     ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))  # stable: CLINICIANS order holds within each half
-    eager_id = next((c['id'] for c in ordered if c['category'] == DEFAULT_PANEL), None)
+    # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
+    first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():
         members = [c for c in ordered if c['category'] == category]
         pat = re.compile(r'(<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + r'"[^>]*><ul[^>]*>\n)(.*?)(</ul></div>)', re.S)
@@ -1759,7 +1779,8 @@ def render_deck(deck, sizes):
             raise BuildError(f'the-doctors.html: panel "{panel}" needs exactly one <div role="tabpanel" id="panel-{panel}"><ul>…</ul></div> to hold '
                              f'{", ".join(c["name"] for c in members)}; found {len(found)}. Replace the "Expected soon" placeholder with '
                              '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid auto-rows-fr grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 list-none p-0 m-0">\n</ul></div>')
-        cards = '\n'.join(deck_card(c, sizes[c['id']], c['id'] == eager_id) for c in members) + '\n'
+        cards = '\n'.join(deck_card(c, sizes[c['id']], first_row.index(c['id']) if c['id'] in first_row else None)
+                          for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)
     if '<!-- BEGIN:GENERATED deck-ld -->' not in deck:
         deck = deck.replace('</main>', '<!-- BEGIN:GENERATED deck-ld --><!-- END:GENERATED deck-ld -->\n</main>', 1)

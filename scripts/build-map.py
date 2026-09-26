@@ -102,8 +102,7 @@ for idx, (name, lon, lat, pos, live) in enumerate(CITIES):
 <g class="au-dot" style="transform-origin:{x:.1f}px {y:.1f}px"><circle cx="{x:.1f}" cy="{y:.1f}" r="5.6" fill="{GOLD if live else PAPER}"/><path d="{loop(x, y, 7.6, 100 + idx)}" fill="none" stroke="{INK}" stroke-width="1.9" stroke-linecap="round"/></g>
 <text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
-svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="au-map-title">
-<title id="au-map-title">Hand-drawn map of Australia with dots marking where ADHDme clinicians practise now ({', '.join(c[0] for c in CITIES if c[4])}) and where the network plans to grow ({', '.join(c[0] for c in CITIES if not c[4])})</title>
+svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hand-drawn map of Australia with dots marking where ADHDme clinicians practise now ({', '.join(c[0] for c in CITIES if c[4])}) and where the network plans to grow ({', '.join(c[0] for c in CITIES if not c[4])})">
 <defs>{base}<clipPath id="au-land">{clip}</clipPath></defs>
 <g fill="{PAPER}" transform="translate(2.5 3)">{fill}</g>
 <g fill="none" stroke="{INK}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">{ink_a}</g>
