@@ -1,2 +1,28 @@
 # Internal notes and plans live in the repo, not on the public site
 *.md
+
+# Builders, checks and their config: nothing a visitor needs
+/scripts/
+/qa-packs/
+/.claude/
+/.github/
+/node_modules/
+/package.json
+/package-lock.json
+/dev-server.js
+/tailwind.config.js
+/.htmlvalidate.json
+/.htmlvalidateignore
+/requirements.txt
+/.gitignore
+
+# Sources of the CSS and JS bundles; pages load assets/css/site.min.css and assets/js/site.min.js.
+# site.js and motion.js stay served: academy-login.html loads them directly.
+/site.css
+/motion.css
+/privacy.css
+/analytics.js
+/privacy-consent.js
+/newsletter-invite.js
+/assets/css/input.css
+/assets/css/tailwind.css
