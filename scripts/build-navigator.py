@@ -373,7 +373,7 @@ def build():
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
 <h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">Where does ADHD get in the way?</h1>
 <p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto">Choose a pressure point you’d like support with, then select the area of life it relates to. We’ll help you find clinicians who understand what you’re navigating.</p>
-<div id="nav-crumb" class="nav-crumb mt-6" aria-label="Change domain">{''.join(crumbs)}</div>
+<div id="nav-crumb" class="nav-crumb mt-6" role="group" aria-label="Change area">{''.join(crumbs)}</div>
 </div>
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
 <div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><div id="nav-halo" class="nav-halo" aria-hidden="true"></div>{''.join(bubbles)}</div>

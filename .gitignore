@@ -5,3 +5,4 @@ node_modules/
 # playwright-cli session snapshots
 .playwright-cli/
 __pycache__/
+seo-reports/

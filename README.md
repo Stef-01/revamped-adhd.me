@@ -165,6 +165,18 @@ The six discipline tracks in `academy.html` (general practice, psychology, occup
 python3 scripts/build-academy-tracks.py
 ```
 
+## SEO checks
+
+Three tools, run through `npx` at pinned versions like the build tools, so nothing is installed:
+
+```bash
+npm run seo:check        # html-validate on every page, then linkinator over every internal link
+npm start                # in another terminal, then:
+npm run seo:lighthouse   # Lighthouse performance, accessibility, best practices and SEO on nine page types
+```
+
+`seo:html` uses `.htmlvalidateignore` to leave out the two academy pages, which are login-gated and noindex. Inline `style` attributes are allowed (the gradients and view-transition names use them); every other `html-validate:recommended` rule applies. `seo:links` skips external URLs, so it runs offline. `seo:lighthouse` takes page names as arguments (`npm run seo:lighthouse -- kate-row learn`), reads `BASE_URL` (default `http://localhost:5173`) and `CHROME_PATH`, and writes full reports to `seo-reports/`, which is git-ignored. Against the local server, "errors in console" and "back/forward cache" fail for reasons that belong to the environment (blocked third-party requests, the dev server's `no-store` header), not the site.
+
 ## Deploy
 
 It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder).
