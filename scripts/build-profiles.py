@@ -45,14 +45,14 @@ GP_FEES = dict(
     heading='What a diagnosis costs',
     figures=[('$299', 'Initial consultation'), ('$199', 'Follow-up consultation')],
     notes=[  # html
-        'Both consultations together are the ADHD assessment and diagnosis: $498 in total.',
+        'The two consultations make up the ADHD assessment and diagnosis, $498 in total.',
         'Some people may require an additional 30-minute clinical review where further history, records or medical assessment are needed. If this applies to you, the practice will explain why and discuss the cost before any additional appointment is booked.',
-        'No Medicare rebate, nothing to claim back.',
-        '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> It is published here so the cost is settled before you arrive rather than at the front desk.',
+        'There is no Medicare rebate for either consultation.',
+        '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
 GP_BILLING = '$299 initial, $199 follow-up, no Medicare rebate; set and charged by the practice'
-HEALTHENGINE_HINT = 'Opens the practice’s booking page on Healthengine, in a new tab.'
+HEALTHENGINE_HINT = 'Opens Healthengine in a new tab.'
 
 WPC = 'https://wellnesspsychologyclinic.com.au/'
 
@@ -66,7 +66,7 @@ NMP_BOOK = 'https://clientportal.zandahealth.com/clientportal/neutralmindspsycho
 # GOALS Psychology, Fortitude Valley. One clinic, eight clinicians, so the shared facts sit here once.
 GOALS = 'https://www.goalspsychology.com/'
 GOALS_BOOK = 'https://www.halaxy.com/book/goals-psychology/location/726621'
-GOALS_BOOK_HINT = 'Opens GOALS Psychology’s booking page on Halaxy, in a new tab.'
+GOALS_BOOK_HINT = 'Opens Halaxy in a new tab.'
 GOALS_PLACE = 'Brisbane & telehealth'
 GOALS_LINKS = [
     ('instagram', '@goals.psychology', 'https://www.instagram.com/goals.psychology/'),
@@ -78,8 +78,8 @@ GOALS_REACH_VISITS = ('Clinic appointments in Fortitude Valley, telehealth Austr
 GOALS_APPOINTMENTS = '50-minute sessions; times set with the clinic'
 # From the clinic's own "How to find us": first floor of the Central Brunswick Complex, Suite 14A2.
 GOALS_ACCESS = 'Yes: level access from the same-level car park, with free one-hour client parking in the centre'
-GOALS_DISCLOSURE = ('GOALS Psychology is an independent clinic: it sets its own fees, availability and clinical '
-                    'approach, and ADHDme receives no part of what you pay.')
+GOALS_DISCLOSURE = ('GOALS Psychology is an independent practice. It sets its own fees and availability, and ADHDme '
+                    'takes no commission.')
 GOALS_WORKS_FOR = dict(url=GOALS, telephone='0451 674 121', locality='Fortitude Valley', state='QLD')
 
 
@@ -109,13 +109,10 @@ def goals_fees(rebate_note):
         heading='What a session costs',
         figures=[],  # deliberately empty: the clinic has not published a fee, so there is no figure to show
         notes=[
-            'GOALS Psychology does not publish a session fee. The clinic quotes it when you book, and a free '
-            '15-minute call for new clients can be booked online to ask what a session will cost before you '
-            'commit to one.',
+            'GOALS Psychology does not publish a session fee. The practice quotes its fee when you book. New '
+            'clients can also book a free 15-minute call online and ask about cost before their first session.',
             rebate_note,
-            '<strong>The fee is set and charged by the clinic you book with; ADHDme receives no part of it.</strong> '
-            'It is described here rather than shown as a number because the clinic has not published one, and a '
-            'guess would be worse than nothing.',
+            '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
         ],
     )
 
@@ -138,7 +135,7 @@ GOALS_FEES_OT = goals_fees(
 # ProfessionalService rather than the MedicalBusiness the clinics get.
 REACH = 'https://www.reachadhd.com.au/'
 REACH_BOOK = REACH + 'contact/'
-REACH_BOOK_HINT = 'Opens REACH ADHD’s enquiry form, in a new tab. Coaching is arranged with the practice rather than booked online.'
+REACH_BOOK_HINT = 'Opens the practice’s website in a new tab. Coaching is arranged by enquiry.'
 REACH_PLACE = 'Perth & online'
 REACH_LINKS = [
     ('instagram', '@reach_adhd_coaching', 'https://www.instagram.com/reach_adhd_coaching/'),
@@ -148,9 +145,9 @@ REACH_REACH = 'Coaching online, and in person in Perth'
 REACH_APPOINTMENTS = ('An initial consultation, then sessions weekly, fortnightly or as needed; the practice suggests '
                       'starting with six fortnightly sessions')
 REACH_BILLING = 'Set and quoted by the practice; JobAccess funding may cover it'
-REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice: it sets its own fees, availability '
-                    'and coaching approach, and ADHDme receives no part of what you pay. ADHD coaching is not a '
-                    'registered health profession, and it is not assessment, diagnosis or therapy.')
+REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice. It sets its own fees and '
+                    'availability, and ADHDme takes no commission. ADHD coaching is not a registered health '
+                    'profession. Coaches do not assess, diagnose or provide therapy.')
 REACH_WORKS_FOR = dict(type='ProfessionalService', url=REACH, telephone='(08) 6361 3506', locality='Perth', state='WA')
 REACH_JOBACCESS = REACH + 'unlocking-support-how-adhd-coaching-can-be-funded-through-jobaccess/'
 
@@ -168,21 +165,19 @@ REACH_FEES = dict(
     heading='What coaching costs',
     figures=[],
     notes=[
-        'REACH ADHD does not publish a session fee. It quotes one when you enquire, and its enquiry form asks what '
-        'you had in mind, so the number is settled before anything is booked.',
-        'Coaching can be government-funded. If you work, or are self-employed, at least eight hours a week, the '
+        'REACH ADHD does not publish a session fee. Its enquiry form asks what you have in mind, and the practice '
+        'quotes its fee before anything is booked.',
+        'Coaching can be government funded. If you work, or are self-employed, at least eight hours a week, the '
         'Employment Assistance Fund covers ADHD coaching under Specialist Mental Health Support. REACH puts it at '
         '<strong>around $1,770.44 including GST a year</strong>, indexed and subject to change. You apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
         'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with supporting '
-        'documentation from a GP or specialist, and can ask for an exemption rather than disclose the diagnosis to '
-        'your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
+        'documentation from a GP or specialist. You can ask for an exemption so you do not have to disclose the '
+        'diagnosis to your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
         'decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
         + REACH_JOBACCESS + '">guide</a> has the steps, and the practice runs free sessions to help with the application.',
         'REACH is not a registered NDIS provider, but says self-managed and plan-managed participants can still claim '
         'session fees. For children, it says the NDIS is usually the only funding route.',
-        '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-        'It is described here rather than shown as a number because the practice has not published one, and a guess '
-        'would be worse than nothing.',
+        '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
 
@@ -201,30 +196,27 @@ def reach_details():
 # the practice supplies photographs (scripts/build-placeholder-portraits.py).
 ARC = 'https://atlantisrc.com.au/'
 ARC_BOOK = 'https://www.hotdoc.com.au/medical-centres/bundall-QLD-4217/atlantis-recovery-centre/doctors'
-ARC_BOOK_HINT = 'Opens Atlantis Recovery Centre’s booking page on HotDoc, in a new tab.'
+ARC_BOOK_HINT = 'Opens HotDoc in a new tab.'
 ARC_PLACE = 'Bundall, Gold Coast'
 ARC_LINKS = [('website', 'atlantisrc.com.au', ARC)]
 ARC_REACH = 'Clinic appointments in Bundall, on the Gold Coast'
 ARC_APPOINTMENTS = 'Times set with the practice; booked online through HotDoc'
 ARC_BILLING = 'Quoted by the practice; DVA, NDIS, private health, WorkCover and Medicare plans accepted'
 ARC_ACCESS = 'Yes: the practice describes the clinic as purpose-built and all-abilities accessible'
-ARC_DISCLOSURE = ('Atlantis Recovery Centre is an independent practice: it sets its own fees, availability and clinical '
-                  'approach, and ADHDme receives no part of what you pay.')
+ARC_DISCLOSURE = ('Atlantis Recovery Centre is an independent practice. It sets its own fees and availability, and '
+                  'ADHDme takes no commission.')
 ARC_WORKS_FOR = dict(url=ARC, telephone='(07) 5610 2312', locality='Bundall', state='QLD')
 ARC_SCHEMA = dict(same_as=[ARC + 'team/'], works_for=ARC_WORKS_FOR, area='Gold Coast, QLD, Australia', area_type='Place')
 ARC_FEES = dict(
     heading='What a session costs',
     figures=[],
     notes=[
-        'Atlantis Recovery Centre does not publish a fee. It quotes one when you book, so the number is settled '
-        'before the first appointment.',
+        'Atlantis Recovery Centre does not publish a fee. The practice quotes its fee when you book.',
         'The practice takes private clients and works with DVA, the NDIS, private health funds, WorkCover, and '
         'GP Mental Health Treatment Plans and chronic condition management plans. It says bulk billing is '
         'available with conditions.',
         'NDIS participants are not asked to sign a service agreement, so funds are not locked to the practice.',
-        '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-        'It is described here rather than shown as a number because the practice has not published one, and a '
-        'guess would be worse than nothing.',
+        '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
 
@@ -243,7 +235,7 @@ CLINICIANS = [
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
         name='Dr Anubhav Saxena', short='Dr Saxena', role='GP', pronouns='he/him',
         practice='Beecroft Family & Skin Cancer Clinic', place='Beecroft & Double Bay', descriptor=None,
-        description='A measured assessment with the physical baseline done properly, and ADHD care considered alongside the rest of your health.',
+        description='ADHD assessment with a documented physical baseline, looked at alongside sleep, heart and metabolic health.',
         chips=['Baseline physical screening', 'Integrative care', 'Phone consultations'],
         telehealth=True,
         book_href='https://healthengine.com.au/doctor/nsw/beecroft/dr-anubhav-saxena/p123180', book_hint=HEALTHENGINE_HINT,
@@ -266,14 +258,14 @@ CLINICIANS = [
             ('Billing', GP_BILLING),
             ('Wheelchair access', 'Yes'),
         ],
-        disclosure='Dr Saxena owns Beecroft Family & Skin Cancer Clinic, which is ADHDme\'s first clinic partner. Disclosed because he appears in a listing run by a company his clinic has a commercial relationship with.',
+        disclosure='Dr Saxena owns Beecroft Family & Skin Cancer Clinic. The clinic is ADHDme’s first clinic partner and has a commercial relationship with ADHDme.',
         schema=dict(type='Physician', areas=['Beecroft', 'Double Bay'], state='NSW'),
     ),
     dict(
         slug='dr-anu-saxena', id='anu-saxena', category='gp',
         name='Dr Anu Saxena', short='Dr Anu Saxena', role='GP', pronouns='she/her',
         practice='Bay Health Clinic', place='Double Bay & Hornsby', descriptor=None,
-        description='Brings a mental-health focus to general practice, with psychology training behind it.',
+        description='A GP with an honours degree in psychology and clinical interests in ADHD, mental health and women’s health.',
         chips=['Mental health focus', 'Women’s health', 'Hindi & Urdu'],
         telehealth=True,
         book_href='https://healthengine.com.au/doctor/nsw/double-bay/dr-anusha-saxena/p160121', book_hint=HEALTHENGINE_HINT,
@@ -302,17 +294,17 @@ CLINICIANS = [
             ('Billing', GP_BILLING),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Dr Anu Saxena has a declared interest in ADHDme. Disclosed because she appears in a listing run by a company she is connected with.',
+        disclosure='Dr Anu Saxena has a declared interest in ADHDme, the company that runs this listing.',
         schema=dict(type='Physician', areas=['Double Bay', 'Hornsby'], state='NSW'),
     ),
     dict(
         slug='paula-garrido', id='paula-garrido', category='psychologist',
         name='Paula Garrido', short='Paula Garrido', role='Clinical Psychologist', pronouns='she/her',
         practice='Wellness Psychology Clinic', place='Telehealth Australia-wide', descriptor='Clinical psychologist',
-        description='Compassionate, neuroaffirming and trauma-informed care for ADHD and other neurodevelopmental differences.',
+        description='Clinical psychologist certified in ADHD and autism care, seeing clients by video anywhere in Australia.',
         chips=['Neuroaffirming', 'Trauma-informed', 'ADHD & autism certified'],
         telehealth=True,
-        book_href=WPC + 'appointment-page/', book_hint='Opens the clinic’s appointment request form, in a new tab.',
+        book_href=WPC + 'appointment-page/', book_hint='Opens the practice’s website in a new tab. Appointments are requested through a form.',
         links=[  # (kind, label, href): shown as pills under the booking button and in the Details "Online" row
             ('instagram', '@wellnesspsychologyclinic.au', 'https://www.instagram.com/wellnesspsychologyclinic.au/'),
             ('website', 'wellnesspsychologyclinic.com.au', WPC),
@@ -324,7 +316,7 @@ CLINICIANS = [
                 'With the rebate, a session is $104 out of pocket.',
                 'The rebate needs a Mental Health Treatment Plan and referral from your GP. The clinic can tell you what to bring before you book, and how many rebated sessions a plan covers.',
                 'Sessions run for 60 minutes, by secure video.',
-                '<strong>The fee is set and charged by the clinic you book with; ADHDme receives no part of it.</strong> It is published here so the cost is settled before you book rather than at the first session.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
         qualifications='Clinical psychologist, MClinPsych ADHD-CCSP ASDCS',
@@ -348,7 +340,7 @@ CLINICIANS = [
             ('Billing', '$253 per session, $149 Medicare rebate; set and charged by the clinic'),
             ('Wheelchair access', 'Not applicable: telehealth only, no premises to visit'),
         ],
-        disclosure='Paula consults through Wellness Psychology Clinic, which also lists Dr Anu Saxena, who has a declared interest in ADHDme.',
+        disclosure='Paula works through Wellness Psychology Clinic. The clinic also lists Dr Anu Saxena, who has a declared interest in ADHDme.',
         schema=dict(
             type='Person',
             credentials=['Master of Clinical Psychology', 'ADHD-Certified Clinical Services Provider (ADHD-CCSP)', 'Certified Autism Spectrum Disorder Clinical Specialist (ASDCS)'],
@@ -361,7 +353,7 @@ CLINICIANS = [
         slug='kate-row', id='kate-row', category='psychologist',
         name='Kate Row', short='Kate Row', role='Psychologist and Clinic Director', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist & clinic director',
-        description='Toddlers through to adults, working from the goals you name towards a practical toolkit for reaching them.',
+        description='Works with toddlers through to adults using CBT, ACT and MI, and supports families with the NDIS.',
         chips=['Toddlers to adults', 'NDIS journeys', 'CBT, ACT & MI'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -401,7 +393,7 @@ CLINICIANS = [
         slug='ellie-putland', id='ellie-putland', category='psychologist',
         name='Ellie Putland', short='Ellie Putland', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
-        description='Trauma-informed work with young people who want to bring their stressors down, with families brought in where it helps.',
+        description='Trauma-informed therapy for children, teens and adults, with a particular interest in young people.',
         chips=['Trauma-informed', 'Young people', 'CBT, ACT & DBT'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -443,7 +435,7 @@ CLINICIANS = [
         slug='lachlan-avent', id='lachlan-avent', category='psychologist',
         name='Lachlan Avent', short='Lachlan Avent', role='Psychologist', pronouns='he/him',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
-        description='A safe space to be heard, plus autism and ADHD assessment, for children, teenagers and adults.',
+        description='Therapy, parenting support, and autism and ADHD assessment for children, teenagers and adults.',
         chips=['Autism & ADHD assessment', 'Children to adults', 'Triple P practitioner'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -484,7 +476,7 @@ CLINICIANS = [
         slug='samantha-courtney', id='samantha-courtney', category='psychologist',
         name='Samantha Courtney', short='Samantha Courtney', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
-        description='Credentialed eating disorder care, perinatal mental health and trauma, in a calm and inclusive room.',
+        description='A credentialed eating disorder clinician who also sees teens and adults for perinatal mental health.',
         chips=['Eating disorders', 'Perinatal & fertility', 'CEDC-MH credentialed'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -530,7 +522,7 @@ CLINICIANS = [
         slug='lauren-poulos', id='lauren-poulos', category='psychologist',
         name='Lauren Poulos', short='Lauren Poulos', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
-        description='Early intervention and play-based work with toddlers and children, and steady support for teens and adults.',
+        description='Early intervention and Parent-Child Interaction Therapy for young children, and therapy for teens and adults.',
         chips=['Toddlers & children', 'PCIT & early intervention', 'Psychometric assessment'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -574,7 +566,7 @@ CLINICIANS = [
         slug='alice-bui', id='alice-bui', category='psychologist',
         name='Alice Bui', short='Alice Bui', role='Provisional Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Provisional psychologist',
-        description='Trauma-informed therapy with cultural sensitivity, and a particular welcome for refugee and newly arrived clients.',
+        description='Trauma-informed therapy, with a special interest in refugee, newly arrived and culturally diverse clients.',
         chips=['Trauma-informed', 'CALD & refugee clients', 'CBT, ACT, DBT & narrative'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
@@ -617,12 +609,12 @@ CLINICIANS = [
         slug='meera-lakhani', id='meera-lakhani', category='psychologist',
         name='Meera Lakhani', short='Meera Lakhani', role='Educational and Developmental Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Educational & developmental psychologist',
-        description='Autism, ADHD and cognitive assessment that leaves you understanding your own neurotype better.',
+        description='Educational and developmental psychologist focused on autism, ADHD and cognitive assessment.',
         chips=['Autism & ADHD assessment', 'Cognitive assessment', 'Young adults & families'],
         telehealth=True,
         # Meera is not one of the practitioners bookable on the clinic's Halaxy page, so this goes to the clinic instead.
         book_href=GOALS + 'contact',
-        book_hint='Opens GOALS Psychology’s enquiry form, in a new tab. Meera’s appointments are arranged by the clinic rather than booked online.',
+        book_hint='Opens the practice’s website in a new tab. Meera’s appointments are arranged by enquiry.',
         links=GOALS_LINKS,
         fees=GOALS_FEES,
         qualifications='Educational and developmental psychologist, BPsychSc MPsych(Ed&Dev)',
@@ -644,7 +636,7 @@ CLINICIANS = [
         ],
         details=[
             ('Reach', GOALS_REACH),
-            ('Appointments', 'Arranged with the clinic rather than booked online'),
+            ('Appointments', 'Arranged by enquiry with the clinic'),
             ('Billing', 'Set and charged by the clinic; quoted when you book'),
             ('Wheelchair access', GOALS_ACCESS),
         ],
@@ -666,10 +658,10 @@ CLINICIANS = [
         name='Trisha Harris', short='Trisha', role='Clinical Counsellor', pronouns='she/her',
         practice='Riverview Counselling', place='Glenbrook & telehealth',
         descriptor='Clinical counsellor',
-        description='A safe space to handle the ‘right now’, with undivided attention that is just for you.',
+        description='A counsellor with ADHD herself, seeing teens, adults, couples and NDIS participants in Glenbrook.',
         chips=['Teens, adults & couples', 'NDIS participants', 'Lived experience'],
         telehealth=True,
-        book_href=RVC_BOOK, book_hint='Opens Riverview Counselling’s booking page on Halaxy, in a new tab.',
+        book_href=RVC_BOOK, book_hint='Opens Halaxy in a new tab.',
         links=[
             ('instagram', '@riverviewcounselling_', 'https://www.instagram.com/riverviewcounselling_/'),
             ('website', 'riverviewcounselling.com.au', RVC),
@@ -683,10 +675,9 @@ CLINICIANS = [
                 'hours is charged in full unless you reschedule.',
                 'NDIS participants are $156.16 per 60 minutes, which the practice says covers sessions, emails, '
                 'phone calls, letters and reports.',
-                'Counselling does not attract a Medicare rebate, so there is no Mental Health Treatment Plan or GP '
-                'referral to arrange first: the practice says to book straight in.',
-                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                'It is published here so the cost is settled before you book rather than at the first session.',
+                'Counselling does not attract a Medicare rebate, so you do not need a Mental Health Treatment Plan '
+                'or GP referral. The practice says to book straight in.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
         qualifications='Clinical counsellor, PACFA Registered Clinical (27633), PGDipCouns',
@@ -714,9 +705,8 @@ CLINICIANS = [
             ('Billing', '$180 per 60 minutes for an individual, $220 for couples and families; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Riverview Counselling is an independent practice: it sets its own fees, availability and clinical '
-                   'approach, and ADHDme receives no part of what you pay. Counselling is registered with PACFA '
-                   'rather than AHPRA.',
+        disclosure='Riverview Counselling is an independent practice. It sets its own fees and availability, and '
+                   'ADHDme takes no commission. Counsellors are registered with PACFA, not AHPRA.',
         schema=dict(
             type='Person',
             credentials=['PACFA Registered Clinical counsellor (27633)', 'Post Graduate Diploma of Counselling',
@@ -776,13 +766,13 @@ CLINICIANS = [
         name='Lara Schulz', short='Lara Schulz', role='Neurotherapy Practitioner and Director', pronouns='she/her',
         practice='Neurotherapy Clinics Australia', place='Jindabyne & Snowy Mountains',
         descriptor='Neurotherapy practitioner & director',
-        description='QEEG brain mapping and neurotherapy in the Snowy Mountains, with the scan read and discussed before any training starts.',
+        description='QEEG brain mapping and neurotherapy in Jindabyne, with a consultation on the findings before training starts.',
         chips=['QEEG brain mapping', 'ERP assessment', 'Neurostimulation'],
         # Neurotherapy needs the equipment and the client in the same room, and the practice offers no
         # remote option, so the marker stays off.
         telehealth=False,
         book_href=NCAU + 'contact-us/',
-        book_hint='Opens Neurotherapy Clinics Australia’s contact form, in a new tab. Appointments are arranged with the practice rather than booked online.',
+        book_hint='Opens the practice’s website in a new tab. Appointments are arranged by enquiry.',
         links=[
             ('instagram', '@neurotherapy_clinics_australia', 'https://www.instagram.com/neurotherapy_clinics_australia/'),
             ('website', 'ncau.com.au', NCAU),
@@ -792,18 +782,16 @@ CLINICIANS = [
             # Another clinic with no published price list: same rule as GOALS above, so no figures.
             figures=[],
             notes=[
-                'Neurotherapy Clinics Australia does not publish a price list. It says fees are set on each person’s '
-                'individual needs and quotes them when you get in touch, and that payment plans can be arranged.',
-                'What gets quoted: a two-hour first appointment covering two QEEG brain scans, eyes open and eyes '
-                'closed, a visual and an auditory ERP, health history and your goals; then a 30-minute consultation on '
-                'the findings and on whether neurotherapy is an appropriate treatment for you. You keep a copy of the '
-                'typed report and the scan. Training sessions after that run 30 minutes, with a follow-up brain scan '
-                'after 25 to 30 of them.',
-                'The practice publishes nothing about Medicare, NDIS or private health cover for any of this. Ask what '
-                'applies to you at the same time you ask for the quote.',
-                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                'It is described here rather than shown as a number because the practice has not published one, and a '
-                'guess would be worse than nothing.',
+                'Neurotherapy Clinics Australia does not publish a price list. It sets fees for each person and '
+                'quotes them when you get in touch. Payment plans can be arranged.',
+                'The quote covers a two-hour first appointment with two QEEG brain scans (eyes open and eyes closed), '
+                'a visual and an auditory ERP, your health history and your goals. A 30-minute consultation follows '
+                'to go through the findings and whether neurotherapy is an appropriate treatment for you. You keep a '
+                'copy of the typed report and the scan. Training sessions after that run 30 minutes, with a follow-up '
+                'brain scan after 25 to 30 of them.',
+                'The practice does not publish anything about Medicare, NDIS or private health cover. Ask what '
+                'applies to you when you ask for a quote.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
         qualifications='Neurotherapy practitioner, GradDipPsych MBusMgt',
@@ -832,7 +820,7 @@ CLINICIANS = [
             ('Billing', 'Set and quoted by the practice for each person; payment plans can be arranged'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Neurotherapy Clinics Australia is an independent practice: it sets its own fees, availability and clinical approach, and ADHDme receives no part of what you pay.',
+        disclosure='Neurotherapy Clinics Australia is an independent practice. It sets its own fees and availability, and ADHDme takes no commission.',
         schema=dict(
             type='Person',
             credentials=['Graduate Diploma in Psychology, University of New South Wales',
@@ -852,7 +840,7 @@ CLINICIANS = [
         pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD coach',
-        description='Twenty-five years of teaching behind the coaching, starting from how your own brain works rather than a generic plan.',
+        description='An ADHD coach with 25 years of teaching, helping students and families understand how their brain works.',
         chips=['Executive functioning', 'Students & families', 'Able & gifted learners'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -891,7 +879,7 @@ CLINICIANS = [
         name='Debbie Hirte', short='Debbie Hirte', role='ADHD Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD coach',
-        description='Nearly three decades in schools, spent advocating for neurodivergent students and the families around them.',
+        description='ADHD coach and former Gifted and Talented Specialist with nearly 30 years in independent schools.',
         chips=['Executive functioning', 'Children & teens', 'Gifted & talented'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -929,7 +917,7 @@ CLINICIANS = [
         name='Romney Taylor', short='Romney Taylor', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
-        description='Twenty-three years in classrooms, and a conviction that no two minds work the same way.',
+        description='ADHD coach with 23 years of work with students, building strategies for school, home and relationships.',
         chips=['Executive functioning', 'Students', 'Advocacy & inclusion'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -968,7 +956,7 @@ CLINICIANS = [
         name='Erin Lysle', short='Erin Lysle', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
-        description='Thirty-four years of teaching, and strategies built to fit the person rather than the diagnosis.',
+        description='ADHD coach with over 34 years of teaching, working on executive functioning, confidence and social skills.',
         chips=['Executive functioning', 'Self-confidence', 'Social skills'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -1005,7 +993,7 @@ CLINICIANS = [
         pronouns='she/her',  # the only one of the six whose bio states it
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
-        description='Two decades across school communities, and a belief that connection is what makes learning possible.',
+        description='ADHD coach and secondary teacher working with young people on executive functioning and emotional regulation.',
         chips=['Executive functioning', 'Emotional regulation', 'Neurodivergent-affirming'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -1043,7 +1031,7 @@ CLINICIANS = [
         name='Kate Dallimore', short='Kate Dallimore', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
-        description='A physiotherapy and teaching background, brought to trauma-informed coaching for people who have not felt understood.',
+        description='ADHD coach with a background in physiotherapy and teaching, using a trauma-informed approach.',
         chips=['Trauma-informed', 'Executive functioning', 'Neurodiversity-affirming'],
         telehealth=True,
         book_href=REACH_BOOK, book_hint=REACH_BOOK_HINT,
@@ -1084,11 +1072,11 @@ CLINICIANS = [
         pronouns='',  # not declared anywhere on the practice's site
         practice='Neutral Minds Psychology', place='Brisbane & telehealth',
         descriptor='Psychologist & director',
-        description='Therapy as a space where you can take a breath, put the mask down, and be a little more human.',
+        description='Psychologist working mainly with young neurodivergent adults on anxiety, burnout and self-esteem.',
         chips=['Neurodivergent adults', 'Neurodiversity-affirming', 'Trauma-informed'],
         telehealth=True,
         book_href=NMP_BOOK,
-        book_hint='Opens Neutral Minds Psychology’s booking page on Zanda, in a new tab.',
+        book_hint='Opens Zanda in a new tab.',
         links=[
             ('instagram', '@neutralmindspsychology', 'https://www.instagram.com/neutralmindspsychology/'),
             ('website', 'neutralmindspsychology.com.au', NMP),
@@ -1103,10 +1091,8 @@ CLINICIANS = [
                 'you book.',
                 'Sessions run 50 minutes, for adults 18 and over, in person at Ashgrove or by telehealth anywhere in '
                 'Australia.',
-                'NDIS participants who are self-managed or plan-managed are seen at the current NDIS fee schedule '
-                'rate rather than this one.',
-                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                'It is published here so the cost is settled before you book rather than at the first session.',
+                'Self-managed and plan-managed NDIS participants pay the current NDIS fee schedule rate instead.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
         qualifications='Registered psychologist',
@@ -1135,7 +1121,7 @@ CLINICIANS = [
             ('Billing', '$220 per session, Medicare rebate with a referral and Mental Health Care Plan; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Neutral Minds Psychology is an independent practice: it sets its own fees, availability and clinical approach, and ADHDme receives no part of what you pay.',
+        disclosure='Neutral Minds Psychology is an independent practice. It sets its own fees and availability, and ADHDme takes no commission.',
         schema=dict(
             type='Person',
             credentials=['Registered psychologist'],
@@ -1148,7 +1134,7 @@ CLINICIANS = [
         slug='bart-traynor', id='bart-traynor', category='psychologist',
         name='Bart Traynor', short='Bart', role='Clinical Psychologist and Director', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist & director',
-        description='Straight-talking clinical psychology aimed at functioning better in everyday life, not just feeling better in the room.',
+        description='Clinical psychologist and director who works with career and performance pressure and major life changes.',
         chips=['Performance & career', 'Life transitions', 'Clinical supervisor'],
         exercise=True,
         telehealth=False,
@@ -1177,7 +1163,7 @@ CLINICIANS = [
         slug='jeff-leech', id='jeff-leech', category='psychologist',
         name='Jeff Leech', short='Jeff', role='Clinical Psychologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist',
-        description='Evidence-based care for trauma, anxiety and depression, and for performing at your best.',
+        description='Clinical psychologist using schema therapy and ACT for trauma, anxiety, depression and performance.',
         chips=['Trauma', 'Anxiety & depression', 'Schema therapy & ACT'],
         exercise=True,
         telehealth=False,
@@ -1206,7 +1192,7 @@ CLINICIANS = [
         slug='michael-rehardt', id='michael-rehardt', category='psychologist',
         name='Michael Rehardt', short='Michael', role='Provisional Psychologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Provisional psychologist',
-        description='A thoughtful, creative and practical approach, on a final Master of Clinical Psychology placement.',
+        description='Provisional psychologist on the final placement of his Master of Clinical Psychology at Griffith University.',
         chips=['Final placement', 'Master of Clinical Psychology', 'Aboriginal artist'],
         exercise=True,
         telehealth=False,
@@ -1232,7 +1218,7 @@ CLINICIANS = [
         slug='sarah-savage', id='sarah-savage', category='exercise-physiology',
         name='Sarah Savage', short='Sarah', role='Senior Exercise Physiologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior exercise physiologist',
-        description='Exercise as medicine: programs that make moving feel achievable, empowering and enjoyable.',
+        description='Senior exercise physiologist using Pilates and hydrotherapy, with an interest in older adults.',
         chips=['Exercise as Medicine', 'Pilates & hydrotherapy', 'Older adults'],
         exercise=True,
         telehealth=False,
@@ -1259,7 +1245,7 @@ CLINICIANS = [
         slug='yuri-lima', id='yuri-lima', category='allied',
         name='Dr Yuri Lima', short='Yuri', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
-        description='Orthopaedic and sports rehabilitation, with the client educated and active in their own recovery.',
+        description='Physiotherapist in orthopaedic and sports rehabilitation, with a PhD on ACL injuries in athletes.',
         chips=['Sports rehabilitation', 'Orthopaedic rehab', 'PhD, ACL injuries'],
         exercise=True,
         telehealth=False,
@@ -1285,7 +1271,7 @@ CLINICIANS = [
         slug='tom-hissey', id='tom-hissey', category='allied',
         name='Tom Hissey', short='Tom', role='Senior Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior physiotherapist',
-        description='Occupational rehabilitation and musculoskeletal physiotherapy from an Army veteran who has been through rehab himself.',
+        description='Musculoskeletal and occupational rehabilitation physiotherapist, and an Australian Army veteran.',
         chips=['Musculoskeletal physio', 'Return to function', 'Army veteran'],
         exercise=True,
         telehealth=False,
@@ -1313,7 +1299,7 @@ CLINICIANS = [
         slug='lester-rafanan', id='lester-rafanan', category='allied',
         name='Lester Rafanan', short='Lester', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
-        description='Evidence-based, personalised physiotherapy, from injury and chronic pain to staying active.',
+        description='Physiotherapist for recovery from injury or surgery, chronic pain, return to sport and NDIS supports.',
         chips=['Doctor of Physiotherapy', 'Strength & conditioning', 'NDIS supports'],
         exercise=True,
         telehealth=False,
@@ -1341,11 +1327,11 @@ CLINICIANS = [
         name='Alex Lawson', short='Alex', role='ADHD Coach and Mentor', pronouns='he/him',
         practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
         descriptor='ADHD coach & mentor',
-        description='No single planner, app or system works for every ADHD brain, so the strategies get built around how yours actually shows up.',
+        description='ADHD coach, teacher and former lawyer with ADHD, working with adults, students and parents.',
         chips=['Adults, students & parents', 'Executive function', 'Lived experience'],
         telehealth=True,
         book_href=LAS + 'book-here',
-        book_hint='Opens Lawson ADHD Solutions’ booking page, in a new tab. A free 20-minute discovery call is the usual first step.',
+        book_hint='Opens the practice’s website in a new tab. A free 20-minute discovery call is the usual first step.',
         links=[
             ('instagram', '@lawsonadhdsolutions', 'https://www.instagram.com/lawsonadhdsolutions/'),
             ('website', 'lawsonadhdsolutions.com.au', LAS),
@@ -1354,16 +1340,15 @@ CLINICIANS = [
             heading='What coaching costs',
             figures=[('$85', 'Per 55-minute session')],
             notes=[
-                'The same rate for adults, parents and students, in person at Sutherland or online by Zoom. A '
-                'post-session plan is an extra $15.',
-                'The first step is a free 20-minute discovery call, which is a conversation about whether coaching '
-                'fits rather than a booked session.',
+                'The rate is the same for adults, parents and students, in person at Sutherland or online by Zoom. '
+                'A post-session plan costs an extra $15.',
+                'The first step is a free 20-minute discovery call to talk about whether coaching suits you, before '
+                'you book a session.',
                 # His FAQ's structured data still carries an older $65 online rate; his pricing page and his booking
                 # page both say $85, so $85 is what is shown. Worth a word to him either way.
-                'He publishes no Medicare rebate, NDIS or private health arrangement, and ADHD coaching does not '
-                'attract a Medicare rebate.',
-                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                'It is published here so the cost is settled before you book rather than at the first session.',
+                'ADHD coaching does not attract a Medicare rebate, and the practice publishes no NDIS or private '
+                'health arrangement.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
         qualifications='ADHD coach, MTeach(Sec) LLB',
@@ -1393,9 +1378,9 @@ CLINICIANS = [
             ('Billing', '$85 per session, the same in person or online; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
         ],
-        disclosure='Lawson ADHD Solutions is an independent practice: it sets its own fees, availability and coaching '
-                   'approach, and ADHDme receives no part of what you pay. ADHD coaching is not a registered health '
-                   'profession, and it is not assessment, diagnosis or therapy.',
+        disclosure='Lawson ADHD Solutions is an independent practice. It sets its own fees and availability, and '
+                   'ADHDme takes no commission. ADHD coaching is not a registered health profession. Coaches do not '
+                   'assess, diagnose or provide therapy.',
         schema=dict(
             type='Person',
             credentials=['Master of Teaching (Secondary), University of Wollongong', 'Bachelor of Laws (LLB)',
@@ -1471,8 +1456,35 @@ def meta_line(c):
     return ' · '.join(p for p in parts if p)
 
 
+TITLE_ROOM = 60 - len(' · ADHDme')   # search results cut titles at about 60 characters
+
+
 def og_title(c):
-    return f"{c['name']}, {c['role']}, {c['place']}"
+    """Name, role and place when they fit in a search result's title; the place goes first when not."""
+    role = c['descriptor'] or c['role']
+    for t in (f"{c['name']}, {c['role']}, {c['place']}", f"{c['name']}, {role}, {c['place']}", f"{c['name']}, {role}"):
+        if len(t) <= TITLE_ROOM:
+            return t
+    return f"{c['name']}, {role}"[:TITLE_ROOM].rstrip(' ,')
+
+
+def meta_description(c):
+    """The one-line summary, then who and where, for the search snippet (Google shows about 155 characters).
+
+    The summary alone runs 60 to 110 characters, short enough that search engines replace it with text of
+    their own choosing; the role, practice and place are what someone searching actually matches on.
+    """
+    role = (c['descriptor'] or c['role'])
+    role = role[0].upper() + role[1:]
+    place = c['place'][0].lower() + c['place'][1:] if c['place'].startswith('Telehealth') else c['place']
+    with_role = [f" {role} at {c['practice']}, {place}.", f" {role} at {c['practice']}.", f" {role}, {place}."]
+    without = [f" {c['practice']}, {place}.", f" {c['practice']}."]
+    # A summary that already names the profession (coach, psychologist, GP) does not need it again.
+    named = role.lower().split(' & ')[0].split()[-1] in c['description'].lower()
+    for tail in (without + with_role) if named else (with_role + without):
+        if len(c['description']) + len(tail) <= 158:
+            return c['description'] + tail
+    return c['description']
 
 
 def others(c):
@@ -1655,7 +1667,7 @@ def render_main(c, size, sizes):
 {chr(10).join(f'    <p class="text-[17px] text-[#2b2820] max-w-[62ch]">{note}</p>' for note in fees['notes'])}
   </div>
 </section>
-<p class="mt-8 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} Everything above is {esc(c['short'])}’s own declaration; the headings are ours.</p>
+<p class="mt-8 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} This profile is written from {esc(c['short'])}’s own description of their work.</p>
 </article>
 
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-20" aria-labelledby="also-title">
@@ -1673,7 +1685,7 @@ def render_page(c, shell, sizes):
     last = (others(c) or [c])[-1]
     tokens = {
         'NAME': c['name'], 'SLUG': c['slug'], 'ID': c['id'], 'SITE': SITE, 'EXPECT_ID': last['id'],
-        'DESCRIPTION': c['description'], 'OG_TITLE': og_title(c), 'PORTRAIT_SIZE': str(sizes[c['id']]),
+        'DESCRIPTION': meta_description(c), 'OG_TITLE': og_title(c), 'PORTRAIT_SIZE': str(sizes[c['id']]),
     }
     page = shell
     for k, v in tokens.items():
@@ -1683,6 +1695,15 @@ def render_page(c, shell, sizes):
     if left:
         raise BuildError(f'unfilled tokens in shell: {sorted(set(left))}')
     return page
+
+
+def deck_jsonld():
+    """An ItemList of every clinician on The Network, so search engines read the page as a directory."""
+    items = [{'@type': 'ListItem', 'position': i, 'url': f"{SITE}/{c['slug']}.html", 'name': c['name']}
+             for i, c in enumerate(CLINICIANS, 1)]
+    d = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'ADHDme clinicians',
+         'url': f'{SITE}/the-doctors.html', 'numberOfItems': len(items), 'itemListElement': items}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
 
 
 def render_deck(deck, sizes):
@@ -1701,7 +1722,9 @@ def render_deck(deck, sizes):
                              '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid auto-rows-fr grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 list-none p-0 m-0">\n</ul></div>')
         cards = '\n'.join(deck_card(c, sizes[c['id']], c['id'] == eager_id) for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)
-    return deck
+    if '<!-- BEGIN:GENERATED deck-ld -->' not in deck:
+        deck = deck.replace('</main>', '<!-- BEGIN:GENERATED deck-ld --><!-- END:GENERATED deck-ld -->\n</main>', 1)
+    return region(deck, 'deck-ld', deck_jsonld(), 'the-doctors.html')
 
 
 # ---------------------------------------------------------------- the landing page

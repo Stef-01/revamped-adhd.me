@@ -4,8 +4,9 @@
     python3 scripts/build-blog.py          # write the pages
     python3 scripts/build-blog.py --check  # exit 1 if any page on disk differs from what would be written
 
-Owns: blog-*.html in full, and the <!-- BLOG --> … <!-- /BLOG --> section on our-story.html. A hand
-edit to any of that is lost on the next build; put the change here instead, and run --check before
+Owns: blog-*.html in full, the <!-- BLOG --> … <!-- /BLOG --> section on our-story.html, and the title
+and hook lines of each blog card on learn.html (the rest of each card, and where it sits, stay hand-made).
+A hand edit to any of that is lost on the next build; put the change here instead, and run --check before
 committing so a page that has drifted is caught rather than silently reverted.
 
 A post with `landing=True` opens like a landing page instead of a post: a full-width tinted hero with the
@@ -106,192 +107,192 @@ def cover_executive():
 # ------------------------------------------------------------ posts
 POSTS = [
  dict(slug='blog-how-booking-works',
-      hook='Two steps. No account.',          # the card line and the page's lede
-      seo='No referral needed to look: how booking with ADHDme works',
-      description='Browse every clinician, see real fees on the practice&#x27;s page, and book in two steps. No account, no upfront fee.', category='How it works', date='2026-09-02', read='3 min', cover=cover_booking,
-      title='No referral needed to look. How booking with ADHDme works.',
+      hook='Two steps, and no account needed.',          # the card line and the page's lede
+      seo='How booking with ADHDme works, no referral needed',
+      description='Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', read='3 min', cover=cover_booking,
+      title='How booking with ADHDme works: no referral needed to look.',
       body=[
-       'Most people with ADHD have already spent years navigating systems that seem designed for someone else. Forms that ask the same thing three times. Waitlists with no end date. A referral to get a referral. We built ADHDme to remove as much of that as we could.',
-       '<strong>Step one is browsing.</strong> Every clinician in the network has a public profile: who they are, where they consult, what they focus on, and what an appointment costs before any rebate. You can read all of it without signing up. There is no gate between you and the information.',
-       '<strong>Step two is booking, or asking.</strong> When a profile feels right, its button says Book or Enquire. Book opens that practice’s own diary: you pick a time, and that is it. Enquire opens the practice’s own form, and they reply to arrange a time. ADHDme does not charge a platform fee and does not ask for payment upfront.',
-       'That is deliberately the whole process. Executive function is exactly the resource ADHD makes scarce, so a booking flow that demands a lot of it is a booking flow that quietly filters out the people it exists for.',
-       'If you are unsure which clinician to start with, our GPs are the usual first step for assessment and prescribing. Psychologists and allied health practitioners support what comes after, from therapy to workplace adjustments.'],
+       'Most people with ADHD have spent years dealing with systems that seem built for someone else: forms that ask the same question three times, waitlists with no end date, a referral to get a referral. We built ADHDme to take out as much of that as we could.',
+       '<strong>Step one is browsing.</strong> Each clinician in the network has a public profile that says who they are, where they consult, what they focus on, and what an appointment costs before any rebate. You can read all of it without signing up.',
+       '<strong>Step two is booking or asking.</strong> When you find a profile that suits you, its button will say Book or Enquire. Book opens that practice’s own diary, where you pick a time. Enquire opens the practice’s own form, and they reply to arrange a time. ADHDme doesn’t charge a platform fee or ask for payment upfront.',
+       'We kept the process this short on purpose. ADHD makes executive function scarce, so a booking process that asks a lot of it ends up losing many of the people it was built for.',
+       'If you’re not sure which clinician to start with, our GPs are the usual first step, for assessment and prescribing. Psychologists and allied health practitioners help with what comes after, from therapy to workplace adjustments.'],
       sources=[('How it works', 'how-it-works.html'), ('The Network', 'the-doctors.html')]),
  dict(slug='blog-body-doubling',
-      hook='Sit with someone. Start.',          # the card line and the page's lede
-      seo='Body doubling: the least complicated focus tool there is',
-      description='Body doubling, the least complicated focus tool there is. Why working beside someone else can be enough to start, and how to try it.', category='Focus', date='2026-08-19', read='4 min', cover=cover_body_doubling,
+      hook='Start a task with company nearby.',          # the card line and the page's lede
+      seo='Body doubling for ADHD: a simple focus tool',
+      description='Body doubling means working while someone else is nearby. Why it can make starting a task easier for people with ADHD, and how to try it tonight.', category='Focus', date='2026-08-19', read='4 min', cover=cover_body_doubling,
       title='Body doubling: the least complicated focus tool there is.',
       body=[
-       'Body doubling is the practice of doing a task while another person is present. They do not have to help. They do not even have to be doing the same thing. They just have to be there, in the room or on a video call, quietly getting on with their own work.',
-       'People with ADHD have used it informally for decades, usually without a name for it. The library was easier to study in than the bedroom. The kitchen got cleaned faster when a friend was chatting at the table. The name came later; the effect was always real.',
-       'Why does it work? The honest answer is that the research is still young. A 2024 study found body doubling helped people with ADHD both start and finish tasks, and earlier work suggests social presence nudges the brain’s reward and motivation pathways. What we know for certain is that it lowers the cost of starting, and starting is usually the hard part.',
-       '<strong>How to try it.</strong> Pick one task you have been avoiding. Ask someone to sit with you for twenty minutes while they do their own thing. Say out loud what you are going to do. Then begin. If nobody is around, a video call with the camera on works, and so do the many online focus rooms built for exactly this.',
-       'Our clinicians often suggest body doubling alongside other treatment. It costs nothing to try tonight.'],
+       'Body doubling means doing a task while another person is with you. They don’t have to help, or even do the same thing. They only need to be there, in the room or on a video call, getting on with their own work.',
+       'People with ADHD have used it informally for decades, usually without calling it anything. The library was easier to study in than the bedroom, and the kitchen got cleaned faster when a friend was chatting at the table.',
+       'Research on why it works is still young. A 2024 study found body doubling helped people with ADHD both start and finish tasks, and earlier work suggests that having other people around nudges the brain’s reward and motivation pathways. What we can say with confidence is that it makes starting easier, and starting is usually the hard part.',
+       '<strong>How to try it.</strong> Choose a task you’ve been avoiding and ask someone to sit with you for twenty minutes while they do their own thing. Tell them out loud what you’re going to do, then begin. If nobody is around, a video call with the cameras on works too, and there are plenty of online focus rooms set up for this.',
+       'Our clinicians often suggest body doubling alongside other treatment, and it costs nothing to try tonight.'],
       sources=[('Harnessing Focus with Body Doubling, Psychology Today', 'https://www.psychologytoday.com/us/blog/empowered-with-adhd/202408/harnessing-focus-with-body-doubling-a-strategy-for-adhd'), ('Body Doubling for ADHD, Healthline', 'https://www.healthline.com/health/adhd/body-double-adhd')]),
  dict(slug='blog-late-diagnosis',
-      hook='Kinder than you expect.',          # the card line and the page's lede
-      seo='Diagnosed as an adult? What the research actually says',
-      description='Diagnosed as an adult? What the research actually says about late ADHD diagnosis. The evidence is clearer, and kinder, than most people expect.', category='Late diagnosis', date='2026-08-05', read='4 min', cover=cover_late_diagnosis,
-      title='Diagnosed as an adult? What the research actually says.',
+      hook='The evidence is kinder than you’d expect.',          # the card line and the page's lede
+      seo='Adult ADHD diagnosis: what the research says',
+      description='Diagnosed with ADHD as an adult? What the research says about late diagnosis, why adults are often missed, and what good care looks like afterwards.', category='Late diagnosis', date='2026-08-05', read='4 min', cover=cover_late_diagnosis,
+      title='Diagnosed with ADHD as an adult? What the research says.',
       body=[
-       'A diagnosis in your thirties, forties or later tends to arrive with a strange mix of relief and grief. Relief, because there is finally a name for the pattern. Grief, for the years spent believing it was a character flaw. Both are normal, and both deserve room.',
-       'It also helps to know what the science is confident about. In 2021, eighty researchers from twenty-seven countries published the World Federation of ADHD International Consensus Statement: 208 conclusions backed by large, replicated studies. Among them: ADHD is a real, well-validated condition. It persists into adulthood for most people. It is strongly heritable. And treatment, medical and non-medical, meaningfully reduces its impact.',
-       'The same evidence explains why adults are missed. ADHD looks different when you have spent decades compensating for it. Women in particular are diagnosed later, often after burnout or a child’s diagnosis brings the pattern into view. Masking works until it does not.',
-       '<strong>What good care looks like after a late diagnosis.</strong> The Australian clinical guideline recommends assessment that considers the whole person, a documented baseline before treatment starts, and regular review. In practice that means a clinician who measures rather than guesses, and who treats the years before diagnosis as context rather than evidence of failure.',
-       'If any of this sounds like you, the clinicians in our network specialise in exactly this conversation. You can read their profiles before you decide anything.'],
+       'Being diagnosed in your thirties, forties or later often brings relief and grief at the same time. There’s relief at finally having a name for the pattern, and grief for the years you spent thinking it was a character flaw. Both feelings are normal, and it’s worth giving yourself room for them.',
+       'It can help to know what the science is confident about. In 2021, eighty researchers from twenty-seven countries published the World Federation of ADHD International Consensus Statement, which sets out 208 conclusions backed by large, replicated studies. Among them: ADHD is a real, well-validated condition; it persists into adulthood for most people; it is strongly heritable; and treatment, both medical and non-medical, meaningfully reduces its impact.',
+       'The same evidence explains why adults get missed. ADHD looks different after decades of compensating for it. Women in particular tend to be diagnosed later, often after burnout or a child’s diagnosis brings the pattern into view. Masking works for a while, and then it stops working.',
+       '<strong>Good care after a late diagnosis.</strong> The Australian clinical guideline recommends an assessment that considers the whole person, a documented baseline before treatment starts, and regular review. In practice, look for a clinician who measures instead of guessing, and who looks at the years before your diagnosis to understand them, without treating them as a record of failure.',
+       'If this sounds like you, the clinicians in our network specialise in this kind of conversation. You can read their profiles before you decide anything.'],
       sources=[('World Federation of ADHD International Consensus Statement', 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8328933/'), ('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('When Neurodivergent Burnout Reaches Its Breaking Point, ADDitude', 'https://www.additudemag.com/autistic-adhd-burnout-neurodivergent-masking/')]),
  dict(slug='blog-diagnosed-what-now', landing=True, tint='#f6ecce',
-      hook='One thing at a time.',
-      seo='I have been diagnosed with ADHD. What now?',
-      description='Just diagnosed with ADHD? The first weeks, in order: what to read, who to see, what medication and therapy actually involve, and what can wait. A calm map, not a to-do list.', category='After diagnosis', date='2026-09-16', read='7 min', cover=cover_what_now,
-      title='I have been diagnosed with ADHD. What now?',
-      lede='A diagnosis explains the past and opens a lot of doors at once. You do not have to walk through all of them this week. Here is the order most people find workable, with what each step involves and what it costs in Australia.',
+      hook='A calm order for the first months.',
+      seo='Just diagnosed with ADHD? What to do next',
+      description='Just diagnosed with ADHD? What to read first, who to see, what medication and therapy involve in Australia, and which decisions can safely wait.', category='After diagnosis', date='2026-09-16', read='7 min', cover=cover_what_now,
+      title='I’ve been diagnosed with ADHD. What now?',
+      lede='A diagnosis explains a lot about the past, and it can open many doors at once. You don’t have to go through all of them this week. Below is the order most people find workable, what each step involves, and what it costs in Australia.',
       body=[
-       'The first feeling after a diagnosis is usually relief, and the second is usually a kind of vertigo: medication, therapy, coaching, telling people, the years that suddenly make sense. It all arrives together. The useful move is to separate what needs deciding now from what does not.',
-       ('h2', 'Week one: let it land'),
-       'Nothing clinical has to happen in the first week. Read your assessment report properly, once. Write down the three things in your life that the diagnosis most explains; those are the ones treatment should aim at, and it helps to have them in your own words before a clinician asks. If the diagnosis came late, the grief for the years before it is real and normal. Our post on <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-late-diagnosis.html">late diagnosis</a> is about exactly that.',
-       ('h2', 'Decide about medication, without deciding forever'),
-       'For most adults, the Australian guideline names stimulant medication as first-line treatment. It is also the decision people agonise over most, and the one that is easiest to reverse. A trial is a trial: a baseline of heart rate, blood pressure and weight, a low starting dose, and a review a few weeks later where you say whether the effect was worth it. Some people find it changes everything; some find the side effects outweigh the benefit; both are allowed.',
-       'Who can prescribe depends on your state. In Queensland a specialist GP can now diagnose and prescribe for adults. In NSW that is arriving in stages through 2026. Elsewhere a psychiatrist usually starts it and a GP continues it. The GPs in the network say on their profiles what they can do, and the assessment fee is published before you book.',
-       ('h2', 'Therapy is for what medication does not touch'),
-       'Medication changes attention. It does not undo the habits, the workarounds, or the anxiety and low self-worth that come from decades of being told to try harder. That is the job of a psychologist, and it does not have to start at the same time as medication. Many people do better starting therapy a month or two in, once they can see what medication did and did not fix.',
-       'A Mental Health Treatment Plan from any GP means Medicare pays part of up to ten sessions a year. Every psychologist in the network works by telehealth, and each profile carries the fee.',
+       'The first feeling after a diagnosis is usually relief. The second is often closer to vertigo, as medication, therapy, coaching, telling people and a new view of the past all arrive together. It helps to sort out what needs deciding now from what can wait.',
+       ('h2', 'Week one: let it sink in'),
+       'Nothing clinical has to happen in the first week. Read your assessment report properly, once. Then write down the three things in your life the diagnosis explains best. Those are what treatment should aim at, and it helps to have them in your own words before a clinician asks. If your diagnosis came late, grieving the years before it is real and normal. Our post on <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-late-diagnosis.html">late diagnosis</a> covers this.',
+       ('h2', 'Deciding about medication (you can change your mind)'),
+       'For most adults, the Australian guideline names stimulant medication as the first-line treatment. It’s the decision people worry over most, and also the easiest one to reverse. A trial starts with a baseline of heart rate, blood pressure and weight and a low starting dose. A few weeks later there’s a review where you say whether the effect was worth it. For some people it changes everything. Others find the side effects outweigh the benefit, and that’s a fine outcome too.',
+       'Who can prescribe depends on your state. In Queensland, a specialist GP can now diagnose and prescribe for adults. In NSW this is arriving in stages through 2026. Elsewhere, a psychiatrist usually starts medication and a GP continues it. The GPs in the network say on their profiles what they can do, and the assessment fee is published before you book.',
+       ('h2', 'Therapy helps with what medication can’t'),
+       'Medication changes attention. It doesn’t undo old habits and workarounds, or the anxiety and low self-worth that build up after decades of being told to try harder. A psychologist can help with those, and therapy doesn’t have to start at the same time as medication. Many people do better starting a month or two in, once they can see what medication did and didn’t fix.',
+       'With a Mental Health Treatment Plan from any GP, Medicare pays part of the cost of up to ten sessions a year. All the psychologists in the network offer telehealth, and their fees are on their profiles.',
        ('h2', 'What can wait'),
        ('list', [
-        'Telling your employer. There is no obligation, and workplace adjustments can be requested without a diagnosis being disclosed. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-workplace-support.html">workplace support</a> post covers it.',
-        'Coaching. Useful once the medication question is settled and you know which parts of the day are still hard.',
-        'Rebuilding every system in your life. One change at a time sticks; six at once do not.',
-        'Supplements and diets. The evidence is thin, and the money is better spent on a psychologist. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post says what does help.']),
-       ('h2', 'A shape that works for most people'),
-       'Month one: medication trial with a GP, and the three things you want it to change written down. Month two or three: a psychologist, six to ten sessions in the first year. Alongside, one self-directed change, most often exercise placed before the hardest part of the day, or a fixed wake time. Then a review, and only then the next thing.',
-       'The one rule underneath all of it: you are choosing, not being processed. Read the clinicians before you book anyone. Each profile is their own account of how they work and what it costs, and a bad fit is the most expensive thing in ADHD care.'],
+        'Telling your employer. You don’t have to, and you can ask for workplace adjustments without disclosing a diagnosis. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-workplace-support.html">workplace support</a> post explains how.',
+        'Coaching. It’s most useful once the medication question is settled and you know which parts of the day are still hard.',
+        'Overhauling your whole life. A single change sticks better than six made at once.',
+        'Supplements and diets. The evidence for them is thin, and the money is better spent on a psychologist. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post covers what does help.']),
+       ('h2', 'A plan that works for most people'),
+       'In month one, start a medication trial with a GP and write down the three things you want it to change. In month two or three, see a psychologist, usually for six to ten sessions in the first year. Alongside that, make one change on your own. The most common are exercise just before the hardest part of the day, or a fixed wake time. Then review how it’s going before you add anything else.',
+       'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and what they charge, and a bad fit is the most expensive thing in ADHD care.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html'), ('How booking works', 'how-it-works.html')]),
  dict(slug='blog-adhd-support-beyond-medication', landing=True, tint='#d0e4de',
-      hook='Four things, none of them a pill.',
-      seo='ADHD support beyond medication: what else actually works',
-      description='Therapy, occupational therapy, coaching, and the daily habits with real evidence. What each one does for ADHD, who provides it, what it costs, and how to choose without trying everything.', category='Treatment', date='2026-09-09', read='7 min', cover=cover_beyond_medication,
-      title='ADHD support beyond medication: what else actually works.',
-      lede='Medication is the best-evidenced single treatment for ADHD, and it is still only part of the picture. Whether you take it, cannot take it, or would rather not, these are the other supports with evidence behind them, and what each one is for.',
+      hook='Four kinds of help beyond a pill.',
+      seo='ADHD support beyond medication: what works',
+      description='Therapy, occupational therapy, coaching and daily habits for ADHD: what each one helps with, who provides it, what it costs, and how to choose.', category='Treatment', date='2026-09-09', read='7 min', cover=cover_beyond_medication,
+      title='ADHD support beyond medication: what else works.',
+      lede='Medication is the best-evidenced single treatment for ADHD, and it still only covers part of what ADHD affects. Whether you take it, can’t take it or would prefer not to, the supports below have evidence behind them, and each one is for something different.',
       body=[
-       'A stimulant sharpens attention for the hours it is active. It does not teach a skill, repair a relationship, redesign a kitchen, or quiet the voice that says you should have managed this years ago. Everything below works on one of those.',
+       'A stimulant sharpens attention while it’s active. It won’t teach you a skill, repair a relationship or reorganise your kitchen, and it won’t quiet the voice saying you should have sorted this out years ago. Each support below works on one of those.',
        ('h2', 'Psychological therapy'),
-       'Cognitive behavioural therapy adapted for ADHD is the best-studied non-medication treatment for adults, with moderate effects on symptoms and larger effects on the anxiety, low mood and self-criticism that travel with a late diagnosis. Acceptance and commitment therapy and dialectical behaviour therapy skills are used for the same reasons. It is most useful once you know what medication did and did not change, which is why many psychologists suggest starting a month or two after a medication trial rather than the same week.',
-       'A Mental Health Treatment Plan from a GP means Medicare pays part of up to ten sessions a year. The psychologists in the network are in Brisbane and by telehealth Australia-wide; each profile names their approach and their fee.',
+       'Cognitive behavioural therapy adapted for ADHD is the best-studied non-medication treatment for adults. It has moderate effects on symptoms and larger effects on the anxiety, low mood and self-criticism that often come with a late diagnosis. Psychologists also use skills from acceptance and commitment therapy and dialectical behaviour therapy for the same reasons. Therapy is most useful once you know what medication did and didn’t change, which is why many psychologists suggest starting a month or two after a medication trial begins.',
+       'With a Mental Health Treatment Plan from a GP, Medicare pays part of the cost of up to ten sessions a year. The psychologists in the network are in Brisbane and available by telehealth Australia-wide, and each profile lists their approach and fee.',
        ('h2', 'Occupational therapy'),
-       'When the difficulty is the mechanics of the day, an occupational therapist changes the task and the environment rather than the person: the morning routine, the layout of a workspace, sensory needs, the school report. It is AHPRA-registered, funded by the NDIS, private extras or a GP chronic condition management plan, and not by a Mental Health Treatment Plan. The network has paediatric OT in Brisbane today.',
+       'If the hard part is the practical side of the day, an occupational therapist can change the task and your surroundings to suit you: the morning routine, how a workspace is set up, sensory needs, the school report. OTs are AHPRA-registered. Their services can be funded by the NDIS, private health extras or a GP chronic condition management plan, but a Mental Health Treatment Plan doesn’t cover them. The network has paediatric OT in Brisbane now.',
        ('h2', 'Coaching'),
-       'Coaching is not therapy and not a health profession. It is practical, forward-looking work on executive function: starting, planning, finishing, and building systems simple enough to survive a bad week. Because it is unregulated, credentials matter; the coaches in the network trained at the ADHD Coaching Academy and most hold an International Coaching Federation credential. If you work at least eight hours a week, JobAccess can fund it.',
-       ('h2', 'The three daily habits with evidence'),
+       'Coaching is practical, forward-looking work on executive function: starting, planning, finishing, and building systems simple enough to survive a bad week. It isn’t therapy or a health profession, and it’s unregulated, so credentials matter. The coaches in the network trained at the ADHD Coaching Academy, and most hold an International Coaching Federation credential. If you work at least eight hours a week, JobAccess can fund coaching.',
+       ('h2', 'Daily habits with evidence'),
        ('list', [
-        '<strong>Exercise.</strong> Twenty to thirty minutes of moderate aerobic exercise lifts attention for about an hour afterwards. Put it directly before the hardest part of the day. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-and-exercise.html">exercise</a> post has the detail, including safety on stimulants.',
-        '<strong>Sleep.</strong> A fixed wake time, every day, does more for ADHD symptoms than almost any supplement, and stimulants make it matter more.',
-        '<strong>Regular meals.</strong> Stimulants suppress appetite through the middle of the day. Eating by the clock, with a proper breakfast before the dose, protects weight and mood. See the <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post.']),
+        'Twenty to thirty minutes of moderate aerobic exercise lifts attention for about an hour afterwards, so do it just before the hardest part of your day. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-and-exercise.html">exercise</a> post has more detail, including safety if you take stimulants.',
+        'Getting up at the same time each day does more for ADHD symptoms than almost any supplement, and it matters even more if you take stimulants.',
+        'Stimulants suppress appetite through the middle of the day. Eating at set times, with a proper breakfast before your dose, protects your weight and mood. The <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post explains how.']),
        ('h2', 'What has little evidence'),
-       'Omega-3 shows a small effect at best, mostly in children. Elimination diets have little adult evidence and real risks. Homeopathy has no reliable evidence for any condition. Neurofeedback has mixed results and a high price. None of these are dangerous in themselves; the cost is the money and the months they take from things that work.',
-       ('h2', 'Choosing without trying everything'),
-       'Name the problem first. If it is feelings about yourself, therapy. If it is the mechanics of the day, OT. If it is starting and finishing, coaching. If it is the afternoon slump, exercise before it. One at a time, with a review date, and the profiles read before anything is booked.'],
+       'Omega-3 shows a small effect at best, mostly in children. Elimination diets have little evidence in adults and carry real risks. Homeopathy has no reliable evidence for any condition, and neurofeedback has mixed results and a high price. None of these is dangerous in itself. The cost is the money and the months they take away from treatments that work.',
+       ('h2', 'How to choose'),
+       'Start by naming the problem. If it’s how you feel about yourself, try therapy. If it’s the practical side of the day, see an OT. If it’s starting and finishing things, try coaching, and for an afternoon slump, exercise just before it. Try one thing at once, set a date to review it, and read the profiles before you book.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('World Federation of ADHD International Consensus Statement', 'https://pmc.ncbi.nlm.nih.gov/articles/PMC8328933/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html')]),
  dict(slug='blog-adhd-and-exercise', landing=True, tint='#dad9eb',
-      hook='An hour of focus, earned in twenty minutes.',
-      seo='ADHD and exercise: what it does, when to do it, and staying safe on stimulants',
-      description='Exercise gives a real, short-lived lift in attention. How big the effect is, when in the day to place it, why stimulant medication changes the safety rules, and how to design exercise you will still be doing in March.', category='Daily life', date='2026-09-02', read='6 min', cover=cover_exercise,
+      hook='Twenty minutes for an hour of focus.',
+      seo='ADHD and exercise: when, how much, and safety',
+      description='Exercise gives a small, short-lived lift in attention. When to schedule it, what changes if you take stimulants, and how to keep it going for months.', category='Daily life', date='2026-09-02', read='6 min', cover=cover_exercise,
       title='ADHD and exercise: what it does, when to do it, and how to keep doing it.',
-      lede='Exercise is the one lifestyle change for ADHD with a measurable effect on attention, and it is smaller and shorter than the internet says. Used precisely, it is still one of the best tools you have. Here is what the evidence supports, and the safety points that change if you take a stimulant.',
+      lede='Exercise is the one lifestyle change for ADHD with a measurable effect on attention. The effect is smaller and shorter than the internet suggests, but if you time it well it’s still one of the best tools you have. This guide covers what the evidence supports and the safety points that change if you take a stimulant.',
       body=[
-       ('h2', 'What it does, honestly'),
-       'Twenty to thirty minutes of moderate aerobic exercise gives a small to moderate lift in attention, working memory and self-control for roughly an hour afterwards. That is the finding that has replicated. Aerobic exercise, meaning anything that gets you breathing harder for a sustained stretch, has the best support. Mind-body exercise such as yoga shows a small effect. Coordinative exercise has too few studies to call.',
-       'It does not replace medication. The effect is an addition, and a modest one. Anyone telling you to swap your prescription for a running plan is selling something.',
-       ('h2', 'Place it, do not just do it'),
-       'Because the effect lasts about an hour, timing matters more than volume. Put the session directly before the part of the day that needs the most from you: a study block, the meeting you dread, the admin you keep not doing. A brisk twenty minutes at two o’clock does more for a hard afternoon than an hour at six in the morning.',
-       ('h2', 'If you take a stimulant, read this part'),
+       ('h2', 'What the evidence shows'),
+       'Twenty to thirty minutes of moderate aerobic exercise gives a small to moderate lift in attention, working memory and self-control for roughly an hour afterwards. That finding has held up across studies. Aerobic exercise, meaning anything that keeps you breathing harder for a sustained stretch, has the best support. Mind-body exercise such as yoga shows a small effect, and there are too few studies of coordinative exercise to say.',
+       'The effect is a modest addition to medication. Anyone telling you to swap your prescription for a running plan is selling something.',
+       ('h2', 'Timing matters more than volume'),
+       'Because the effect lasts about an hour, when you exercise matters more than how much. Do it just before the part of the day that asks the most of you, such as a study block or the meeting you’ve been dreading. A brisk twenty minutes at two o’clock does more for a hard afternoon than an hour at six in the morning.',
+       ('h2', 'If you take a stimulant'),
        ('list', [
-        'Stimulants raise resting heart rate, so age-based heart-rate zones overstate how hard you are working. Go by how it feels and whether you can still talk in sentences.',
-        'Stimulants suppress appetite. Many people train under-fuelled without noticing. Eat something before you go.',
-        'Pre-workout caffeine adds to the stimulant’s effect on heart rate and blood pressure. Drop it.',
-        'Chest pain, fainting, sustained palpitations or unusual breathlessness on a stimulant mean stop, and see a doctor before the next session.',
-        'If you work with an exercise physiologist or trainer, tell them your medication and when you take it. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="adhd-exercise-physiologist.html">exercise physiology</a> page covers what an accredited one does and how a GP care plan can fund it.']),
-       ('h2', 'Designing exercise that survives February'),
-       'Dropping out is not a motivation problem. It is an executive-function problem: too many steps between the intention and the first movement. So design for the steps, not the willpower. Short sessions at a fixed time. Kit laid out the night before, or no kit at all. A route or a class that needs no decisions. Somebody expecting you, which is body doubling by another name. Immediate feedback, whether a tracker or a tick on a wall chart.',
-       'Two rules that work. First, a minimum session you can always do, even at your worst; ten minutes counts. Second, never miss twice: after a lapse, no commentary, lower load, rebook on the spot. The lapse is not the problem. The week after the lapse is.',
+        'Stimulants raise your resting heart rate, so age-based heart-rate zones will overstate how hard you’re working. Go by how it feels and whether you can still talk in full sentences.',
+        'Stimulants also suppress appetite, and many people end up training under-fuelled without noticing. Eat something before you go.',
+        'Pre-workout caffeine adds to the stimulant’s effect on heart rate and blood pressure, so leave it out.',
+        'If you get chest pain, fainting, ongoing palpitations or unusual breathlessness while on a stimulant, stop and see a doctor before you exercise again.',
+        'If you work with an exercise physiologist or trainer, tell them what medication you take and when. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="adhd-exercise-physiologist.html">exercise physiology</a> page explains what an accredited exercise physiologist does and how a GP care plan can fund it.']),
+       ('h2', 'Keeping it going past February'),
+       'People tend to blame motivation when they drop out. The usual cause is an executive function problem: too many steps between deciding to exercise and actually moving. So cut the steps. Keep sessions short and at a fixed time, and lay out your kit the night before or choose something that needs none. A route or class that involves no decisions helps, and so does having someone expect you, which is body doubling by another name. Some quick feedback, from a tracker or a tick on a wall chart, keeps it going.',
+       'Two rules help. First, have a minimum session you can do even on your worst day; ten minutes counts. Second, never miss twice. After a lapse, skip the self-criticism, lower the load and rebook straight away. A single missed session matters much less than the week that follows it.',
        ('h2', 'Where to start this week'),
-       'Pick the one part of your day that goes worst. Put twenty minutes of walking, cycling, or anything that gets you breathing harder directly before it, three times this week. Note whether the hour after felt different. That single observation tells you more than any article, including this one.'],
+       'Pick the part of your day that goes worst. Three times this week, do twenty minutes of walking, cycling or anything else that gets you breathing harder just before it, and notice whether the following hour feels different. That observation will tell you more than any article, this one included.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('Exercise and Sports Science Australia', 'https://www.essa.org.au/'), ('Body doubling: the least complicated focus tool there is', 'blog-body-doubling.html')]),
  dict(slug='blog-adhd-workplace-support', landing=True, tint='#f6ecce',
-      hook='Adjustments, not excuses.',
-      seo='ADHD workplace support in Australia: adjustments, disclosure and funding',
-      description='What reasonable adjustments for ADHD look like at work, whether you have to disclose, what the law says in Australia, and how JobAccess can fund coaching and equipment. Practical, and specific.', category='Work', date='2026-08-26', read='7 min', cover=cover_workplace,
+      hook='Reasonable adjustments, and how to ask.',
+      seo='ADHD at work in Australia: adjustments and funding',
+      description='Reasonable adjustments for ADHD at work, whether you need to disclose, what Australian law says, and how JobAccess can fund coaching and equipment.', category='Work', date='2026-08-26', read='7 min', cover=cover_workplace,
       title='ADHD at work: the adjustments that help, and how to ask for them.',
-      lede='Most ADHD at work is not a performance problem. It is a fit problem between a brain and an environment designed for a different one. Australian law gives you a right to reasonable adjustments, and a government fund will pay for some of them. Here is what to ask for, and how.',
+      lede='Most ADHD difficulties at work come from a mismatch between how your brain works and a workplace designed for someone else’s. Australian law gives you a right to reasonable adjustments, and a government fund pays for some of them. This guide covers what to ask for and how to ask.',
       body=[
        ('h2', 'Where it shows up'),
-       'The same pattern, in most jobs: strong in a crisis, weak in the quiet weeks. Open-plan noise. Meetings that run long with no agenda. Tasks with no deadline, or a deadline three months away. Emails that need a decision. The morning after a late night. Knowing this about yourself is the first adjustment, because it tells you what to ask for.',
-       ('h2', 'Adjustments that actually work'),
+       'The pattern is similar in most jobs: strong in a crisis, weaker in the quiet weeks. Common trouble spots include open-plan noise, long meetings with no agenda, tasks with no deadline or one three months away, emails that need a decision, and the morning after a late night. Knowing your own trouble spots is the first adjustment, because it tells you what to ask for.',
+       ('h2', 'Adjustments that help'),
        ('list', [
-        '<strong>Noise and interruption.</strong> Headphones as a norm, a quiet room to book, or a hybrid pattern with the deep-work days at home.',
-        '<strong>Instructions in writing.</strong> A short written summary after a verbal briefing, and agendas before meetings. This costs the other person two minutes and saves you an afternoon.',
-        '<strong>Deadlines made near.</strong> A long project broken into check-ins a week apart. Nobody with ADHD has ever been helped by a distant deadline.',
-        '<strong>A regular check-in with your manager.</strong> Fifteen minutes a week, same time. It replaces the anxious guessing about how you are doing.',
-        '<strong>Flexible hours around medication.</strong> If your stimulant is working at nine and gone by four, a day that starts earlier is a better day.',
-        '<strong>Tools.</strong> Noise-cancelling headphones, a second screen, task software, dictation. Small, cheap, and often fundable.']),
+        'Less noise and interruption: headphones treated as normal, a quiet room you can book, or a hybrid pattern with your deep-work days at home.',
+        'Instructions in writing, such as a short summary after a verbal briefing and an agenda before meetings. It takes the other person two minutes and saves you an afternoon.',
+        'Long projects broken into check-ins a week apart. Nobody with ADHD has ever been helped by a distant deadline.',
+        'A regular check-in with your manager, fifteen minutes a week at the same time. It replaces the anxious guessing about how you’re going.',
+        'Flexible hours that fit your medication. If your stimulant is working at nine and gone by four, a day that starts earlier is a better day.',
+        'Tools such as noise-cancelling headphones, a second screen, task software or dictation. They’re small and cheap, and often fundable.']),
        ('h2', 'Do you have to disclose?'),
-       'No. There is no general obligation to tell an employer about a diagnosis. You can ask for most of the adjustments above without naming a condition, framed as how you work best; a good manager agrees to headphones and written briefings without a medical reason. Disclosure becomes useful when you need the legal protection or the funding below, and it can be limited to HR or to the person approving the adjustment.',
-       'Under the Disability Discrimination Act 1992, ADHD is a disability, and an employer must make reasonable adjustments unless doing so would cause unjustifiable hardship. That word, reasonable, is where most negotiations live. The adjustments above are reasonable almost everywhere.',
+       'No. You have no general obligation to tell an employer about a diagnosis. You can ask for most of the adjustments above without naming a condition, by explaining how you work best; a good manager will agree to headphones and written briefings without needing a medical reason. Disclosure becomes useful when you need the legal protection or the funding described below, and you can limit it to HR or to the person approving the adjustment.',
+       'Under the Disability Discrimination Act 1992, ADHD is a disability, and an employer must make reasonable adjustments unless doing so would cause unjustifiable hardship. Most negotiations turn on what counts as reasonable, and the adjustments above are reasonable almost anywhere.',
        ('h2', 'Who pays'),
-       'The Employment Assistance Fund, through JobAccess, funds work-related adjustments for people with disability who work at least eight hours a week, including self-employed people. That covers equipment and, under specialist mental health support, ADHD coaching, at around $1,770.44 a year by one practice’s figure. You apply with supporting documentation from a GP or specialist, and you can ask for an exemption rather than disclose the diagnosis to your employer. The coaches in the network run free sessions to help with the application; our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="adhd-coach.html">coaching</a> page has the detail.',
+       'The Employment Assistance Fund, through JobAccess, pays for work-related adjustments for people with disability who work at least eight hours a week, including self-employed people. It covers equipment and, under specialist mental health support, ADHD coaching, at around $1,770.44 a year by one practice’s figure. You apply with supporting documentation from a GP or specialist, and you can ask for an exemption so you don’t have to disclose the diagnosis to your employer. The coaches in the network run free sessions to help with the application, and our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="adhd-coach.html">coaching</a> page has the detail.',
        ('h2', 'How to ask'),
-       'In writing, briefly, with a proposed solution rather than a problem. “I work best with a written summary after briefings and a weekly fifteen-minute check-in. Can we try that for a month?” A trial with a review date is easier to say yes to than a permanent change, and once it has worked for a month it usually becomes permanent on its own.',
-       'If it goes badly, the Australian Human Rights Commission and the Fair Work Ombudsman both take complaints about disability discrimination at work. Most requests never get near that. Most managers are relieved to be told what would help.'],
+       'Put it in writing, keep it brief, and suggest a solution along with the problem. For example: “I work best with a written summary after briefings and a weekly fifteen-minute check-in. Can we try that for a month?” A trial with a review date is easier to agree to than a permanent change, and once it has worked for a month it usually becomes permanent on its own.',
+       'If it goes badly, both the Australian Human Rights Commission and the Fair Work Ombudsman take complaints about disability discrimination at work. Most requests never get that far, and most managers are relieved to be told what would help.'],
       sources=[('JobAccess: Employment Assistance Fund', 'https://www.jobaccess.gov.au/'), ('Australian Human Rights Commission: disability discrimination', 'https://humanrights.gov.au/our-work/disability-rights'), ('ADHD coaching in Australia', 'adhd-coach.html')]),
  dict(slug='blog-adhd-nutrition', landing=True, tint='#d0e4de',
-      hook='Eat by the clock, not the appetite.',
-      seo='ADHD and nutrition: what the evidence says, and what to do about appetite on stimulants',
-      description='No diet treats ADHD, and one thing about eating matters a great deal: what stimulants do to appetite. How to plan around it, the supplements with honest evidence, and the red flags that need a doctor.', category='Daily life', date='2026-08-19', read='6 min', cover=cover_nutrition,
-      title='ADHD and nutrition: the evidence, stated plainly.',
-      lede='Search “ADHD diet” and you will find a hundred confident answers. The evidence supports almost none of them. What it does support is simpler, cheaper and more useful: regular meals, planned around what stimulant medication does to appetite. This is that plan, and the honest state of the rest.',
+      hook='Eat at set times, even without hunger.',
+      seo='ADHD and nutrition: diet, supplements, appetite',
+      description='No diet treats ADHD, but stimulants often affect appetite. How to plan meals around that, what the evidence says on supplements, and when to see a GP.', category='Daily life', date='2026-08-19', read='6 min', cover=cover_nutrition,
+      title='ADHD and nutrition: what the evidence says.',
+      lede='Search “ADHD diet” and you’ll find a hundred confident answers, and the evidence supports almost none of them. It does support regular meals planned around what stimulant medication does to appetite, which is simpler and cheaper than most of what’s on offer. This guide sets out that plan, then what the evidence says about the rest.',
       body=[
-       ('h2', 'Appetite on stimulants: the thing that actually matters'),
-       'Reduced appetite is the commonest stimulant side effect. Hunger vanishes through the middle of the day and comes back hard in the evening, which is how people end up under-eating until six and over-eating until midnight, and losing weight without meaning to.',
-       'The fix is to stop relying on hunger as the signal. A substantial breakfast with protein before the dose, while appetite is still there. Then eating by the clock: alarms at set times, and food that is small, energy-dense and needs no preparation, because the medication that removes your appetite also makes lunch feel like admin. A handful of nuts, a yoghurt, a boiled egg, a protein bar in the bag. Dinner can be the biggest meal; that is when hunger returns.',
-       ('h2', 'Make food low-effort'),
-       'Meal planning is an executive-function task, which is why it fails for the people who most need it. What lasts is five default meals you can make without thinking, a saved grocery order, and the same breakfast every day. Boring is the point. Variety can come at the weekend when there is capacity for it.',
-       ('h2', 'The supplements and diets, honestly'),
+       ('h2', 'Appetite on stimulants'),
+       'Reduced appetite is the most common side effect of stimulants. Hunger disappears through the middle of the day and comes back hard in the evening. That’s how people end up under-eating until six, over-eating until midnight, and losing weight without meaning to.',
+       'The fix is to stop waiting for hunger. Have a substantial breakfast with protein before your dose, while you still have an appetite. After that, eat by the clock: set alarms, and keep food on hand that is small, energy-dense and needs no preparation, because the medication that takes away your appetite also makes lunch feel like admin. That might be a handful of nuts, a yoghurt, a boiled egg or a protein bar in your bag. Dinner can be the biggest meal, since that’s when hunger comes back.',
+       ('h2', 'Keep food low-effort'),
+       'Meal planning is an executive function task, which is why it fails for the people who need it most. What lasts is five default meals you can make without thinking, a saved grocery order, and the same breakfast each day. It’s meant to be boring. You can have variety on the weekend, when you have more capacity for it.',
+       ('h2', 'Supplements and diets'),
        ('list', [
-        '<strong>Omega-3 fish oil.</strong> A small effect at best, mostly in children, far below medication. Not harmful, not a treatment.',
-        '<strong>Elimination diets.</strong> Little adult evidence, and real risks of nutritional inadequacy and disordered eating. Not routine.',
-        '<strong>Sugar.</strong> Has not been shown to cause or worsen ADHD. Links between eating pattern and ADHD are observational only.',
-        '<strong>Iron, zinc, vitamin D.</strong> Test where a deficiency is plausible, then correct it. Never supplement iron blind.',
-        '<strong>Caffeine.</strong> Adds to a stimulant’s effect on heart rate, anxiety and sleep. Four energy drinks a day and poor sleep is a cause and effect, not a coincidence. Ask yourself how much, and when.']),
+        'Omega-3 fish oil has a small effect at best, mostly in children, and far less than medication. It isn’t harmful, and it isn’t a treatment.',
+        'Elimination diets have little evidence in adults and carry real risks of poor nutrition and disordered eating. They aren’t recommended as a routine measure.',
+        'Sugar hasn’t been shown to cause ADHD or make it worse. Studies linking eating patterns and ADHD are observational only.',
+        'Iron, zinc and vitamin D are worth testing where a deficiency is plausible, then correcting. Never take iron supplements without a test first.',
+        'Caffeine adds to a stimulant’s effect on heart rate, anxiety and sleep. If you drink four energy drinks a day and sleep badly, the drinks are part of the cause. Think about how much you have, and when.']),
        ('h2', 'Red flags that need a doctor'),
-       'Unintended weight loss of about five per cent in three months: tell the prescribing GP, because the dose or timing may need changing. ADHD carries higher rates of binge eating and bulimia than the general population; if eating feels out of control, or you are compensating for it, that is a conversation for a GP and an eating-disorder-experienced clinician, not a diet. The network has a psychologist credentialed in exactly this, and the profile says so.',
+       'If you lose about five per cent of your weight in three months without meaning to, tell the GP who prescribes your medication, because the dose or timing may need to change. ADHD also comes with higher rates of binge eating and bulimia than in the general population. If eating feels out of control, or you’re compensating for it, see a GP and a clinician experienced in eating disorders, and don’t try to fix it with a diet. The network has a psychologist credentialed in this area, and their profile says so.',
        ('h2', 'Where a dietitian fits'),
-       'For most adults with ADHD, the plan above is the whole of what nutrition can offer, and it needs no professional. Medical nutrition therapy, eating disorders, and complex conditions alongside ADHD belong with an Accredited Practising Dietitian, and a GP chronic condition management plan gives a partial Medicare rebate. Tell the GP every supplement you take; most people do not, and interactions with ADHD medication are real.'],
+       'For most adults with ADHD, the plan above covers what nutrition can offer, and you don’t need a professional for it. Medical nutrition therapy, eating disorders and complex conditions alongside ADHD are work for an Accredited Practising Dietitian, and a GP chronic condition management plan gives a partial Medicare rebate. Tell your GP about all the supplements you take. Most people don’t, and interactions with ADHD medication do happen.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('Dietitians Australia: find an Accredited Practising Dietitian', 'https://dietitiansaustralia.org.au/'), ('ADHD support beyond medication', 'blog-adhd-support-beyond-medication.html')]),
  dict(slug='blog-adhd-executive-functioning', landing=True, tint='#dad9eb',
-      hook='Not a character flaw. A set of skills.',
-      seo='ADHD and executive functioning: what it is, and what actually helps',
-      description='Executive function is the part of ADHD nobody warned you about: starting, planning, finishing, remembering, regulating. What it is, why willpower is the wrong tool, and the handful of strategies with evidence behind them.', category='Daily life', date='2026-08-12', read='7 min', cover=cover_executive,
-      title='ADHD and executive functioning: what it is, and what actually helps.',
-      lede='Attention is the name on the diagnosis. Executive function is the part that actually runs your week: starting, planning, holding a thought, finishing, and managing the feeling when it goes wrong. Understanding it changes what you try, and what you stop blaming yourself for.',
+      hook='The skills that run your week.',
+      seo='ADHD and executive functioning: what helps',
+      description='Executive function covers starting, planning, finishing, remembering and managing feelings. How ADHD affects it, and the strategies with evidence.', category='Daily life', date='2026-08-12', read='7 min', cover=cover_executive,
+      title='ADHD and executive functioning: what it is, and what helps.',
+      lede='Attention is the word in the diagnosis, but executive function is what runs your week: starting, planning, holding a thought, finishing, and handling the feeling when things go wrong. Understanding it can change what you try, and what you stop blaming yourself for.',
       body=[
        ('h2', 'What executive function is'),
-       'Executive functions are the brain’s management layer: the set of skills that turn an intention into a finished thing. Working memory, which holds the plan in mind. Inhibition, which stops the wrong thing. Task initiation, which starts the right thing. Planning and sequencing. Time perception. Emotional regulation. In ADHD they are unreliable rather than absent, which is why you can run a crisis brilliantly and not open an envelope for three weeks.',
-       'Two consequences follow. One, the difficulty is real and neurological, so “just try harder” is asking the impaired system to fix itself. Two, because the difficulty is in the management layer rather than in ability, the fixes are mostly structural: move the management outside your head.',
+       'Executive functions are the skills your brain uses to manage itself and turn an intention into something finished. They include working memory, which holds the plan in mind; inhibition, which stops you doing the wrong thing; task initiation, which gets you started on the right one; planning and sequencing; time perception; and emotional regulation. In ADHD these skills are present but unreliable, which is why you can handle a crisis brilliantly and then leave an envelope unopened for three weeks.',
+       'This has two consequences. First, the difficulty is real and neurological, so “just try harder” asks the impaired system to fix itself. Second, because the problem lies in how you manage tasks and not in your ability, most of the fixes are structural. They move the managing out of your head and into the world around you.',
        ('h2', 'Why willpower is the wrong tool'),
-       'Willpower is executive function. Using it to compensate for weak executive function is borrowing from an overdrawn account, and it is why people with ADHD are so tired by Wednesday. The strategies that work reduce the amount of executive function a task needs, rather than trying to supply more of it.',
+       'Willpower is itself an executive function. Using it to make up for weak executive function is like borrowing from an overdrawn account, and it’s why people with ADHD are so tired by Wednesday. The strategies that work reduce how much executive function a task needs.',
        ('h2', 'Strategies with evidence'),
        ('list', [
-        '<strong>Externalise everything.</strong> One capture point for every task, on paper or in one app, and never in your head. Working memory is the weakest link; stop using it as storage.',
-        '<strong>Make time visible.</strong> Analogue clocks, timers you can see, calendar blocks rather than lists. Time blindness is not fixed by knowing about it.',
-        '<strong>Shrink the first step.</strong> Task initiation fails on size. “Write the report” never starts. “Open the document and write one bad sentence” does.',
-        '<strong>Body doubling.</strong> Somebody present while you work, in the room or on a call, lowers the cost of starting more than any app. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-body-doubling.html">body doubling</a> post explains it.',
-        '<strong>Deadlines made near.</strong> A distant deadline does not exist to an ADHD brain. Break it into check-ins a week apart, with a person attached.',
-        '<strong>Routines over decisions.</strong> Same breakfast, same bag, same place for the keys. Every decision removed is executive function saved for something that matters.',
-        '<strong>Medication.</strong> Stimulants improve working memory and inhibition directly. They do not build the systems; they make building them possible.']),
+        'Get tasks out of your head. Use one capture point for all of them, on paper or in one app. Working memory is the weakest link, so stop using it as storage.',
+        'Make time visible with analogue clocks, timers you can see, and calendar blocks in place of lists. Knowing you have time blindness doesn’t fix it.',
+        'Shrink the first step, because task initiation fails on size. “Write the report” never gets started; “Open the document and write one bad sentence” does.',
+        'Try body doubling. Having someone with you while you work, in the room or on a call, makes starting easier than any app can. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-body-doubling.html">body doubling</a> post explains it.',
+        'Bring deadlines closer. To an ADHD brain a distant deadline doesn’t exist, so break it into check-ins a week apart, with a person attached.',
+        'Use routines to cut decisions: the same breakfast, the same bag, the same place for your keys. Each decision you remove saves executive function for something that matters.',
+        'Consider medication. Stimulants directly improve working memory and inhibition. They won’t build your systems for you, though they make building them possible.']),
        ('h2', 'Emotional regulation is executive function too'),
-       'The flash of anger at a small thing, the disproportionate dread before a phone call, the rejection that lands like a verdict: these are executive-function difficulties with feelings, not a separate personality flaw. Naming that is often the biggest relief in the first months after diagnosis. Therapy, especially dialectical behaviour therapy skills, works on it directly, and the psychologists in the network name that on their profiles.',
+       'The flash of anger at something small, the out-of-proportion dread before a phone call, the rejection that feels like a verdict: these are executive function difficulties with feelings, and they aren’t a separate personality flaw. Recognising that is often the biggest relief in the first months after diagnosis. Therapy works on it directly, especially skills from dialectical behaviour therapy, and the psychologists in the network mention it on their profiles.',
        ('h2', 'Who helps with what'),
-       'A psychologist works on the emotional side and on the beliefs about yourself that decades of executive-function failure leave behind. An occupational therapist works on the environment and the routines. A coach works on the systems, week by week, with accountability built in. Most people need one of the three, not all of them, and the one they need is the one aimed at the part of the week that goes worst.'],
+       'A psychologist works on the emotional side, and on the beliefs about yourself left behind by decades of struggling with executive function. An occupational therapist works on your environment and routines. A coach works on your systems week by week, with accountability built in. Most people need one of these, not all three. Start with the one aimed at the part of your week that goes worst.'],
       sources=[('Barkley, R. A., Executive Functions: What They Are, How They Work, and Why They Evolved, Guilford Press, 2012', 'https://www.guilford.com/books/Executive-Functions/Russell-Barkley/9781462545933'), ('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('ADHD coaching in Australia', 'adhd-coach.html')]),
 ]
 
@@ -395,6 +396,20 @@ def opening(p):
 <p class="hero-in hero-in-2 font-editorial-quote text-[22px] leading-relaxed text-on-surface-variant mb-8">{p['hook']}</p>'''
 
 
+def post_ld(p):
+    """BlogPosting structured data, so a post is eligible for article results in search."""
+    import json, html as _html
+    url = f'{SITE}/{p["slug"]}.html'
+    org = {'@type': 'Organization', 'name': 'ADHDme', 'url': SITE + '/',
+           'logo': {'@type': 'ImageObject', 'url': f'{SITE}/assets/brand/icon-512.png'}}
+    headline = re.sub(r'<[^>]+>', '', _html.unescape(p['title'])).rstrip('.')
+    d = {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': headline[:110],
+         'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p['date'],
+         'author': org, 'publisher': org, 'image': f'{SITE}/assets/brand/og.png', 'inLanguage': 'en-AU',
+         'articleSection': p['category'], 'mainEntityOfPage': {'@type': 'WebPage', '@id': url}, 'url': url}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
+
+
 def post_page(p, head, footer, others):
     paras = ''.join(body_block(b) for b in p['body'])
     EXT = ' target="_blank" rel="noopener noreferrer"'
@@ -405,11 +420,12 @@ def post_page(p, head, footer, others):
 <div class="space-y-6">{paras}</div>
 <div class="mt-10 p-6 rounded-2xl bg-[#faf9f6] border border-[#eeebe5]"><h2 class="text-[15px] font-bold text-[#5f5e59] mb-3">Sources and further reading</h2><ul class="space-y-2 text-sm">{src}</ul></div>
 <div class="mt-10 bg-[#f1bc31] rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-black/10">
-<div><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">Browse profiles freely. No account or sign-up required.</p></div>
+<div><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">Profiles are free to browse, and you don’t need an account.</p></div>
 <a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </article>
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
 </main>
+{post_ld(p)}
 {footer}'''
 
 
@@ -427,7 +443,23 @@ def build():
     if '<!-- BLOG -->' not in story:
         raise SystemExit('build-blog: our-story.html has no <!-- BLOG --> … <!-- /BLOG --> section to fill')
     out[ROOT / 'our-story.html'] = re.sub(r'<!-- BLOG -->.*?<!-- /BLOG -->', lambda _m: section(), story, count=1, flags=re.S)
+    out[ROOT / 'learn.html'] = learn_cards((ROOT / 'learn.html').read_text(encoding='utf-8'))
     return out
+
+
+def learn_cards(learn):
+    """learn.html with each blog card's title and hook taken from POSTS, so a retitled post cannot leave
+    its Learn card behind. Cards are placed by hand; only their two lines of text come from here."""
+    by_slug = {p['slug']: p for p in POSTS}
+    pat = re.compile(r'(<a class="group block" href="(blog-[a-z-]+)\.html">.*?<span class="block mt-4[^"]*">)(.*?)'
+                     r'(</span><span class="block mt-2[^"]*">)(.*?)(</span></a>)', re.S)
+
+    def fill(m):
+        post = by_slug.get(m.group(2))
+        if post is None:
+            raise SystemExit(f'build-blog: learn.html links to {m.group(2)}.html, which is not in POSTS')
+        return m.group(1) + post['title'] + m.group(4) + post['hook'] + m.group(6)
+    return pat.sub(fill, learn)
 
 
 def main(argv):

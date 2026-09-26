@@ -37,6 +37,8 @@ The page shell (head, header, footer) is `scripts/profile-shell.html`, with `{{T
 
 On `index.html` the script owns exactly one thing: the practitioner count, between a `<!-- BEGIN:GENERATED count-all -->` / `<!-- END:GENERATED count-all -->` pair. The landing page routes people to a door; it deliberately does not list the network, so there is no roster to keep in step. Everything else on that page is left alone.
 
+On `the-doctors.html` it also writes an `ItemList` of every clinician (between the `deck-ld` markers), and on each profile it builds the search title and description from the name, role, practice and place, sized to fit a search result.
+
 To add a clinician: add the entry, the six portrait files, a `sitemap.xml` line, the clinician in `analytics.js`, and `::view-transition-group(portrait-<id>)` in `site.css`, then rebuild. The script refuses to write until all of those are in place, until `index.html` still carries the count region, and until the category's panel on `the-doctors.html` has a `<ul>` to hold the card (the "Expected soon" placeholder for a new category is replaced by hand once; the error message gives the markup). A brand-new category also needs its tab button beside the others and its name in the `categories` array in `the-doctors.html`’s script, or the tab will not switch to it.
 
 Two fields carry more than they look like:
@@ -55,6 +57,8 @@ python3 scripts/build-map.py
 ## Blog
 
 The "From the blog" section on Our Story and the individual post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
+
+The blog cards on Learn are placed by hand, but their title and hook lines come from `POSTS` too, so retitling a post updates its card. Each post also carries `BlogPosting` structured data.
 
 ```bash
 python3 scripts/build-blog.py
