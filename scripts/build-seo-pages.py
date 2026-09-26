@@ -547,8 +547,7 @@ def related_section(p):
 def banner():
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-12">
 <div class="p-8 md:p-12 rounded-3xl border border-[#b9d6ee] flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
-<div class="max-w-xl space-y-3"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2>
-<p class="text-[15px] text-[#1e547a] font-medium">Read the profiles, then book or enquire with the practice.</p></div>
+<div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2></div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a>
 <p class="text-[13px] text-[#1e547a] font-medium">No account or sign-up needed.</p></div>
 </div></section>'''
@@ -598,8 +597,7 @@ def hub_page(head, header, footer):
     for key, label in GROUPS:
         items = ''.join(
             f'<li><a class="group block py-5 border-t border-[#e8e6df]" href="{p["slug"]}.html">'
-            f'<span class="block text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(p["seo"])}</span>'
-            f'<span class="block mt-2 text-[15px] leading-relaxed text-[#5f5e59]">{esc(p["description"])}</span></a></li>'
+            f'<span class="block text-[22px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(p["seo"])}</span></a></li>'
             for p in PAGES if p['group'] == key)
         groups += f'<section class="mt-12" aria-labelledby="g-{key}"><h2 id="g-{key}" class="{H2}">{label}</h2><ul class="mt-4 list-none p-0 m-0">{items}</ul></section>'
     url = f'{SITE}/{HUB}.html'
@@ -610,7 +608,7 @@ def hub_page(head, header, footer):
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-16">
 {breadcrumb([('ADHDme', 'index.html'), ('ADHD care', f'{HUB}.html')])}
 <h1 class="hero-in mt-6 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">ADHD care, by place and by profession.</h1>
-<p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">Short guides to ADHD care in Australia. Each covers one common search, lists the ADHDme clinicians who can help, and gives the cost before you book.</p>
+<p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">Short guides to ADHD care in Australia, with costs and clinicians.</p>
 <div class="max-w-[760px]">{groups}</div>
 </div>
 {banner()}
