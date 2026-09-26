@@ -1441,12 +1441,14 @@ TITLE_ROOM = 60 - len(' · ADHDme')   # search results cut titles at about 60 ch
 
 
 def og_title(c):
-    """Name, role and place when they fit in a search result's title; the place goes first when not."""
+    """Name, role and place when they fit in a search result's title, and name and role when they do not. The role is
+    the sentence-case descriptor. A name and role that still run over stay whole: a search result then trims the
+    brand suffix, which is better than cutting a word of the role."""
     role = c['descriptor'] or c['role']
-    for t in (f"{c['name']}, {c['role']}, {c['place']}", f"{c['name']}, {role}, {c['place']}", f"{c['name']}, {role}"):
+    for t in (f"{c['name']}, {role}, {c['place']}", f"{c['name']}, {role}"):
         if len(t) <= TITLE_ROOM:
             return t
-    return f"{c['name']}, {role}"[:TITLE_ROOM].rstrip(' ,')
+    return f"{c['name']}, {role}"
 
 
 def meta_description(c):
