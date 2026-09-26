@@ -4,8 +4,9 @@
     python3 scripts/build-blog.py          # write the pages
     python3 scripts/build-blog.py --check  # exit 1 if any page on disk differs from what would be written
 
-Owns: blog-*.html in full, and the <!-- BLOG --> … <!-- /BLOG --> section on our-story.html. A hand
-edit to any of that is lost on the next build; put the change here instead, and run --check before
+Owns: blog-*.html in full, the <!-- BLOG --> … <!-- /BLOG --> section on our-story.html, and the title
+and hook lines of each blog card on learn.html (the rest of each card, and where it sits, stay hand-made).
+A hand edit to any of that is lost on the next build; put the change here instead, and run --check before
 committing so a page that has drifted is caught rather than silently reverted.
 
 A post with `landing=True` opens like a landing page instead of a post: a full-width tinted hero with the
@@ -395,6 +396,20 @@ def opening(p):
 <p class="hero-in hero-in-2 font-editorial-quote text-[22px] leading-relaxed text-on-surface-variant mb-8">{p['hook']}</p>'''
 
 
+def post_ld(p):
+    """BlogPosting structured data, so a post is eligible for article results in search."""
+    import json, html as _html
+    url = f'{SITE}/{p["slug"]}.html'
+    org = {'@type': 'Organization', 'name': 'ADHDme', 'url': SITE + '/',
+           'logo': {'@type': 'ImageObject', 'url': f'{SITE}/assets/brand/icon-512.png'}}
+    headline = re.sub(r'<[^>]+>', '', _html.unescape(p['title'])).rstrip('.')
+    d = {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': headline[:110],
+         'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p['date'],
+         'author': org, 'publisher': org, 'image': f'{SITE}/assets/brand/og.png', 'inLanguage': 'en-AU',
+         'articleSection': p['category'], 'mainEntityOfPage': {'@type': 'WebPage', '@id': url}, 'url': url}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
+
+
 def post_page(p, head, footer, others):
     paras = ''.join(body_block(b) for b in p['body'])
     EXT = ' target="_blank" rel="noopener noreferrer"'
@@ -410,6 +425,7 @@ def post_page(p, head, footer, others):
 </article>
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
 </main>
+{post_ld(p)}
 {footer}'''
 
 
@@ -427,7 +443,23 @@ def build():
     if '<!-- BLOG -->' not in story:
         raise SystemExit('build-blog: our-story.html has no <!-- BLOG --> … <!-- /BLOG --> section to fill')
     out[ROOT / 'our-story.html'] = re.sub(r'<!-- BLOG -->.*?<!-- /BLOG -->', lambda _m: section(), story, count=1, flags=re.S)
+    out[ROOT / 'learn.html'] = learn_cards((ROOT / 'learn.html').read_text(encoding='utf-8'))
     return out
+
+
+def learn_cards(learn):
+    """learn.html with each blog card's title and hook taken from POSTS, so a retitled post cannot leave
+    its Learn card behind. Cards are placed by hand; only their two lines of text come from here."""
+    by_slug = {p['slug']: p for p in POSTS}
+    pat = re.compile(r'(<a class="group block" href="(blog-[a-z-]+)\.html">.*?<span class="block mt-4[^"]*">)(.*?)'
+                     r'(</span><span class="block mt-2[^"]*">)(.*?)(</span></a>)', re.S)
+
+    def fill(m):
+        post = by_slug.get(m.group(2))
+        if post is None:
+            raise SystemExit(f'build-blog: learn.html links to {m.group(2)}.html, which is not in POSTS')
+        return m.group(1) + post['title'] + m.group(4) + post['hook'] + m.group(6)
+    return pat.sub(fill, learn)
 
 
 def main(argv):

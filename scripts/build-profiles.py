@@ -1456,8 +1456,35 @@ def meta_line(c):
     return ' · '.join(p for p in parts if p)
 
 
+TITLE_ROOM = 60 - len(' · ADHDme')   # search results cut titles at about 60 characters
+
+
 def og_title(c):
-    return f"{c['name']}, {c['role']}, {c['place']}"
+    """Name, role and place when they fit in a search result's title; the place goes first when not."""
+    role = c['descriptor'] or c['role']
+    for t in (f"{c['name']}, {c['role']}, {c['place']}", f"{c['name']}, {role}, {c['place']}", f"{c['name']}, {role}"):
+        if len(t) <= TITLE_ROOM:
+            return t
+    return f"{c['name']}, {role}"[:TITLE_ROOM].rstrip(' ,')
+
+
+def meta_description(c):
+    """The one-line summary, then who and where, for the search snippet (Google shows about 155 characters).
+
+    The summary alone runs 60 to 110 characters, short enough that search engines replace it with text of
+    their own choosing; the role, practice and place are what someone searching actually matches on.
+    """
+    role = (c['descriptor'] or c['role'])
+    role = role[0].upper() + role[1:]
+    place = c['place'][0].lower() + c['place'][1:] if c['place'].startswith('Telehealth') else c['place']
+    with_role = [f" {role} at {c['practice']}, {place}.", f" {role} at {c['practice']}.", f" {role}, {place}."]
+    without = [f" {c['practice']}, {place}.", f" {c['practice']}."]
+    # A summary that already names the profession (coach, psychologist, GP) does not need it again.
+    named = role.lower().split(' & ')[0].split()[-1] in c['description'].lower()
+    for tail in (without + with_role) if named else (with_role + without):
+        if len(c['description']) + len(tail) <= 158:
+            return c['description'] + tail
+    return c['description']
 
 
 def others(c):
@@ -1658,7 +1685,7 @@ def render_page(c, shell, sizes):
     last = (others(c) or [c])[-1]
     tokens = {
         'NAME': c['name'], 'SLUG': c['slug'], 'ID': c['id'], 'SITE': SITE, 'EXPECT_ID': last['id'],
-        'DESCRIPTION': c['description'], 'OG_TITLE': og_title(c), 'PORTRAIT_SIZE': str(sizes[c['id']]),
+        'DESCRIPTION': meta_description(c), 'OG_TITLE': og_title(c), 'PORTRAIT_SIZE': str(sizes[c['id']]),
     }
     page = shell
     for k, v in tokens.items():
@@ -1668,6 +1695,15 @@ def render_page(c, shell, sizes):
     if left:
         raise BuildError(f'unfilled tokens in shell: {sorted(set(left))}')
     return page
+
+
+def deck_jsonld():
+    """An ItemList of every clinician on The Network, so search engines read the page as a directory."""
+    items = [{'@type': 'ListItem', 'position': i, 'url': f"{SITE}/{c['slug']}.html", 'name': c['name']}
+             for i, c in enumerate(CLINICIANS, 1)]
+    d = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'ADHDme clinicians',
+         'url': f'{SITE}/the-doctors.html', 'numberOfItems': len(items), 'itemListElement': items}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
 
 
 def render_deck(deck, sizes):
@@ -1686,7 +1722,9 @@ def render_deck(deck, sizes):
                              '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid auto-rows-fr grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 list-none p-0 m-0">\n</ul></div>')
         cards = '\n'.join(deck_card(c, sizes[c['id']], c['id'] == eager_id) for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)
-    return deck
+    if '<!-- BEGIN:GENERATED deck-ld -->' not in deck:
+        deck = deck.replace('</main>', '<!-- BEGIN:GENERATED deck-ld --><!-- END:GENERATED deck-ld -->\n</main>', 1)
+    return region(deck, 'deck-ld', deck_jsonld(), 'the-doctors.html')
 
 
 # ---------------------------------------------------------------- the landing page
