@@ -189,9 +189,9 @@ for d in DOMAINS:
             if cid not in BY_ID:
                 raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
 
-SEO = 'ADHD care navigator: pick where it gets in the way, meet who helps'
-DESCRIPTION = ('School, work, home, relationships or health: pick the place ADHD gets in the way and the part of it, '
-               'and see the clinicians whose profiles say they work on exactly that.')
+SEO = 'ADHD care navigator: find the right clinician'
+DESCRIPTION = ('Pick an area of life, such as school, work, home, relationships or health, then the part ADHD affects. '
+               'See clinicians whose profiles say they work on it.')
 
 
 # ---------------------------------------------------------------- shell
@@ -362,7 +362,7 @@ def build():
             bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(f"{d['key']}:{asp['key']}")}<span>{esc(asp["label"])}</span></button>')
             cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
             panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
-                          f'<p class="mt-2 text-[15px] text-[#5f5e59]">Clinicians whose profiles say they work on this. The reason is in their own words.</p>'
+                          f'<p class="mt-2 text-[15px] text-[#5f5e59]">These clinicians say on their profiles that they work on this. The note under each name uses their wording.</p>'
                           f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></div>')
             items.append(f'<li class="py-4"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(asp["label"])}</h3><ul class="mt-4 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></li>')
         listing.append(f'<section class="pt-10 border-t border-[#e8e6df]"><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])}</h2><ul class="list-none p-0 m-0 divide-y divide-[#e8e6df]">{"".join(items)}</ul></section>')
