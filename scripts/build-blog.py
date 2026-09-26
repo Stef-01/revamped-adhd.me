@@ -348,6 +348,8 @@ def head_for(p, head):
         (r'<meta property="og:description" content=".*?">', f'<meta property="og:description" content="{p["description"]}">'),
         (r'<meta name="twitter:title" content=".*?">', f'<meta name="twitter:title" content="{p["seo"]}">'),
         (r'<meta name="twitter:description" content=".*?">', f'<meta name="twitter:description" content="{p["description"]}">'),
+        (r'<meta property="og:image" content=".*?">', f'<meta property="og:image" content="{og_image(p)}">'),
+        (r'<meta name="twitter:image" content=".*?">', f'<meta name="twitter:image" content="{og_image(p)}">'),
     ]
     for pat, rep in subs:
         head, n = re.subn(pat, lambda _m, r=rep: r, head, count=1)
@@ -398,17 +400,30 @@ def opening(p):
 <article id="guide" class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10 scroll-mt-24">'''
 
 
+def og_image(p):
+    """The post's 1200x630 share image, rendered from its cover by scripts/build-og-images.cjs."""
+    return f'{SITE}/assets/blog/og/{p["slug"]}.png'
+
+
 def post_ld(p):
-    """BlogPosting structured data, so a post is eligible for article results in search."""
+    """BlogPosting, its WebPage and the breadcrumb trail, tied to the site and organisation the home page defines."""
     import json, html as _html
     url = f'{SITE}/{p["slug"]}.html'
-    org = {'@type': 'Organization', 'name': 'ADHDme', 'url': SITE + '/',
+    org = {'@type': 'Organization', '@id': SITE + '/#org', 'name': 'ADHDme', 'url': SITE + '/',
            'logo': {'@type': 'ImageObject', 'url': f'{SITE}/assets/brand/icon-512.png'}}
     headline = re.sub(r'<[^>]+>', '', _html.unescape(p['title'])).rstrip('.')
-    d = {'@context': 'https://schema.org', '@type': 'BlogPosting', 'headline': headline[:110],
-         'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p['date'],
-         'author': org, 'publisher': org, 'image': f'{SITE}/assets/brand/og.png', 'inLanguage': 'en-AU',
-         'articleSection': p['category'], 'mainEntityOfPage': {'@type': 'WebPage', '@id': url}, 'url': url}
+    image = {'@type': 'ImageObject', 'url': og_image(p), 'width': 1200, 'height': 630}
+    post = {'@type': 'BlogPosting', '@id': url + '#post', 'headline': headline[:110],
+            'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p['date'],
+            'author': org, 'publisher': org, 'image': image, 'inLanguage': 'en-AU',
+            'articleSection': p['category'], 'mainEntityOfPage': {'@id': url}, 'url': url}
+    page = {'@type': 'WebPage', '@id': url, 'url': url, 'name': headline, 'inLanguage': 'en-AU',
+            'isPartOf': {'@id': SITE + '/#site'}, 'primaryImageOfPage': image, 'breadcrumb': {'@id': url + '#breadcrumb'}}
+    crumbs = {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
+        {'@type': 'ListItem', 'position': 2, 'name': 'Learn', 'item': SITE + '/learn.html'},
+        {'@type': 'ListItem', 'position': 3, 'name': headline, 'item': url}]}
+    d = {'@context': 'https://schema.org', '@graph': [post, page, crumbs]}
     return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
 
 
