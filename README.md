@@ -58,7 +58,7 @@ python3 scripts/build-map.py
 
 The "From the blog" section on Our Story and the individual post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
 
-The blog cards on Learn are placed by hand, but their title and hook lines come from `POSTS` too, so retitling a post updates its card. Each post also carries `BlogPosting` structured data.
+The blog cards on Learn are placed by hand, but their title and hook lines come from `POSTS` too, so retitling a post updates its card. Each post carries `BlogPosting`, `WebPage` and `BreadcrumbList` structured data, and its share image is `assets/blog/og/<slug>.png`, a 1200x630 render of the cover (social platforms do not take SVG). After a cover changes, run `node scripts/build-og-images.cjs` (it needs Playwright; see the script's header).
 
 ```bash
 python3 scripts/build-blog.py
@@ -166,6 +166,15 @@ python3 scripts/build-academy-tracks.py
 ```
 
 ## SEO checks
+
+`sitemap.xml` and `llms.txt` are generated from the pages `sitemap.xml` already lists, so a new page is still added there by hand first:
+
+```bash
+python3 scripts/build-sitemap.py            # adds <lastmod> and image entries, and writes llms.txt
+python3 scripts/build-sitemap.py --check    # exit 1 if either file is out of date
+```
+
+A post's `<lastmod>` is its publish date; any other page's is the date of the last commit that changed its file. Profiles list the clinician's portrait and posts their share image as `<image:image>` entries. `llms.txt` ([llmstxt.org](https://llmstxt.org)) is a Markdown index of the same pages for AI tools that read it; search engines do not rank on it. Run the script last, after the other builders, so it sees their output.
 
 Three tools, run through `npx` at pinned versions like the build tools, so nothing is installed:
 

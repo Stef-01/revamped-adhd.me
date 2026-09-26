@@ -1569,7 +1569,7 @@ def jsonld(c):
     page = f"{SITE}/{c['slug']}.html"
     image = f"{SITE}/{PORTRAITS}/{c['id']}.jpg"
     if s['type'] == 'Physician':
-        d = {'@context': 'https://schema.org', '@type': 'Physician', '@id': page + '#physician',
+        d = {'@type': 'Physician', '@id': page + '#physician',
              'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'medicalSpecialty': 'PrimaryCare',
              'knowsLanguage': c['languages'], 'image': image,
              'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
@@ -1577,7 +1577,7 @@ def jsonld(c):
              'affiliation': {'@type': 'MedicalOrganization', 'name': c['practice']}}
     elif s['type'] == 'Person':
         w = s['works_for']
-        d = {'@context': 'https://schema.org', '@type': 'Person', '@id': page + '#person',
+        d = {'@type': 'Person', '@id': page + '#person',
              'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'image': image,
              'sameAs': s['same_as'],
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
@@ -1590,7 +1590,15 @@ def jsonld(c):
         raise BuildError(f"{c['name']}: unknown schema type {s['type']!r}")
     d['memberOf'] = {'@id': SITE + '/#org'}
     d['potentialAction'] = {'@type': 'ReserveAction', 'target': c['book_href']}
-    return json.dumps(d, ensure_ascii=False)
+    # The page is a profile of one clinician, reached from The Network; the home page defines #site and #org.
+    crumbs = {'@type': 'BreadcrumbList', '@id': page + '#breadcrumb', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
+        {'@type': 'ListItem', 'position': 2, 'name': 'The Network', 'item': SITE + '/the-doctors.html'},
+        {'@type': 'ListItem', 'position': 3, 'name': c['name'], 'item': page}]}
+    profile = {'@type': 'ProfilePage', '@id': page, 'url': page, 'name': og_title(c), 'inLanguage': 'en-AU',
+               'isPartOf': {'@id': SITE + '/#site'}, 'mainEntity': {'@id': d['@id']},
+               'breadcrumb': {'@id': page + '#breadcrumb'}, 'primaryImageOfPage': {'@type': 'ImageObject', 'url': image}}
+    return json.dumps({'@context': 'https://schema.org', '@graph': [d, profile, crumbs]}, ensure_ascii=False)
 
 
 SECTION = ('<section class="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-16 pt-8 border-t border-[#e8e6df]" data-reveal>'
@@ -1686,9 +1694,17 @@ def deck_jsonld():
     """An ItemList of every clinician on The Network, so search engines read the page as a directory."""
     items = [{'@type': 'ListItem', 'position': i, 'url': f"{SITE}/{c['slug']}.html", 'name': c['name']}
              for i, c in enumerate(CLINICIANS, 1)]
-    d = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'ADHDme clinicians',
-         'url': f'{SITE}/the-doctors.html', 'numberOfItems': len(items), 'itemListElement': items}
-    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + '</script>'
+    url = f'{SITE}/the-doctors.html'
+    graph = [
+        {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': 'ADHD clinicians in our network', 'inLanguage': 'en-AU',
+         'isPartOf': {'@id': SITE + '/#site'}, 'mainEntity': {'@id': url + '#clinicians'}, 'breadcrumb': {'@id': url + '#breadcrumb'}},
+        {'@type': 'ItemList', '@id': url + '#clinicians', 'name': 'ADHDme clinicians', 'url': url,
+         'numberOfItems': len(items), 'itemListElement': items},
+        {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
+            {'@type': 'ListItem', 'position': 2, 'name': 'The Network', 'item': url}]},
+    ]
+    return '<script type="application/ld+json">' + json.dumps({'@context': 'https://schema.org', '@graph': graph}, ensure_ascii=False) + '</script>'
 
 
 def render_deck(deck, sizes):

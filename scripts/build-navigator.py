@@ -368,7 +368,12 @@ def build():
 
     tree = [dict(key=d['key'], aspects=[dict(key=a['key']) for a in d['aspects']]) for d in DOMAINS]
     url = f'{SITE}/{SLUG}.html'
-    ld = {'@context': 'https://schema.org', '@type': 'WebPage', '@id': url, 'url': url, 'name': SEO, 'description': DESCRIPTION, 'inLanguage': 'en-AU'}
+    ld = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebPage', '@id': url, 'url': url, 'name': SEO, 'description': DESCRIPTION, 'inLanguage': 'en-AU',
+         'isPartOf': {'@id': f'{SITE}/#site'}, 'breadcrumb': {'@id': url + '#breadcrumb'}},
+        {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
+            {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': f'{SITE}/'},
+            {'@type': 'ListItem', 'position': 2, 'name': 'Care Navigator', 'item': url}]}]}
     return f'''{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
 <h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">Where does ADHD get in the way?</h1>
