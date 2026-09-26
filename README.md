@@ -58,6 +58,8 @@ python3 scripts/build-map.py
 
 The post pages (`blog-*.html`) are generated from `POSTS` in `scripts/build-blog.py`. Add or edit a post there, then rebuild:
 
+The Apps section at the top of Learn is hand-written in `learn.html`; each app's icon is `assets/learn/apps/<slug>.png`, its App Store icon (or, for Focusmate, its website's), downloaded by `scripts/fetch-app-icons.py`. Add an app to `APPS` there and run it on a machine with internet access.
+
 The blog cards on Learn are placed by hand, but their title and hook lines come from `POSTS` too, so retitling a post updates its card. Each post carries `BlogPosting`, `WebPage` and `BreadcrumbList` structured data, and its share image is `assets/blog/og/<slug>.png`, a 1200x630 render of the cover (social platforms do not take SVG). After a cover changes, run `node scripts/build-og-images.cjs` (it needs Playwright; see the script's header).
 
 ```bash
