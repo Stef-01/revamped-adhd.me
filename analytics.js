@@ -141,6 +141,12 @@
       practice: 'Lawson ADHD Solutions', destination: 'clinic-form',
       expertise: ['coaching', 'executive-function', 'education'], ages: ['teens', 'adults']
     },
+    'trisha-harris': {
+      booking: /halaxy\.com\/book\/riverview-counselling/, profile: 'trisha-harris.html',
+      name: 'Trisha Harris', category: 'allied',
+      practice: 'Riverview Counselling', destination: 'halaxy',
+      expertise: ['counselling', 'relationships', 'ndis'], ages: ['teens', 'adults']
+    },
     'bart-traynor': {
       booking: /atlantis-recovery-centre\/doctors\/bart-traynor-1/, profile: 'bart-traynor.html',
       name: 'Bart Traynor', category: 'psychologist',
