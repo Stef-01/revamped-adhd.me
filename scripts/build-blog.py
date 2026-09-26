@@ -327,10 +327,11 @@ def related_card(p):
 
 def section():
     return f'''<!-- BLOG --><section id="blog" class="w-full pb-16 lg:pb-20 px-5 md:px-8 lg:px-12 max-w-[1200px] mx-auto">
-<div data-reveal class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div data-reveal class="flex items-end justify-between gap-4 mb-8">
 <div><h2 class="font-display-hero text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-on-surface mt-2">From the blog.</h2></div>
+<a class="text-[15px] font-semibold text-[#1a1c1c] underline decoration-2 underline-offset-4 whitespace-nowrap hover:text-[#5f5e59] transition-colors" href="learn.html">All articles <span aria-hidden="true">→</span></a>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">{''.join(story_card(p) for p in POSTS)}</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-12">{''.join(story_card(p) for p in sorted(POSTS, key=lambda p: p['date'], reverse=True)[:3])}</div>
 </section><!-- /BLOG -->'''
 
 
