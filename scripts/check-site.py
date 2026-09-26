@@ -8,6 +8,7 @@ What it looks for, and the mistake each one came from (see UX-EVALUATION-UPGRADE
   - an internal link to a page or asset that is not in the repo
   - a second typeface: font-serif on any page                                       (LRN-01)
   - a cost figure on How it works that the generator no longer holds                (HIW-03)
+  - a site header or footer that differs from the rest (a nav edit that missed a page)
   - a card or profile whose button says Book when the link is an enquiry form, or
     an enquiry listed above a bookable diary on The Network                         (X-01)
 """
@@ -64,6 +65,29 @@ hiw = (ROOT / 'how-it-works.html').read_text(encoding='utf-8')
 for figure in ('$299', '$199', '$498', '$1,770.44'):
     if figure not in hiw or figure not in profiles:
         problems.append(f'how-it-works.html and build-profiles.py disagree about {figure}')
+
+# Every page outside the Academy carries the same site header, and all but the home page the same footer. Only the
+# current-page mark (aria-current and the dark pill classes) and the landing-report tags may differ; a nav or footer
+# edit has to reach every hand-edited page and shell.
+CURRENT, OTHER = 'bg-[#1a1c1c] text-white shadow-sm', 'text-[#1a1c1c]/80 hover:text-[#1a1c1c] hover:bg-black/5'
+chrome = {'header': {}, 'footer': {}}
+for path in sorted(ROOT.glob('*.html')):
+    if path.name.startswith('academy'):
+        continue
+    text = path.read_text(encoding='utf-8')
+    for part, pattern in (('header', r'<header class="site-header.*?</header>'), ('footer', r'<footer\b.*?</footer>')):
+        if part == 'footer' and path.name == 'index.html':
+            continue
+        found = re.findall(pattern, text, re.S)
+        if len(found) != 1:
+            problems.append(f'{path.name}: expected exactly one site {part}, found {len(found)}')
+            continue
+        block = re.sub(r' (aria-current="page"|data-landing-control="[^"]*")', '', found[0]).replace(CURRENT, OTHER)
+        chrome[part].setdefault(block, []).append(path.name)
+for part, variants in chrome.items():
+    if len(variants) > 1:
+        ranked = sorted(variants.values(), key=len)
+        problems.append(f'site {part} differs on {", ".join(n for v in ranked[:-1] for n in v)} (the rest match {ranked[-1][0]})')
 
 if problems:
     print('\n'.join(problems))
