@@ -16,6 +16,12 @@
 // Lyra's home page alongside when the network allows it, and lists every page that gained words since the
 // previous run (seo-reports/overwhelm.json). SHOTS=0 skips the screenshots. BASE_URL points it at another
 // copy of the site; PLAYWRIGHT_PATH and CHROME_PATH work as in build-og-images.cjs.
+//
+// To prove a change leaves every page looking the same, take whole-page shots before and after and compare them:
+//   FULL=1 SHOTS_DIR=seo-reports/base npm run check:overwhelm     # on the base commit
+//   FULL=1 SHOTS_DIR=seo-reports/after npm run check:overwhelm    # on the change
+//   for f in seo-reports/base/*.png; do n=$(basename "$f"); npx -y pixelmatch@7.2.0 "$f" "seo-reports/after/$n" >/dev/null || echo "DIFF $n"; done
+// FULL=1 loads every lazy image first and skips Lyra, whose live page never matches twice.
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require(process.env.PLAYWRIGHT_PATH || 'playwright');
@@ -24,6 +30,7 @@ const ROOT = path.resolve(__dirname, '..');
 const BASE = (process.env.BASE_URL || 'http://localhost:5173').replace(/\/$/, '');
 const OUT = path.join(ROOT, 'seo-reports');
 const SHOTS = process.env.SHOTS !== '0';
+const FULL = process.env.FULL === '1';
 const LYRA = 'https://www.lyrahealth.com/';
 
 // words: visible words on the page. fold: reading words on the first screen. block: longest paragraph or
@@ -98,13 +105,21 @@ async function open(browser, url, width, height) {
   await page.addStyleTag({ content: '.consent-bar{display:none!important}' });
   await page.evaluate(() => document.querySelectorAll('[data-reveal]').forEach(e => e.classList.add('is-visible')));
   await page.waitForTimeout(400);
+  if (FULL) {
+    await page.addStyleTag({ content: '*,*::before,*::after{transition:none!important;animation:none!important}' });
+    await page.evaluate(async () => {
+      document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; });
+      await Promise.all([...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+      await document.fonts.ready;
+    });
+  }
   return page;
 }
 
 (async () => {
   const slugs = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') && !f.startsWith('academy'))
     .map(f => f.replace(/\.html$/, '')).sort();
-  const shots = path.join(OUT, 'overwhelm');
+  const shots = process.env.SHOTS_DIR ? path.resolve(ROOT, process.env.SHOTS_DIR) : path.join(OUT, 'overwhelm');
   fs.mkdirSync(shots, { recursive: true });
   const previousFile = path.join(OUT, 'overwhelm.json');
   const previous = fs.existsSync(previousFile) ? JSON.parse(fs.readFileSync(previousFile, 'utf8')) : {};
@@ -116,11 +131,11 @@ async function open(browser, url, width, height) {
     const url = `${BASE}/${slug === 'index' ? '' : slug + '.html'}`;
     const page = await open(browser, url, 1280, 900);
     const m = await page.evaluate(measure);
-    if (SHOTS) await page.screenshot({ path: path.join(shots, `${slug}-desktop.png`) });
+    if (SHOTS) await page.screenshot({ path: path.join(shots, `${slug}-desktop.png`), fullPage: FULL });
     await page.close();
     if (SHOTS) {
       const phone = await open(browser, url, 390, 844);
-      await phone.screenshot({ path: path.join(shots, `${slug}-phone.png`) });
+      await phone.screenshot({ path: path.join(shots, `${slug}-phone.png`), fullPage: FULL });
       await phone.close();
     }
     const rule = { ...RULES[type], ...OVERRIDES[slug] };
@@ -130,7 +145,7 @@ async function open(browser, url, width, height) {
 
   // Lyra, for a side-by-side look. The environment's network policy may block it; the rules above stand either way.
   let lyra = 'not reachable from this network, so compare against the pattern in the header comment';
-  if (SHOTS) {
+  if (SHOTS && !FULL) {
     try {
       const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
       await page.goto(LYRA, { waitUntil: 'domcontentloaded', timeout: 20000 });
@@ -158,7 +173,7 @@ async function open(browser, url, width, height) {
   }
   const failing = rows.filter(r => r.broken.length);
   for (const r of failing.filter(r => r.broken.includes('block'))) console.log(`  longest block on ${r.slug}: "${r.blockText}…"`);
-  if (SHOTS) console.log(`\nFirst-screen screenshots: seo-reports/overwhelm/. Lyra: ${lyra}.`);
+  if (SHOTS) console.log(`\n${FULL ? 'Whole-page' : 'First-screen'} screenshots: ${path.relative(ROOT, shots)}/. Lyra: ${lyra}.`);
   fs.writeFileSync(previousFile, JSON.stringify(Object.fromEntries(rows.map(r => [r.slug, r])), null, 1));
   console.log(failing.length ? `\noverwhelm check: ${failing.length} page(s) over the limits` : '\noverwhelm check: every page within the limits');
   process.exit(failing.length ? 1 : 0);

@@ -2,6 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "echo 'Static site: the CSS and JS bundles are committed, nothing to build here'",
+  "installCommand": "echo 'Nothing to install: the build tools are only for local and CI builds'",
   "outputDirectory": ".",
   "redirects": [
     {

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the hand-drawn Australia map on our-story.html: the coast, and a dot for each place in CITIES.
-Re-run after editing CITIES. Output is injected between the AU-MAP markers."""
-import math, pathlib, re
+Re-run after editing CITIES. Output is injected between the AU-MAP markers; --check exits 1 if it is out of date."""
+import math, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
@@ -110,7 +110,10 @@ svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3
 </svg>'''
 
 p = ROOT / 'our-story.html'; s = p.read_text(encoding='utf-8')
-s = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
-with open(p, 'w', encoding='utf-8', newline='') as fh:  # newline= on write_text needs Python 3.10+
-    fh.write(s)
+out = re.sub(r'<!-- AU-MAP -->.*?<!-- /AU-MAP -->', lambda m: '<!-- AU-MAP -->' + svg + '<!-- /AU-MAP -->', s, count=1, flags=re.S)
+if '--check' in sys.argv[1:]:
+    print('map is up to date' if out == s else 'out of date: our-story.html; run python3 scripts/build-map.py')
+    sys.exit(0 if out == s else 1)
+with open(p, 'w', encoding='utf-8', newline='') as fh:
+    fh.write(out)
 print(f'map: hand-drawn, {len(CITIES)} dots, viewBox {tuple(round(v) for v in VB)}')

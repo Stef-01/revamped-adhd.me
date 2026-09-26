@@ -359,7 +359,7 @@ def build():
         crumbs.append(f'<button type="button" data-domain="{d["key"]}">{esc(d["label"])}</button>')
         items = []
         for asp in d['aspects']:
-            bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(f"{d['key']}:{asp['key']}")}<span>{esc(asp["label"])}</span></button>')
+            bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(d["key"] + ":" + asp["key"])}<span>{esc(asp["label"])}</span></button>')
             cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
             panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
                           f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></div>')
