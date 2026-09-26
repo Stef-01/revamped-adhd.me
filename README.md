@@ -201,7 +201,7 @@ It measures each page in a browser at 1280x900: visible words (text inside a clo
 
 ## Deploy
 
-It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder). It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, so search engines see one copy of the site.
+It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder). It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, and `/index.html` to `/`, so search engines see one copy of each page.
 
 ## Analytics, attribution and privacy
 

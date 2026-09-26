@@ -14,6 +14,11 @@
       ],
       "destination": "https://www.adhdme.au/:path*",
       "permanent": true
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "headers": [
