@@ -1,0 +1,29 @@
+name: IndexNow
+
+# After a push to main, tell Bing and the other IndexNow engines which pages changed (scripts/indexnow.py).
+# Vercel deploys main on its own, so this waits for the deploy first. Run it by hand to send every page.
+
+on:
+  push:
+    branches: [main]
+    paths: ['*.html']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Send the changed pages
+        if: github.event_name == 'push'
+        run: |
+          sleep 120
+          python3 scripts/indexnow.py "${{ github.event.before }}" "${{ github.sha }}"
+      - name: Send every page
+        if: github.event_name == 'workflow_dispatch'
+        run: python3 scripts/indexnow.py --all

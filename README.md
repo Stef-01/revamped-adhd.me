@@ -176,6 +176,8 @@ python3 scripts/build-sitemap.py --check    # exit 1 if either file is out of da
 
 A post's `<lastmod>` is its publish date; any other page's is the date of the last commit that changed its file. Profiles list the clinician's portrait and posts their share image as `<image:image>` entries. `llms.txt` ([llmstxt.org](https://llmstxt.org)) is a Markdown index of the same pages for AI tools that read it; search engines do not rank on it. Run the script last, after the other builders, so it sees their output.
 
+After each push to main, `.github/workflows/indexnow.yml` runs `scripts/indexnow.py`, which tells Bing and the other [IndexNow](https://www.indexnow.org) engines which listed pages changed (ChatGPT search and Copilot answer from Bing's index; Google doesn't use IndexNow and reads the sitemap). The engines check the request against the key file at the site root. Run the workflow by hand to send every page.
+
 Three tools, run through `npx` at pinned versions like the build tools, so nothing is installed:
 
 ```bash
