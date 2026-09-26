@@ -1496,10 +1496,11 @@ EXERCISE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 ro
                  'Exercise-based</span>')
 
 
-def chip_row(c):
-    """The clinician's interest chips, behind the markers they carry: telehealth, then exercise."""
+def chip_row(c, limit=None):
+    """The clinician's interest chips, behind the markers they carry: telehealth, then exercise. A card in the
+    deck shows the first `limit` chips; the profile shows them all."""
     markers = (TELEHEALTH_PILL if c['telehealth'] else '') + (EXERCISE_PILL if c.get('exercise') else '')
-    return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'])
+    return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
 
 # A diary you can pick a time in, or a form the practice answers. The button says which, and each
@@ -1537,6 +1538,9 @@ def portrait_span(c, size, tag, extra_class, sizes, img_attrs, img_class):
             f'{picture(c, size, sizes, img_attrs, img_class)}</{tag}>')
 
 
+DECK_CHIPS = 2   # interest chips on a deck card: four stacked chips made each card a column of pills on a phone
+
+
 def deck_card(c, size, eager):
     img_attrs = 'loading="eager" fetchpriority="high" decoding="async"' if eager else 'loading="lazy" decoding="async"'
     sizes = '(min-width: 1280px) 264px, (min-width: 1024px) 22vw, (min-width: 768px) 30vw, 48vw'
@@ -1546,7 +1550,7 @@ def deck_card(c, size, eager):
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
   </a>
-  <div class="flex flex-wrap gap-2 pt-3">{chip_row(c)}</div>
+  <div class="flex flex-wrap gap-2 pt-3">{chip_row(c, DECK_CHIPS)}</div>
   <div class="mt-auto pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="{book_verb(c)} with {esc(c['name'])}" href="{c['slug']}.html">{book_verb(c)} <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>'''
 
