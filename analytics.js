@@ -135,6 +135,12 @@
       practice: 'Neutral Minds Psychology', destination: 'zanda',
       expertise: ['therapy', 'neuroaffirming', 'trauma'], ages: ['adults']
     },
+    'alex-lawson': {
+      booking: /lawsonadhdsolutions\.com\.au\/book-here/, profile: 'alex-lawson.html',
+      name: 'Alex Lawson', category: 'coach',
+      practice: 'Lawson ADHD Solutions', destination: 'clinic-form',
+      expertise: ['coaching', 'executive-function', 'education'], ages: ['teens', 'adults']
+    },
     'bart-traynor': {
       booking: /atlantis-recovery-centre\/doctors\/bart-traynor-1/, profile: 'bart-traynor.html',
       name: 'Bart Traynor', category: 'psychologist',

@@ -154,6 +154,9 @@ REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent pract
 REACH_WORKS_FOR = dict(type='ProfessionalService', url=REACH, telephone='(08) 6361 3506', locality='Perth', state='WA')
 REACH_JOBACCESS = REACH + 'unlocking-support-how-adhd-coaching-can-be-funded-through-jobaccess/'
 
+# Lawson ADHD Solutions, Sutherland in Sydney's south. Alex Lawson is its coach and its founder.
+LAS = 'https://lawsonadhdsolutions.com.au/'
+
 # Another practice that publishes no price list, so no figures: same rule as GOALS and NCAU above. What it does
 # publish, and what almost nobody looking at a coach knows, is that the work can be government-funded — so the
 # notes carry that, with REACH's own figure and their guide to claiming it.
@@ -1257,6 +1260,76 @@ CLINICIANS = [
         details=arc_details(),
         disclosure=ARC_DISCLOSURE,
         schema=dict(type='Person', credentials=['Doctor of Physiotherapy, Bond University'], **ARC_SCHEMA),
+    ),
+    dict(
+        slug='alex-lawson', id='alex-lawson', category='coach',
+        name='Alex Lawson', short='Alex', role='ADHD Coach and Mentor', pronouns='he/him',
+        practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
+        descriptor='ADHD coach & mentor',
+        description='No single planner, app or system works for every ADHD brain, so the strategies get built around how yours actually shows up.',
+        chips=['Adults, students & parents', 'Executive function', 'Lived experience'],
+        telehealth=True,
+        book_href=LAS + 'book-here',
+        book_hint='Opens Lawson ADHD Solutions’ booking page, in a new tab. A free 20-minute discovery call is the usual first step.',
+        links=[
+            ('instagram', '@lawsonadhdsolutions', 'https://www.instagram.com/lawsonadhdsolutions/'),
+            ('website', 'lawsonadhdsolutions.com.au', LAS),
+        ],
+        fees=dict(
+            heading='What coaching costs',
+            figures=[('$85', 'Per 55-minute session')],
+            notes=[
+                'The same rate for adults, parents and students, in person at Sutherland or online by Zoom. A '
+                'post-session plan is an extra $15.',
+                'The first step is a free 20-minute discovery call, which is a conversation about whether coaching '
+                'fits rather than a booked session.',
+                # His FAQ's structured data still carries an older $65 online rate; his pricing page and his booking
+                # page both say $85, so $85 is what is shown. Worth a word to him either way.
+                'He publishes no Medicare rebate, NDIS or private health arrangement, and ADHD coaching does not '
+                'attract a Medicare rebate.',
+                '<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+                'It is published here so the cost is settled before you book rather than at the first session.',
+            ],
+        ),
+        qualifications='ADHD coach, MTeach(Sec) LLB',
+        languages=[],
+        experience=[
+            'ADHD coach and mentor, Lawson ADHD Solutions, Sutherland',
+            'Almost a decade of high school teaching and school leadership, as Head Teacher and Year Advisor',
+            'Master of Teaching (Secondary) with Distinction, University of Wollongong',
+            'Bachelor of Laws (LLB), and a previous career in law',
+            'PESI ADHD Coaching Course',
+            'Mentored by ADHD coach Mark Brandtman',
+            'More than 50 families, adults and students supported through one-to-one coaching in six months',
+            'Proficient High School Teacher Accreditation',
+            'Listed in the ADHD Support Australia directory',
+        ],
+        about=[
+            'I’m Alex. I’m an ADHD coach, high school teacher and former lawyer, and I know what it’s like to work in high-pressure environments and navigate the demands of a busy brain.',
+            'I’ve been living with ADHD for over 30 years, and today I support adults, students, parents and families who are trying to make sense of ADHD in everyday life. Over that time, I’ve learned what it feels like to want to start something and just not be able to. To work hard, care deeply, and still feel like it doesn’t show the way it should.',
+            'For the past decade, I’ve also had the privilege of supporting people with ADHD professionally. As a high school teacher, ADHD coach, educational leader, and through my previous career in law, I’ve helped students, parents, educators, and professionals better understand ADHD, navigate its challenges, and build practical strategies that are useful in real life.',
+            'Long before I became an ADHD coach, I noticed something else happening around me. I was the person people came to when they didn’t understand ADHD. Students who felt like they were failing but weren’t. Parents who were exhausted and trying everything they could. Partners who didn’t know how to support someone they loved. Teachers and colleagues trying to make sense of behaviour that didn’t fit the system. And in every conversation, the goal was the same: to help people feel less blamed, less confused, and more understood.',
+            'Today, I combine lived experience with years of professional practice to help people with ADHD make life more manageable, understand what is getting in the way, and find practical ways forward. That’s why Lawson ADHD Solutions exists.',
+            'There’s no single planner, app, or system that works for every ADHD brain. My role is to understand how your ADHD shows up in your life specifically, then help you build strategies that actually fit. The goal is simple: you leave each session feeling understood, more confident, and knowing exactly what to do next.',
+        ],
+        details=[
+            ('Reach', 'In-person sessions at Sutherland in the Sutherland Shire, and online by Zoom'),
+            ('Appointments', '55-minute sessions, most often weekly or fortnightly to start, moving to monthly as things settle'),
+            ('Billing', '$85 per session, the same in person or online; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='Lawson ADHD Solutions is an independent practice: it sets its own fees, availability and coaching '
+                   'approach, and ADHDme receives no part of what you pay. ADHD coaching is not a registered health '
+                   'profession, and it is not assessment, diagnosis or therapy.',
+        schema=dict(
+            type='Person',
+            credentials=['Master of Teaching (Secondary), University of Wollongong', 'Bachelor of Laws (LLB)',
+                         'PESI ADHD Coaching Course', 'Proficient High School Teacher Accreditation'],
+            same_as=[LAS + 'about-me', 'https://www.instagram.com/lawsonadhdsolutions/',
+                     'https://www.linkedin.com/in/adhdcoachalex'],
+            works_for=dict(type='ProfessionalService', url=LAS, telephone='', locality='Sutherland', state='NSW'),
+            area='Australia',
+        ),
     ),
 ]
 
