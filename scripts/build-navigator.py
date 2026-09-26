@@ -362,7 +362,6 @@ def build():
             bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(f"{d['key']}:{asp['key']}")}<span>{esc(asp["label"])}</span></button>')
             cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
             panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
-                          f'<p class="mt-2 text-[15px] text-[#5f5e59]">These clinicians say on their profiles that they work on this. The note under each name uses their wording.</p>'
                           f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></div>')
             items.append(f'<li class="py-4"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(asp["label"])}</h3><ul class="mt-4 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></li>')
         listing.append(f'<section class="pt-10 border-t border-[#e8e6df]"><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])}</h2><ul class="list-none p-0 m-0 divide-y divide-[#e8e6df]">{"".join(items)}</ul></section>')
@@ -379,7 +378,8 @@ def build():
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
 <div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><div id="nav-halo" class="nav-halo" aria-hidden="true"></div>{''.join(bubbles)}</div>
 <section id="nav-results" class="nav-results max-w-[900px] mx-auto pt-10 border-t border-[#e8e6df]" aria-live="polite" hidden>{''.join(panels)}
-<p class="mt-10"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">See the whole network <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
+<p class="mt-8 text-[15px] text-[#5f5e59]">Clinicians appear here when their profile says they work on this. The note under each name is in their own words.</p>
+<p class="mt-6"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">See the whole network <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
 </section>
 <div class="nav-list max-w-[900px] mx-auto">{''.join(listing)}</div>
 </div>

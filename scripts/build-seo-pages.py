@@ -124,7 +124,7 @@ PAGES = [
       description=f'ADHD care on the Gold Coast: psychologists and an exercise physiologist in Bundall, plus a GP assessment by phone for {GP_TOTAL} in total.',
       lede='ADHDme has a psychology and exercise physiology team at Atlantis Recovery Centre in Bundall. The network does not have a Gold Coast GP who prescribes yet. Its two GPs are in Sydney and see people by phone or telehealth.',
       who=[gold_coast, gps_remote, qld_psychologists], who_heading='Who you can see from the Gold Coast',
-      who_note='The Bundall team sees people in their rooms. Both GPs are in Sydney and see people remotely. The Brisbane psychologists have rooms in Fortitude Valley and Ashgrove and also offer telehealth.',
+      who_note='The Bundall team sees people in their rooms. The Brisbane psychologists have rooms in Fortitude Valley and Ashgrove and also offer telehealth.',
       sections=[
        ('In person in Bundall', [
         f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied health centre at 25 Upton Street, Bundall. It has clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists. The practice says its approach, which combines therapy with movement-based work, suits ADHD, anxiety and trauma. Each psychology client starts with a comprehensive assessment. You book on the practice’s HotDoc page, which opens in a new tab. No referral needed, and you don’t need an account.',
@@ -154,7 +154,7 @@ PAGES = [
       description=f'Queensland GPs can now diagnose adult ADHD and prescribe. Who sees Brisbane patients in the ADHDme network, and a GP assessment by phone for {GP_TOTAL}.',
       lede='Queensland is the first state to let a GP diagnose adult ADHD and prescribe for it. ADHDme does not have a GP in Brisbane yet. Its two Sydney GPs see Brisbane patients remotely, and its Brisbane psychologists have rooms in Fortitude Valley and Ashgrove.',
       who=any_of(gps_remote, brisbane_psychologists, brisbane_allied), who_heading='Who sees Brisbane patients',
-      who_note='Both GPs are in Sydney and see people remotely. No Brisbane GP has joined the network yet. The psychologists and the occupational therapist have rooms in Fortitude Valley and Ashgrove.',
+      who_note='The GPs are listed first, then the psychologists and the occupational therapist.',
       sections=[
        ('What a Queensland GP can now do', [
         QLD_GP_PARA,
@@ -214,7 +214,7 @@ PAGES = [
       description=f'Two GPs assess and diagnose ADHD in Beecroft, Double Bay and Hornsby. {GP_TOTAL} across two consultations, no referral needed, with phone and telehealth options.',
       lede='Two GPs in the ADHDme network assess ADHD in Sydney, at clinics in Beecroft, Double Bay and Hornsby. The fee is published before you book, and you book on the practice’s booking page. NSW’s rules on who can prescribe are changing in stages through 2026.',
       who=nsw_clinical, who_heading='ADHD clinicians in Sydney',
-      who_note='Both GPs assess and diagnose. Paula Garrido is a clinical psychologist based in Sydney who works by telehealth only.',
+      who_note='Both GPs assess and diagnose.',
       sections=[
        ('The two GPs', [
         f'{a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} works at Beecroft Family &amp; Skin Cancer Clinic in Beecroft and Double Bay, and takes phone consultations. His assessment starts with a documented physical baseline and considers ADHD alongside sleep, cardiovascular and metabolic health.',
@@ -426,7 +426,7 @@ PAGES = [
        ('Is ADHD coaching covered by Medicare or the NDIS?', 'Medicare does not cover it, but JobAccess can if you work at least eight hours a week. Self-managed and plan-managed NDIS participants can often claim it, and for children the NDIS is usually the only option.'),
        ('What is the difference between an ADHD coach and a psychologist?', 'A psychologist is AHPRA-registered, can assess and diagnose, and treats with therapy. A coach is unregulated and works on executive function and accountability, and many people see both.'),
        ('Can I do ADHD coaching online?', 'Yes. All the coaches work online. REACH also sees people in Perth, and Lawson ADHD Solutions in Sutherland.'),
-       ('How much does ADHD coaching cost?', 'REACH quotes its fee when you enquire, and Lawson ADHD Solutions charges $85 for a 55-minute session. JobAccess can cover coaching if you work at least eight hours a week.'),
+       ('How much does ADHD coaching cost?', 'REACH quotes its fee when you enquire, and Lawson ADHD Solutions charges $85 for a 55-minute session.'),
       ],
       related=['adhd-treatment-after-diagnosis', 'adhd-psychologist', 'adhd-exercise-physiologist', 'adhd-assessment-online']),
 ]
