@@ -295,6 +295,7 @@ CLINICIANS = [
         description='Clinical psychologist certified in ADHD and autism care, seeing clients by video anywhere in Australia.',
         chips=['Neuroaffirming', 'Trauma-informed', 'ADHD & autism certified'],
         telehealth=True,
+        in_person=False,   # the clinic is online only
         book_href=WPC + 'appointment-page/', book_hint='Opens the practice’s website in a new tab.',
         links=[  # (kind, label, href): shown as pills under the booking button and in the Details "Online" row
             ('instagram', '@wellnesspsychologyclinic.au', 'https://www.instagram.com/wellnesspsychologyclinic.au/'),
@@ -983,7 +984,6 @@ CLINICIANS = [
         languages=[],
         experience=[
             'Consultant coach, REACH ADHD Coaching and Consultancy, Perth',
-            'Over two decades across Australian and international school communities',
             'Secondary education: ATAR Economics and Business Management, Special Needs Support, Commerce and Sport',
             'Middle-management leadership, and roles in professional services, governance and community sport',
             'ADHD coach training at the ADHD Coaching Academy (ADDCA), New York',
@@ -1498,6 +1498,16 @@ TELEHEALTH_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 
                    'Telehealth</span>')
 
 
+# Beside it, the same marker for seeing people face to face: most clinicians do both, and a reader should not
+# have to open a profile to learn that. Every clinician sees people in person unless `in_person=False`.
+IN_PERSON_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
+                  'text-[#1e547a] bg-[#dcedfa] border border-[#b9d6ee]">'
+                  '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+                  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+                  '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'
+                  'In person</span>')
+
+
 # The second fixed marker. Some practices treat movement as the treatment rather than an extra, and a
 # reader scanning the deck cannot tell that from an interest chip. Same shape and position rule as the
 # telehealth pill: one wording, one icon, always ahead of the interest chips. Set it from `exercise`.
@@ -1510,9 +1520,10 @@ EXERCISE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 ro
 
 
 def chip_row(c, limit=None):
-    """The clinician's interest chips, behind the markers they carry: telehealth, then exercise. A card in the
-    deck shows the first `limit` chips; the profile shows them all."""
-    markers = (TELEHEALTH_PILL if c['telehealth'] else '') + (EXERCISE_PILL if c.get('exercise') else '')
+    """The clinician's interest chips, behind the markers they carry: in person, telehealth, then exercise. A card
+    in the deck shows the first `limit` chips; the profile shows them all."""
+    markers = ((IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
+               + (EXERCISE_PILL if c.get('exercise') else ''))
     return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
 
