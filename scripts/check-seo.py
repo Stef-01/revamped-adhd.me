@@ -10,6 +10,7 @@ Indexable pages (no robots noindex) must:
   - have a meta description of 110 to 160 characters, unique across the site;
   - have a canonical URL pointing at the page itself, and og:url, og:title and og:image to match;
   - describe the share image in og:image:alt and twitter:image:alt;
+  - allow large image previews (robots max-image-preview:large), which Google Discover needs;
   - have exactly one <h1>, and no heading that skips a level on the way down (h2 straight to h4);
   - give every <img> an alt attribute (empty is fine for decoration);
   - carry JSON-LD that parses.
@@ -106,6 +107,8 @@ def main():
                 say(f'no {tag}')
         if not meta(text, r'<meta name="twitter:image:alt" content="([^"]+)"'):
             say('no twitter:image:alt')
+        if 'max-image-preview:large' not in (meta(text, r'<meta name="robots" content="([^"]+)"') or ''):
+            say('no robots max-image-preview:large')
 
         page = Page()
         page.feed(text)
