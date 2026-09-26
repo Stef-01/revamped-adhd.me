@@ -190,7 +190,7 @@ The question this setup exists to answer: **who is on the site, and how many of 
    python3 scripts/posthog-dashboard.py           # --dry-run prints every payload and sends nothing
    ```
 
-4. Update `privacy.html`'s "Cookies and local storage" section and `measurement.html`'s channel list the same day if what is counted has changed.
+4. Update `privacy.html`'s "Cookies and analytics" section and `measurement.html` the same day if what is counted has changed.
 
 `gaId` still works alongside it: set a GA4 measurement ID and the same declared events go there too, cookieless and with advertising signals off. Leave every key empty and events are still validated and then dropped — no request leaves the page.
 
@@ -265,7 +265,7 @@ A page that grows a second booking link should mark it with `data-booking-link="
 
 ### Attribution
 
-Every booking link (Healthengine, Halaxy, or a clinic's own page, as declared per clinician) gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>&utm_content=<clinician>` rewritten onto it at click time, so the practice can see the referral from their own side. Sending never delays the click: the browser follows the link immediately and the event travels on its own. Each handoff also lands in a local tally in that browser's storage (clinician, discipline, practice, surface, day), which `measurement.html` reads back and which never leaves the device.
+Every booking link (Healthengine, Halaxy, or a clinic's own page, as declared per clinician) gets `utm_source=adhd-me&utm_medium=referral&utm_campaign=<surface>&utm_content=<clinician>` rewritten onto it at click time, so the practice can see the referral from their own side. Sending never delays the click: the browser follows the link immediately and the event travels on its own. Each handoff also lands in a local tally in that browser's storage (clinician, discipline, practice, surface, day), which never leaves the device.
 
 ### Privacy and the opt-out
 
