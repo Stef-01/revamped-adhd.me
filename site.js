@@ -2,6 +2,15 @@
 (function () {
   'use strict';
 
+  // Fetch a page as soon as someone hovers over or starts to tap a link to it, so it opens at once. Prefetch only:
+  // nothing runs until the page is really visited, so analytics never counts a visit that didn't happen.
+  if (HTMLScriptElement.supports && HTMLScriptElement.supports('speculationrules')) {
+    var rules = document.createElement('script');
+    rules.type = 'speculationrules';
+    rules.textContent = JSON.stringify({ prefetch: [{ source: 'document', where: { href_matches: '/*' }, eagerness: 'moderate' }] });
+    document.head.appendChild(rules);
+  }
+
   // Header shadow on scroll
   var header = document.querySelector('.site-header');
   if (header) {
