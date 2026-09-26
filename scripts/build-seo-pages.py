@@ -564,7 +564,7 @@ def jsonld(p):
     url = f'{SITE}/{p["slug"]}.html'
     graph = [
         {'@type': 'WebPage', '@id': url, 'url': url, 'name': p['seo'], 'description': p['description'],
-         'inLanguage': 'en-AU', 'isPartOf': {'@type': 'WebSite', 'name': 'ADHDme', 'url': SITE + '/'}},
+         'inLanguage': 'en-AU', 'isPartOf': {'@id': SITE + '/#site'}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'ADHD care', 'item': f'{SITE}/{HUB}.html'},
