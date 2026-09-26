@@ -36,6 +36,9 @@ const RULES = {
   article: { words: 800, fold: 200, block: 60, h1: 12, lede: 40 },   // blog posts
   legal:   { words: 800, fold: 200, block: 60, h1: 8,  lede: 40 },   // privacy, terms and the like
 };
+// Pages allowed past their type's limit, each with the reason. Learn carries the Apps list (twelve apps, a line
+// each), which the owner asked for in full.
+const OVERRIDES = { learn: { words: 600 } };
 const LEGAL = ['privacy', 'terms', 'automated-decisions', 'measurement'];
 const HUBS = ['learn', 'adhd-services'];
 
@@ -120,7 +123,7 @@ async function open(browser, url, width, height) {
       await phone.screenshot({ path: path.join(shots, `${slug}-phone.png`) });
       await phone.close();
     }
-    const rule = RULES[type];
+    const rule = { ...RULES[type], ...OVERRIDES[slug] };
     const broken = Object.keys(rule).filter(k => m[k] > rule[k]);
     rows.push({ slug, type, ...m, broken });
   }
