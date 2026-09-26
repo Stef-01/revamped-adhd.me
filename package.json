@@ -12,7 +12,8 @@
     "seo:html": "npx -y html-validate@11.16.0 \"*.html\"",
     "seo:links": "npx -y linkinator@8.1.0 . --recurse --skip \"^https?://(?!localhost|127\\\\.0\\\\.0\\\\.1)\"",
     "seo:lighthouse": "node scripts/seo-lighthouse.mjs",
-    "seo:check": "python3 scripts/check-seo.py && npm run seo:html && npm run seo:links"
+    "seo:check": "python3 scripts/check-seo.py && npm run seo:html && npm run seo:links",
+    "check:overwhelm": "node scripts/overwhelm-check.cjs"
   },
   "engines": {
     "node": ">=18"
