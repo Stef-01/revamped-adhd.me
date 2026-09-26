@@ -301,7 +301,7 @@ PAGES = [
       seo='ADHD exercise physiologist: benefits and funding',
       title='ADHD and exercise physiology.',
       description='How an exercise physiologist helps with ADHD, exercising safely on stimulants, and funding through a GP care plan. In person in Bundall on the Gold Coast.',
-      lede='Exercise has a measurable effect on attention, and stimulants change how it should be prescribed. ADHDme has one exercise physiologist, in Bundall on the Gold Coast.',
+      lede='Exercise has a measurable effect on attention, and stimulants change how it should be prescribed. ADHDme’s exercise physiologist is on the Gold Coast.',
       who=exercise_physiologists, who_heading='Exercise physiology in the network',
       who_note='Sees people in person.',
       sections=[

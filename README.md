@@ -179,12 +179,23 @@ A post's `<lastmod>` is its publish date; any other page's is the date of the la
 Three tools, run through `npx` at pinned versions like the build tools, so nothing is installed:
 
 ```bash
-npm run seo:check        # html-validate on every page, then linkinator over every internal link
+npm run seo:check        # check-seo.py's on-page rules, html-validate on every page, then linkinator over every internal link
 npm start                # in another terminal, then:
 npm run seo:lighthouse   # Lighthouse performance, accessibility, best practices and SEO on nine page types
 ```
 
 `seo:html` uses `.htmlvalidateignore` to leave out the two academy pages, which are login-gated and noindex. Inline `style` attributes are allowed (the gradients and view-transition names use them); every other `html-validate:recommended` rule applies. `seo:links` skips external URLs, so it runs offline. `seo:lighthouse` takes page names as arguments (`npm run seo:lighthouse -- kate-row learn`), reads `BASE_URL` (default `http://localhost:5173`) and `CHROME_PATH`, and writes full reports to `seo-reports/`, which is git-ignored. Against the local server, "errors in console" and "back/forward cache" fail for reasons that belong to the environment (blocked third-party requests, the dev server's `no-store` header), not the site.
+
+## Overwhelm check
+
+A lot of text on one screen is hard going for anyone with ADHD, so every page has word limits. The benchmark is [Lyra Health](https://www.lyrahealth.com/): a short headline, a one-line subhead, blocks of about 15 words. Run it at the end of any round of changes:
+
+```bash
+npm start                  # in another terminal, then:
+npm run check:overwhelm    # exit 1 if any page is over a limit
+```
+
+It measures each page in a browser at 1280x900: visible words (text inside a closed `<details>` doesn't count), reading words on the first screen, the longest paragraph or list item, and the words in the headline and the paragraph under it. The limits for each type of page are in `RULES` at the top of `scripts/overwhelm-check.cjs`. It saves first-screen screenshots, desktop and phone, to `seo-reports/overwhelm/`, with Lyra's home page alongside when the network allows, and lists every page that gained words since the previous run. It needs Playwright: set `PLAYWRIGHT_PATH` and `CHROME_PATH` as for `build-og-images.cjs`.
 
 ## Deploy
 

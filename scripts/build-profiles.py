@@ -117,11 +117,10 @@ def goals_fees(rebate_note):
 
 
 GOALS_FEES = goals_fees(
-    'With a GP’s Mental Health Treatment Plan and referral, Medicare pays ' + MBS_REBATE_REGISTERED + ' a session with a '
-    'registered psychologist, or ' + MBS_REBATE_CLINICAL + ' with a clinical psychologist, for up to 10 sessions a year '
-    '(<a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 '
-    'underline-offset-4" target="_blank" rel="noopener noreferrer" href="' + MBS_SOURCE + '">Medicare Benefits Schedule</a>, '
-    'from 1 July 2026).')
+    'With a GP’s Mental Health Treatment Plan and referral, <a class="font-semibold text-[#1a1c1c] underline '
+    'decoration-[#f1bc31] decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="' + MBS_SOURCE
+    + '">Medicare</a> pays ' + MBS_REBATE_REGISTERED + ' a session with a psychologist, or ' + MBS_REBATE_CLINICAL
+    + ' with a clinical psychologist, for up to 10 sessions a year.')
 GOALS_FEES_PROVISIONAL = goals_fees(
     'Provisional psychologist sessions have no Medicare rebate. The NDIS and some private health extras may cover '
     'them.')
@@ -134,15 +133,14 @@ GOALS_FEES_OT = goals_fees(
 # ProfessionalService rather than the MedicalBusiness the clinics get.
 REACH = 'https://www.reachadhd.com.au/'
 REACH_BOOK = REACH + 'contact/'
-REACH_BOOK_HINT = 'Opens the practice’s website in a new tab. Coaching is arranged by enquiry.'
+REACH_BOOK_HINT = 'Opens the practice’s website in a new tab.'
 REACH_PLACE = 'Perth & online'
 REACH_LINKS = [
     ('instagram', '@reach_adhd_coaching', 'https://www.instagram.com/reach_adhd_coaching/'),
     ('website', 'reachadhd.com.au', REACH),
 ]
 REACH_REACH = 'Coaching online, and in person in Perth'
-REACH_APPOINTMENTS = ('An initial consultation, then sessions weekly, fortnightly or as needed; the practice suggests '
-                      'starting with six fortnightly sessions')
+REACH_APPOINTMENTS = 'An initial consultation, then sessions weekly or fortnightly'
 REACH_BILLING = 'Set and quoted by the practice; JobAccess funding may cover it'
 REACH_DISCLOSURE = ('REACH ADHD Coaching and Consultancy is an independent practice. ADHD coaching is not a registered health '
                     'profession. Coaches do not assess, diagnose or provide therapy.')
@@ -163,15 +161,14 @@ REACH_FEES = dict(
     heading='What coaching costs',
     figures=[],
     notes=[
-        'REACH quotes its fee when you enquire, before anything is booked.',
+        'REACH quotes its fee when you enquire.',
         'If you work at least eight hours a week, the Employment Assistance Fund can pay for coaching: '
-        '<strong>around $1,770.44 including GST a year</strong>, REACH says. Apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
-        'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a> with documents '
-        'from a GP or specialist. You can ask for an exemption from telling your employer. REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
+        '<strong>around $1,770.44 a year</strong>, REACH says. Apply through <a ' + 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" '
+        'target="_blank" rel="noopener noreferrer" href="https://www.jobaccess.gov.au/">JobAccess</a>; REACH’s <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] '
         'decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
         + REACH_JOBACCESS + '">guide</a> has the steps.',
-        'REACH isn’t a registered NDIS provider, but self-managed and plan-managed participants can claim. For '
-        'children, it says the NDIS is usually the only funding route.',
+        'Self-managed and plan-managed NDIS participants can claim. For children, REACH says the NDIS is usually '
+        'the only funding route.',
         '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
 )
@@ -297,7 +294,7 @@ CLINICIANS = [
         description='Clinical psychologist certified in ADHD and autism care, seeing clients by video anywhere in Australia.',
         chips=['Neuroaffirming', 'Trauma-informed', 'ADHD & autism certified'],
         telehealth=True,
-        book_href=WPC + 'appointment-page/', book_hint='Opens the practice’s website in a new tab. Appointments are requested through a form.',
+        book_href=WPC + 'appointment-page/', book_hint='Opens the practice’s website in a new tab.',
         links=[  # (kind, label, href): shown as pills under the booking button and in the Details "Online" row
             ('instagram', '@wellnesspsychologyclinic.au', 'https://www.instagram.com/wellnesspsychologyclinic.au/'),
             ('website', 'wellnesspsychologyclinic.com.au', WPC),
@@ -607,7 +604,7 @@ CLINICIANS = [
         telehealth=True,
         # Meera is not one of the practitioners bookable on the clinic's Halaxy page, so this goes to the clinic instead.
         book_href=GOALS + 'contact',
-        book_hint='Opens the practice’s website in a new tab. Meera’s appointments are arranged by enquiry.',
+        book_hint='Opens the practice’s website in a new tab.',
         links=GOALS_LINKS,
         fees=GOALS_FEES,
         qualifications='Educational and developmental psychologist, BPsychSc MPsych(Ed&Dev)',
@@ -663,10 +660,8 @@ CLINICIANS = [
             heading='What a session costs',
             figures=[('$180', 'Individual, 60 minutes'), ('$220', 'Couples & family')],
             notes=[
-                'Ninety minutes is $270, or $330 for couples and families, plus $25 on weekends and after 5pm. '
-                'A deposit is taken when you book, and cancellations within 24 hours are charged in full.',
-                'NDIS participants are $156.16 per 60 minutes, which the practice says covers sessions, emails, '
-                'phone calls, letters and reports.',
+                'Ninety minutes is $270, or $330 for couples and families. Weekends and after 5pm add $25.',
+                'NDIS participants are $156.16 per 60 minutes.',
                 'Counselling has no Medicare rebate, so you don’t need a GP plan or referral.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
@@ -762,7 +757,7 @@ CLINICIANS = [
         # remote option, so the marker stays off.
         telehealth=False,
         book_href=NCAU + 'contact-us/',
-        book_hint='Opens the practice’s website in a new tab. Appointments are arranged by enquiry.',
+        book_hint='Opens the practice’s website in a new tab.',
         links=[
             ('instagram', '@neurotherapy_clinics_australia', 'https://www.instagram.com/neurotherapy_clinics_australia/'),
             ('website', 'ncau.com.au', NCAU),
@@ -773,9 +768,8 @@ CLINICIANS = [
             figures=[],
             notes=[
                 'The clinic quotes fees for each person when you get in touch. Payment plans can be arranged.',
-                'The quote covers a two-hour first appointment with QEEG brain scans, then a 30-minute results '
-                'consultation. Training sessions run 30 minutes, with a follow-up scan after 25 to 30 of them.',
-                'Ask about Medicare, NDIS or private health cover when you ask for a quote.',
+                'The quote covers a two-hour first appointment with QEEG brain scans and a results consultation. '
+                'Training sessions then run 30 minutes each.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
@@ -1315,7 +1309,7 @@ CLINICIANS = [
         chips=['Adults, students & parents', 'Executive function', 'Lived experience'],
         telehealth=True,
         book_href=LAS + 'book-here',
-        book_hint='Opens the practice’s website in a new tab. A free 20-minute discovery call is the usual first step.',
+        book_hint='Opens the practice’s website in a new tab.',
         links=[
             ('instagram', '@lawsonadhdsolutions', 'https://www.instagram.com/lawsonadhdsolutions/'),
             ('website', 'lawsonadhdsolutions.com.au', LAS),
@@ -1324,8 +1318,7 @@ CLINICIANS = [
             heading='What coaching costs',
             figures=[('$85', 'Per 55-minute session')],
             notes=[
-                'The rate is the same for adults, parents and students, in person at Sutherland or online by Zoom. '
-                'A post-session plan costs an extra $15.',
+                'The rate is the same in person or online. A post-session plan costs an extra $15.',
                 'A free 20-minute discovery call comes first.',
                 # His FAQ's structured data still carries an older $65 online rate; his pricing page and his booking
                 # page both say $85, so $85 is what is shown. Worth a word to him either way.
@@ -1526,7 +1519,6 @@ ICONS = {
     'instagram': '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>',
     'website': '<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>',
 }
-ONLINE_PREFIX = {'instagram': 'Instagram, ', 'website': ''}
 # Icon-only buttons under the booking button; the accessible name says whose account it is.
 LINK_ARIA = {'instagram': '{practice} on Instagram, {label}', 'website': '{practice} website, {label}'}
 
@@ -1607,7 +1599,49 @@ SECTION = ('<section class="lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-
            '<h2 class="lg:col-span-4 text-2xl font-extrabold tracking-tight text-[#1a1c1c]">{}</h2>{}</section>')
 DETAIL_ROW = ('<div class="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-1 sm:gap-4 py-3 border-b border-[#e8e6df]">'
               '<dt class="text-[15px] font-semibold text-[#5f5e59]">{}</dt><dd class="m-0 text-[17px]">{}</dd></div>')
-TEXT_LINK = 'class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer"'
+# About opens with the clinician's first sentence or two, at least READ_MIN words and never more than READ_MAX,
+# and the rest of their words sit behind "Read more": a long block of text on first view is hard going with ADHD.
+# For the same reason Experience shows its first EXPERIENCE_SHOWN items and folds the rest (a single leftover item
+# is shown, not folded).
+READ_MIN, READ_MAX = 12, 40
+EXPERIENCE_SHOWN = 5
+SENTENCE = re.compile(r'(?<=[.!?])\s+(?=[A-Z‘“"(])')
+READ_MORE = ('<details class="group"><summary class="inline-flex items-center gap-3 cursor-pointer list-none '
+             '[&::-webkit-details-marker]:hidden text-[15px] font-bold text-[#1a1c1c]">{}'
+             '<span class="shrink-0 w-8 h-8 rounded-full border border-[#e8e6df] flex items-center justify-center '
+             'transition-transform group-open:rotate-45" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" '
+             'fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/>'
+             '</svg></span></summary>{}</details>')
+# Details values that say nothing, so their rows are left out.
+UNSAID = ('Not declared', 'Not applicable')
+
+
+def words(text):
+    return len(re.findall(r"[A-Za-z0-9$’'][\w$’'.,%-]*", text))
+
+
+def about_html(c):
+    first, *rest = SENTENCE.split(c['about'][0])
+    lead = [first]
+    while rest and words(' '.join(lead)) < READ_MIN and words(' '.join(lead + rest[:1])) <= READ_MAX:
+        lead.append(rest.pop(0))
+    more = ([' '.join(rest)] if rest else []) + list(c['about'][1:])
+    para = lambda t: f'<p class="m-0">{esc(t)}</p>'
+    return para(' '.join(lead)) + (READ_MORE.format('Read more', '<div class="mt-4 flex flex-col gap-4">'
+                                                    + ''.join(para(t) for t in more) + '</div>') if more else '')
+
+
+def experience_html(c):
+    item = lambda x: f'<li class="py-2.5 border-b border-[#e8e6df]">{esc(x)}</li>'
+    cut = EXPERIENCE_SHOWN if len(c['experience']) > EXPERIENCE_SHOWN + 1 else len(c['experience'])
+    shown, rest = c['experience'][:cut], c['experience'][cut:]
+    html_ = '<ul class="list-none p-0 m-0">' + ''.join(item(x) for x in shown) + '</ul>'
+    if rest:
+        html_ += '<div class="mt-4">' + READ_MORE.format(f'Show {len(rest)} more', '<ul class="list-none p-0 m-0">'
+                                                         + ''.join(item(x) for x in rest) + '</ul>') + '</div>'
+    return html_
+
+
 ICON_BUTTON = ('class="inline-flex items-center justify-center w-11 h-11 rounded-full text-[#1a1c1c] bg-[#f6f4ee] '
                'border border-[#e8e6df] hover:bg-white transition-colors" target="_blank" rel="noopener noreferrer"')
 
@@ -1622,9 +1656,7 @@ def render_main(c, size, sizes):
     details = [('Qualifications', esc(c['qualifications']))]
     if c['languages']:
         details.append(('Languages', esc(', '.join(c['languages']))))
-    details += list(c['details'])
-    if c['links']:
-        details.append(('Online', ' · '.join(f'<a {TEXT_LINK} href="{href}">{esc(ONLINE_PREFIX[kind] + label)}</a>' for kind, label, href in c['links'])))
+    details += [(k, v) for k, v in c['details'] if k != 'Billing' and v not in UNSAID]   # the fee card covers billing
     # A clinic that publishes no fee gets the notes without the figure list, rather than an empty <dl>.
     figures = ''
     if fees['figures']:
@@ -1651,8 +1683,8 @@ def render_main(c, size, sizes):
   </div>
 </div>
 <div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-  {SECTION.format('Experience', '<ul class="lg:col-span-8 list-none p-0 m-0 text-[17px]" data-declared-by="clinician">' + ''.join(f'<li class="py-2.5 border-b border-[#e8e6df]">{esc(x)}</li>' for x in c['experience']) + '</ul>')}
-  {SECTION.format('About', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]" data-declared-by="clinician">' + ''.join(f'<p class="m-0">{esc(p)}</p>' for p in c['about']) + '</div>')}
+  {SECTION.format('Experience', '<div class="lg:col-span-8 text-[17px]" data-declared-by="clinician">' + experience_html(c) + '</div>')}
+  {SECTION.format('About', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]" data-declared-by="clinician">' + about_html(c) + '</div>')}
   {SECTION.format('Details', '<dl class="lg:col-span-8 m-0">' + ''.join(DETAIL_ROW.format(esc(k), v) for k, v in details) + '</dl>')}
 </div>
 <section class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16" data-reveal aria-labelledby="fees-title">

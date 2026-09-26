@@ -66,3 +66,11 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+---
+
+## This site: minimalism comes first
+
+- Benchmark every page against https://www.lyrahealth.com/: a short headline, a one-line subhead, blocks of about 15 words. This is a landing site, not a research paper, and people with ADHD struggle with a lot of text on one screen.
+- Don't add words unless they replace more. When in doubt, cut.
+- At the end of every round of changes, run `npm run check:overwhelm` (with `npm start` running) and look at the screenshots it saves in `seo-reports/overwhelm/`. Nothing ships over the limits, and no page gains words without a reason.

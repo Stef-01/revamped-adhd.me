@@ -199,7 +199,7 @@ POSTS = [
       hook='Twenty minutes for an hour of focus.',
       seo='ADHD and exercise: when, how much, and safety',
       description='Exercise gives a small, short-lived lift in attention. When to schedule it, what changes if you take stimulants, and how to keep it going for months.', category='Daily life', date='2026-09-02', read='6 min', cover=cover_exercise,
-      title='ADHD and exercise: what it does, when to do it, and how to keep doing it.',
+      title='ADHD and exercise: what it does and how to keep going.',
       lede='Exercise is the one lifestyle change with a measurable effect on attention. What the evidence supports, how to time it, and what changes on stimulants.',
       body=[
        ('h2', 'What the evidence shows'),
@@ -224,7 +224,7 @@ POSTS = [
       hook='Reasonable adjustments, and how to ask.',
       seo='ADHD at work in Australia: adjustments and funding',
       description='Reasonable adjustments for ADHD at work, whether you need to disclose, what Australian law says, and how JobAccess can fund coaching and equipment.', category='Work', date='2026-08-26', read='7 min', cover=cover_workplace,
-      title='ADHD at work: the adjustments that help, and how to ask for them.',
+      title='ADHD at work: adjustments that help, and how to ask.',
       lede='Australian law gives you a right to reasonable adjustments at work, and a government fund pays for some. What to ask for, and how.',
       body=[
        ('h2', 'Where it shows up'),
@@ -360,10 +360,32 @@ def head_for(p, head):
     return head
 
 
+# A paragraph over PARA_MAX words is a wall of text, which is hard going with ADHD, so the page breaks it at the
+# sentence nearest its middle (never inside a quotation or a link) until every piece fits.
+PARA_MAX = 60
+SENTENCE_BREAK = re.compile(r'(?<=[.!?”])\s+(?=[A-Z‘“(<])')
+
+
+def words(text):
+    return len(re.findall(r"[A-Za-z0-9$’'][\w$’'.,%-]*", re.sub('<[^>]+>', '', text)))
+
+
+def paragraphs(text):
+    if words(text) <= PARA_MAX:
+        return [text]
+    whole = lambda head: head.count('“') == head.count('”') and all(
+        len(re.findall(rf'<{t}[\s>]', head)) == head.count(f'</{t}>') for t in ('a', 'strong', 'em'))
+    breaks = [m.start() for m in SENTENCE_BREAK.finditer(text) if whole(text[:m.start()])]
+    if not breaks:
+        return [text]
+    at = min(breaks, key=lambda i: abs(words(text[:i]) - words(text) / 2))
+    return paragraphs(text[:at]) + paragraphs(text[at:].lstrip())
+
+
 def body_block(b):
     """A body item: a paragraph string, ('h2', text) or ('list', [items])."""
     if isinstance(b, str):
-        return f'<p class="text-[17px] leading-[1.7] text-on-surface/85">{b}</p>'
+        return ''.join(f'<p class="text-[17px] leading-[1.7] text-on-surface/85">{t}</p>' for t in paragraphs(b))
     kind, value = b
     if kind == 'h2':
         return f'<h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c] pt-4">{value}</h2>'
