@@ -111,7 +111,7 @@ POSTS = [
  dict(slug='blog-how-booking-works',
       hook='Two steps, and no account needed.',          # the card line and the page's lede
       seo='How booking with ADHDme works, no referral needed',
-      description='Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', updated='2026-09-27', read='3 min', cover=cover_booking,
+      description='Browse every clinician without an account, see how fees work on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', updated='2026-09-27', read='3 min', cover=cover_booking,
       title='How booking with ADHDme works.',
       body=[
        'Most people with ADHD have spent years dealing with systems that seem built for someone else: forms that ask the same question three times, waitlists with no end date, a referral to get a referral. We built ADHDme to take out as much of that as we could.',
@@ -168,7 +168,7 @@ POSTS = [
         'Supplements and diets. The evidence for them is thin, and the money is better spent on a psychologist. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post covers what does help.']),
        ('h2', 'A plan that works for most people'),
        'In month one, start a medication trial with a GP and write down the three things you want it to change. In month two or three, see a psychologist, usually for six to ten sessions in the first year. Alongside that, make one change on your own. The most common are exercise just before the hardest part of the day, or a fixed wake time. Then review how it’s going before you add anything else.',
-       'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and what they charge, and a bad fit is the most expensive thing in ADHD care.'],
+       'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and how they set fees, and a bad fit is the most expensive thing in ADHD care.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html'), ('How booking works', 'how-it-works.html')]),
  dict(slug='blog-adhd-support-beyond-medication', landing=True, tint='#f6ecce',
       hook='Four kinds of help beyond a pill.',
@@ -386,13 +386,15 @@ def opening(p):
     meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-[#5f5e59] font-medium"><span class="whitespace-nowrap">{nice(p["date"])}</span> · <span class="whitespace-nowrap">{p["read"]} read</span> · <span class="whitespace-nowrap">The ADHDme team</span></span>'
     if not p.get('landing'):
         return f'''<article class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10">
-<a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="learn.html">{ARROW_BACK}Back to Learn</a>
+<a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c] mb-5" href="learn.html">{ARROW_BACK}Back to Learn</a>
 <div class="flex items-center gap-3 text-[13px] font-bold mb-4">{meta}</div>
 <h1 class="hero-in font-display-hero text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.08] font-extrabold tracking-tight text-on-surface mb-6">{p['title']}</h1>
 <p class="hero-in hero-in-2 font-editorial-quote text-[22px] leading-relaxed text-on-surface-variant mb-8">{p['hook']}</p>
 <div class="hero-in hero-in-3 rounded-3xl overflow-hidden border border-black/[0.06] shadow-sm mb-10 aspect-video bg-[#f6f1e6]"><img width="960" height="540" fetchpriority="high" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover"></div>'''
     return f'''<section class="w-full border-b border-black/[0.06]" style="background: {p['tint']};" aria-labelledby="post-title">
-<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-14 lg:pt-20 lg:pb-20 grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-16 items-center">
+<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-14 lg:pt-10 lg:pb-20">
+<a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="learn.html">{ARROW_BACK}Back to Learn</a>
+<div class="mt-6 lg:mt-8 grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-10 lg:gap-16 items-center">
 <div>
 <div class="hero-in flex flex-wrap items-center gap-3 text-[13px] font-bold">{meta}</div>
 <h1 id="post-title" class="hero-in hero-in-2 mt-5 font-display-hero text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-on-surface max-w-[20ch]">{p['title']}</h1>
@@ -403,7 +405,7 @@ def opening(p):
 </div>
 </div>
 <div class="hero-in hero-in-3 rounded-3xl overflow-hidden border border-black/[0.06] shadow-sm aspect-video bg-[#f6f1e6]"><img width="960" height="540" fetchpriority="high" decoding="async" src="assets/blog/{p['slug']}.svg" alt="" class="w-full h-full object-cover"></div>
-</div></section>
+</div></div></section>
 <article id="guide" class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10 scroll-mt-24">'''
 
 
@@ -440,7 +442,7 @@ def post_ld(p):
 def post_page(p, head, footer, others):
     paras = ''.join(body_block(b) for b in p['body'])
     EXT = ' target="_blank" rel="noopener noreferrer"'
-    src = ''.join(f'<li><a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="{h}"{EXT if h.startswith("http") else ""}>{t}</a></li>' for t, h in p['sources'])
+    src = ''.join(f'<li><a class="inline-block py-1 font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="{h}"{EXT if h.startswith("http") else ""}>{t}</a></li>' for t, h in p['sources'])
     more = ''.join(related_card(o) for o in others)
     return f'''{head}<main id="main" class="w-full bg-surface">
 {opening(p)}
@@ -448,7 +450,7 @@ def post_page(p, head, footer, others):
 <div class="mt-10 p-6 rounded-2xl bg-[#faf9f6] border border-[#eeebe5]"><h2 class="text-[15px] font-bold text-[#5f5e59] mb-3">Sources and further reading</h2><ul class="space-y-2 text-sm">{src}</ul></div>
 <div class="mt-10 bg-[#f1bc31] rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-black/10">
 <div class="text-center sm:text-left"><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">No account needed.</p></div>
-<a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
+<a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:bg-[#2f3130] shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </article>
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
 </main>

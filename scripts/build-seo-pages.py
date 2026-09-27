@@ -261,7 +261,7 @@ PAGES = [
         f'All the Brisbane psychologists offer telehealth, and {a("Paula Garrido", "paula-garrido.html")}’s clinic is online only. ' + PSY_COST_PARA,
         'Any GP can write a Mental Health Treatment Plan, including your own, and it works the same way for a telehealth psychologist.']),
        ('Choosing a clinician you won’t meet in person', [
-        'Each profile is the clinician’s own account of how they work, who they see, what they focus on and what they charge. On The Network page, the chips under each name let you filter quickly: neuroaffirming, trauma-informed, assessment, children, adults.']),
+        'Each profile is the clinician’s own account of how they work, who they see, what they focus on and how their fees work. On The Network page, the chips under each name let you filter quickly: neuroaffirming, trauma-informed, assessment, children, adults.']),
       ],
       faqs=[
        ('Can ADHD be diagnosed online in Australia?', 'Yes. The history, rating scales and diagnostic conversation can be done by phone or video. The physical baseline before medication is usually done in person, by the practice or your local GP.'),
@@ -540,8 +540,8 @@ def faq_section(faqs):
 
 def related_section(p):
     links = ''.join(
-        f'<li><a class="group block rounded-2xl bg-white border border-[#e8e6df] p-5 hover:border-[#1a1c1c]/30 transition-colors" href="{r}.html">'
-        f'<span class="block text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(BY_SLUG[r]))}</span></a></li>'
+        f'<li><a class="group block h-full rounded-2xl bg-white border border-[#e8e6df] p-5 hover:border-[#1a1c1c]/30 transition-colors" href="{r}.html">'
+        f'<span class="block text-balance text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(BY_SLUG[r]))}</span></a></li>'
         for r in p['related'])
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-16" aria-labelledby="related-title">
 <h2 id="related-title" class="text-[15px] font-bold text-[#5f5e59]">Related pages</h2>

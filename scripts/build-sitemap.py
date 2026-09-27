@@ -91,7 +91,7 @@ SECTIONS = [
 def llms(ps):
     lines = ['# ADHDme', '',
              '> A directory of ADHD clinicians in Australia: GPs, psychologists, allied health clinicians and coaches. '
-             'Each profile says how the clinician works, where they practise and what they charge, and you book with '
+             'Each profile says how the clinician works, where they practise and how their fees work, and you book with '
              'the practice directly. ADHDme does not provide health care and takes no commission.', '',
              'Clinician profiles are written from each clinician\'s own description of their work. Fees and Medicare '
              'details are as each practice publishes them; the practice confirms them when you book.', '']
