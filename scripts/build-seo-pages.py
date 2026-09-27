@@ -540,8 +540,8 @@ def faq_section(faqs):
 
 def related_section(p):
     links = ''.join(
-        f'<li><a class="group block rounded-2xl bg-white border border-[#e8e6df] p-5 hover:border-[#1a1c1c]/30 transition-colors" href="{r}.html">'
-        f'<span class="block text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(BY_SLUG[r]))}</span></a></li>'
+        f'<li><a class="group block h-full rounded-2xl bg-white border border-[#e8e6df] p-5 hover:border-[#1a1c1c]/30 transition-colors" href="{r}.html">'
+        f'<span class="block text-balance text-[17px] font-bold text-[#1a1c1c] group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(short(BY_SLUG[r]))}</span></a></li>'
         for r in p['related'])
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-16" aria-labelledby="related-title">
 <h2 id="related-title" class="text-[15px] font-bold text-[#5f5e59]">Related pages</h2>

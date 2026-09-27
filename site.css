@@ -72,6 +72,8 @@ p, li, dd { text-wrap: pretty; }
 a[aria-label="ADHDme home"]:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 4px; border-radius: 8px; }
 /* Targets: footer and strip links reach 44px without changing their look */
 nav[aria-label="Footer"] a, nav[aria-label="Learn categories"] a { display: inline-flex; align-items: center; min-height: 2.75rem; }
+/* The logo links home from the header and footer: a full 44px tap target on phones */
+a.group[href="/"] { min-height: 2.75rem; }
 /* The consent bar must not cover the thing you are reading or focusing */
 body.has-consent { padding-bottom: var(--consent-h, 4.5rem); }
 html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }

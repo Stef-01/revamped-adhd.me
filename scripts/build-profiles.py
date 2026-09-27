@@ -1666,7 +1666,7 @@ DETAIL_ROW = ('<div class="grid grid-cols-1 sm:grid-cols-[10rem_1fr] gap-1 sm:ga
 READ_MIN, READ_MAX = 12, 40
 EXPERIENCE_SHOWN = 5
 SENTENCE = re.compile(r'(?<=[.!?])\s+(?=[A-Z‘“"(])')
-READ_MORE = ('<details class="group"><summary class="inline-flex items-center gap-3 cursor-pointer list-none '
+READ_MORE = ('<details class="group"><summary class="inline-flex items-center gap-3 min-h-11 cursor-pointer list-none '
              '[&::-webkit-details-marker]:hidden text-[15px] font-bold text-[#1a1c1c]">{}'
              '<span class="shrink-0 w-8 h-8 rounded-full border border-[#e8e6df] flex items-center justify-center '
              'transition-transform group-open:rotate-45" aria-hidden="true"><svg class="w-4 h-4" viewBox="0 0 24 24" '
@@ -1734,7 +1734,7 @@ def render_main(c, size, sizes):
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
     <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
-    <p class="text-[19px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
+    <p class="text-[19px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] text-balance arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
     <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">
       <a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
@@ -1750,7 +1750,7 @@ def render_main(c, size, sizes):
 <section class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16" data-reveal aria-labelledby="fees-title">
   <h2 id="fees-title" class="lg:col-span-4 text-2xl font-extrabold tracking-tight text-[#1a1c1c]">{esc(fees['heading'])}</h2>
   <div class="lg:col-span-8 flex flex-col gap-5">{figures}
-{chr(10).join(f'    <p class="text-[17px] text-[#2b2820] max-w-[62ch]">{note}</p>' for note in fees['notes'])}
+{chr(10).join(f'    <p class="text-[17px] text-[#2b2820] max-w-[62ch] text-balance">{note}</p>' for note in fees['notes'])}
   </div>
 </section>
 <p class="mt-8 text-[15px] text-[#5f5e59] max-w-[72ch]">{esc(c['disclosure'])} This profile is written from {esc(c['short'])}’s own description of their work.</p>
