@@ -1,6 +1,6 @@
 # ADHDme
 
-> A directory of ADHD clinicians in Australia: GPs, psychologists, allied health clinicians and coaches. Each profile says how the clinician works, where they practise and what they charge, and you book with the practice directly. ADHDme does not provide health care and takes no commission.
+> A directory of ADHD clinicians in Australia: GPs, psychologists, allied health clinicians and coaches. Each profile says how the clinician works, where they practise and how their fees work, and you book with the practice directly. ADHDme does not provide health care and takes no commission.
 
 Clinician profiles are written from each clinician's own description of their work. Fees and Medicare details are as each practice publishes them; the practice confirms them when you book.
 
@@ -8,7 +8,7 @@ Clinician profiles are written from each clinician's own description of their wo
 
 - [Neuroaffirming ADHD assessment and care](https://www.adhdme.au/): An Australian directory of neuroaffirming ADHD clinicians. Find GPs, psychologists, OTs and coaches, see how they work, and book directly. No referral needed.
 - [Find an ADHD GP, psychologist or coach](https://www.adhdme.au/the-doctors.html): ADHD GPs, psychologists, allied health clinicians and coaches in Sydney, Brisbane, the Gold Coast and Perth, many by telehealth. Read profiles and book.
-- [How to find and book an ADHD clinician](https://www.adhdme.au/how-it-works.html): Read how each ADHD clinician works, where they practise and what they charge, then book or enquire with the practice. No referral needed.
+- [How to find and book an ADHD clinician](https://www.adhdme.au/how-it-works.html): Read how each ADHD clinician works, where they practise and how their fees work, then book or enquire with the practice. No referral needed.
 - [ADHD care navigator: find the right clinician](https://www.adhdme.au/care-navigator.html): Pick an area of life, such as school, work, home, relationships or health, then the part ADHD affects. See clinicians whose profiles say they work on it.
 
 ## Clinicians
@@ -59,7 +59,7 @@ Clinician profiles are written from each clinician's own description of their wo
 
 ## Guides
 
-- [How booking with ADHDme works, no referral needed](https://www.adhdme.au/blog-how-booking-works.html): Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.
+- [How booking with ADHDme works, no referral needed](https://www.adhdme.au/blog-how-booking-works.html): Browse every clinician without an account, see how fees work on each profile, then book or enquire with the practice. No platform fee or upfront payment.
 - [Body doubling for ADHD: a simple focus tool](https://www.adhdme.au/blog-body-doubling.html): Body doubling means working while someone else is nearby. Why it can make starting a task easier for people with ADHD, and how to try it tonight.
 - [Adult ADHD diagnosis: what the research says](https://www.adhdme.au/blog-late-diagnosis.html): Diagnosed with ADHD as an adult? What the research says about late diagnosis, why adults are often missed, and what good care looks like afterwards.
 - [Just diagnosed with ADHD? What to do next](https://www.adhdme.au/blog-diagnosed-what-now.html): Just diagnosed with ADHD? What to read first, who to see, what medication and therapy involve in Australia, and which decisions can safely wait.

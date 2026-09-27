@@ -261,7 +261,7 @@ PAGES = [
         f'All the Brisbane psychologists offer telehealth, and {a("Paula Garrido", "paula-garrido.html")}’s clinic is online only. ' + PSY_COST_PARA,
         'Any GP can write a Mental Health Treatment Plan, including your own, and it works the same way for a telehealth psychologist.']),
        ('Choosing a clinician you won’t meet in person', [
-        'Each profile is the clinician’s own account of how they work, who they see, what they focus on and what they charge. On The Network page, the chips under each name let you filter quickly: neuroaffirming, trauma-informed, assessment, children, adults.']),
+        'Each profile is the clinician’s own account of how they work, who they see, what they focus on and how their fees work. On The Network page, the chips under each name let you filter quickly: neuroaffirming, trauma-informed, assessment, children, adults.']),
       ],
       faqs=[
        ('Can ADHD be diagnosed online in Australia?', 'Yes. The history, rating scales and diagnostic conversation can be done by phone or video. The physical baseline before medication is usually done in person, by the practice or your local GP.'),

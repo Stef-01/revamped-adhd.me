@@ -111,7 +111,7 @@ POSTS = [
  dict(slug='blog-how-booking-works',
       hook='Two steps, and no account needed.',          # the card line and the page's lede
       seo='How booking with ADHDme works, no referral needed',
-      description='Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', updated='2026-09-27', read='3 min', cover=cover_booking,
+      description='Browse every clinician without an account, see how fees work on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', updated='2026-09-27', read='3 min', cover=cover_booking,
       title='How booking with ADHDme works.',
       body=[
        'Most people with ADHD have spent years dealing with systems that seem built for someone else: forms that ask the same question three times, waitlists with no end date, a referral to get a referral. We built ADHDme to take out as much of that as we could.',
@@ -168,7 +168,7 @@ POSTS = [
         'Supplements and diets. The evidence for them is thin, and the money is better spent on a psychologist. Our <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="blog-adhd-nutrition.html">nutrition</a> post covers what does help.']),
        ('h2', 'A plan that works for most people'),
        'In month one, start a medication trial with a GP and write down the three things you want it to change. In month two or three, see a psychologist, usually for six to ten sessions in the first year. Alongside that, make one change on your own. The most common are exercise just before the hardest part of the day, or a fixed wake time. Then review how it’s going before you add anything else.',
-       'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and what they charge, and a bad fit is the most expensive thing in ADHD care.'],
+       'You get to choose at each step. Read about the clinicians before you book anyone. Each profile is their own account of how they work and how they set fees, and a bad fit is the most expensive thing in ADHD care.'],
       sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('ADHD treatment after diagnosis', 'adhd-treatment-after-diagnosis.html'), ('How booking works', 'how-it-works.html')]),
  dict(slug='blog-adhd-support-beyond-medication', landing=True, tint='#f6ecce',
       hook='Four kinds of help beyond a pill.',
