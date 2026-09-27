@@ -383,7 +383,7 @@ def opening(p):
     """How a post starts. A landing post opens full-width, in its own tint, with the title, a longer
     lede, the illustration and two calls to action, so it reads as a destination rather than a diary
     entry; then the article proper follows. An ordinary post keeps the small header and the cover."""
-    meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-[#5f5e59] font-medium">{nice(p["date"])} · {p["read"]} read · The ADHDme team</span>'
+    meta = f'<span class="whitespace-nowrap px-2.5 py-1 rounded-full bg-[#f1bc31]/20 text-[#674d00] uppercase tracking-wider">{p["category"]}</span><span class="text-[#5f5e59] font-medium"><span class="whitespace-nowrap">{nice(p["date"])}</span> · <span class="whitespace-nowrap">{p["read"]} read</span> · <span class="whitespace-nowrap">The ADHDme team</span></span>'
     if not p.get('landing'):
         return f'''<article class="max-w-[760px] mx-auto px-5 md:px-8 lg:px-12 pt-12 pb-10">
 <a class="inline-flex items-center gap-2 text-[15px] font-semibold text-neutral-600 hover:text-black transition-colors group mb-8" href="learn.html">{ARROW_BACK}Back to Learn</a>
@@ -444,7 +444,7 @@ def post_page(p, head, footer, others):
 <div class="space-y-6">{paras}</div>
 <div class="mt-10 p-6 rounded-2xl bg-[#faf9f6] border border-[#eeebe5]"><h2 class="text-[15px] font-bold text-[#5f5e59] mb-3">Sources and further reading</h2><ul class="space-y-2 text-sm">{src}</ul></div>
 <div class="mt-10 bg-[#f1bc31] rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-black/10">
-<div><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">Profiles are free to browse, and you don’t need an account.</p></div>
+<div class="text-center sm:text-left"><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">No account needed.</p></div>
 <a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </article>
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>

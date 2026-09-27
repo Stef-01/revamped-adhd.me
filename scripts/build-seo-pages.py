@@ -127,7 +127,7 @@ PAGES = [
       who_note='Bundall clinicians see people in person. The others also work by telehealth.',
       sections=[
        ('In person in Bundall', [
-        f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied health centre at 25 Upton Street, Bundall. It has clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists. The practice says its approach, which combines therapy with movement-based work, suits ADHD, anxiety and trauma. Each psychology client starts with a comprehensive assessment. You book on the practice’s HotDoc page, which opens in a new tab. No referral needed, and you don’t need an account.',
+        f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied health centre at 25 Upton Street, Bundall. It has clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists. The practice says its approach, which combines therapy with movement-based work, suits ADHD, anxiety and trauma. Each psychology client starts with a full assessment. You book on the practice’s HotDoc page, which opens in a new tab. No referral needed, and you don’t need an account.',
         'A psychologist can assess ADHD and treat it with therapy but cannot prescribe. The practice quotes its fee when you book. It works with DVA, the NDIS, private health funds, WorkCover and GP Mental Health Treatment Plans.']),
        ('A GP assessment by phone', [
         f'The network’s two GPs are in Sydney and both see people remotely. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} offers phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, so you can start with either without travelling. When you book, ask whether the whole assessment can be done remotely or whether any part needs to be in person.',
@@ -189,7 +189,7 @@ PAGES = [
         QLD_GP_PARA,
         f'In the network, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} takes phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, both from Sydney. They follow NSW rules on medication, but the assessment itself is the same in any state. ' + GP_COST_PARA]),
        ('Route two: a psychologist', [
-        f'A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessments, in person in Fortitude Valley or by telehealth. A GP or psychiatrist often works from a psychologist’s assessment report. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start each client with a comprehensive assessment, and the practice says its approach suits ADHD.',
+        f'A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessments, in person in Fortitude Valley or by telehealth. A GP or psychiatrist often works from a psychologist’s assessment report. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start each client with a full assessment, and the practice says its approach suits ADHD.',
         PSY_COST_PARA]),
        ('Route three: a psychiatrist', [
         'You need a GP referral to see a psychiatrist. In Queensland the wait for a first appointment is commonly months, and the fee is commonly several hundred dollars above the Medicare rebate. ADHDme does not list psychiatrists. The 2025 reform was introduced because, for many adults, the psychiatrist step added waiting time without adding much to what a well-trained GP could assess.',
@@ -549,7 +549,7 @@ def banner():
 <div class="p-8 md:p-12 rounded-3xl bg-[#f1bc31] border border-black/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
 <div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2></div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a>
-<p class="text-[13px] text-black/75 font-medium">No account or sign-up needed.</p></div>
+<p class="text-[13px] text-black/75 font-medium">No account needed.</p></div>
 </div></section>'''
 
 

@@ -345,7 +345,7 @@ CLINICIANS = [
         name='Kate Row', short='Kate Row', role='Psychologist and Clinic Director', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist & clinic director',
         description='Works with toddlers through to adults using CBT, ACT and MI, and supports families with the NDIS.',
-        chips=['Toddlers to adults', 'NDIS journeys', 'CBT, ACT & MI'],
+        chips=['Toddlers to adults', 'NDIS participants', 'CBT, ACT & MI'],
         telehealth=True,
         book_href=GOALS_BOOK, book_hint=GOALS_BOOK_HINT,
         links=GOALS_LINKS,
@@ -622,7 +622,7 @@ CLINICIANS = [
         ],
         about=[
             'Meera works with children, teenagers and adults. She enjoys working with clients to understand their goals then create a plan to achieve their goals. Meera is passionate about helping clients to identify their unique areas of strengths and difficulties and collaborate with relevant stakeholders to maximise positive outcomes in their lives.',
-            'Meera’s current focus is on neurodivergence assessments — autism assessment, ADHD assessment and cognitive assessment. She utilises assessment tools including WISC, WAIS, WIAT, MIGDAS and others as required to support clients with discovering an enhanced understanding of their unique neurotype. Meera is especially passionate about working with young adults and their families, in a way that aligns with their values and beliefs, to be the best version of themselves. She thrives on supporting clients to lean into vulnerability, learn new skills and navigate life’s challenges.',
+            'Meera’s current focus is on neurodivergence assessments: autism assessment, ADHD assessment and cognitive assessment. She utilises assessment tools including WISC, WAIS, WIAT, MIGDAS and others as required to support clients with discovering an enhanced understanding of their unique neurotype. Meera is especially passionate about working with young adults and their families, in a way that aligns with their values and beliefs, to be the best version of themselves. She thrives on supporting clients to lean into vulnerability, learn new skills and navigate life’s challenges.',
             'Meera holds a Bachelor of Psychological Science from The University of Queensland and a Master of Psychology - Educational & Developmental from Queensland University of Technology. She has previously worked as a Psychologist in a school and at the Queensland Children’s Hospital Child Development Service.',
         ],
         details=[
@@ -1130,7 +1130,7 @@ CLINICIANS = [
             'Member, Association of Applied Sports Psychology',
         ],
         about=[
-            'Bart is a passionate, straight-talking Clinical Psychologist who believes mental health support should help people function better in everyday life—not just feel better in the therapy room. He works with clients facing complex challenges, career and performance pressures, and major life transitions, while also supporting clinicians through supervision and professional development.',
+            'Bart is a passionate, straight-talking Clinical Psychologist who believes mental health support should help people function better in everyday life, not just feel better in the therapy room. He works with clients facing complex challenges, career and performance pressures, and major life transitions, while also supporting clinicians through supervision and professional development.',
             'As Director of Atlantis Recovery Centre, Bart leads an integrated approach that brings together psychology, movement, physical rehabilitation, and performance. His warm, practical style helps people build resilience, improve both mental and physical fitness, and create meaningful, lasting change.',
         ],
         details=arc_details(),
