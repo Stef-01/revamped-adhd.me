@@ -210,7 +210,7 @@ To prove a change leaves every page looking the same, `FULL=1 SHOTS_DIR=seo-repo
 
 ## Deploy
 
-It's plain static files: upload the whole folder to Netlify, Vercel, GitHub Pages, Cloudflare Pages, or any web host. GitHub Pages serves `main` as is. A Vercel project is also connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder), and skips `npm install`. `.vercelignore` keeps the builders, tooling config and the bundles' sources off the site. It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, and `/index.html` to `/`, so search engines see one copy of each page.
+It's plain static files. The live site is a Vercel project connected to the repository; `vercel.json` tells it the output is the repository root and that there is nothing to build, because the bundles are committed (without it Vercel runs `npm run build` and then fails looking for a `public` folder), and skips `npm install`. `.vercelignore` keeps the builders, tooling config and the bundles' sources off the site. It also redirects the project's own `adhd-lovat.vercel.app` address to www.adhdme.au, and `/index.html` to `/`, so search engines see one copy of each page.
 
 ## Analytics, attribution and privacy
 
