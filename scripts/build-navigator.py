@@ -70,7 +70,8 @@ DOMAINS = [
    ('fiona-alexander', 'Executive functioning'),
    ('kate-dallimore', 'Executive functioning · Trauma-informed'),
    ('donna-italiano', 'Executive functioning · Emotional regulation'),
-   ('romney-taylor', 'Executive functioning · Advocacy & inclusion')]),
+   ('romney-taylor', 'Executive functioning · Advocacy & inclusion'),
+   ('alex-lawson', 'Executive functioning · Adults, students & parents')]),
   dict(key='burnout', label='Stress and burnout', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('kate-dallimore', 'Ongoing stress, anxiety, overwhelm'),
@@ -109,7 +110,8 @@ DOMAINS = [
   dict(key='partner', label='Partner and family relationships', who=[
    ('jessica-katsamatsas', 'Relationship difficulties and attachment wounds'),
    ('kate-row', 'Communication and social skills building'),
-   ('paula-garrido', 'Neuroaffirming · Trauma-informed')]),
+   ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
+   ('trisha-harris', 'Teens, adults & couples')]),
   dict(key='rejection', label='Rejection sensitivity', who=[
    ('jessica-katsamatsas', 'Attachment wounds · Low self-esteem'),
    ('donna-italiano', 'Emotional regulation'),
@@ -377,7 +379,7 @@ def build():
     return f'''{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
 <h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">Where does ADHD get in the way?</h1>
-<p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto">Pick an area of life, then what you’d like support with, and see the clinicians who can help.</p>
+<p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto">Pick an area of life, then what you’d like support with, and see clinicians who work on it.</p>
 <div id="nav-crumb" class="nav-crumb mt-6" role="group" aria-label="Change area">{''.join(crumbs)}</div>
 </div>
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">

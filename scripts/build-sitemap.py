@@ -52,7 +52,8 @@ def pages():
         path = page_file(loc)
         text = path.read_text(encoding='utf-8')
         slug = path.stem
-        published = head_meta(text, r'"datePublished":\s*"(\d{4}-\d{2}-\d{2})"')
+        # A post's lastmod is the date its words last changed: dateModified, which is the publish date until an edit.
+        published = head_meta(text, r'"dateModified":\s*"(\d{4}-\d{2}-\d{2})"')
         portrait = head_meta(text, r'"primaryImageOfPage": \{"@type": "ImageObject", "url": "(' + re.escape(SITE) + r'/assets/clinicians/[^"]+)"')
         share = head_meta(text, r'<meta property="og:image" content="(' + re.escape(SITE) + r'/assets/blog/og/[^"]+)"')
         out.append(dict(

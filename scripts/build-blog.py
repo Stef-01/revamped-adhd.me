@@ -111,8 +111,8 @@ POSTS = [
  dict(slug='blog-how-booking-works',
       hook='Two steps, and no account needed.',          # the card line and the page's lede
       seo='How booking with ADHDme works, no referral needed',
-      description='Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', read='3 min', cover=cover_booking,
-      title='How booking with ADHDme works: no referral needed to look.',
+      description='Browse every clinician without an account, see the fee on each profile, then book or enquire with the practice. No platform fee or upfront payment.', category='How it works', date='2026-09-02', updated='2026-09-27', read='3 min', cover=cover_booking,
+      title='How booking with ADHDme works.',
       body=[
        'Most people with ADHD have spent years dealing with systems that seem built for someone else: forms that ask the same question three times, waitlists with no end date, a referral to get a referral. We built ADHDme to take out as much of that as we could.',
        '<strong>Step one is browsing.</strong> Each clinician in the network has a public profile that says who they are, where they consult, what they focus on, and what an appointment costs before any rebate. You can read all of it without signing up.',
@@ -123,14 +123,14 @@ POSTS = [
  dict(slug='blog-body-doubling',
       hook='Start a task with company nearby.',          # the card line and the page's lede
       seo='Body doubling for ADHD: a simple focus tool',
-      description='Body doubling means working while someone else is nearby. Why it can make starting a task easier for people with ADHD, and how to try it tonight.', category='Focus', date='2026-08-19', read='4 min', cover=cover_body_doubling,
-      title='Body doubling: the least complicated focus tool there is.',
+      description='Body doubling means working while someone else is nearby. Why it can make starting a task easier for people with ADHD, and how to try it tonight.', category='Focus', date='2026-08-19', updated='2026-09-27', read='4 min', cover=cover_body_doubling,
+      title='Body doubling: a simple focus tool.',
       body=[
        'Body doubling means doing a task while another person is with you. They don’t have to help, or even do the same thing. They only need to be there, in the room or on a video call, getting on with their own work.',
        'People with ADHD have used it informally for decades, usually without calling it anything. The library was easier to study in than the bedroom, and the kitchen got cleaned faster when a friend was chatting at the table.',
-       'Research on why it works is still young. A 2024 study found body doubling helped people with ADHD both start and finish tasks, and earlier work suggests that having other people around nudges the brain’s reward and motivation pathways. What we can say with confidence is that it makes starting easier, and starting is usually the hard part.',
+       'Research on why it works is still young. A 2024 study found body doubling helped people with ADHD both start and finish tasks, and earlier work suggests that having other people around nudges the brain’s reward and motivation pathways. It seems to help most with starting, and starting is usually the hard part.',
        '<strong>How to try it.</strong> Choose a task you’ve been avoiding and ask someone to sit with you for twenty minutes while they do their own thing. Tell them out loud what you’re going to do, then begin. If nobody is around, a video call with the cameras on works too, and there are plenty of online focus rooms set up for this.',
-       'Our clinicians often suggest body doubling alongside other treatment, and it costs nothing to try tonight.'],
+       'It costs nothing to try tonight.'],
       sources=[('Harnessing Focus with Body Doubling, Psychology Today', 'https://www.psychologytoday.com/us/blog/empowered-with-adhd/202408/harnessing-focus-with-body-doubling-a-strategy-for-adhd'), ('Body Doubling for ADHD, Healthline', 'https://www.healthline.com/health/adhd/body-double-adhd')]),
  dict(slug='blog-late-diagnosis',
       hook='Why adults get missed, and what good care looks like.',          # the card line and the page's lede
@@ -219,7 +219,7 @@ POSTS = [
        'Two rules help. First, have a minimum session you can do even on your worst day; ten minutes counts. Second, never miss twice. After a lapse, skip the self-criticism, lower the load and rebook straight away. A single missed session matters much less than the week that follows it.',
        ('h2', 'Where to start this week'),
        'Pick the part of your day that goes worst. Three times this week, do twenty minutes of walking, cycling or anything else that gets you breathing harder just before it, and notice whether the following hour feels different. That observation will tell you more than any article, this one included.'],
-      sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('Exercise and Sports Science Australia', 'https://www.essa.org.au/'), ('Body doubling: the least complicated focus tool there is', 'blog-body-doubling.html')]),
+      sources=[('Australian Evidence-Based Clinical Practice Guideline for ADHD', 'https://adhdguideline.aadpa.com.au/'), ('Exercise and Sports Science Australia', 'https://www.essa.org.au/'), ('Body doubling: a simple focus tool', 'blog-body-doubling.html')]),
  dict(slug='blog-adhd-workplace-support', landing=True, tint='#f6ecce',
       hook='Reasonable adjustments, and how to ask.',
       seo='ADHD at work in Australia: adjustments and funding',
@@ -421,9 +421,12 @@ def post_ld(p):
     headline = re.sub(r'<[^>]+>', '', _html.unescape(p['title'])).rstrip('.')
     image = {'@type': 'ImageObject', 'url': og_image(p), 'width': 1200, 'height': 630}
     post = {'@type': 'BlogPosting', '@id': url + '#post', 'headline': headline[:110],
-            'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p['date'],
+            'description': _html.unescape(p['description']), 'datePublished': p['date'], 'dateModified': p.get('updated', p['date']),
             'author': org, 'publisher': org, 'image': image, 'inLanguage': 'en-AU',
-            'articleSection': p['category'], 'mainEntityOfPage': {'@id': url}, 'url': url}
+            'articleSection': p['category'], 'mainEntityOfPage': {'@id': url}, 'url': url,
+            # The sources list at the foot of the post, as citations.
+            'citation': [{'@type': 'CreativeWork', 'name': _html.unescape(t), 'url': h if h.startswith('http') else f'{SITE}/{h}'}
+                         for t, h in p['sources']]}
     page = {'@type': 'WebPage', '@id': url, 'url': url, 'name': headline, 'inLanguage': 'en-AU',
             'isPartOf': {'@id': SITE + '/#site'}, 'primaryImageOfPage': image, 'breadcrumb': {'@id': url + '#breadcrumb'}}
     crumbs = {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [

@@ -85,14 +85,15 @@ The "More from the blog" pair at the foot of a post keeps its box, because there
 
 `newsletter-invite.js` offers ADHDme Weekly once, in a native `<dialog>`, and only to somebody who
 has shown they are reading: a minute of attention counted only while the page is actually visible,
-fifteen clicks, or the foot of a page — whichever comes first. The evidence is that time-only
-triggers underperform; an engagement gate filters out the drive-by traffic that was never going to
-subscribe.
+or fifteen clicks, whichever comes first. The evidence is that time-only triggers underperform; an
+engagement gate filters out the drive-by traffic that was never going to subscribe.
 
-It stays away from the policy pages, from anyone who has already dismissed it, from the first visit
-until the privacy notice is answered, and from anyone who has scrolled a signup form into view —
-they have had the offer without being interrupted for it. Dismissal is one value in `localStorage`
-and it is permanent.
+It appears only on Learn and the blog posts (`READING`). Everywhere else people are choosing a
+clinician, and a dialog there would get in the way of booking. It also stays away from anyone who
+has already dismissed it, from the first visit until the privacy notice is answered (Agree restarts
+the count), and from anyone who has scrolled a signup form into view during the visit. There is no
+footer trigger, because every footer carries the same form. Dismissal is one value in
+`localStorage` and it is permanent.
 
 It uses the **footer** beehiiv form rather than the primary one, with `utm_content=popup`. That
 form's button reads `Join`, which is what fits beside the field once the dialog's padding comes out
@@ -181,7 +182,7 @@ python3 scripts/build-sitemap.py            # adds <lastmod> and image entries, 
 python3 scripts/build-sitemap.py --check    # exit 1 if either file is out of date
 ```
 
-A post's `<lastmod>` is its publish date; any other page's is the date of the last commit that changed its file. Profiles list the clinician's portrait and posts their share image as `<image:image>` entries. `llms.txt` ([llmstxt.org](https://llmstxt.org)) is a Markdown index of the same pages for AI tools that read it; search engines do not rank on it. Run the script last, after the other builders, so it sees their output.
+A post's `<lastmod>` is its `dateModified`: the publish date, or the `updated` date a post carries in `POSTS` once its words change; any other page's is the date of the last commit that changed its file. Profiles list the clinician's portrait and posts their share image as `<image:image>` entries. `llms.txt` ([llmstxt.org](https://llmstxt.org)) is a Markdown index of the same pages for AI tools that read it; search engines do not rank on it. Run the script last, after the other builders, so it sees their output.
 
 After each push to main, `.github/workflows/indexnow.yml` runs `scripts/indexnow.py`, which tells Bing and the other [IndexNow](https://www.indexnow.org) engines which listed pages changed (ChatGPT search and Copilot answer from Bing's index; Google doesn't use IndexNow and reads the sitemap). The engines check the request against the key file at the site root. Run the workflow by hand to send every page.
 

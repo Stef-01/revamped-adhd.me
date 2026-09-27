@@ -25,6 +25,7 @@ import pathlib
 import re
 import struct
 import sys
+from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHELL = ROOT / 'scripts' / 'profile-shell.html'
@@ -125,7 +126,7 @@ GOALS_FEES_PROVISIONAL = goals_fees(
     'Provisional psychologist sessions have no Medicare rebate. The NDIS and some private health extras may cover '
     'them.')
 GOALS_FEES_OT = goals_fees(
-    'A Mental Health Treatment Plan doesn’t cover OT. The NDIS, private health extras or a GP’s chronic disease '
+    'A Mental Health Treatment Plan usually doesn’t cover OT. The NDIS, private health extras or a GP’s chronic condition '
     'management plan often do.')
 
 # REACH ADHD Coaching and Consultancy, Perth. One practice, six coaches, so the shared facts sit here once.
@@ -1306,7 +1307,7 @@ CLINICIANS = [
         practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
         descriptor='ADHD coach & mentor',
         description='ADHD coach, teacher and former lawyer with ADHD, working with adults, students and parents.',
-        chips=['Adults, students & parents', 'Executive function', 'Lived experience'],
+        chips=['Adults, students & parents', 'Executive functioning', 'Lived experience'],
         telehealth=True,
         book_href=LAS + 'book-here',
         book_hint='Opens the practice’s website in a new tab.',
@@ -1549,7 +1550,7 @@ LINK_ARIA = {'instagram': '{practice} on Instagram, {label}', 'website': '{pract
 
 # How wide the portrait at the top of a profile is drawn. The hero preload in the <head> uses the same string, so the
 # browser fetches the one candidate the <picture> picks, not the full-size file as well.
-HERO_SIZES = '(min-width: 1280px) 376px, (min-width: 1024px) 30vw, 80vw'
+HERO_SIZES = '(min-width: 1280px) 376px, (min-width: 1024px) 30vw, (min-width: 640px) 224px, 160px'
 
 
 def srcset(c, size, ext):
@@ -1599,30 +1600,48 @@ def also_link(c, size, eager=False):
             f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span></a>')
 
 
+# Links more than one clinician lists (a practice's team page or social account) describe the practice.
+SHARED_LINKS = {u for u, n in Counter(u for c in CLINICIANS if c['schema']['type'] == 'Person'
+                                      for u in c['schema']['same_as']).items() if n > 1}
+
+
 def jsonld(c):
     s = c['schema']
     page = f"{SITE}/{c['slug']}.html"
     image = f"{SITE}/{PORTRAITS}/{c['id']}.jpg"
+    job = c['qualifications'].split(',')[0]   # the role; the degrees are hasCredential
     if s['type'] == 'Physician':
-        d = {'@type': 'Physician', '@id': page + '#physician',
-             'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'medicalSpecialty': 'PrimaryCare',
-             'knowsLanguage': c['languages'], 'image': image,
-             'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
-             'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']],
-             'affiliation': {'@type': 'MedicalOrganization', 'name': c['practice']}}
+        # A doctor is a Person who works for a clinic; schema.org's Physician is an Organization type.
+        d = {'@type': 'Person', '@id': page + '#physician',
+             'name': c['name'], 'url': page, 'jobTitle': job, 'knowsLanguage': c['languages'], 'image': image,
+             'sameAs': [c['book_href']],
+             'worksFor': {'@type': 'MedicalClinic', 'name': c['practice'], 'medicalSpecialty': 'PrimaryCare',
+                          'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
+                          'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']]}}
     elif s['type'] == 'Person':
         w = s['works_for']
+        # A link several clinicians share is the practice's page or account, not theirs.
+        own = [u for u in s['same_as'] if u not in SHARED_LINKS]
         d = {'@type': 'Person', '@id': page + '#person',
-             'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'image': image,
-             'sameAs': s['same_as'],
+             'name': c['name'], 'url': page, 'jobTitle': job, 'image': image,
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
              # Not every practice in the network is a health service: coaching is a ProfessionalService.
-             'worksFor': {'@type': w.get('type', 'MedicalBusiness'), 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
-                          'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'}},
              # A clinician who only sees people in one town gets a Place rather than the whole country.
-             'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}
+             'worksFor': {'@type': w.get('type', 'MedicalBusiness'), 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
+                          'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'},
+                          'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}}
+        if own:
+            d['sameAs'] = own
+        shared = [u for u in s['same_as'] if u in SHARED_LINKS]
+        if shared:
+            d['worksFor']['sameAs'] = shared
     else:
         raise BuildError(f"{c['name']}: unknown schema type {s['type']!r}")
+    # The fees the profile publishes, as prices an answer engine can read. Rebates are not prices.
+    offers = [{'@type': 'Offer', 'name': label, 'price': amount.lstrip('$').replace(',', ''), 'priceCurrency': 'AUD'}
+              for amount, label in c['fees']['figures'] if 'rebate' not in label.lower()]
+    if offers:
+        d['makesOffer'] = offers
     d['memberOf'] = {'@id': SITE + '/#org'}
     d['potentialAction'] = {'@type': 'ReserveAction', 'target': c['book_href']}
     # The page is a profile of one clinician, reached from The Network; the home page defines #site and #org.
@@ -1708,15 +1727,15 @@ def render_main(c, size, sizes):
                    + '\n    </dl>')
     return f'''<main id="main" class="w-full bg-[#FAFAF7]">
 <script type="application/ld+json">{jsonld(c)}</script>
-<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The network</a></div>
+<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The Network</a></div>
 <article class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-16">
-<div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-  <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', HERO_SIZES, 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
+<div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-start">
+  <div class="w-40 sm:w-56 lg:w-auto lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', HERO_SIZES, 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
     <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
     <p class="text-[19px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
-    <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
+    <div class="flex flex-wrap gap-2 max-lg:order-last arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">
       <a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#f1bc31] text-[#1a1c1c] text-[15px] font-bold hover:bg-[#e2ac24] transition-colors" href="{c['book_href']}" target="_blank" rel="noopener noreferrer">{book_verb(c)} with {esc(c['short'])} <span aria-hidden="true">→</span></a>
       <span class="text-[13px] text-[#5f5e59]">{esc(c['book_hint'])}</span>{pills}

@@ -785,7 +785,9 @@
   if (profileId) {
     var c = CLINICIANS[profileId];
     var src = params.get('src');
-    var from = BOOKING_SURFACES.indexOf(src) !== -1 ? src : (/the-doctors\.html/.test(document.referrer) ? 'network' : 'profile');
+    // Arrivals from the care navigator count as 'finder', so the navigator gets credit as a route to profiles.
+    var from = BOOKING_SURFACES.indexOf(src) !== -1 ? src : (/the-doctors\.html/.test(document.referrer) ? 'network'
+      : /care-navigator\.html/.test(document.referrer) ? 'finder' : 'profile');
     var seenProfiles = profilesSeen();
     if (seenProfiles.indexOf(profileId) === -1) { seenProfiles.push(profileId); writeLocal(PROFILES_KEY, seenProfiles.slice(-50)); }
     track('profile-viewed', withVisit(spec(who(profileId), {
