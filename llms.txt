@@ -6,7 +6,7 @@ Clinician profiles are written from each clinician's own description of their wo
 
 ## Find care
 
-- [Neuroaffirming ADHD assessment and care](https://www.adhdme.au/): An Australian directory of neuroaffirming ADHD clinicians. Find verified GPs, psychologists, OTs and coaches for strengths-based care. No referral needed.
+- [Neuroaffirming ADHD assessment and care](https://www.adhdme.au/): An Australian directory of neuroaffirming ADHD clinicians. Find GPs, psychologists, OTs and coaches, see how they work, and book directly. No referral needed.
 - [Find an ADHD GP, psychologist or coach](https://www.adhdme.au/the-doctors.html): ADHD GPs, psychologists, allied health clinicians and coaches in Sydney, Brisbane, the Gold Coast and Perth, many by telehealth. Read profiles and book.
 - [How to find and book an ADHD clinician](https://www.adhdme.au/how-it-works.html): Read how each ADHD clinician works, where they practise and what they charge, then book or enquire with the practice. No referral needed.
 - [ADHD care navigator: find the right clinician](https://www.adhdme.au/care-navigator.html): Pick an area of life, such as school, work, home, relationships or health, then the part ADHD affects. See clinicians whose profiles say they work on it.
@@ -71,7 +71,7 @@ Clinician profiles are written from each clinician's own description of their wo
 
 ## About
 
-- [Learn about ADHD: research and resources](https://www.adhdme.au/learn.html): ADHD lessons and resources for patients and parents, including Australia's clinical guideline, a First Nations factsheet and reading clinicians recommend.
+- [Learn about ADHD: research and resources](https://www.adhdme.au/learn.html): ADHD apps, lessons and resources for patients and parents, including Australia's clinical guideline, a First Nations factsheet and reading clinicians recommend.
 - [Our story: why we started ADHDme](https://www.adhdme.au/our-story.html): ADHDme was founded by two medical trainees with ADHD who had very different experiences of care. They built a network that looks beyond symptoms.
 
 ## Optional

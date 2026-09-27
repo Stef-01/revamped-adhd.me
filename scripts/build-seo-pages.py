@@ -76,6 +76,13 @@ assert JOBACCESS in profiles.REACH_FEES['notes'][1]
 
 PROFILE = 'the-doctors.html'
 GP_PANEL = 'the-doctors.html#panel-gps'
+# Where a page's "Find your clinician" buttons land: the Network tab for the profession the page is about. A page
+# that covers several professions, or none, lands on the whole Network.
+CTA = {slug: f'{PROFILE}#panel-{panel}' for slug, panel in (
+    ('adhd-gp-brisbane', 'gps'), ('adhd-assessment-queensland', 'gps'), ('adhd-assessment-sydney', 'gps'),
+    ('adhd-assessment-online', 'gps'), ('adhd-psychologist', 'psychologists'), ('adhd-psychologist-brisbane', 'psychologists'),
+    ('adhd-occupational-therapist', 'allied-health'), ('adhd-exercise-physiologist', 'exercise-physiology'),
+    ('adhd-coach', 'coaches'))}
 PSY_PANEL = 'the-doctors.html#panel-psychologists'
 ALLIED_PANEL = 'the-doctors.html#panel-allied-health'
 COACH_PANEL = 'the-doctors.html#panel-coaches'
@@ -212,7 +219,7 @@ PAGES = [
       seo='ADHD assessment Sydney: GP, $498, no referral',
       title='ADHD assessment in Sydney.',
       description=f'Two GPs assess and diagnose ADHD in Beecroft, Double Bay and Hornsby. {GP_TOTAL} across two consultations, no referral needed, with phone and telehealth options.',
-      lede='Two ADHDme GPs assess ADHD in Beecroft, Double Bay and Hornsby, with the fee published before you book.',
+      lede=f'Two ADHDme GPs assess ADHD in Beecroft, Double Bay and Hornsby. {GP_TOTAL} for both consultations, no referral needed.',
       who=nsw_clinical, who_heading='ADHD clinicians in Sydney',
       who_note='Both GPs assess and diagnose.',
       sections=[
@@ -221,11 +228,10 @@ PAGES = [
         f'{a("Dr Anu Saxena", "dr-anu-saxena.html")} works at Bay Health Clinic in Double Bay and Hornsby, and by telehealth. She came to medicine through psychology, has completed an endorsed ADHD prescriber course, and speaks Hindi, Urdu and English.',
         'You book both through their practices’ Healthengine pages, which open in a new tab. Both GPs have declared a commercial or personal connection with ADHDme, and this is shown on each profile.']),
        ('What it costs', [GP_COST_PARA,
-        'Some people need an extra 30-minute clinical review for further history, records or a medical assessment. If you do, the practice explains why and discusses the cost before booking it.']),
+        'Some people need an extra 30-minute review for more history, records or a medical assessment. The practice explains why, and the cost, before booking it.']),
        ('What the assessment involves', [('list', WHAT_ASSESSMENT)]),
        ('Medication in NSW in 2026', [
-        NSW_GP_PARA,
-        'Whatever the rules allow, the network’s GPs take a baseline before starting anything, write a plan and review at set intervals.']),
+        NSW_GP_PARA]),
        ('Therapy alongside', [
         f'{a("Paula Garrido", "paula-garrido.html")} is a clinical psychologist based in Sydney who works entirely by telehealth. She is certified in ADHD and autism clinical services and takes a neuroaffirming, trauma-informed approach. ' + PSY_COST_PARA]),
       ],
@@ -280,9 +286,9 @@ PAGES = [
         'Medication helps with attention. Therapy helps with what often comes with a late diagnosis: years of workarounds, and anxiety, low mood and shame. Common approaches are cognitive behavioural therapy adapted for ADHD, acceptance and commitment therapy, and dialectical behaviour therapy skills. Each psychologist in the network lists the ones they use.',
         PSY_COST_PARA + f' The network’s {a("psychologists", PSY_PANEL)} are in Brisbane and available by telehealth Australia-wide.']),
        ('Occupational therapy for daily life', [
-        f'If the hard part is getting through the day (mornings, routines, or a home or classroom that isn’t working), an occupational therapist adjusts the environment and the task. In the network, {a("Flynn Simonis", "flynn-simonis.html")} works with children in Brisbane, in clinic, at home or at school. The practice quotes its fee when you book. A Mental Health Treatment Plan does not cover OT, but the NDIS, private health extras and a GP’s chronic condition management plan often do.']),
+        f'If the hard part is getting through the day (mornings, routines, or a home or classroom that isn’t working), an occupational therapist adjusts the environment and the task. In the network, {a("Flynn Simonis", "flynn-simonis.html")} works with children in Brisbane, in clinic, at home or at school. The practice quotes its fee when you book. A Mental Health Treatment Plan usually does not cover OT, but the NDIS, private health extras and a GP’s chronic condition management plan often do.']),
        ('Coaching', [
-        f'Coaching is practical work on executive function: starting, planning, finishing, and building systems that make those easier. It is not therapy or medical treatment. The network’s {a("coaches", COACH_PANEL)} are in Perth and online. Coaching can be funded through JobAccess for anyone working at least eight hours a week, at around {JOBACCESS} a year according to the practice. See {a("ADHD coaching", "adhd-coach.html")} for details.']),
+        f'Coaching is practical work on executive function: starting, planning, finishing, and building systems that make those easier. It is not therapy or medical treatment. The network’s {a("coaches", COACH_PANEL)} are in Perth, Sutherland and online. Coaching can be funded through JobAccess for anyone working at least eight hours a week, at around {JOBACCESS} a year according to the practice. See {a("ADHD coaching", "adhd-coach.html")} for details.']),
        ('Things you can do yourself', [
         'Three habits have better evidence than any supplement. Twenty to thirty minutes of moderate aerobic exercise gives a small to moderate lift in attention for about an hour, so it helps to exercise right before demanding work. A regular sleep and wake time matters even more when you take a stimulant. Regular meals, planned around the midday appetite dip a stimulant causes, help protect your weight and mood.',
         f'For exercise, including safety on stimulant medication, see {a("ADHD and exercise physiology", "adhd-exercise-physiologist.html")}. On the Gold Coast, {a("Sarah Savage", "sarah-savage.html")} offers this in person.']),
@@ -400,7 +406,7 @@ PAGES = [
       ],
       faqs=[
        ('Does an occupational therapist treat ADHD?', 'Yes, by working on function: routines, sensory needs, the environment and the skills daily life needs. An OT does not diagnose ADHD or prescribe.'),
-       ('Is ADHD occupational therapy covered by Medicare?', 'Partly, under a GP chronic condition management plan, which gives a rebate on up to five allied health sessions a year. A Mental Health Treatment Plan does not cover OT, but the NDIS and private health extras often do.'),
+       ('Is ADHD occupational therapy covered by Medicare?', 'Partly, under a GP chronic condition management plan, which gives a rebate on up to five allied health sessions a year. A Mental Health Treatment Plan usually does not cover OT, but the NDIS and private health extras often do.'),
        ('Does ADHDme have an occupational therapist?', 'Yes, one, who works with children in Brisbane. The network is looking to add occupational therapy for adults with ADHD.'),
       ],
       related=['adhd-treatment-after-diagnosis', 'adhd-psychologist-brisbane', 'adhd-coach', 'adhd-exercise-physiologist']),
@@ -544,11 +550,11 @@ def related_section(p):
 </section>'''
 
 
-def banner():
+def banner(cta=PROFILE):
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-12">
 <div class="p-8 md:p-12 rounded-3xl bg-[#f1bc31] border border-black/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
 <div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2></div>
-<div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a>
+<div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{cta}">Find your clinician {ARROW}</a>
 <p class="text-[13px] text-black/75 font-medium">No account needed.</p></div>
 </div></section>'''
 
@@ -574,14 +580,14 @@ def page(p, head, header, footer):
 <a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{HUB}.html">{profiles.ARROW_BACK}ADHD care</a>
 <h1 class="hero-in mt-4 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">{esc(p['title'])}</h1>
 <p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">{esc(p['lede'])}</p>
-<div class="hero-in hero-in-3 mt-8 flex flex-wrap gap-3"><a class="{CTA_DARK}" href="{PROFILE}">Find your clinician {ARROW}</a><a class="{CTA_LIGHT}" href="how-it-works.html">How booking works</a></div>
+<div class="hero-in hero-in-3 mt-8 flex flex-wrap gap-3"><a class="{CTA_DARK}" href="{CTA.get(p['slug'], PROFILE)}">Find your clinician {ARROW}</a><a class="{CTA_LIGHT}" href="how-it-works.html">How booking works</a></div>
 </div>
 {who_section(p)}
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-16"><div class="max-w-[760px]{'' if p['who'] else ' pt-10 border-t border-[#e8e6df]'}">
 {prose(p['sections'])}
 {faq_section(p['faqs'])}
 </div></div>
-{banner()}
+{banner(CTA.get(p['slug'], PROFILE))}
 {related_section(p)}
 </main>
 {jsonld(p)}

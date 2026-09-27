@@ -2,11 +2,13 @@
 //
 // A dialog offering the newsletter, shown once, and only to somebody who has already shown they
 // are reading rather than passing through. Four rules it holds to:
-//   1. Earned, not immediate. It waits for a minute of attention, fifteen clicks, or the foot of a
-//      page — whichever comes first. A popup on arrival asks a stranger for their address.
+//   1. Earned, not immediate. It waits for a minute of attention or fifteen clicks, whichever
+//      comes first. A popup on arrival asks a stranger for their address.
 //   2. Asked once. Dismissed is remembered in this browser's own storage, for good.
-//   3. Never in the way. It does not appear over the privacy notice, on the policy pages, or to
-//      somebody who has already scrolled a signup form into view — they have had the offer.
+//   3. Never in the way. It appears only on Learn and the blog posts, where people read; never on
+//      the Network, a profile, the navigator or a guide, where they are choosing somebody to book.
+//      Not over the privacy notice either, and not to somebody who has scrolled a signup form into
+//      view during this visit: they have had the offer.
 //   4. Escapable. A native <dialog>, so Escape closes it and focus is handled by the browser.
 (function () {
   'use strict';
@@ -18,14 +20,16 @@
   // phone's width — and inside a panel already headed ADHDme Weekly, the longer label only repeats
   // itself. utm_content=popup keeps this placement apart from the footer in beehiiv.
   var FORM = '882d54e5-58fd-458f-b045-38318b963983';
+  var SEEN = 'adhdme-weekly-seen';          // sessionStorage: a signup form was in view this visit
   var SECONDS = 60;                        // of the page actually being looked at
   var CLICKS = 15;
 
-  // Reading a privacy policy is not the moment to be sold a mailing list.
-  var QUIET = /(^|\/)(privacy|terms|automated-decisions|measurement|404|academy|academy-login)\.html$/;
+  // Only the pages people read. Anywhere else they are finding a clinician, and a new page stays
+  // quiet until it is added here.
+  var READING = /(^|\/)(learn|blog-[a-z0-9-]+)\.html$/;
 
-  try { if (localStorage.getItem(KEY)) return; } catch (e) {}
-  if (QUIET.test(location.pathname)) return;
+  if (!READING.test(location.pathname)) return;
+  try { if (localStorage.getItem(KEY) || sessionStorage.getItem(SEEN)) return; } catch (e) {}
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var done = false;
@@ -49,15 +53,14 @@
     dialog.innerHTML =
       '<button type="button" class="weekly-invite-close" data-invite-close aria-label="Close">&times;</button>' +
       '<h2 id="weekly-invite-title">ADHDme Weekly</h2>' +
-      '<p>Each week, practitioners from our network share the strategies they give their own ' +
-        'clients. Free, short, and you can leave whenever you like.</p>' +
+      '<p>One short email a week, with strategies our clinicians give their own clients.</p>' +
       '<div class="bh-embed bh-embed--invite">' +
         '<iframe class="beehiiv-embed" src="https://subscribe-forms.beehiiv.com/' + FORM +
         '?utm_source=adhdme.au&amp;utm_medium=website&amp;utm_campaign=site_embed&amp;utm_content=popup" ' +
         'title="Subscribe to ADHDme Weekly"></iframe>' +
       '</div>' +
       '<p class="weekly-invite-fine">Unsubscribe anytime. See our ' +
-        '<a href="privacy.html">Privacy Policy</a>.</p>';
+        '<a href="privacy.html">Privacy policy</a>.</p>';
     document.body.appendChild(dialog);
 
     var close = function () {
@@ -91,6 +94,9 @@
   var clicks = 0;
   var timer = null;
 
+  // The privacy notice's Agree starts the count afresh, so the invitation never follows it straight away.
+  window.addEventListener('adhdme-privacy-ack', function () { seconds = 0; clicks = 0; });
+
   function fire(trigger) {
     if (done || waiting()) return;
     if (timer) { clearInterval(timer); timer = null; }
@@ -109,20 +115,9 @@
     if (clicks >= CLICKS) fire('clicks');
   }, true);
 
-  // The foot of the page: somebody who has read to the end has read enough to be asked. Only a
-  // footer reached by scrolling counts: on a short page it is in view on arrival (rule 1).
+  // There is no footer trigger: every footer carries the same signup form, so reaching it means the offer
+  // has just been made on the page itself.
   if (window.IntersectionObserver) {
-    var foot = document.querySelector('footer');
-    if (foot) {
-      var footWatch = new IntersectionObserver(function (entries) {
-        if (window.scrollY > 0 && entries.some(function (e) { return e.isIntersecting; })) {
-          footWatch.disconnect();
-          fire('foot');
-        }
-      }, { threshold: 0 });
-      footWatch.observe(foot);
-    }
-
     // Somebody who has scrolled a signup form into view has already been offered this. Do not
     // interrupt them to offer it again.
     Array.prototype.forEach.call(document.querySelectorAll('.bh-embed'), function (el) {
@@ -130,6 +125,7 @@
         if (!entries.some(function (e) { return e.isIntersecting; })) return;
         seen.disconnect();
         done = true;
+        try { sessionStorage.setItem(SEEN, '1'); } catch (e) {}
         if (timer) { clearInterval(timer); timer = null; }
       }, { threshold: 0.5 });
       seen.observe(el);
