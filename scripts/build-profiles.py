@@ -36,7 +36,8 @@ SHARE_CARDS = 'assets/clinicians/og'
 
 # The Network: which tab panel each category's cards go in. The first row of the default panel loads
 # eagerly (its first card at high priority); every other card is lazy.
-PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'allied': 'allied-health',
+PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'occupational-therapy': 'occupational-therapy',
+          'physiotherapy': 'physiotherapy', 'allied': 'allied-health',
           'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
 DEFAULT_PANEL = 'gp'
 
@@ -707,7 +708,7 @@ CLINICIANS = [
         ),
     ),
     dict(
-        slug='flynn-simonis', id='flynn-simonis', category='allied',
+        slug='flynn-simonis', id='flynn-simonis', category='occupational-therapy',
         name='Flynn Simonis', short='Flynn Simonis', role='Occupational Therapist', pronouns='he/him',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Occupational therapist',
         description='Paediatric occupational therapy led by the child’s own interests, in clinic, at home or at school.',
@@ -1221,7 +1222,7 @@ CLINICIANS = [
         schema=dict(type='Person', credentials=['Bachelor of Exercise Science, Griffith University', 'Graduate Diploma in Exercise Science, Griffith University'], **ARC_SCHEMA),
     ),
     dict(
-        slug='yuri-lima', id='yuri-lima', category='allied',
+        slug='yuri-lima', id='yuri-lima', category='physiotherapy',
         name='Dr Yuri Lima', short='Yuri', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Physiotherapist in orthopaedic and sports rehabilitation, with a PhD on ACL injuries in athletes.',
@@ -1247,7 +1248,7 @@ CLINICIANS = [
         schema=dict(type='Person', credentials=['PhD', 'Master in Rehabilitation Sciences'], **ARC_SCHEMA),
     ),
     dict(
-        slug='tom-hissey', id='tom-hissey', category='allied',
+        slug='tom-hissey', id='tom-hissey', category='physiotherapy',
         name='Tom Hissey', short='Tom', role='Senior Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior physiotherapist',
         description='Musculoskeletal and occupational rehabilitation physiotherapist, and an Australian Army veteran.',
@@ -1275,7 +1276,7 @@ CLINICIANS = [
         schema=dict(type='Person', credentials=['Physiotherapist'], **ARC_SCHEMA),
     ),
     dict(
-        slug='lester-rafanan', id='lester-rafanan', category='allied',
+        slug='lester-rafanan', id='lester-rafanan', category='physiotherapy',
         name='Lester Rafanan', short='Lester', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Physiotherapist for recovery from injury or surgery, chronic pain, return to sport and NDIS supports.',
@@ -1820,7 +1821,7 @@ def render_deck(deck, sizes):
         if len(found) != 1:
             raise BuildError(f'the-doctors.html: panel "{panel}" needs exactly one <div role="tabpanel" id="panel-{panel}"><ul>…</ul></div> to hold '
                              f'{", ".join(c["name"] for c in members)}; found {len(found)}. Replace the "Expected soon" placeholder with '
-                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="grid auto-rows-fr grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 list-none p-0 m-0">\n</ul></div>')
+                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="deck-track list-none m-0">\n</ul></div>')
         cards = '\n'.join(deck_card(c, sizes[c['id']], first_row.index(c['id']) if c['id'] in first_row else None)
                           for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)

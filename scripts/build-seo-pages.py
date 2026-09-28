@@ -53,15 +53,16 @@ def gps(c): return c['category'] == 'gp'
 def gps_remote(c): return gps(c) and c['telehealth']
 def psychologists(c): return c['category'] == 'psychologist'
 def qld_psychologists(c): return psychologists(c) and state(c) == 'QLD'
-def qld_allied(c): return c['category'] == 'allied' and state(c) == 'QLD'
+ALLIED = ('allied', 'occupational-therapy', 'physiotherapy')   # the Network gives OT and physio their own tabs; here they are still allied health
+def qld_allied(c): return c['category'] in ALLIED and state(c) == 'QLD'
 def locality(c): return c['schema'].get('works_for', {}).get('locality')
 def brisbane_psychologists(c): return psychologists(c) and locality(c) in ('Fortitude Valley', 'Ashgrove')
-def brisbane_allied(c): return c['category'] == 'allied' and locality(c) == 'Fortitude Valley'
+def brisbane_allied(c): return c['category'] in ALLIED and locality(c) == 'Fortitude Valley'
 def gold_coast(c): return locality(c) == 'Bundall'
 def exercise_physiologists(c): return 'Exercise Physiologist' in c['role']
 def occupational_therapists(c): return 'Occupational' in c['role']
 def coaches(c): return c['category'] == 'coach'
-def telehealth_clinical(c): return c['telehealth'] and c['category'] in ('gp', 'psychologist', 'allied')
+def telehealth_clinical(c): return c['telehealth'] and (c['category'] in ('gp', 'psychologist') or c['category'] in ALLIED)
 def nsw_clinical(c): return state(c) == 'NSW' and c['category'] in ('gp', 'psychologist')
 def any_of(*fs): return lambda c: any(f(c) for f in fs)
 
@@ -81,7 +82,7 @@ GP_PANEL = 'the-doctors.html#panel-gps'
 CTA = {slug: f'{PROFILE}#panel-{panel}' for slug, panel in (
     ('adhd-gp-brisbane', 'gps'), ('adhd-assessment-queensland', 'gps'), ('adhd-assessment-sydney', 'gps'),
     ('adhd-assessment-online', 'gps'), ('adhd-psychologist', 'psychologists'), ('adhd-psychologist-brisbane', 'psychologists'),
-    ('adhd-occupational-therapist', 'allied-health'), ('adhd-exercise-physiologist', 'exercise-physiology'),
+    ('adhd-occupational-therapist', 'occupational-therapy'), ('adhd-exercise-physiologist', 'exercise-physiology'),
     ('adhd-coach', 'coaches'))}
 PSY_PANEL = 'the-doctors.html#panel-psychologists'
 ALLIED_PANEL = 'the-doctors.html#panel-allied-health'

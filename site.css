@@ -305,3 +305,44 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   .js .story-j__step:not(.is-visible) .story-j__art, .js .story-j__step:nth-of-type(even):not(.is-visible) .story-j__art, .js .story-j__step:not(.is-visible) .story-j__n { opacity: 1; transform: none; }
   .story-j__path { stroke-dashoffset: 0; }
 }
+
+/* Network: one kind of clinician and one clinician at a time, swiped sideways. The neighbours peek in at the edges. */
+.deck-tabs-wrap { display: flex; align-items: center; gap: 10px; width: min(600px, calc(100vw - 40px)); margin: 0 auto; }   /* a definite width: the centred heading around it would otherwise grow to fit every tab */
+.deck-tabs { position: relative; flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  padding: 6px calc(50% - 110px); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 24%, #000 76%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 24%, #000 76%, transparent 100%); }
+.deck-tabs::-webkit-scrollbar, .deck-track::-webkit-scrollbar { display: none; }
+.deck-tab { flex: 0 0 220px; scroll-snap-align: center; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 0; background: transparent; cursor: pointer;
+  font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; color: rgba(26,28,28,.6); transition: background-color .25s ease, color .25s ease; }
+.deck-tab:hover { color: #1a1c1c; }
+.deck-tab[aria-selected="true"] { background: #1a1c1c; color: #fff; }
+.deck-tab:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 2px; }
+.deck-arrow { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 1.5px solid #e8e6df; background: #fff; color: #1a1c1c; cursor: pointer; transition: border-color .2s, opacity .2s; }
+.deck-arrow:hover { border-color: #1a1c1c; }
+.deck-arrow:disabled { opacity: .3; cursor: default; border-color: #e8e6df; }
+.deck-track { position: relative; display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  padding: 8px calc(50% - 360px) 16px; }
+.deck-track:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 4px; border-radius: 28px; }
+.deck-track > li { flex: 0 0 720px; scroll-snap-align: center; display: grid; grid-template-columns: 280px minmax(0, 1fr); grid-template-rows: auto auto 1fr; column-gap: 32px; align-content: start;
+  padding: 24px; border-radius: 28px; background: #fff; border: 1px solid #e8e6df; box-shadow: 0 10px 30px -18px rgba(26,28,28,.25); }
+.deck-track > li > a { display: contents; }
+.deck-track > li > a > span:first-child { grid-column: 1; grid-row: 1 / span 3; }
+.deck-track > li > a > span:last-child, .deck-track > li > div { grid-column: 2; }
+.deck-track > li > a > span:last-child { padding-top: 4px; }
+.deck-track > li > div:last-child { align-self: end; }
+.deck-track > li:not(.is-current) { opacity: .4; transform: scale(.95); }
+.deck-track > li { transition: opacity .35s ease, transform .35s ease; }
+.deck-ctrl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 18px; }
+.deck-count { min-width: 64px; text-align: center; font-size: 15px; font-weight: 700; color: #5f5e59; font-variant-numeric: tabular-nums; }
+@media (max-width: 1023px) {
+  .deck-track { padding-inline: calc(50% - min(300px, 42vw)); }
+  .deck-track > li { flex-basis: min(600px, 84vw); grid-template-columns: 200px minmax(0, 1fr); column-gap: 24px; padding: 20px; }
+}
+@media (max-width: 639px) {
+  .deck-tabs-wrap .deck-arrow { display: none; }
+  .deck-tabs { padding-inline: calc(50% - 85px); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+  .deck-tab { flex-basis: 170px; font-size: 15px; }
+  .deck-track { gap: 14px; padding-inline: 11vw; }
+  .deck-track > li { flex-basis: 78vw; grid-template-columns: 1fr; grid-template-rows: none; padding: 14px 14px 18px; }
+  .deck-track > li > a > span:first-child, .deck-track > li > a > span:last-child, .deck-track > li > div { grid-column: 1; grid-row: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .deck-track > li, .deck-tab { transition: none; } }

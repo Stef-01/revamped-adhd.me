@@ -58,7 +58,7 @@ JOURNEY = '''<!-- JOURNEY: the care pathway, a GP diagnosis as the start -->
       <div class="journey__card rounded-3xl bg-[#f3f1ea] border border-[#e8e6df]">
         <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Daily life</h3>
         <p class="mt-2 text-[15px] leading-[1.55] text-[#5f5e59]">Occupational therapy, exercise physiology, nutrition and coaching turn the plan into routines: sleep, food, work, home.</p>
-        <a class="journey__link" href="the-doctors.html#panel-allied-health">Allied health <span aria-hidden="true">→</span></a>
+        <a class="journey__link" href="the-doctors.html#panel-occupational-therapy">Occupational therapy <span aria-hidden="true">→</span></a>
       </div>
     </li>
     <li class="journey__step">
