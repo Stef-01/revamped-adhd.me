@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="A cheerful character holding up a checklist with big green ticks">
 <defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="2" fill="#1c1917" opacity=".08"/></pattern></defs>
-<rect width="960" height="540" fill="#f6ecce"/><rect width="960" height="540" fill="url(#dots)"/>
+<rect width="960" height="540" fill="#dad9eb"/><rect width="960" height="540" fill="url(#dots)"/>
 <g transform="translate(300 110)">
 <rect x="0" y="0" width="300" height="330" rx="26" fill="#fff" stroke="#1c1917" stroke-width="5"/>
 <rect x="0" y="0" width="300" height="64" rx="26" fill="#f1bc31" stroke="#1c1917" stroke-width="5"/><rect x="0" y="40" width="300" height="24" fill="#f1bc31"/><line x1="0" y1="64" x2="300" y2="64" stroke="#1c1917" stroke-width="5"/>

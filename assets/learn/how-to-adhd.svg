@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-label="A character wearing headphones watching a video with a big play button">
 <defs><pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="2" fill="#1c1917" opacity=".08"/></pattern></defs>
-<rect width="960" height="540" fill="#f6ecce"/><rect width="960" height="540" fill="url(#dots)"/>
+<rect width="960" height="540" fill="#fbd8cf"/><rect width="960" height="540" fill="url(#dots)"/>
 <g transform="translate(250 130)">
 <rect x="0" y="0" width="420" height="270" rx="22" fill="#1c1917" stroke="#1c1917" stroke-width="5"/>
 <rect x="18" y="18" width="384" height="234" rx="14" fill="#fdfbf7"/>
