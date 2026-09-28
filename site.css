@@ -309,14 +309,15 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 /* Network: one kind of clinician and one clinician at a time, swiped sideways. The neighbours peek in at the edges. */
 .deck-tabs-wrap { display: flex; align-items: center; gap: 10px; width: min(920px, calc(100vw - 40px)); margin: 0 auto; }   /* a definite width: the centred heading around it would otherwise grow to fit every tab */
 .deck-tabs { position: relative; flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
-  padding: 6px calc(50% - 110px); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+  padding: 8px calc(50% - 110px); }
 .deck-tabs::-webkit-scrollbar, .deck-track::-webkit-scrollbar { display: none; }
 .deck-tab { flex: 0 0 220px; scroll-snap-align: center; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 0; background: transparent; cursor: pointer;
-  font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; transition: color .25s ease, box-shadow .25s ease;
-  background: #1a1c1c; color: #fff; box-shadow: none; }
-/* every tab is ink with white words; its own colour shows as the border when you point at it or choose it */
-.deck-tab:hover { color: #fff; box-shadow: inset 0 0 0 2px var(--tint, #f6f4ee); }
-.deck-tab[aria-selected="true"] { color: #fff; box-shadow: inset 0 0 0 3px var(--tint, #f6f4ee); }
+  font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; transition: opacity .25s ease, transform .25s ease, box-shadow .25s ease;
+  background: #1a1c1c; color: #fff; box-shadow: none; opacity: .5; }
+/* every tab is ink with white words; its own colour shows as the border when you point at it or choose it.
+   The chosen one is at full strength, a touch larger, with a halo in its colour, so it is plain which one you are on. */
+.deck-tab:hover { opacity: .85; box-shadow: inset 0 0 0 2px var(--tint, #f6f4ee); }
+.deck-tab[aria-selected="true"] { opacity: 1; transform: scale(1.04); box-shadow: inset 0 0 0 3px var(--tint, #f6f4ee), 0 0 0 4px color-mix(in srgb, var(--tint, #f6f4ee) 35%, transparent); }
 .deck-tab:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 2px; }
 .deck-arrow { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 1.5px solid #e8e6df; background: #fff; color: #1a1c1c; cursor: pointer; transition: border-color .2s, opacity .2s; }
 .deck-arrow:hover { border-color: #1a1c1c; }
@@ -344,7 +345,7 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 }
 @media (max-width: 639px) {
   .deck-tabs-wrap .deck-arrow { display: none; }
-  .deck-tabs { padding-inline: calc(50% - 85px); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
+  .deck-tabs { padding-inline: calc(50% - 85px); }
   .deck-tab { flex-basis: 170px; font-size: 15px; }
   .deck-track { gap: 12px; padding-inline: 8vw; }
   .deck-track > li { flex-basis: 84vw; grid-template-columns: 1fr; grid-template-rows: none; padding: 16px 16px 20px; }
