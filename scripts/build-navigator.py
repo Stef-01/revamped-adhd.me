@@ -28,6 +28,51 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://www.adhdme.au'
 SHELL = ROOT / 'how-it-works.html'
 OUT = ROOT / 'care-navigator.html'
+
+# The care pathway beneath the navigator: a GP diagnosis as the start, not the end.
+JOURNEY = '''<!-- JOURNEY: the care pathway, a GP diagnosis as the start -->
+<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-20 lg:pb-28" aria-labelledby="journey-title">
+<div data-reveal class="pt-12 border-t border-[#e8e6df]">
+  <p class="text-[15px] font-bold text-[#5f5e59]">The care pathway</p>
+  <h2 id="journey-title" class="mt-3 text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-[#1a1c1c] max-w-[20ch]">A GP diagnosis is the start, <span class="text-[#c99a1a]">not the end.</span></h2>
+  <p class="mt-4 text-[17px] leading-[1.6] text-[#5f5e59] max-w-[54ch]">Medication can settle the symptoms. Turning that into mornings, work, sleep and relationships that go better is what the rest of the network is for.</p>
+  <ol class="journey mt-10">
+    <li class="journey__step">
+      <span class="journey__n" style="--tint:#f1bc31">1</span>
+      <div class="journey__card rounded-3xl bg-[#fdf3d6] border border-[#ebd8ab]">
+        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Assessment and diagnosis</h3>
+        <p class="mt-2 text-[15px] leading-[1.55] text-[#5f5e59]">A GP who understands ADHD. Two consultations, then a diagnosis, a plan and medication if it’s right for you.</p>
+        <a class="journey__link" href="the-doctors.html#panel-gps">The GPs <span aria-hidden="true">→</span></a>
+      </div>
+    </li>
+    <li class="journey__step">
+      <span class="journey__n" style="--tint:#cfe4f6">2</span>
+      <div class="journey__card rounded-3xl border border-[#b9d6ee]" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
+        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Therapy</h3>
+        <p class="mt-2 text-[15px] leading-[1.55] text-[#1e547a]">A psychologist for the thinking and feeling side: anxiety, low mood, rejection sensitivity, the years of “try harder”.</p>
+        <a class="journey__link" href="the-doctors.html#panel-psychologists">The psychologists <span aria-hidden="true">→</span></a>
+      </div>
+    </li>
+    <li class="journey__step">
+      <span class="journey__n" style="--tint:#f3f1ea">3</span>
+      <div class="journey__card rounded-3xl bg-[#f3f1ea] border border-[#e8e6df]">
+        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Daily life</h3>
+        <p class="mt-2 text-[15px] leading-[1.55] text-[#5f5e59]">Occupational therapy, exercise physiology, nutrition and coaching turn the plan into routines: sleep, food, work, home.</p>
+        <a class="journey__link" href="the-doctors.html#panel-allied-health">Allied health <span aria-hidden="true">→</span></a>
+      </div>
+    </li>
+    <li class="journey__step">
+      <span class="journey__n" style="--tint:#1a1c1c; color:#fff">4</span>
+      <div class="journey__card rounded-3xl bg-[#1a1c1c]">
+        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#f1bc31]">Life, working</h3>
+        <p class="mt-2 text-[15px] leading-[1.55] text-white/75">Reviews with your GP, and a team that already gets ADHD. No starting over, no explaining yourself from the beginning.</p>
+        <a class="journey__link journey__link--light" href="how-it-works.html">How it works <span aria-hidden="true">→</span></a>
+      </div>
+    </li>
+  </ol>
+  <p class="journey__along"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3h3l.6 3.2a7.6 7.6 0 0 1 1.9 1.1l3.1-1.1 1.5 2.6-2.5 2.1a7.7 7.7 0 0 1 0 2.2l2.5 2.1-1.5 2.6-3.1-1.1a7.6 7.6 0 0 1-1.9 1.1L13.5 21h-3l-.6-3.2a7.6 7.6 0 0 1-1.9-1.1l-3.1 1.1-1.5-2.6 2.5-2.1a7.7 7.7 0 0 1 0-2.2L3.4 8.8l1.5-2.6L8 7.3a7.6 7.6 0 0 1 1.9-1.1z"/><circle cx="12" cy="12" r="3"/></svg>Medication, if you use it, and GP reviews run alongside every step. Allied health is what makes them count day to day.</p>
+</div>
+</section>'''
 SLUG = 'care-navigator'
 
 spec = importlib.util.spec_from_file_location('profiles', ROOT / 'scripts' / 'build-profiles.py')
@@ -390,6 +435,7 @@ def build():
 </section>
 <div class="nav-list max-w-[900px] mx-auto">{''.join(listing)}</div>
 </div>
+{JOURNEY}
 </main>
 <script id="nav-tree" type="application/json">{json.dumps(tree, separators=(',', ':'))}</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
