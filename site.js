@@ -88,3 +88,26 @@
     });
   }
 })();
+
+/* Our Story journey: the path draws as you scroll past each stretch of it */
+(function () {
+  var links = document.querySelectorAll('.story-j__link');
+  if (!links.length) return;
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw() {
+    var vh = window.innerHeight;
+    for (var i = 0; i < links.length; i++) {
+      var r = links[i].getBoundingClientRect();
+      var p = still ? 1 : Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.2)));
+      links[i].style.setProperty('--draw', (1 - p).toFixed(3));
+    }
+  }
+  var queued = false;
+  window.addEventListener('scroll', function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; draw(); });
+  }, { passive: true });
+  window.addEventListener('resize', draw);
+  draw();
+})();
