@@ -49,7 +49,8 @@ def state(c):
     return s.get('state') or s.get('works_for', {}).get('state')
 
 
-def gps(c): return c['category'] == 'gp'
+def assesses(c): return c.get('assesses', True)   # a continuation prescriber does not, so stays off the assessment pages
+def gps(c): return c['category'] == 'gp' and assesses(c)
 def gps_remote(c): return gps(c) and c['telehealth']
 def psychologists(c): return c['category'] == 'psychologist'
 def qld_psychologists(c): return psychologists(c) and state(c) == 'QLD'
@@ -63,7 +64,7 @@ def exercise_physiologists(c): return 'Exercise Physiologist' in c['role']
 def occupational_therapists(c): return 'Occupational' in c['role']
 def coaches(c): return c['category'] == 'coach'
 def telehealth_clinical(c): return c['telehealth'] and (c['category'] in ('gp', 'psychologist') or c['category'] in ALLIED)
-def nsw_clinical(c): return state(c) == 'NSW' and c['category'] in ('gp', 'psychologist')
+def nsw_clinical(c): return state(c) == 'NSW' and (gps(c) or c['category'] == 'psychologist')
 def any_of(*fs): return lambda c: any(f(c) for f in fs)
 
 

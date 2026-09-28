@@ -178,7 +178,8 @@ DOMAINS = [
    ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment')]),
   dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
-   ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course')]),
+   ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course'),
+   ('yogesh-kalra', 'Continues ADHD medication · Bulk billed')]),
   dict(key='mood', label='Anxiety and low mood', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('jeff-leech', 'Anxiety & depression · Schema therapy & ACT'),

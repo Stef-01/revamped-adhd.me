@@ -91,7 +91,7 @@ html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }
 @media (prefers-reduced-motion: no-preference) {
   @view-transition { navigation: auto; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 220ms; animation-timing-function: ease-out; }
-  ::view-transition-group(portrait-anubhav-saxena), ::view-transition-group(portrait-anu-saxena), ::view-transition-group(portrait-paula-garrido),
+  ::view-transition-group(portrait-anubhav-saxena), ::view-transition-group(portrait-anu-saxena), ::view-transition-group(portrait-yogesh-kalra), ::view-transition-group(portrait-paula-garrido),
   ::view-transition-group(portrait-kate-row), ::view-transition-group(portrait-ellie-putland), ::view-transition-group(portrait-lachlan-avent),
   ::view-transition-group(portrait-samantha-courtney), ::view-transition-group(portrait-lauren-poulos), ::view-transition-group(portrait-alice-bui),
   ::view-transition-group(portrait-meera-lakhani), ::view-transition-group(portrait-flynn-simonis),

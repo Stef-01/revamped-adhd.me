@@ -31,6 +31,12 @@
       practice: 'Bay Health Clinic', destination: 'healthengine',
       expertise: ['mental-health', 'womens-health'], ages: ['children', 'adults']
     },
+    'yogesh-kalra': {
+      booking: /dr-yogesh-kalra\/p57872/, profile: 'dr-yogesh-kalra.html',
+      name: 'Dr Yogesh Kalra', category: 'gp',
+      practice: 'Dr Yogesh Kalra\u2019s Surgery', destination: 'healthengine',
+      expertise: ['medication', 'womens-health'], ages: ['adults']
+    },
     'paula-garrido': {
       booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html',
       name: 'Paula Garrido', category: 'psychologist',

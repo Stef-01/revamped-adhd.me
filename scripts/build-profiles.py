@@ -289,6 +289,48 @@ CLINICIANS = [
         disclosure='Dr Anu Saxena has a declared interest in ADHDme, the company that runs this listing.',
         schema=dict(type='Physician', areas=['Double Bay', 'Hornsby'], state='NSW'),
     ),
+    # Continuation prescriber: keeps ADHD medication going for people already diagnosed. He will assess in future,
+    # not yet, so `assesses=False` keeps him off the assessment search pages until that changes.
+    dict(
+        slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False,
+        name='Dr Yogesh Kalra', short='Dr Yogesh Kalra', role='GP', pronouns='he/him',
+        practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay, Central Coast', descriptor='Continuation prescriber',
+        description='A GP who continues ADHD medication for people already diagnosed. He is not offering ADHD assessment or diagnosis yet.',
+        chips=['Continues ADHD medication', 'Bulk billed', 'Hindi'],
+        telehealth=False,
+        book_href='https://healthengine.com.au/doctor/nsw/bateau-bay/dr-yogesh-kalra/p57872', book_hint=HEALTHENGINE_HINT,
+        links=[],
+        fees=dict(
+            heading='What it costs',
+            figures=[('$0', 'Bulk billed')],
+            notes=[
+                'The practice bulk bills all eligible Medicare services for Medicare card holders.',
+                'Department of Veterans’ Affairs card holders are welcome.',
+                'ADHD assessment and diagnosis are not offered here yet. For a diagnosis, book with a GP in the network who assesses.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='General practitioner, FRACGP',
+        languages=['English', 'Hindi'],
+        experience=[
+            'General practice, Dr Yogesh Kalra’s Surgery, Bateau Bay',
+            'Fellow of the Royal Australian College of General Practitioners',
+            'Diploma in Skin Cancer Surgery',
+            'Professional Diploma of Dermoscopy',
+        ],
+        about=[
+            'Yogesh is a GP and a Fellow of the Royal Australian College of General Practitioners, practising at his own surgery in Bateau Bay on the Central Coast. For ADHD, he is a continuation prescriber: he keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home. He is not offering ADHD assessment or diagnosis yet; that is planned for the future. His other interests are family medicine, women’s health, and skin cancer checks and surgery, with diplomas in skin cancer surgery and dermoscopy. He speaks English and Hindi, and the practice bulk bills all eligible Medicare services.',
+        ],
+        details=[
+            ('ADHD care', 'Continues ADHD medication for people already diagnosed. Not assessing or diagnosing ADHD yet'),
+            ('Reach', 'Practice appointments in Bateau Bay'),
+            ('Appointments', 'Appointment lengths set with the practice'),
+            ('Billing', 'Bulk billed for eligible Medicare services; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='Dr Yogesh Kalra’s Surgery is an independent practice.',
+        schema=dict(type='Physician', areas=['Bateau Bay'], state='NSW'),
+    ),
     dict(
         slug='paula-garrido', id='paula-garrido', category='psychologist',
         name='Paula Garrido', short='Paula Garrido', role='Clinical Psychologist', pronouns='she/her',
@@ -1582,6 +1624,7 @@ DECK_CHIPS = 2   # interest chips on a deck card: four stacked chips made each c
 CARD_LINES = {
     'anubhav-saxena': 'An ADHD assessment that also checks your sleep, heart and general health.',
     'anu-saxena': 'A GP with a psychology degree who has a special interest in ADHD, mental health and women’s health.',
+    'yogesh-kalra': 'Keeps your ADHD medication going once you’re diagnosed. Not diagnosing ADHD yet.',
     'paula-garrido': 'A clinical psychologist with extra training in ADHD and autism, seeing you by video anywhere in Australia.',
     'kate-row': 'Helps everyone from toddlers to adults, and can guide your family through the NDIS.',
     'ellie-putland': 'Gentle, trauma-aware therapy for children, teens and adults, especially young people.',
