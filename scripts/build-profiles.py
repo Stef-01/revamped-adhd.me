@@ -1581,7 +1581,7 @@ def deck_card(c, size, rank):
     """rank: the card's place in the first row of the panel shown on arrival (0 is the first), else None."""
     img_attrs = ('loading="eager" fetchpriority="high" decoding="async"' if rank == 0 else
                  'loading="eager" decoding="async"' if rank is not None else 'loading="lazy" decoding="async"')
-    sizes = '(min-width: 1280px) 264px, (min-width: 1024px) 22vw, (min-width: 768px) 30vw, 48vw'
+    sizes = '(min-width: 1024px) 340px, (min-width: 640px) 240px, 84vw'   # the photo's width in the one-at-a-time card
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     return f'''<li data-reveal id="{c['id']}" class="flex flex-col min-w-0">
   <a class="block group" href="{c['slug']}.html">
@@ -1589,6 +1589,7 @@ def deck_card(c, size, rank):
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
   </a>
   <div class="flex flex-wrap gap-2 pt-3">{chip_row(c, DECK_CHIPS)}</div>
+  <p class="deck-bio">{esc(c['description'])}</p>
   <div class="mt-auto pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="{book_verb(c)} with {esc(c['name'])}" href="{c['slug']}.html">{book_verb(c)} <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>'''
 
