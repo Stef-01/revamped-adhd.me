@@ -312,9 +312,11 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   padding: 6px calc(50% - 110px); -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%); }
 .deck-tabs::-webkit-scrollbar, .deck-track::-webkit-scrollbar { display: none; }
 .deck-tab { flex: 0 0 220px; scroll-snap-align: center; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 0; background: transparent; cursor: pointer;
-  font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; color: rgba(26,28,28,.6); transition: background-color .25s ease, color .25s ease; }
-.deck-tab:hover { color: #1a1c1c; }
-.deck-tab[aria-selected="true"] { background: #1a1c1c; color: #fff; }
+  font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; color: rgba(26,28,28,.7); transition: background-color .25s ease, color .25s ease, box-shadow .25s ease;
+  background: color-mix(in srgb, var(--tint, #f6f4ee) 45%, transparent); }
+/* each kind of clinician has its own colour; the chosen one is filled and outlined */
+.deck-tab:hover { color: #1a1c1c; background: color-mix(in srgb, var(--tint, #f6f4ee) 70%, transparent); }
+.deck-tab[aria-selected="true"] { background: var(--tint, #f6f4ee); color: #1a1c1c; box-shadow: inset 0 0 0 2.5px #1a1c1c; }
 .deck-tab:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 2px; }
 .deck-arrow { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 1.5px solid #e8e6df; background: #fff; color: #1a1c1c; cursor: pointer; transition: border-color .2s, opacity .2s; }
 .deck-arrow:hover { border-color: #1a1c1c; }
