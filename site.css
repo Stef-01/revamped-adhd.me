@@ -315,9 +315,9 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   font: inherit; font-size: 16px; font-weight: 700; white-space: nowrap; transition: opacity .25s ease, transform .25s ease, box-shadow .25s ease;
   background: #1a1c1c; color: #fff; box-shadow: none; opacity: .5; }
 /* every tab is ink with white words; its own colour shows as the border when you point at it or choose it.
-   The chosen one is at full strength, a touch larger, with a halo in its colour, so it is plain which one you are on. */
+   The chosen one is at full strength and a touch larger, with one solid border in its colour. */
 .deck-tab:hover { opacity: .85; box-shadow: inset 0 0 0 2px var(--tint, #f6f4ee); }
-.deck-tab[aria-selected="true"] { opacity: 1; transform: scale(1.04); box-shadow: inset 0 0 0 3px var(--tint, #f6f4ee), 0 0 0 4px color-mix(in srgb, var(--tint, #f6f4ee) 35%, transparent); }
+.deck-tab[aria-selected="true"] { opacity: 1; transform: scale(1.04); box-shadow: inset 0 0 0 3px var(--tint, #f6f4ee); }
 .deck-tab:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 2px; }
 .deck-arrow { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 999px; border: 1.5px solid #e8e6df; background: #fff; color: #1a1c1c; cursor: pointer; transition: border-color .2s, opacity .2s; }
 .deck-arrow:hover { border-color: #1a1c1c; }
