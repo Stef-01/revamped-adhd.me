@@ -177,16 +177,28 @@
       ctrl.hidden = cards.length < 2;
     }
     function go(i, how) { i = Math.max(0, Math.min(cards.length - 1, i)); if (cards[i]) { centre(cards[i], track, how || behave); mark(i); } }
-    var t;
-    track.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(function () { mark(nearest(track, cards)); }, 90); }, { passive: true });
+    // light each card by how near the centre it is, every frame the track moves
+    function light() {
+      var mid = track.scrollLeft + track.clientWidth / 2;
+      cards.forEach(function (c) {
+        var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid) / (c.offsetWidth || 1);
+        c.style.setProperty('--lit', Math.max(0, 1 - d * 1.6).toFixed(3));
+      });
+      var i = nearest(track, cards); if (i !== at) mark(i);
+    }
+    var queued = false;
+    track.addEventListener('scroll', function () {
+      if (queued) return; queued = true;
+      requestAnimationFrame(function () { queued = false; light(); });
+    }, { passive: true });
     cPrev.addEventListener('click', function () { go(at - 1); });
     cNext.addEventListener('click', function () { go(at + 1); });
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
     });
-    decks[panel.id] = { go: go, now: function () { return at; }, cards: cards };
-    mark(0);
+    decks[panel.id] = { go: go, now: function () { return at; }, cards: cards, light: light };
+    mark(0); light();
   });
 
   window.deckSync = function (cat) {
@@ -196,15 +208,15 @@
     centre(tabs[i], strip, behave);
     tabArrows();
     var d = decks['panel-' + cat];
-    if (d) requestAnimationFrame(function () { d.go(d.now(), 'auto'); });
+    if (d) requestAnimationFrame(function () { d.go(d.now(), 'auto'); d.light(); });
   };
   window.deckShow = function (li) {
     var panel = li.closest('[role="tabpanel"]'), d = panel && decks[panel.id];
-    if (d) requestAnimationFrame(function () { d.go(d.cards.indexOf(li), 'auto'); });
+    if (d) requestAnimationFrame(function () { d.go(d.cards.indexOf(li), 'auto'); d.light(); });
   };
   window.addEventListener('resize', function () {
     var i = selected(); centre(tabs[i], strip, 'auto');
-    var d = decks['panel-' + key(i)]; if (d) d.go(d.now(), 'auto');
+    var d = decks['panel-' + key(i)]; if (d) { d.go(d.now(), 'auto'); d.light(); }
   });
   tabArrows();
   requestAnimationFrame(function () { centre(tabs[selected()], strip, 'auto'); });
