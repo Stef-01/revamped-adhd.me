@@ -142,6 +142,9 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .au-stage.is-focusing .au-marker.is-hot { opacity: 1; }
 .au-dot { transition: transform .25s cubic-bezier(.2,1.4,.4,1); }
 .au-marker.is-hot .au-dot { transform: scale(1.7); }
+.au-halo { opacity: 0; transform-origin: center; transform-box: fill-box; transform: scale(.4); transition: opacity .3s ease, transform .35s cubic-bezier(.2,1.4,.4,1); }
+.au-marker.is-hot .au-halo { opacity: .35; transform: scale(1); }
+.au-marker.is-hot .au-label { font-weight: 800; }
 .au-line { list-style: none; margin-left: 0; padding: 0; position: relative; display: grid; gap: 2px; }
 .au-line::before { content: ""; position: absolute; left: 12px; top: 22px; bottom: 22px; width: 2px; background-image: linear-gradient(#1a1c1c 50%, transparent 50%); background-size: 2px 9px; opacity: .45; }
 .au-stop__dot { width: 18px; height: 18px; flex: none; border-radius: 50%; background: #f1bc31; border: 3px solid #1a1c1c; box-shadow: 0 0 0 4px #ffffff; transition: transform .2s ease; }

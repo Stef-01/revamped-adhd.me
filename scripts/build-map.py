@@ -49,6 +49,7 @@ VB = (cx - half_w, cy - half_h, 2 * half_w, 2 * half_h)
 # Deterministic, so the drawing is identical on every build.
 import random
 INK, PAPER, GOLD = '#1a1c1c', '#fdfbf7', '#f1bc31'
+SKY_TOP, SKY_BOTTOM, SKY_DEEP = '#e3f0fb', '#c3dcf2', '#b9d6ee'   # the site's pale blue tile, so the land reads as one of its tiles
 
 def smooth(poly, per=2):
     """Closed Catmull-Rom through the coastline points, so corners read as pen curves."""
@@ -99,12 +100,14 @@ for idx, (name, lon, lat, pos, live) in enumerate(CITIES):
     slug = name.lower().replace(' ', '-')
     dx, dy, anchor = {'right': (16, 5, 'start'), 'right-up': (16, -2, 'start'), 'right-down': (16, 14, 'start'), 'left-down': (-15, 16, 'end')}[pos]
     markers.append(f'''<g class="au-marker{'' if live else ' au-marker--planned'}" data-city-marker="{slug}">
+<circle class="au-halo" cx="{x:.1f}" cy="{y:.1f}" r="14" fill="{GOLD}"/>
 <g class="au-dot" style="transform-origin:{x:.1f}px {y:.1f}px"><circle cx="{x:.1f}" cy="{y:.1f}" r="5.6" fill="{GOLD if live else PAPER}"/><path d="{loop(x, y, 7.6, 100 + idx)}" fill="none" stroke="{INK}" stroke-width="1.9" stroke-linecap="round"/></g>
 <text x="{x + dx:.1f}" y="{y + dy:.1f}" text-anchor="{anchor}" class="au-label">{name}</text></g>''')
 
 svg = f'''<svg class="au-map" viewBox="{VB[0]:.1f} {VB[1]:.1f} {VB[2]:.1f} {VB[3]:.1f}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hand-drawn map of Australia with dots marking where ADHDme clinicians practise now ({', '.join(c[0] for c in CITIES if c[4])}) and where the network plans to grow ({', '.join(c[0] for c in CITIES if not c[4])})">
-<defs>{base}<clipPath id="au-land">{clip}</clipPath></defs>
-<g fill="{PAPER}" transform="translate(2.5 3)">{fill}</g>
+<defs>{base}<clipPath id="au-land">{clip}</clipPath><linearGradient id="au-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{SKY_TOP}"/><stop offset="1" stop-color="{SKY_BOTTOM}"/></linearGradient></defs>
+<g fill="{SKY_DEEP}" transform="translate(7 8)">{fill}</g>
+<g fill="url(#au-sky)" transform="translate(2.5 3)">{fill}</g>
 <g fill="none" stroke="{INK}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">{ink_a}</g>
 {''.join(markers)}
 </svg>'''
