@@ -292,11 +292,11 @@ CLINICIANS = [
     # Continuation prescriber: keeps ADHD medication going for people already diagnosed. He will assess in future,
     # not yet, so `assesses=False` keeps him off the assessment search pages until that changes.
     dict(
-        slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False,
+        slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False, bulk_billed=True,
         name='Dr Yogesh Kalra', short='Dr Yogesh Kalra', role='GP', pronouns='he/him',
         practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay, Central Coast', descriptor='Continuation prescriber',
         description='A GP who continues ADHD medication for people already diagnosed. He is not offering ADHD assessment or diagnosis yet.',
-        chips=['Continues ADHD medication', 'Bulk billed', 'Hindi'],
+        chips=['Continues ADHD medication', 'Hindi'],
         telehealth=False,
         book_href='https://healthengine.com.au/doctor/nsw/bateau-bay/dr-yogesh-kalra/p57872', book_hint=HEALTHENGINE_HINT,
         links=[],
@@ -1561,12 +1561,20 @@ EXERCISE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 ro
                  '<path d="M6.5 6.5v11M3.5 9v5M17.5 6.5v11M20.5 9v5M6.5 12h11"/></svg>'
                  'Exercise-based</span>')
 
+# Bulk billing, in the gold the site uses for what things cost.
+BULK_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
+             'text-[#7a5a0e] bg-[#fdf3d6] border border-[#ebd8ab]">'
+             '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+             '<circle cx="12" cy="12" r="9"/><path d="M14.5 9.6c-.4-.9-1.4-1.4-2.5-1.4-1.4 0-2.5.8-2.5 1.9s1 1.7 2.5 2 2.5.9 2.5 2-1.1 1.9-2.5 1.9c-1.2 0-2.2-.5-2.6-1.4M12 6.6v1.6M12 15.8v1.6"/></svg>'
+             'Bulk billed</span>')
+
 
 def chip_row(c, limit=None):
     """The clinician's interest chips, behind the markers they carry: in person, telehealth, then exercise. A card
     in the deck shows the first `limit` chips; the profile shows them all."""
     markers = ((IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
-               + (EXERCISE_PILL if c.get('exercise') else ''))
+               + (EXERCISE_PILL if c.get('exercise') else '') + (BULK_PILL if c.get('bulk_billed') else ''))
     return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
 
