@@ -282,11 +282,12 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .story-j__link:first-of-type { height: 90px; margin-top: 4px; }
 .story-j__path { fill: none; stroke: #ff4d2e; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: var(--draw, 0); }
 .story-j__path--narrow { display: none; }
-.js .story-j__art { opacity: 0; transform: translateX(-36px) rotate(-3deg); transition: opacity .7s ease, transform .9s cubic-bezier(.2,1.2,.4,1) .1s; }
-.js .story-j__step:nth-of-type(even) .story-j__art { transform: translateX(36px) rotate(3deg); }
-.js .story-j__step.is-visible .story-j__art { opacity: 1; transform: none; }
-.js .story-j__n { transform: scale(.5); transition: transform .6s cubic-bezier(.2,1.6,.4,1) .35s; }
-.js .story-j__step.is-visible .story-j__n { transform: none; }
+.story-j__art { transition: opacity .7s ease, transform .9s cubic-bezier(.2,1.2,.4,1) .1s; }
+.story-j__n { transition: transform .6s cubic-bezier(.2,1.6,.4,1) .35s; }
+/* the tilt only ever applies before a step arrives, so nothing later can leave a picture crooked */
+.js .story-j__step:not(.is-visible) .story-j__art { opacity: 0; transform: translateX(-36px) rotate(-3deg); }
+.js .story-j__step:nth-of-type(even):not(.is-visible) .story-j__art { transform: translateX(36px) rotate(3deg); }
+.js .story-j__step:not(.is-visible) .story-j__n { transform: scale(.5); }
 .story-j__step:hover .story-j__art img { transform: rotate(-1.2deg) scale(1.02); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
 @media (max-width: 767px) {
   .story-j__step { grid-template-columns: 1fr; gap: 4px; text-align: center; }
@@ -296,10 +297,11 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   .story-j__link { height: 72px; margin: 8px 0; }
   .story-j__path--wide { display: none; }
   .story-j__path--narrow { display: inline; }
-  .js .story-j__art, .js .story-j__step:nth-of-type(even) .story-j__art { transform: translateY(24px) rotate(-2deg); }
+  .js .story-j__step:not(.is-visible) .story-j__art, .js .story-j__step:nth-of-type(even):not(.is-visible) .story-j__art { transform: translateY(24px) rotate(-2deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .story-j__hint span { animation: none; }
-  .js .story-j__art, .js .story-j__n, .js .story-j__step:nth-of-type(even) .story-j__art { opacity: 1; transform: none; transition: none; }
+  .story-j__art, .story-j__n { transition: none; }
+  .js .story-j__step:not(.is-visible) .story-j__art, .js .story-j__step:nth-of-type(even):not(.is-visible) .story-j__art, .js .story-j__step:not(.is-visible) .story-j__n { opacity: 1; transform: none; }
   .story-j__path { stroke-dashoffset: 0; }
 }
