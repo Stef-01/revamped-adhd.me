@@ -157,6 +157,19 @@
     }, 140);
   }, { passive: true });
 
+  // a fresh order on every visit, so no one is always first. People with an online diary stay ahead of those you
+  // enquire with (the site check holds the page to that); each group is shuffled on its own.
+  function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  [].slice.call(document.querySelectorAll('[role="tabpanel"] > .deck-track')).forEach(function (track) {
+    var cards = [].slice.call(track.children);
+    var books = function (li) { var b = li.querySelector('.btn-press'); return b && /^Book/.test((b.getAttribute('aria-label') || b.textContent).trim()); };
+    shuffle(cards.filter(books)).concat(shuffle(cards.filter(function (li) { return !books(li); })))
+      .forEach(function (li) { track.appendChild(li); });
+    // the photo now first in the row should not wait on lazy loading
+    var first = track.firstElementChild && track.firstElementChild.querySelector('img');
+    if (first) first.loading = 'eager';
+  });
+
   // each category's clinicians
   var decks = {};
   [].slice.call(document.querySelectorAll('[role="tabpanel"] > .deck-track')).forEach(function (track) {
