@@ -118,7 +118,8 @@
   var strip = document.querySelector('.deck-tabs');
   if (!strip || typeof window.switchCategory !== 'function') return;
   var tabs = [].slice.call(strip.querySelectorAll('[role="tab"]'));
-  var behave = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)'), phone = window.matchMedia('(max-width: 639px)');
+  var behave = still.matches ? 'auto' : 'smooth';
   var ARROW = { prev: '<path d="M15 5l-7 7 7 7"/>', next: '<path d="M9 5l7 7-7 7"/>' };
   function arrow(dir, label) {
     var b = document.createElement('button');
@@ -163,18 +164,39 @@
     var label = (document.getElementById(panel.getAttribute('aria-labelledby')) || {}).textContent || 'Clinicians';
     track.setAttribute('tabindex', '0');
     track.setAttribute('aria-label', label + ': use the arrow keys or swipe to see each clinician');
-    var ctrl = document.createElement('div'); ctrl.className = 'deck-ctrl';
+    // the arrows sit on the sides of the card, so they are in view whenever the card is
+    var rail = document.createElement('div'); rail.className = 'deck-rail';
+    panel.insertBefore(rail, track); rail.appendChild(track);
     var cPrev = arrow('prev', 'Previous clinician'), cNext = arrow('next', 'Next clinician');
+    cPrev.classList.add('deck-side', 'deck-side--prev'); cNext.classList.add('deck-side', 'deck-side--next');
+    rail.appendChild(cPrev); rail.appendChild(cNext);
+    // under the card: a dot for each clinician and a count, so it is plain how many there are
+    var ctrl = document.createElement('div'); ctrl.className = 'deck-ctrl';
+    var dots = document.createElement('span'); dots.className = 'deck-dots'; dots.setAttribute('aria-hidden', 'true');
+    cards.forEach(function () { dots.appendChild(document.createElement('span')); });
     var count = document.createElement('span'); count.className = 'deck-count'; count.setAttribute('aria-live', 'polite');
-    ctrl.appendChild(cPrev); ctrl.appendChild(count); ctrl.appendChild(cNext);
+    ctrl.appendChild(dots); ctrl.appendChild(count);
     panel.appendChild(ctrl);
     var at = 0;
     function mark(i) {
       at = i;
-      cards.forEach(function (c, j) { c.classList.toggle('is-current', j === i); });
+      cards.forEach(function (c, j) { c.classList.toggle('is-current', j === i); dots.children[j].classList.toggle('is-on', j === i); });
       count.textContent = cards.length ? (i + 1) + ' of ' + cards.length : '';
-      cPrev.disabled = i === 0; cNext.disabled = i >= cards.length - 1;
+      cPrev.hidden = i === 0 || cards.length < 2; cNext.hidden = i >= cards.length - 1;
       ctrl.hidden = cards.length < 2;
+    }
+    // the first time a row of cards comes into view on a phone, it slides a little to show there is more
+    var nudged = false;
+    function nudge() {
+      if (nudged || cards.length < 2 || !phone.matches || still.matches || panel.classList.contains('hidden')) return;
+      nudged = true;
+      track.classList.add('is-nudging');
+      setTimeout(function () { track.classList.remove('is-nudging'); }, 1400);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es, io) {
+        es.forEach(function (e) { if (e.isIntersecting) { nudge(); if (nudged) io.disconnect(); } });
+      }, { threshold: 0.6 }).observe(track);
     }
     function go(i, how) { i = Math.max(0, Math.min(cards.length - 1, i)); if (cards[i]) { centre(cards[i], track, how || behave); mark(i); } }
     // light each card by how near the centre it is, every frame the track moves
@@ -197,7 +219,7 @@
       if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
     });
-    decks[panel.id] = { go: go, now: function () { return at; }, cards: cards, light: light };
+    decks[panel.id] = { go: go, now: function () { return at; }, cards: cards, light: light, nudge: nudge };
     mark(0); light();
   });
 
@@ -208,7 +230,7 @@
     centre(tabs[i], strip, behave);
     tabArrows();
     var d = decks['panel-' + cat];
-    if (d) requestAnimationFrame(function () { d.go(d.now(), 'auto'); d.light(); });
+    if (d) requestAnimationFrame(function () { d.go(d.now(), 'auto'); d.light(); setTimeout(d.nudge, 450); });
   };
   window.deckShow = function (li) {
     var panel = li.closest('[role="tabpanel"]'), d = panel && decks[panel.id];

@@ -325,7 +325,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .deck-track { position: relative; display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
   padding: 8px calc(50% - 450px) 16px; }
 .deck-track:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 4px; border-radius: 28px; }
-.deck-track > li { flex: 0 0 900px; scroll-snap-align: center; display: grid; grid-template-columns: 340px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 40px; align-content: start;
+.deck-rail { position: relative; --card-w: 900px; }
+.deck-track > li { flex: 0 0 var(--card-w); scroll-snap-align: center; display: grid; grid-template-columns: 340px minmax(0, 1fr); grid-template-rows: auto auto auto 1fr; column-gap: 40px; align-content: start;
   padding: 32px; border-radius: 28px; background: #fff; border: 1px solid #e8e6df; box-shadow: 0 10px 30px -18px rgba(26,28,28,.25); }
 .deck-track > li > a { display: contents; }
 .deck-track > li > a > span:first-child { grid-column: 1; grid-row: 1 / span 4; }
@@ -340,7 +341,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .deck-count { min-width: 64px; text-align: center; font-size: 15px; font-weight: 700; color: #5f5e59; font-variant-numeric: tabular-nums; }
 @media (max-width: 1023px) {
   .deck-track { padding-inline: calc(50% - min(340px, 44vw)); }
-  .deck-track > li { flex-basis: min(680px, 88vw); grid-template-columns: 240px minmax(0, 1fr); column-gap: 28px; padding: 24px; }
+  .deck-rail { --card-w: min(680px, 88vw); }
+  .deck-track > li { flex-basis: var(--card-w); grid-template-columns: 240px minmax(0, 1fr); column-gap: 28px; padding: 24px; }
   .deck-bio { font-size: 16px; }
 }
 @media (max-width: 639px) {
@@ -348,7 +350,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   .deck-tabs { padding-inline: calc(50% - 85px); }
   .deck-tab { flex-basis: 170px; font-size: 15px; }
   .deck-track { gap: 12px; padding-inline: 8vw; }
-  .deck-track > li { flex-basis: 84vw; grid-template-columns: 1fr; grid-template-rows: none; padding: 16px 16px 20px; }
+  .deck-rail { --card-w: 84vw; }
+  .deck-track > li { flex-basis: var(--card-w); grid-template-columns: 1fr; grid-template-rows: none; padding: 16px 16px 20px; }
   .deck-track > li > a > span:first-child, .deck-track > li > a > span:last-child, .deck-track > li > div, .deck-track > li > .deck-bio { grid-column: 1; grid-row: auto; }
   .deck-bio { margin-top: 12px; font-size: 15px; }
 }
@@ -356,3 +359,17 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 /* How it works: the step numbers in the site's tinted badges */
 .how-n { display: inline-grid; place-items: center; width: 56px; height: 56px; border: 2.5px solid #1a1c1c; border-radius: 52% 48% 47% 53% / 56% 44% 56% 44%; background: var(--tint, #f6f4ee); color: #1a1c1c; font-size: 24px; font-weight: 800; line-height: 1; box-shadow: 0 6px 18px -8px rgba(0,0,0,.25); }
 li:nth-child(even) > .how-n { border-radius: 47% 53% 55% 45% / 44% 58% 42% 56%; }
+/* Network: the arrows sit centred on the sides of the card; dots and a count under it; a one-time nudge on phones */
+.deck-side { position: absolute; top: 50%; z-index: 2; width: 48px; height: 48px; transform: translateY(-50%); border-color: #e8e6df; box-shadow: 0 8px 22px -8px rgba(26,28,28,.45); }
+.deck-side--prev { left: calc(50% - var(--card-w) / 2 - 24px); }
+.deck-side--next { right: calc(50% - var(--card-w) / 2 - 24px); }
+.deck-side:hover { border-color: #1a1c1c; }
+.deck-ctrl { gap: 12px; }
+.deck-dots { display: flex; align-items: center; gap: 6px; }
+.deck-dots span { width: 8px; height: 8px; border-radius: 999px; background: #d9d6cc; transition: width .25s ease, background-color .25s ease; }
+.deck-dots span.is-on { width: 24px; background: #1a1c1c; }
+.deck-count { min-width: 0; font-size: 14px; }
+@keyframes deck-nudge { 0%, 100% { translate: 0 0; } 40%, 58% { translate: -44px 0; } }
+.deck-track.is-nudging > li { animation: deck-nudge 1.3s cubic-bezier(.3,.7,.3,1) 1; }
+@media (max-width: 639px) { .deck-side { width: 44px; height: 44px; top: calc(24px + (var(--card-w) - 32px) / 2); }   /* phones: level with the middle of the photo, the first thing seen */ .deck-side--prev { left: calc(50% - var(--card-w) / 2 - 18px); } .deck-side--next { right: calc(50% - var(--card-w) / 2 - 18px); } }
+@media (prefers-reduced-motion: reduce) { .deck-track.is-nudging > li { animation: none; } .deck-dots span { transition: none; } }
