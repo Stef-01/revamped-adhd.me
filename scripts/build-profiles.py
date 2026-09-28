@@ -1501,7 +1501,7 @@ TELEHEALTH_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 
 # Beside it, the same marker for seeing people face to face: most clinicians do both, and a reader should not
 # have to open a profile to learn that. Every clinician sees people in person unless `in_person=False`.
 IN_PERSON_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
-                  'text-[#1e547a] bg-[#dcedfa] border border-[#b9d6ee]">'
+                  'text-[#2e5a2b] bg-[#dbe9d3] border border-[#bcd6b1]">'
                   '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
                   'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
                   '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'
