@@ -1512,7 +1512,7 @@ IN_PERSON_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 r
 # reader scanning the deck cannot tell that from an interest chip. Same shape and position rule as the
 # telehealth pill: one wording, one icon, always ahead of the interest chips. Set it from `exercise`.
 EXERCISE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
-                 'text-[#3c5c3a] bg-[#e4f0e1] border border-[#bcd8b6]">'
+                 'text-[#8a3624] bg-[#fbd8cf] border border-[#f0b9a9]">'
                  '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
                  'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
                  '<path d="M6.5 6.5v11M3.5 9v5M17.5 6.5v11M20.5 9v5M6.5 12h11"/></svg>'
