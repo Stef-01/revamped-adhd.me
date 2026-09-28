@@ -1577,6 +1577,40 @@ DECK_COLUMNS = 4   # cards in a row of the deck at desktop width (lg:grid-cols-4
 DECK_CHIPS = 2   # interest chips on a deck card: four stacked chips made each card a column of pills on a phone
 
 
+# The line on each Network card: what the clinician helps with, in everyday words. The profile page and search
+# results keep the fuller `description`; a clinician without a line here shows that instead.
+CARD_LINES = {
+    'anubhav-saxena': 'An ADHD assessment that also checks your sleep, heart and general health.',
+    'anu-saxena': 'A GP with a psychology degree who has a special interest in ADHD, mental health and women’s health.',
+    'paula-garrido': 'A clinical psychologist with extra training in ADHD and autism, seeing you by video anywhere in Australia.',
+    'kate-row': 'Helps everyone from toddlers to adults, and can guide your family through the NDIS.',
+    'ellie-putland': 'Gentle, trauma-aware therapy for children, teens and adults, especially young people.',
+    'lachlan-avent': 'Therapy, parenting support, and ADHD or autism assessments for kids, teens and adults.',
+    'samantha-courtney': 'Specialist help with eating and food struggles, plus support for teens, adults and new or expecting parents.',
+    'lauren-poulos': 'Early support for young children and their parents, with therapy for teens and adults too.',
+    'alice-bui': 'Trauma-aware therapy, with a special interest in refugees, new arrivals and people from many cultures.',
+    'meera-lakhani': 'Assessments for ADHD, autism and learning, to understand how you or your child thinks and learns.',
+    'trisha-harris': 'A counsellor who has ADHD herself, seeing teens, adults, couples and NDIS participants in Glenbrook.',
+    'flynn-simonis': 'Occupational therapy for kids that starts with what your child loves, at the clinic, at home or at school.',
+    'lara-schulz': 'Brain mapping and brain training (neurotherapy) in Jindabyne, with a chat about your results first.',
+    'fiona-alexander': 'A teacher of 25 years, helping students and families understand how an ADHD brain works.',
+    'debbie-hirte': 'Nearly 30 years in schools, including as a gifted and talented specialist, now coaching with ADHD in mind.',
+    'romney-taylor': '23 years working with students, building strategies that work at school, at home and with the people you love.',
+    'erin-lysle': 'More than 34 years of teaching, now helping with getting organised, confidence and making friends.',
+    'donna-italiano': 'A high school teacher who coaches young people on getting organised and handling big feelings.',
+    'kate-dallimore': 'An ADHD coach with a physio and teaching background, and a gentle, trauma-aware approach.',
+    'jessica-katsamatsas': 'Works mostly with young neurodivergent adults on anxiety, burnout and feeling good about yourself.',
+    'bart-traynor': 'A clinical psychologist for pressure at work, the weight of performing, and big changes in life.',
+    'jeff-leech': 'A clinical psychologist helping with trauma, anxiety, low mood and pressure to perform.',
+    'michael-rehardt': 'A provisional psychologist finishing his Master of Clinical Psychology at Griffith University.',
+    'sarah-savage': 'Pilates and exercise in warm water to help you move and feel better, with a soft spot for older adults.',
+    'yuri-lima': 'Helps you recover from sport and joint injuries, with a PhD on knee (ACL) injuries in athletes.',
+    'tom-hissey': 'Helps you recover from muscle and joint injuries and get back to work, and is an Australian Army veteran.',
+    'lester-rafanan': 'Physio to recover from injury or surgery, manage ongoing pain and get back to sport, with NDIS support too.',
+    'alex-lawson': 'An ADHD coach and teacher, and a former lawyer, who has ADHD and works with adults, students and parents.',
+}
+
+
 def deck_card(c, size, rank):
     """rank: the card's place in the first row of the panel shown on arrival (0 is the first), else None."""
     img_attrs = ('loading="eager" fetchpriority="high" decoding="async"' if rank == 0 else
@@ -1589,7 +1623,7 @@ def deck_card(c, size, rank):
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
   </a>
   <div class="flex flex-wrap gap-2 pt-3">{chip_row(c, DECK_CHIPS)}</div>
-  <p class="deck-bio">{esc(c['description'])}</p>
+  <p class="deck-bio">{esc(CARD_LINES.get(c['id'], c['description']))}</p>
   <div class="mt-auto pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="{book_verb(c)} with {esc(c['name'])}" href="{c['slug']}.html">{book_verb(c)} <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>'''
 
