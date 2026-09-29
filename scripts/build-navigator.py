@@ -175,7 +175,8 @@ DOMAINS = [
    ('anubhav-saxena', 'Structured adult ADHD assessment'),
    ('anu-saxena', 'Endorsed ADHD prescriber course'),
    ('lachlan-avent', 'Autism & ADHD assessment'),
-   ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment')]),
+   ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment'),
+   ('chantelle-pin', 'Clinical psychologist · Taking on assessments')]),
   dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course'),
@@ -388,7 +389,7 @@ def who_card(cid, why):
             f'<span class="min-w-0 flex-1 flex flex-col">'
             f'<strong class="block text-[17px] leading-[1.3] font-extrabold tracking-tight text-[#1a1c1c] '
             f'group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(c["name"])}</strong>'
-            f'<span class="block mt-1 text-[14px] leading-[1.35] font-semibold text-[#5f5e59]">{esc(profiles.subline(c))}</span>'
+            f'<span class="block mt-1 text-[14px] leading-[1.35] font-semibold text-[#5f5e59]">{profiles.subline_html(c)}</span>'
             f'<span class="block mt-auto pt-2.5"><span class="inline-block px-2.5 py-1 rounded-full text-[12px] '
             f'leading-[1.35] font-semibold text-[#5f5e59] bg-[#f6f4ee] border border-[#e8e6df]">{esc(why)}</span></span>'
             f'</span></a></li>')

@@ -130,6 +130,58 @@ GOALS_FEES_OT = goals_fees(
     'A Mental Health Treatment Plan usually doesn’t cover OT. The NDIS, private health extras or a GP’s chronic condition '
     'management plan often do.')
 
+# Therapy Co, Benowa on the Gold Coast. One practice, five psychologists and three therapy assistants, so the shared
+# facts sit here once. From the practice's own site: no referral needed, Medicare with a Mental Health Treatment Plan,
+# in person in Benowa and telehealth Australia-wide. It publishes no fee schedule ("fees vary by clinician and session
+# length"), so the fee blocks carry no figures, as with GOALS.
+TCO = 'https://thetherapyco.com.au/'
+TCO_BOOK = 'https://www.halaxy.com/book/appointment/therapy-co/location/598571'
+TCO_BOOK_HINT = 'Opens Halaxy in a new tab.'
+TCO_ENQUIRE = TCO + 'contact/'
+TCO_ENQUIRE_HINT = 'Opens the Therapy Co enquiry page in a new tab.'
+TCO_PLACE = 'Benowa, Gold Coast & telehealth'
+TCO_LINKS = [('website', 'thetherapyco.com.au', TCO)]
+TCO_REACH = 'In person in Benowa on the Gold Coast, and telehealth Australia-wide'
+TCO_REACH_TA = 'In person in Benowa, and at home, at school or in the community'
+TCO_APPOINTMENTS = 'Usually 50-minute sessions; times set with the practice'
+TCO_BILLING = 'Set and charged by the practice; quoted when you enquire or book'
+TCO_DISCLOSURE = 'Therapy Co is an independent practice.'
+TCO_WORKS_FOR = dict(url=TCO, telephone='0452 525 783', locality='Benowa', state='QLD')
+
+
+def tco_fees(rebate_note):
+    return dict(
+        heading='What a session costs',
+        figures=[],  # the practice has not published a fee
+        notes=[
+            'Therapy Co quotes its fee when you enquire or book. Fees vary by clinician and session length.',
+            rebate_note,
+            'No referral is needed. NDIS, private health and self-funded clients are welcome.',
+            '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+        ],
+    )
+
+
+def _medicare(amount, who):
+    return ('With a GP’s Mental Health Treatment Plan and referral, <a class="font-semibold text-[#1a1c1c] underline '
+            'decoration-[#f1bc31] decoration-2 underline-offset-4" target="_blank" rel="noopener noreferrer" href="'
+            + MBS_SOURCE + '">Medicare</a> pays ' + amount + ' a session with ' + who + ', for up to 10 sessions a year.')
+
+
+TCO_FEES = tco_fees(_medicare(MBS_REBATE_REGISTERED, 'a psychologist'))
+TCO_FEES_CLINICAL = tco_fees(_medicare(MBS_REBATE_CLINICAL, 'a clinical psychologist'))
+TCO_FEES_TA = dict(
+    heading='What a session costs',
+    figures=[],
+    notes=[
+        'Therapy assistant sessions cost about a third of a psychology session. Therapy Co quotes the fee when you enquire.',
+        'There is no Medicare rebate. NDIS plans often fund them as capacity building, for plan-managed and '
+        'self-managed participants.',
+        'A therapy assistant works under the supervision of your psychologist, who sets the goals.',
+        '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+    ],
+)
+
 # REACH ADHD Coaching and Consultancy, Perth. One practice, six coaches, so the shared facts sit here once.
 # Coaching is not a registered health profession, which is why the disclosure says so and why worksFor is a
 # ProfessionalService rather than the MedicalBusiness the clinics get.
@@ -1152,6 +1204,243 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    # Therapy Co, Benowa: five psychologists, then three therapy assistants (Allied health).
+    dict(
+        slug='chantelle-pin', id='chantelle-pin', category='psychologist', lived='Has ADHD',
+        name='Chantelle Pin', short='Chantelle', role='Clinical Psychologist, Founder and Director', pronouns='',
+        practice='Therapy Co', place=TCO_PLACE, descriptor='Clinical psychologist & founder',
+        description='A clinical psychologist, late-diagnosed with ADHD herself, working with neurodivergent children and adults. Taking on assessments.',
+        chips=['Assessments', 'Neurodivergent clients', 'Children to adults'],
+        telehealth=True,
+        book_href=TCO_BOOK, book_hint=TCO_BOOK_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES_CLINICAL,
+        qualifications='Clinical psychologist, MClinPsych PGPsychSci BPsychSci BCrim&CrimJust MAPS',
+        languages=[],
+        experience=['Clinical psychologist, founder and director, Therapy Co, Benowa', 'Board Approved Supervisor', 'Clinical Registrar Program, completed 2022', 'Master of Clinical Psychology, Griffith University', 'Graduate Diploma of Psychological Science, Bond University', 'Bachelor of Psychological Science, Griffith University', 'Bachelor of Criminology and Criminal Justice, Griffith University'],
+        about=['I aim to provide a safe, comfortable space for yourself or your child to tackle the obstacles life throws. I work across the lifespan with neurodiverse clients.', 'I am a late-diagnosed neurodivergent (ADHD) adult, so I bring lived experience together with my training to support my clients.', 'When I am not at Therapy Co, I spend my time with family, my two dachshunds, friends, jigsaw puzzles, Harry Potter and travelling.'],
+        details=[
+            ('Currently', 'Accepting assessments'),
+            ('Reach', TCO_REACH),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Master of Clinical Psychology', 'Graduate Diploma of Psychological Science', 'Bachelor of Psychological Science', 'Bachelor of Criminology and Criminal Justice', 'Board Approved Supervisor'],
+            same_as=[TCO + 'team/chantelle-pin/'],
+            works_for=TCO_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='sarah-bibo', id='sarah-bibo', category='psychologist',
+        name='Sarah Bibo', short='Sarah', role='Registered Psychologist and Clinical Psychology Registrar', pronouns='',
+        practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist, on maternity leave',
+        description='On maternity leave for now. Works with anxiety, low mood, trauma, ADHD, autism, eating and body image.',
+        chips=['On maternity leave', 'Neurodivergent clients', 'Eating & body image'],
+        telehealth=True,
+        book_href=TCO_ENQUIRE, book_hint=TCO_ENQUIRE_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES,
+        qualifications='Psychologist, MClinPsych BPsych(Hons)',
+        languages=[],
+        experience=['Registered psychologist, Therapy Co, Benowa', 'Clinical Registrar Program, in progress', 'Master of Clinical Psychology, 2025', 'Bachelor of Psychology (Honours), research on neural pathways in children with ADHD', 'CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology'],
+        about=['I am passionate about the transformative potential of psychotherapy in supporting personal growth and healing, and I work to create a safe, supportive and non-judgmental space.', 'I have worked with depression, anxiety, trauma, neurodiversity (autism and ADHD), interpersonal difficulties, disordered eating and body image concerns. My approach is warm, compassionate, person-centred and strengths-based, drawing on CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology.', 'Outside work I enjoy gardening, hiking, swimming, travelling, the gym, and time with family and friends.'],
+        details=[
+            ('Currently', 'On maternity leave; ask the practice when she returns'),
+            ('Reach', TCO_REACH),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Master of Clinical Psychology', 'Bachelor of Psychology (Honours)'],
+            same_as=[TCO + 'team/sarah-bibo/'],
+            works_for=TCO_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='gisele-fortkamp', id='gisele-fortkamp', category='psychologist',
+        name='Gisele Fortkamp', short='Gisele', role='Senior Psychologist', pronouns='',
+        practice='Therapy Co', place=TCO_PLACE, descriptor='Senior psychologist',
+        description='Supports children with ADHD or autism and their parents, and women adjusting to a diagnosis. Sessions in English or Portuguese.',
+        chips=['Children & parents', 'Women’s wellbeing', 'Portuguese'],
+        telehealth=True,
+        book_href=TCO_BOOK, book_hint=TCO_BOOK_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES,
+        qualifications='Psychologist, BSc(Hons) MAPS',
+        languages=['English', 'Portuguese'],
+        experience=['Senior psychologist, Therapy Co, Benowa', 'Level 1 Couples Counselling, Gottman Institute, 2026', '5+1 Internship Program, completed 2024', 'Postgraduate Certificate in Psychodrama Psychology, Florianópolis, Brazil', 'Bachelor of Psychology with Honours thesis on learning difficulties in children, Brazil'],
+        about=['I support children’s development and help women move toward greater confidence, clarity and more fulfilling relationships. I trained in Brazil and am fully registered in Australia.', 'I work with parents and children on emotional regulation, behaviour, communication and self-esteem, with a special interest in ADHD and autism, using a strengths-based, neurodivergence-affirming approach.', 'I also support women with self-esteem, identity, life transitions, relationships, anxiety and low mood, including women exploring or adjusting to an ADHD or autism diagnosis. I offer sessions in Portuguese and English.'],
+        details=[
+            ('Currently', 'Taking new clients'),
+            ('Reach', TCO_REACH),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Psychology (Honours)', 'Postgraduate Certificate in Psychodrama Psychology', 'Level 1 Couples Counselling (Gottman Institute)'],
+            same_as=[TCO + 'team/gisele-fortkamp/'],
+            works_for=TCO_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='lana-hiscock', id='lana-hiscock', category='psychologist',
+        name='Lana Hiscock', short='Lana', role='Psychologist', pronouns='',
+        practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist',
+        description='Neurodiversity, relationships, sleep, perinatal mental health and women’s health. Sessions in English or Mandarin.',
+        chips=['Perinatal & postnatal', 'Sleep', 'Mandarin & Shanghainese'],
+        telehealth=True,
+        book_href=TCO_BOOK, book_hint=TCO_BOOK_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES,
+        qualifications='Psychologist, MClinPsych BPsych(Hons)',
+        languages=['English', 'Mandarin', 'Shanghainese'],
+        experience=['Psychologist, Therapy Co, Benowa', 'Master of Clinical Psychology, Bond University, 2026', 'Graduate Diploma of Psychology (Honours), 2023', 'CBT, DBT, ACT and positive psychology'],
+        about=['If you are navigating neurodiversity, relationships, sleep, perinatal and postnatal mental health or women’s health, I offer a supportive and culturally compassionate space shaped by my own diverse background.', 'My approach is warm, compassionate and non-judgmental, drawing on person-centred, strengths-based and evidence-based approaches including CBT, DBT, ACT and positive psychology.', 'In my downtime I get outdoors with a coffee and a good book, travel, do pilates or yoga, and make friends with the local king parrots.'],
+        details=[
+            ('Currently', 'Taking new clients'),
+            ('Reach', TCO_REACH),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Master of Clinical Psychology', 'Graduate Diploma of Psychology (Honours)'],
+            same_as=[TCO + 'team/lana-hiscock/'],
+            works_for=TCO_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='valeria-urrutia', id='valeria-urrutia', category='psychologist',
+        name='Valeria Urrutia', short='Valeria', role='Registered Psychologist', pronouns='',
+        practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist',
+        description='Anxiety, low mood, grief, life changes, neurodiversity and psychological assessments. Sessions in English or Spanish.',
+        chips=['Assessments', 'Grief & life changes', 'Spanish'],
+        telehealth=True,
+        book_href=TCO_BOOK, book_hint=TCO_BOOK_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES,
+        qualifications='Psychologist, MClinPsyc BPsychSci(Hons) BA',
+        languages=['English', 'Spanish'],
+        experience=['Registered psychologist, Therapy Co, Benowa', 'Master of Psychology (Clinical), Bond University, 2026', 'Bachelor of Psychological Science (Honours), Bond University', 'Bachelor of Arts in psychology and music psychology, University of Queensland', 'Inpatient, outpatient and therapeutic community settings'],
+        about=['I take a curious, collaborative and flexible approach to therapy, and I believe the relationship is an important part of meaningful change. I tailor therapy to each person, drawing on CBT, ACT, DBT and Compassion-Focused Therapy.', 'I work across the lifespan with life transitions, anxiety and depression, grief and loss, neurodiversity, alcohol and other drug concerns, and psychological assessments, which I approach in a client-centred, strengths-based way.', 'I am originally from Peru and can also provide therapy in Spanish. Outside work I enjoy beach days, hiking, tennis, new recipes and a good record.'],
+        details=[
+            ('Reach', TCO_REACH),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Master of Psychology (Clinical)', 'Bachelor of Psychological Science (Honours)', 'Bachelor of Arts (Psychology)'],
+            same_as=[TCO + 'team/valeria-urrutia/'],
+            works_for=TCO_WORKS_FOR,
+            area='Australia',
+        ),
+    ),
+    dict(
+        slug='ebony-young', id='ebony-young', category='allied',
+        name='Ebony Young', short='Ebony', role='Therapy Assistant', pronouns='',
+        practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant',
+        description='A therapy assistant with a psychology honours degree, practising skills with you between sessions, supervised by your psychologist.',
+        chips=['Skills practice', 'Works with your psychologist'],
+        telehealth=False,
+        book_href=TCO_ENQUIRE, book_hint=TCO_ENQUIRE_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES_TA,
+        qualifications='Therapy assistant, BPsych(Hons)',
+        languages=[],
+        experience=['Therapy assistant, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Bachelor of Psychology (Honours), research on disgust, empathy and moral decision-making'],
+        about=['Where people feel safe to learn, experiment and explore, they develop a sense of independence and self-confidence that is so valuable to our wellbeing.', 'My psychology honours degree gave me a good understanding of mental health through psychological theory, assessment and research. I hope to complete a Masters and become a clinical psychologist.', 'In my own time I enjoy my miniature dachshund, friends and family, jigsaw puzzles, reading and true crime podcasts.'],
+        details=[
+            ('Reach', TCO_REACH_TA),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Psychology (Honours)'],
+            same_as=[TCO + 'team/ebony-young/'],
+            works_for=TCO_WORKS_FOR,
+            area='Gold Coast',
+        ),
+    ),
+    dict(
+        slug='alexandra-wainwright', id='alexandra-wainwright', category='allied',
+        name='Alexandra Wainwright', short='Alexandra', role='Therapy Assistant and Support Worker', pronouns='',
+        practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant & support worker',
+        description='Studying psychology at Griffith University. Practises skills with you between sessions, supervised by your psychologist.',
+        chips=['Skills practice', 'NDIS support work'],
+        telehealth=False,
+        book_href=TCO_ENQUIRE, book_hint=TCO_ENQUIRE_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES_TA,
+        qualifications='Therapy assistant and support worker, BPsychSc (in progress)',
+        languages=[],
+        experience=['Therapy assistant and support worker, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Bachelor of Psychological Science, Griffith University, in progress'],
+        about=['I’m passionate about creating a comfortable, understanding environment where clients feel respected and supported as they work toward their goals.', 'I’m studying a Bachelor of Psychological Science at Griffith University, with a strong interest in developmental psychology, and my studies inform my therapy assistant and support work.', 'In my spare time you will find me with a good book, with friends, or on a sunny beach day with an iced caramel latte.'],
+        details=[
+            ('Reach', TCO_REACH_TA),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Psychological Science (in progress)'],
+            same_as=[TCO + 'team/alexandra-wainwright/'],
+            works_for=TCO_WORKS_FOR,
+            area='Gold Coast',
+        ),
+    ),
+    dict(
+        slug='eliza-keefe', id='eliza-keefe', category='allied',
+        name='Eliza Keefe', short='Eliza', role='Therapy Assistant and Support Worker', pronouns='she/her',
+        practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant & support worker',
+        description='Finishing a Master of Clinical Psychology, with an interest in children and teens. Practises life skills with you, supervised by your psychologist.',
+        chips=['Children & teens', 'NDIS support work'],
+        telehealth=False,
+        book_href=TCO_ENQUIRE, book_hint=TCO_ENQUIRE_HINT,
+        links=TCO_LINKS,
+        fees=TCO_FEES_TA,
+        qualifications='Therapy assistant and support worker, BPsychSc(Hons)',
+        languages=[],
+        experience=['Therapy assistant and support worker, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Master of Clinical Psychology, Griffith University, in progress', 'Bachelor of Psychological Science (Honours), University of New England'],
+        about=['Eliza enjoys creating a calm, supportive and engaging space where you can feel comfortable to learn new skills.', 'She is completing her Master of Clinical Psychology at Griffith University, with a particular interest in child and adolescent mental health, psychological assessment, and supporting children and adults with everyday life skills.', 'Outside work and study you’ll usually find her at the beach, with family and friends, or enjoying a good coffee.'],
+        details=[
+            ('Reach', TCO_REACH_TA),
+            ('Appointments', TCO_APPOINTMENTS),
+            ('Billing', TCO_BILLING),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=TCO_DISCLOSURE,
+        schema=dict(
+            type='Person',
+            credentials=['Bachelor of Psychological Science (Honours)', 'Master of Clinical Psychology (in progress)'],
+            same_as=[TCO + 'team/eliza-keefe/'],
+            works_for=TCO_WORKS_FOR,
+            area='Gold Coast',
+        ),
+    ),
     dict(
         slug='bart-traynor', id='bart-traynor', category='psychologist',
         name='Bart Traynor', short='Bart', role='Clinical Psychologist and Director', pronouns='',  # not declared on the practice's site
@@ -1486,6 +1775,23 @@ def meta_line(c):
     return ' · '.join(p for p in parts if p)
 
 
+# There are many psychologists, in many places, so on theirs the place stands out: bold and in ink.
+PLACE_BOLD = '<b class="font-extrabold text-[#1a1c1c]">{}</b>'
+
+
+def place_html(c):
+    return PLACE_BOLD.format(esc(c['place'])) if c['category'] == 'psychologist' else esc(c['place'])
+
+
+def subline_html(c):
+    return f"{esc(c['descriptor'])} · {place_html(c)}" if c['descriptor'] else place_html(c)
+
+
+def meta_line_html(c):
+    parts = [esc(p) for p in (c['pronouns'], c['descriptor'], c['practice']) if p] + [place_html(c)]
+    return ' · '.join(parts)
+
+
 TITLE_ROOM = 60 - len(' · ADHDme')   # search results cut titles at about 60 characters
 
 
@@ -1661,6 +1967,14 @@ CARD_LINES = {
     'donna-italiano': 'A high school teacher who coaches young people on getting organised and handling big feelings.',
     'kate-dallimore': 'An ADHD coach with a physio and teaching background, and a gentle, trauma-aware approach.',
     'jessica-katsamatsas': 'Works mostly with young neurodivergent adults on anxiety, burnout and feeling good about yourself.',
+    'chantelle-pin': 'A clinical psychologist with ADHD herself, taking on assessments for children and adults.',
+    'sarah-bibo': 'On maternity leave for now. Helps with anxiety, low mood, trauma, ADHD, autism and food worries.',
+    'gisele-fortkamp': 'Helps kids with ADHD or autism and their parents, and women after a diagnosis. Speaks Portuguese.',
+    'lana-hiscock': 'Help with sleep, relationships, pregnancy and new parenthood. Speaks Mandarin and Shanghainese.',
+    'valeria-urrutia': 'Help with anxiety, low mood, grief and big life changes, plus assessments. Speaks Spanish.',
+    'ebony-young': 'Practises the skills from your therapy with you, week to week, guided by your psychologist.',
+    'alexandra-wainwright': 'Practises skills with you at home, school or out and about, guided by your psychologist.',
+    'eliza-keefe': 'Helps children and adults practise everyday life skills, guided by your psychologist.',
     'bart-traynor': 'A clinical psychologist for pressure at work, the weight of performing, and big changes in life.',
     'jeff-leech': 'A clinical psychologist helping with trauma, anxiety, low mood and pressure to perform.',
     'michael-rehardt': 'A provisional psychologist finishing his Master of Clinical Psychology at Griffith University.',
@@ -1682,7 +1996,7 @@ def deck_card(c, size, rank):
     return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0">
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
-    <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
+    <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{subline_html(c)}</span></span>
   </a>
   <div class="flex flex-wrap gap-2 pt-3">{chip_row(c, DECK_CHIPS)}</div>
   <p class="deck-bio">{esc(CARD_LINES.get(c['id'], c['description']))}</p>
@@ -1695,7 +2009,7 @@ def also_link(c, size, eager=False):
     return (f'<a class="flex items-center gap-4 group min-w-0" href="{c["slug"]}.html">'
             f'{portrait_span(c, size, "span", "block w-20 shrink-0 ", "96px", loading, "w-full h-full object-cover object-[center_30%]")}'
             f'<span class="min-w-0"><strong class="block text-[19px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">{esc(c["name"])}</strong>'
-            f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span></a>')
+            f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{subline_html(c)}</span></span></a>')
 
 
 # Links more than one clinician lists (a practice's team page or social account) describe the practice.
@@ -1831,7 +2145,7 @@ def render_main(c, size, sizes):
   <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', HERO_SIZES, 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
   <div class="lg:col-span-7 flex flex-col gap-5">
     <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.02] arrive" style="--i:1">{esc(c['name'])}</h1>
-    <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{esc(meta_line(c))}</p>
+    <p class="text-[15px] font-semibold text-[#5f5e59] arrive" style="--i:2">{meta_line_html(c)}</p>
     <p class="text-[19px] sm:text-[22px] font-medium leading-snug text-[#1a1c1c] max-w-[40ch] text-balance arrive" style="--i:3" data-declared-by="clinician">{esc(c['description'])}</p>
     <div class="flex flex-wrap gap-2 arrive" style="--i:4">{chip_row(c)}</div>
     <div class="flex flex-col items-start gap-3 pt-2 arrive" style="--i:5">

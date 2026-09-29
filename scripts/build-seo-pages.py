@@ -55,11 +55,12 @@ def gps_remote(c): return gps(c) and c['telehealth']
 def psychologists(c): return c['category'] == 'psychologist'
 def qld_psychologists(c): return psychologists(c) and state(c) == 'QLD'
 ALLIED = ('allied', 'occupational-therapy', 'physiotherapy')   # the Network gives OT and physio their own tabs; here they are still allied health
-def qld_allied(c): return c['category'] in ALLIED and state(c) == 'QLD'
+def therapy_assistant(c): return 'Therapy Assistant' in c['role']   # skills practice under a psychologist: not an assessor
+def qld_allied(c): return c['category'] in ALLIED and state(c) == 'QLD' and not therapy_assistant(c)
 def locality(c): return c['schema'].get('works_for', {}).get('locality')
 def brisbane_psychologists(c): return psychologists(c) and locality(c) in ('Fortitude Valley', 'Ashgrove')
 def brisbane_allied(c): return c['category'] in ALLIED and locality(c) == 'Fortitude Valley'
-def gold_coast(c): return locality(c) == 'Bundall'
+def gold_coast(c): return locality(c) in ('Bundall', 'Benowa')
 def exercise_physiologists(c): return 'Exercise Physiologist' in c['role']
 def occupational_therapists(c): return 'Occupational' in c['role']
 def coaches(c): return c['category'] == 'coach'
@@ -130,14 +131,15 @@ PAGES = [
  dict(slug='adhd-doctor-gold-coast', group='place',
       seo='ADHD doctor Gold Coast: who to see and costs',
       title='ADHD doctor on the Gold Coast.',
-      description=f'ADHD care on the Gold Coast: psychologists and an exercise physiologist in Bundall, plus a GP assessment by phone for {GP_TOTAL} in total.',
-      lede='ADHDme has psychologists and an exercise physiologist at Atlantis Recovery Centre in Bundall. Its two GPs are in Sydney and see people remotely.',
-      who=[gold_coast, gps_remote, qld_psychologists], who_heading='Who you can see from the Gold Coast',
-      who_note='Bundall clinicians see people in person. The others also work by telehealth.',
+      description=f'ADHD care on the Gold Coast: psychologists in Benowa and Bundall, an exercise physiologist in Bundall, and a GP assessment by phone for {GP_TOTAL}.',
+      lede='ADHDme has psychologists at Therapy Co in Benowa and Atlantis Recovery Centre in Bundall. Its two assessing GPs see people remotely from Sydney.',
+      who=[gold_coast, gps_remote], who_heading='Who you can see from the Gold Coast',
+      who_note='Bundall clinicians see people in person only. Everyone else also works by telehealth.',
       sections=[
-       ('In person in Bundall', [
+       ('In person on the Gold Coast', [
         f'{a("Atlantis Recovery Centre", "bart-traynor.html")} is an allied health centre at 25 Upton Street, Bundall. It has clinical psychologists, a provisional psychologist, an exercise physiologist and physiotherapists. The practice says its approach, which combines therapy with movement-based work, suits ADHD, anxiety and trauma. Each psychology client starts with a full assessment. You book on the practice’s HotDoc page, which opens in a new tab. No referral needed, and you don’t need an account.',
-        'A psychologist can assess ADHD and treat it with therapy but cannot prescribe. The practice quotes its fee when you book. It works with DVA, the NDIS, private health funds, WorkCover and GP Mental Health Treatment Plans.']),
+        'A psychologist can assess ADHD and treat it with therapy but cannot prescribe. The practice quotes its fee when you book. It works with DVA, the NDIS, private health funds, WorkCover and GP Mental Health Treatment Plans.',
+        f'{a("Therapy Co", "chantelle-pin.html")} is a psychology practice at 156 Ashmore Road, Benowa. Its founder, clinical psychologist {a("Chantelle Pin", "chantelle-pin.html")}, has ADHD herself and is taking on assessments. Its psychologists also see people by telehealth, and its therapy assistants practise skills with you between sessions, often funded by the NDIS. No referral needed.']),
        ('A GP assessment by phone', [
         f'The network’s two GPs are in Sydney and both see people remotely. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} offers phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, so you can start with either without travelling. When you book, ask whether the whole assessment can be done remotely or whether any part needs to be in person.',
         GP_COST_PARA,
@@ -149,11 +151,11 @@ PAGES = [
         f'The {a("treatment after diagnosis", "adhd-treatment-after-diagnosis.html")} page covers what usually follows: medication and its reviews, therapy, occupational therapy, coaching, and things you can do yourself. On the Gold Coast, {a("Sarah Savage", "sarah-savage.html")} provides exercise physiology in person.']),
       ],
       faqs=[
-       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'There are psychologists and an exercise physiologist at Atlantis Recovery Centre in Bundall, but no Gold Coast GP yet. The network’s two GPs see people remotely from Sydney.'),
+       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'There are psychologists at Therapy Co in Benowa and at Atlantis Recovery Centre in Bundall, but no Gold Coast GP yet. The network’s two assessing GPs see people remotely from Sydney.'),
        ('Can a GP diagnose ADHD in Queensland?', 'Yes. Since 1 December 2025 a specialist GP in Queensland can diagnose ADHD in adults and prescribe stimulant medication, and Queensland GPs have prescribed for children since 2017.'),
        ('Do I need a referral?', 'No referral needed. You book or enquire directly with the practice, and a GP can write a Mental Health Treatment Plan if you want a Medicare rebate on psychology sessions.'),
-       ('What does it cost on the Gold Coast?', f'Atlantis Recovery Centre quotes its fee when you book and accepts DVA, NDIS, private health, WorkCover and Medicare plans. A GP assessment by phone is {GP_TOTAL} across two consultations, with no Medicare rebate.'),
-       ('Does the Gold Coast clinic offer telehealth?', 'The Bundall clinic has not declared telehealth, so its profiles don’t list it. The Brisbane psychologists and the Sydney GPs do see people remotely.'),
+       ('What does it cost on the Gold Coast?', f'Therapy Co and Atlantis Recovery Centre quote their fees when you book, and both work with Medicare plans and the NDIS. A GP assessment by phone is {GP_TOTAL} across two consultations, with no Medicare rebate.'),
+       ('Can I see a Gold Coast psychologist by telehealth?', 'Yes: Therapy Co in Benowa sees people by telehealth anywhere in Australia. The Bundall clinic has not declared telehealth, so its profiles don’t list it.'),
       ],
       related=['adhd-gp-brisbane', 'adhd-assessment-queensland', 'adhd-psychologist-brisbane', 'adhd-exercise-physiologist']),
 
@@ -192,13 +194,13 @@ PAGES = [
       description='How ADHD assessment works in Queensland since the December 2025 reform: GP, psychologist or psychiatrist. No referral needed for a GP or psychologist.',
       lede='In Queensland, a GP, psychologist or psychiatrist can assess ADHD. ADHDme lists GPs and psychologists who see Queensland patients.',
       who_heading='Who sees Queensland patients',
-      who=[gps_remote, qld_psychologists, qld_allied], who_note='Rooms in Brisbane and Bundall. The GPs and Brisbane clinicians also work by telehealth.',
+      who=[gps_remote, qld_psychologists, qld_allied], who_note='Rooms in Brisbane, Benowa and Bundall. Everyone except the Bundall clinic also works by telehealth.',
       sections=[
        ('Route one: a GP', [
         QLD_GP_PARA,
         f'In the network, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} takes phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, both from Sydney. They follow NSW rules on medication, but the assessment itself is the same in any state. ' + GP_COST_PARA]),
        ('Route two: a psychologist', [
-        f'A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessments, in person in Fortitude Valley or by telehealth. A GP or psychiatrist often works from a psychologist’s assessment report. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start each client with a full assessment, and the practice says its approach suits ADHD.',
+        f'A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessments, in person in Fortitude Valley or by telehealth. A GP or psychiatrist often works from a psychologist’s assessment report. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start each client with a full assessment, and the practice says its approach suits ADHD. In Benowa, clinical psychologist {a("Chantelle Pin", "chantelle-pin.html")} at Therapy Co is taking on assessments.',
         PSY_COST_PARA]),
        ('Route three: a psychiatrist', [
         'You need a GP referral to see a psychiatrist. In Queensland the wait for a first appointment is commonly months, and the fee is commonly several hundred dollars above the Medicare rebate. ADHDme does not list psychiatrists. The 2025 reform was introduced because, for many adults, the psychiatrist step added waiting time without adding much to what a well-trained GP could assess.',

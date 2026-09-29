@@ -141,6 +141,54 @@
       practice: 'Neutral Minds Psychology', destination: 'zanda',
       expertise: ['therapy', 'neuroaffirming', 'trauma'], ages: ['adults']
     },
+    'chantelle-pin': {
+      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'chantelle-pin.html',
+      name: 'Chantelle Pin', category: 'psychologist',
+      practice: 'Therapy Co', destination: 'halaxy',
+      expertise: ['assessment', 'therapy', 'neuroaffirming'], ages: ['children', 'teens', 'adults']
+    },
+    'sarah-bibo': {
+      booking: /thetherapyco\.com\.au\/contact/, profile: 'sarah-bibo.html',
+      name: 'Sarah Bibo', category: 'psychologist',
+      practice: 'Therapy Co', destination: 'clinic-form',
+      expertise: ['therapy', 'trauma'], ages: ['adults']
+    },
+    'gisele-fortkamp': {
+      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'gisele-fortkamp.html',
+      name: 'Gisele Fortkamp', category: 'psychologist',
+      practice: 'Therapy Co', destination: 'halaxy',
+      expertise: ['therapy', 'parenting', 'womens-health', 'neuroaffirming'], ages: ['children', 'adults']
+    },
+    'lana-hiscock': {
+      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'lana-hiscock.html',
+      name: 'Lana Hiscock', category: 'psychologist',
+      practice: 'Therapy Co', destination: 'halaxy',
+      expertise: ['therapy', 'perinatal', 'womens-health', 'relationships'], ages: ['adults']
+    },
+    'valeria-urrutia': {
+      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'valeria-urrutia.html',
+      name: 'Valeria Urrutia', category: 'psychologist',
+      practice: 'Therapy Co', destination: 'halaxy',
+      expertise: ['therapy', 'assessment'], ages: ['children', 'teens', 'adults']
+    },
+    'ebony-young': {
+      booking: /thetherapyco\.com\.au\/contact/, profile: 'ebony-young.html',
+      name: 'Ebony Young', category: 'allied',
+      practice: 'Therapy Co', destination: 'clinic-form',
+      expertise: ['therapy-assistant', 'ndis'], ages: ['children', 'teens', 'adults']
+    },
+    'alexandra-wainwright': {
+      booking: /thetherapyco\.com\.au\/contact/, profile: 'alexandra-wainwright.html',
+      name: 'Alexandra Wainwright', category: 'allied',
+      practice: 'Therapy Co', destination: 'clinic-form',
+      expertise: ['therapy-assistant', 'ndis'], ages: ['children', 'teens', 'adults']
+    },
+    'eliza-keefe': {
+      booking: /thetherapyco\.com\.au\/contact/, profile: 'eliza-keefe.html',
+      name: 'Eliza Keefe', category: 'allied',
+      practice: 'Therapy Co', destination: 'clinic-form',
+      expertise: ['therapy-assistant', 'ndis'], ages: ['children', 'teens', 'adults']
+    },
     'alex-lawson': {
       booking: /lawsonadhdsolutions\.com\.au\/book-here/, profile: 'alex-lawson.html',
       name: 'Alex Lawson', category: 'coach',
