@@ -1678,7 +1678,8 @@ def deck_card(c, size, rank):
                  'loading="eager" decoding="async"' if rank is not None else 'loading="lazy" decoding="async"')
     sizes = '(min-width: 1024px) 340px, (min-width: 640px) 240px, 84vw'   # the photo's width in the one-at-a-time card
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
-    return f'''<li data-reveal id="{c['id']}" class="flex flex-col min-w-0">
+    lived = ' data-lived' if c.get('lived') else ''
+    return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0">
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
@@ -1905,7 +1906,9 @@ def deck_jsonld():
 
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
-    ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))  # stable: CLINICIANS order holds within each half
+    # Clinicians who say they have ADHD lead each panel, then online diaries, then enquiry forms.
+    # Stable: CLINICIANS order holds within each group.
+    ordered = sorted(CLINICIANS, key=lambda c: (not c.get('lived'), not books_online(c)))
     # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
     first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():

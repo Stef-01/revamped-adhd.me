@@ -10,7 +10,8 @@ What it looks for, and the mistake each one came from (see UX-EVALUATION-UPGRADE
   - a cost figure on How it works that the generator no longer holds                (HIW-03)
   - a site header or footer that differs from the rest (a nav edit that missed a page)
   - a card or profile whose button says Book when the link is an enquiry form, or
-    an enquiry listed above a bookable diary on The Network                         (X-01)
+    an enquiry listed above a bookable diary on The Network, after the clinicians
+    who say they have ADHD, who come first                                          (X-01)
 """
 import pathlib
 import re
@@ -55,9 +56,14 @@ for path in sorted(ROOT.glob('*.html')):
 
 deck = (ROOT / 'the-doctors.html').read_text(encoding='utf-8')
 for panel in re.findall(r'<div role="tabpanel"[^>]*id="panel-([\w-]+)"[^>]*><ul[^>]*>(.*?)</ul>', deck, re.S):
-    verbs = re.findall(r'aria-label="(Book|Enquire) with ', panel[1])
-    if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
-        problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
+    cards = re.findall(r'<li data-reveal id="[^"]+"( data-lived)?.*?aria-label="(Book|Enquire) with ', panel[1], re.S)
+    lived = [bool(l) for l, _ in cards]
+    if lived != sorted(lived, reverse=True):
+        problems.append(f'the-doctors.html: panel "{panel[0]}" lists someone without lived experience above someone with it')
+    for group in (True, False):
+        verbs = [v for l, v in cards if bool(l) == group]
+        if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
+            problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
 
 # Cost figures on How it works are hand-written; every one must still be a figure the generator holds.
 profiles = (ROOT / 'scripts' / 'build-profiles.py').read_text(encoding='utf-8')
