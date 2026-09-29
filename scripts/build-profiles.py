@@ -1240,7 +1240,7 @@ CLINICIANS = [
         name='Sarah Bibo', short='Sarah', role='Registered Psychologist and Clinical Psychology Registrar', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist, on maternity leave',
         description='On maternity leave for now. Works with anxiety, low mood, trauma, ADHD, autism, eating and body image.',
-        chips=['On maternity leave', 'Neurodivergent clients', 'Eating & body image'],
+        chips=['Neurodivergent clients', 'Eating & body image'],
         telehealth=True,
         book_href=TCO_ENQUIRE, book_hint=TCO_ENQUIRE_HINT,
         links=TCO_LINKS,
