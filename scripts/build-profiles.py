@@ -694,7 +694,7 @@ CLINICIANS = [
         practice='Riverview Counselling', place='Glenbrook & telehealth',
         descriptor='Clinical counsellor',
         description='A counsellor with ADHD herself, seeing teens, adults, couples and NDIS participants in Glenbrook.',
-        chips=['Teens, adults & couples', 'NDIS participants', 'Lived experience'],
+        chips=['Teens, adults & couples', 'NDIS participants'], lived='Has ADHD',
         telehealth=True,
         book_href=RVC_BOOK, book_hint='Opens Halaxy in a new tab.',
         links=[
@@ -1350,7 +1350,7 @@ CLINICIANS = [
         practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
         descriptor='ADHD coach & mentor',
         description='ADHD coach, teacher and former lawyer with ADHD, working with adults, students and parents.',
-        chips=['Adults, students & parents', 'Executive functioning', 'Lived experience'],
+        chips=['Adults, students & parents', 'Executive functioning'], lived='Has ADHD',
         telehealth=True,
         book_href=LAS + 'book-here',
         book_hint='Opens the practice’s website in a new tab.',
@@ -1570,10 +1570,20 @@ BULK_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounde
              'Bulk billed</span>')
 
 
+# Lived experience, first of all the markers so a reader who wants somebody who gets it from the inside finds
+# them by scanning the deck. The wording comes from the clinician's own words, set in `lived`: 'Has ADHD',
+# or 'Partner has ADHD' when that is what they say. Never inferred.
+LIVED_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
+              'text-[#4a3d86] bg-[#e7e3f6] border border-[#cdc5ec]">'
+              '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+              '<circle cx="12" cy="8" r="3.5"/><path d="M5 20.5c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>'
+              '{}</span>')
+
 def chip_row(c, limit=None):
-    """The clinician's interest chips, behind the markers they carry: in person, telehealth, then exercise. A card
+    """The clinician's interest chips, behind the markers they carry: lived experience, in person, telehealth, then exercise. A card
     in the deck shows the first `limit` chips; the profile shows them all."""
-    markers = ((IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
+    markers = ((LIVED_PILL.format(esc(c['lived'])) if c.get('lived') else '') + (IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
                + (EXERCISE_PILL if c.get('exercise') else '') + (BULK_PILL if c.get('bulk_billed') else ''))
     return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
@@ -1668,7 +1678,8 @@ def deck_card(c, size, rank):
                  'loading="eager" decoding="async"' if rank is not None else 'loading="lazy" decoding="async"')
     sizes = '(min-width: 1024px) 340px, (min-width: 640px) 240px, 84vw'   # the photo's width in the one-at-a-time card
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
-    return f'''<li data-reveal id="{c['id']}" class="flex flex-col min-w-0">
+    lived = ' data-lived' if c.get('lived') else ''
+    return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0">
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(subline(c))}</span></span>
@@ -1895,7 +1906,9 @@ def deck_jsonld():
 
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
-    ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))  # stable: CLINICIANS order holds within each half
+    # Clinicians who say they have ADHD lead each panel, then online diaries, then enquiry forms.
+    # Stable: CLINICIANS order holds within each group.
+    ordered = sorted(CLINICIANS, key=lambda c: (not c.get('lived'), not books_online(c)))
     # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
     first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():

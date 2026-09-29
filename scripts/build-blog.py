@@ -52,36 +52,36 @@ def cover_booking():
              f'<path d="M-24 2 L-7 19 L25 -15" fill="none" stroke="{INK}" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>']
     steps = ''.join(f'<g transform="translate({240 + i*260} 200)"><circle r="70" fill="{c}" stroke="{INK}" stroke-width="5"/>{icons[i]}</g>' for i, c in enumerate(['#f5cf6d', '#fdfbf7']))
     arrow = f'<path d="M330 200 H400" stroke="{INK}" stroke-width="7" stroke-linecap="round"/><path d="M385 182 L405 200 L385 218" fill="none" stroke="{INK}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'
-    return frame('#f6ecce', steps + arrow + blob(740, 300, 2.4, face='grin') + sparkle(120, 120, 1.3) + sparkle(880, 100, 1, '#f5cf6d') + sparkle(140, 430, .9, '#fdfbf7'), 'A search and a tick with an arrow between them, and a cheerful character')
+    return frame('#dbe9d3', steps + arrow + blob(740, 300, 2.4, face='grin') + sparkle(120, 120, 1.3) + sparkle(880, 100, 1, '#f5cf6d') + sparkle(140, 430, .9, '#fdfbf7'), 'A search and a tick with an arrow between them, and a cheerful character')
 
 def cover_body_doubling():
     desk = f'<rect x="150" y="330" width="660" height="24" rx="12" fill="#2f3130" stroke="{INK}" stroke-width="5"/><rect x="330" y="230" width="160" height="100" rx="14" fill="#fdfbf7" stroke="{INK}" stroke-width="5"/><rect x="350" y="250" width="120" height="10" rx="5" fill="#e6dfd1"/><rect x="350" y="272" width="90" height="10" rx="5" fill="#e6dfd1"/><rect x="350" y="294" width="105" height="10" rx="5" fill="#f1bc31"/>'
     mug = f'<rect x="560" y="280" width="52" height="50" rx="10" fill="#e6dfd1" stroke="{INK}" stroke-width="4"/><path d="M612 295 a14 14 0 0 1 0 28" fill="none" stroke="{INK}" stroke-width="4"/>'
-    return frame('#f6ecce', desk + mug + blob(260, 280, 2.2, face='calm') + blob(720, 280, 2.0, fill='#f5cf6d', face='smile') + sparkle(100, 110, 1.2) + sparkle(870, 120, 1, '#f5cf6d'), 'Two characters working side by side at a desk')
+    return frame('#fdf3d6', desk + mug + blob(260, 280, 2.2, face='calm') + blob(720, 280, 2.0, fill='#f5cf6d', face='smile') + sparkle(100, 110, 1.2) + sparkle(870, 120, 1, '#f5cf6d'), 'Two characters working side by side at a desk')
 
 def cover_late_diagnosis():
     ring = ''.join(f'<path d="M{480 + 150*math.cos(a)} {270 + 150*math.sin(a)} a10 10 0 1 0 0.1 0" fill="{c}" stroke="{INK}" stroke-width="3"/>' for a, c in zip([k*math.pi/4 for k in range(8)], ['#f5cf6d','#f5cf6d','#fdfbf7','#e6dfd1']*2))
     bulb = f'<g transform="translate(480 250)"><path d="M-50 -10 a50 50 0 1 1 100 0 c0 30 -22 40 -22 62 h-56 c0 -22 -22 -32 -22 -62 Z" fill="#f5cf6d" stroke="{INK}" stroke-width="5" stroke-linejoin="round"/><rect x="-24" y="56" width="48" height="26" rx="8" fill="#e6dfd1" stroke="{INK}" stroke-width="4"/></g>'
-    return frame('#f6ecce', ring + bulb + blob(760, 330, 2.3, face='grin') + blob(200, 340, 1.9, fill='#e6dfd1', face='smile') + sparkle(120, 120, 1.2) + sparkle(860, 110, 1.1, '#f5cf6d'), 'A glowing light bulb with two characters looking pleased')
+    return frame('#dad9eb', ring + bulb + blob(760, 330, 2.3, face='grin') + blob(200, 340, 1.9, fill='#e6dfd1', face='smile') + sparkle(120, 120, 1.2) + sparkle(860, 110, 1.1, '#f5cf6d'), 'A glowing light bulb with two characters looking pleased')
 
 def cover_what_now():
     # a signpost with three arms and a calm blob reading it
     post = f'<rect x="470" y="150" width="20" height="240" rx="6" fill="#2f3130" stroke="{INK}" stroke-width="4"/>'
     arms = ''.join(f'<g transform="translate(480 {y})"><path d="M-150 -22 H140 L170 0 L140 22 H-150 Z" fill="{c}" stroke="{INK}" stroke-width="4" stroke-linejoin="round"/></g>' for y, c in [(170, '#f5cf6d'), (230, '#fdfbf7'), (290, '#e6dfd1')])
-    return frame('#f6ecce', post + arms + blob(230, 330, 2.2, face='calm') + blob(760, 340, 2.0, fill='#f5cf6d', face='smile') + sparkle(120, 110, 1.2) + sparkle(860, 110, 1, '#f5cf6d'), 'A signpost with three arms and two characters deciding which way to go')
+    return frame('#fbd8cf', post + arms + blob(230, 330, 2.2, face='calm') + blob(760, 340, 2.0, fill='#f5cf6d', face='smile') + sparkle(120, 110, 1.2) + sparkle(860, 110, 1, '#f5cf6d'), 'A signpost with three arms and two characters deciding which way to go')
 
 def cover_beyond_medication():
     # four building blocks stacked, only one of them a pill
     blocks = ''.join(f'<rect x="{x}" y="{y}" width="150" height="90" rx="18" fill="{c}" stroke="{INK}" stroke-width="5"/>' for x, y, c in [(330, 330, '#e6dfd1'), (500, 330, '#fdfbf7'), (415, 230, '#f5cf6d')])
     pill = f'<g transform="translate(490 160) rotate(-20)"><rect x="-60" y="-24" width="120" height="48" rx="24" fill="#fdfbf7" stroke="{INK}" stroke-width="5"/><path d="M0 -24 V24" stroke="{INK}" stroke-width="5"/><path d="M0 -24 H60 A24 24 0 0 1 60 24 H0 Z" fill="#f1bc31"/></g>'
-    return frame('#f6ecce', blocks + pill + blob(200, 340, 2.2, face='smile') + blob(790, 330, 2.0, fill='#f5cf6d', face='calm') + sparkle(110, 110, 1.2) + sparkle(870, 120, 1, '#f5cf6d'), 'A stack of building blocks with a single pill on top, and two characters beside it')
+    return frame('#dcedfa', blocks + pill + blob(200, 340, 2.2, face='smile') + blob(790, 330, 2.0, fill='#f5cf6d', face='calm') + sparkle(110, 110, 1.2) + sparkle(870, 120, 1, '#f5cf6d'), 'A stack of building blocks with a single pill on top, and two characters beside it')
 
 def cover_exercise():
     # a blob mid-stride on a path, heart above it
     path = f'<path d="M80 400 Q300 300 480 380 T900 360" fill="none" stroke="{INK}" stroke-width="6" stroke-linecap="round" stroke-dasharray="18 16"/>'
     heart = f'<path transform="translate(560 150) scale(2.2)" d="M0 14 C-18 0 -22 -14 -12 -20 C-6 -24 0 -20 0 -14 C0 -20 6 -24 12 -20 C22 -14 18 0 0 14 Z" fill="#f1bc31" stroke="{INK}" stroke-width="2.4" stroke-linejoin="round"/>'
     legs = f'<path d="M36 92 L22 112 M64 92 L82 108" stroke="{INK}" stroke-width="5" stroke-linecap="round"/>'
-    return frame('#f6ecce', path + heart + blob(480, 300, 2.3, fill='#fdfbf7', face='grin', extras=legs) + sparkle(140, 130, 1.2) + sparkle(850, 140, 1, '#f5cf6d') + sparkle(800, 460, .9, '#f5cf6d'), 'A character striding along a dotted path with a heart above')
+    return frame('#fdf3d6', path + heart + blob(480, 300, 2.3, fill='#fdfbf7', face='grin', extras=legs) + sparkle(140, 130, 1.2) + sparkle(850, 140, 1, '#f5cf6d') + sparkle(800, 460, .9, '#f5cf6d'), 'A character striding along a dotted path with a heart above')
 
 def cover_workplace():
     # a desk with a laptop, a headset blob, and a tidy row of sticky notes
@@ -89,14 +89,14 @@ def cover_workplace():
     laptop = f'<rect x="380" y="240" width="180" height="96" rx="12" fill="#fdfbf7" stroke="{INK}" stroke-width="5"/><rect x="400" y="262" width="140" height="10" rx="5" fill="#e6dfd1"/><rect x="400" y="284" width="90" height="10" rx="5" fill="#f1bc31"/>'
     notes = ''.join(f'<rect x="{x}" y="120" width="70" height="70" rx="8" fill="{c}" stroke="{INK}" stroke-width="3" transform="rotate({r} {x+35} 155)"/>' for x, c, r in [(150, '#f5cf6d', -6), (240, '#f5cf6d', 4), (330, '#fdfbf7', -3)])
     headset = f'<path d="M22 46 a28 28 0 0 1 56 0" fill="none" stroke="{INK}" stroke-width="5"/><rect x="16" y="42" width="12" height="18" rx="4" fill="{INK}"/><rect x="72" y="42" width="12" height="18" rx="4" fill="{INK}"/>'
-    return frame('#f6ecce', desk + laptop + notes + blob(720, 280, 2.2, fill='#e6dfd1', face='smile', extras=headset) + sparkle(860, 120, 1.1, '#f5cf6d') + sparkle(100, 440, .9, '#fdfbf7'), 'A desk with a laptop, a row of sticky notes and a character wearing a headset')
+    return frame('#dbe9d3', desk + laptop + notes + blob(720, 280, 2.2, fill='#e6dfd1', face='smile', extras=headset) + sparkle(860, 120, 1.1, '#f5cf6d') + sparkle(100, 440, .9, '#fdfbf7'), 'A desk with a laptop, a row of sticky notes and a character wearing a headset')
 
 def cover_nutrition():
     # a plate with three colours, a clock, and a blob with a fork
     plate = f'<circle cx="420" cy="300" r="120" fill="#fdfbf7" stroke="{INK}" stroke-width="6"/><circle cx="420" cy="300" r="96" fill="none" stroke="#e6dfd1" stroke-width="3"/>'
     food = f'<path d="M420 300 L420 210 A90 90 0 0 1 498 255 Z" fill="#fdfbf7" stroke="{INK}" stroke-width="3"/><path d="M420 300 L498 255 A90 90 0 0 1 465 380 Z" fill="#f5cf6d" stroke="{INK}" stroke-width="3"/><path d="M420 300 L465 380 A90 90 0 1 1 420 210 Z" fill="#f1bc31" stroke="{INK}" stroke-width="3"/>'
     clock = f'<circle cx="720" cy="150" r="56" fill="#fdfbf7" stroke="{INK}" stroke-width="5"/><path d="M720 150 V112 M720 150 L748 166" stroke="{INK}" stroke-width="5" stroke-linecap="round"/>'
-    return frame('#f6ecce', plate + food + clock + blob(760, 340, 2.2, fill='#f5cf6d', face='grin') + sparkle(120, 120, 1.2) + sparkle(130, 440, .9, '#f5cf6d'), 'A plate divided into three colours, a clock, and a cheerful character')
+    return frame('#dbe9d3', plate + food + clock + blob(760, 340, 2.2, fill='#f5cf6d', face='grin') + sparkle(120, 120, 1.2) + sparkle(130, 440, .9, '#f5cf6d'), 'A plate divided into three colours, a clock, and a cheerful character')
 
 def cover_executive():
     # a tidy checklist beside a tangle, with a blob holding the pen
@@ -104,7 +104,7 @@ def cover_executive():
     board = f'<rect x="470" y="120" width="300" height="300" rx="20" fill="#fdfbf7" stroke="{INK}" stroke-width="5"/>'
     rows = ''.join(f'<rect x="510" y="{y}" width="34" height="34" rx="8" fill="{c}" stroke="{INK}" stroke-width="3"/><rect x="565" y="{y+11}" width="{w}" height="12" rx="6" fill="#e6dfd1"/>' for y, c, w in [(160, '#f5cf6d', 160), (225, '#f5cf6d', 120), (290, '#fdfbf7', 150), (355, '#fdfbf7', 90)])
     ticks = ''.join(f'<path d="M517 {y+18} l9 9 l16 -18" fill="none" stroke="{INK}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' for y in (160, 225))
-    return frame('#f6ecce', tangle + board + rows + ticks + blob(370, 400, 1.9, fill='#f5cf6d', face='smile') + sparkle(860, 110, 1.1, '#f5cf6d') + sparkle(100, 460, .9, '#fdfbf7'), 'A scribbled tangle beside a checklist with the first two items ticked, and a character between them')
+    return frame('#dcedfa', tangle + board + rows + ticks + blob(370, 400, 1.9, fill='#f5cf6d', face='smile') + sparkle(860, 110, 1.1, '#f5cf6d') + sparkle(100, 460, .9, '#fdfbf7'), 'A scribbled tangle beside a checklist with the first two items ticked, and a character between them')
 
 # ------------------------------------------------------------ posts
 POSTS = [
