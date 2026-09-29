@@ -694,7 +694,7 @@ CLINICIANS = [
         practice='Riverview Counselling', place='Glenbrook & telehealth',
         descriptor='Clinical counsellor',
         description='A counsellor with ADHD herself, seeing teens, adults, couples and NDIS participants in Glenbrook.',
-        chips=['Teens, adults & couples', 'NDIS participants', 'Lived experience'],
+        chips=['Teens, adults & couples', 'NDIS participants'], lived='Has ADHD',
         telehealth=True,
         book_href=RVC_BOOK, book_hint='Opens Halaxy in a new tab.',
         links=[
@@ -1350,7 +1350,7 @@ CLINICIANS = [
         practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
         descriptor='ADHD coach & mentor',
         description='ADHD coach, teacher and former lawyer with ADHD, working with adults, students and parents.',
-        chips=['Adults, students & parents', 'Executive functioning', 'Lived experience'],
+        chips=['Adults, students & parents', 'Executive functioning'], lived='Has ADHD',
         telehealth=True,
         book_href=LAS + 'book-here',
         book_hint='Opens the practice’s website in a new tab.',
@@ -1570,10 +1570,20 @@ BULK_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounde
              'Bulk billed</span>')
 
 
+# Lived experience, first of all the markers so a reader who wants somebody who gets it from the inside finds
+# them by scanning the deck. The wording comes from the clinician's own words, set in `lived`: 'Has ADHD',
+# or 'Partner has ADHD' when that is what they say. Never inferred.
+LIVED_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold '
+              'text-[#4a3d86] bg-[#e7e3f6] border border-[#cdc5ec]">'
+              '<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+              '<circle cx="12" cy="8" r="3.5"/><path d="M5 20.5c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>'
+              '{}</span>')
+
 def chip_row(c, limit=None):
-    """The clinician's interest chips, behind the markers they carry: in person, telehealth, then exercise. A card
+    """The clinician's interest chips, behind the markers they carry: lived experience, in person, telehealth, then exercise. A card
     in the deck shows the first `limit` chips; the profile shows them all."""
-    markers = ((IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
+    markers = ((LIVED_PILL.format(esc(c['lived'])) if c.get('lived') else '') + (IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
                + (EXERCISE_PILL if c.get('exercise') else '') + (BULK_PILL if c.get('bulk_billed') else ''))
     return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
