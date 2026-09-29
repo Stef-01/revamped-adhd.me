@@ -347,7 +347,7 @@ CLINICIANS = [
         slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False, bulk_billed=True,
         name='Dr Yogesh Kalra', short='Dr Yogesh Kalra', role='GP', pronouns='he/him',
         practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay, Central Coast', descriptor='Continuation prescriber',
-        description='A GP who continues ADHD medication for people already diagnosed. He is not offering ADHD assessment or diagnosis yet.',
+        description='Continues ADHD medication for people already diagnosed. Not offering ADHD assessment or diagnosis yet.',
         chips=['Continues ADHD medication', 'Hindi'],
         telehealth=False,
         book_href='https://healthengine.com.au/doctor/nsw/bateau-bay/dr-yogesh-kalra/p57872', book_hint=HEALTHENGINE_HINT,
@@ -2129,12 +2129,31 @@ ICON_BUTTON = ('class="inline-flex items-center justify-center w-11 h-11 rounded
                'border border-[#e8e6df] hover:bg-white transition-colors" target="_blank" rel="noopener noreferrer"')
 
 
+# The practice's website says so in words, with the practice's name, so it is plain that it leaves ADHDme for the
+# clinic's own site. Instagram keeps its small round icon.
+SITE_BUTTON = ('class="inline-flex items-center gap-2 min-h-11 py-2 px-5 rounded-full text-[15px] font-bold text-[#1a1c1c] '
+               'bg-white border-2 border-[#1a1c1c] hover:bg-[#f6f4ee] transition-colors" target="_blank" rel="noopener noreferrer"')
+EXTERNAL = ('<svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>')
+
+
+SITE_NAME = {'REACH ADHD Coaching and Consultancy': 'REACH'}   # the short name the practice goes by, for the button
+
+
+def link_button(c, kind, label, href):
+    aria = esc(LINK_ARIA[kind].format(practice=c['practice'], label=label))
+    if kind == 'website':
+        return (f'<a {SITE_BUTTON} href="{href}" aria-label="{aria}, opens in a new tab" title="{esc(label)}">'
+                f'{ICONS[kind]}<span>{esc(SITE_NAME.get(c["practice"], c["practice"]))} website</span>{EXTERNAL}</a>')
+    return f'<a {ICON_BUTTON} href="{href}" aria-label="{aria}" title="{esc(label)}">{ICONS[kind]}</a>'
+
+
 def render_main(c, size, sizes):
     fees = c['fees']
     pills = ''
     if c['links']:
         pills = ('\n      <div class="flex flex-wrap gap-2 pt-1">'
-                 + ''.join(f'<a {ICON_BUTTON} href="{href}" aria-label="{esc(LINK_ARIA[kind].format(practice=c["practice"], label=label))}" title="{esc(label)}">{ICONS[kind]}</a>' for kind, label, href in c['links'])
+                 + ''.join(link_button(c, kind, label, href) for kind, label, href in sorted(c['links'], key=lambda l: l[0] != 'website'))
                  + '</div>')
     details = [('Qualifications', esc(c['qualifications']))]
     if c['languages']:
