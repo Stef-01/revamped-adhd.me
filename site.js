@@ -113,7 +113,9 @@
 })();
 
 /* Network: the category strip and each category's clinicians scroll sideways, one at a time.
-   Swiping the strip changes category; the arrows, the counter and the keyboard all follow the same state. */
+   Scrolling is left to the browser's own scroll snapping, which is what makes it smooth on an iPhone; the script
+   never moves a row while a finger or trackpad is on it. Tap a category to choose it; the arrows, the counter, the
+   dots and the keyboard follow the cards. */
 (function () {
   var strip = document.querySelector('.deck-tabs');
   if (!strip || typeof window.switchCategory !== 'function') return;
@@ -128,15 +130,10 @@
     return b;
   }
   function centre(el, box, how) { box.scrollTo({ left: el.offsetLeft - (box.clientWidth - el.offsetWidth) / 2, behavior: how }); }
-  function nearest(box, items) {
-    var mid = box.scrollLeft + box.clientWidth / 2, best = 0, gap = Infinity;
-    items.forEach(function (el, i) { var d = Math.abs(el.offsetLeft + el.offsetWidth / 2 - mid); if (d < gap) { gap = d; best = i; } });
-    return best;
-  }
   function selected() { for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-selected') === 'true') return i; return 0; }
   function key(i) { return tabs[i].id.replace(/^tab-btn-/, ''); }
 
-  // the strip, with an arrow either side
+  // the strip, with an arrow either side. It scrolls freely; a category changes only when it is tapped.
   var wrap = document.createElement('div'); wrap.className = 'deck-tabs-wrap';
   strip.parentNode.insertBefore(wrap, strip);
   var tPrev = arrow('prev', 'Previous kind of clinician'), tNext = arrow('next', 'Next kind of clinician');
@@ -144,18 +141,6 @@
   function tabArrows() { var i = selected(); tPrev.disabled = i === 0; tNext.disabled = i === tabs.length - 1; }
   tPrev.addEventListener('click', function () { var i = selected(); if (i > 0) window.switchCategory(key(i - 1)); });
   tNext.addEventListener('click', function () { var i = selected(); if (i < tabs.length - 1) window.switchCategory(key(i + 1)); });
-
-  // swiping the strip picks the category that settles in the middle
-  var quietUntil = 0, stripTimer;
-  strip.addEventListener('scroll', function () {
-    clearTimeout(stripTimer);
-    stripTimer = setTimeout(function () {
-      if (Date.now() < quietUntil) return;
-      var i = nearest(strip, tabs);
-      if (i !== selected()) window.switchCategory(key(i));
-      else centre(tabs[i], strip, behave);
-    }, 140);
-  }, { passive: true });
 
   // a fresh order on every visit, so no one is always first. People who say they have ADHD lead, then those with an
   // online diary, then those you enquire with (the site check holds the page to that); each group is shuffled on its own.
@@ -192,68 +177,101 @@
     var count = document.createElement('span'); count.className = 'deck-count'; count.setAttribute('aria-live', 'polite');
     ctrl.appendChild(dots); ctrl.appendChild(count);
     panel.appendChild(ctrl);
-    var at = 0;
+
+    // Card positions are measured once, and again only when the layout really changes (a category shown, the
+    // window made wider or narrower). Scrolling itself only reads scrollLeft, so a swipe never forces a layout.
+    var centres = [], width = 1, lit = [];
+    function measure() {
+      centres = cards.map(function (c) { return c.offsetLeft + c.offsetWidth / 2; });
+      width = (cards[0] && cards[0].offsetWidth) || 1;
+    }
+    var at = -1;
     function mark(i) {
+      if (i === at) return;
       at = i;
       cards.forEach(function (c, j) { c.classList.toggle('is-current', j === i); dots.children[j].classList.toggle('is-on', j === i); });
       count.textContent = cards.length ? (i + 1) + ' of ' + cards.length : '';
       cPrev.hidden = i === 0 || cards.length < 2; cNext.hidden = i >= cards.length - 1;
       ctrl.hidden = cards.length < 2;
     }
-    // the first time a row of cards comes into view on a phone, it slides a little to show there is more
-    var nudged = false;
-    function nudge() {
-      if (nudged || cards.length < 2 || !phone.matches || still.matches || panel.classList.contains('hidden')) return;
-      nudged = true;
-      track.classList.add('is-nudging');
-      setTimeout(function () { track.classList.remove('is-nudging'); }, 1400);
-    }
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es, io) {
-        es.forEach(function (e) { if (e.isIntersecting) { nudge(); if (nudged) io.disconnect(); } });
-      }, { threshold: 0.6 }).observe(track);
-    }
-    function go(i, how) { i = Math.max(0, Math.min(cards.length - 1, i)); if (cards[i]) { centre(cards[i], track, how || behave); mark(i); } }
-    // light each card by how near the centre it is, every frame the track moves
+    // light each card by how near the centre it is: writes only, and only for the cards whose light changed
     function light() {
-      var mid = track.scrollLeft + track.clientWidth / 2;
-      cards.forEach(function (c) {
-        var d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid) / (c.offsetWidth || 1);
-        c.style.setProperty('--lit', Math.max(0, 1 - d * 1.6).toFixed(3));
-      });
-      var i = nearest(track, cards); if (i !== at) mark(i);
+      if (!width || !centres.length) return;
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, gap = Infinity;
+      for (var j = 0; j < cards.length; j++) {
+        var d = Math.abs(centres[j] - mid);
+        if (d < gap) { gap = d; best = j; }
+        var v = Math.max(0, 1 - (d / width) * 1.6);
+        v = Math.round(v * 50) / 50;
+        if (lit[j] !== v) { lit[j] = v; cards[j].style.setProperty('--lit', v); }
+      }
+      mark(best);
     }
     var queued = false;
     track.addEventListener('scroll', function () {
       if (queued) return; queued = true;
       requestAnimationFrame(function () { queued = false; light(); });
     }, { passive: true });
+
+    // the first time a row of cards comes into view on a phone, it slides a little to show there is more,
+    // and stops the moment it is touched
+    var nudged = false;
+    function stopNudge() { track.classList.remove('is-nudging'); }
+    function nudge() {
+      if (nudged || cards.length < 2 || !phone.matches || still.matches || panel.classList.contains('hidden') || track.scrollLeft > 4) return;
+      nudged = true;
+      track.classList.add('is-nudging');
+      setTimeout(stopNudge, 1400);
+    }
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (t) { track.addEventListener(t, function () { nudged = true; stopNudge(); }, { passive: true }); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es, io) {
+        es.forEach(function (e) { if (e.isIntersecting) { nudge(); if (nudged) io.disconnect(); } });
+      }, { threshold: 0.6 }).observe(track);
+    }
+
+    function go(i, how) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      if (!cards[i]) return;
+      if (!centres.length) measure();
+      track.scrollTo({ left: centres[i] - track.clientWidth / 2, behavior: how || behave });
+      mark(i);
+    }
     cPrev.addEventListener('click', function () { go(at - 1); });
     cNext.addEventListener('click', function () { go(at + 1); });
     track.addEventListener('keydown', function (e) {
       if (e.key === 'ArrowRight') { e.preventDefault(); go(at + 1); }
       else if (e.key === 'ArrowLeft') { e.preventDefault(); go(at - 1); }
     });
-    decks[panel.id] = { go: go, now: function () { return at; }, cards: cards, light: light, nudge: nudge };
-    mark(0); light();
+    function refresh() { measure(); lit = []; light(); }
+    decks[panel.id] = { go: go, now: function () { return Math.max(at, 0); }, cards: cards, refresh: refresh, nudge: nudge, panel: panel };
+    if (!panel.classList.contains('hidden')) refresh(); else mark(0);
   });
 
   window.deckSync = function (cat) {
-    var i = tabs.findIndex ? tabs.findIndex(function (t) { return key(tabs.indexOf(t)) === cat; }) : -1;
+    var i = -1;
+    for (var n = 0; n < tabs.length; n++) if (key(n) === cat) i = n;
     if (i < 0) return;
-    quietUntil = Date.now() + 700;
     centre(tabs[i], strip, behave);
     tabArrows();
     var d = decks['panel-' + cat];
-    if (d) requestAnimationFrame(function () { d.go(d.now(), 'auto'); d.light(); setTimeout(d.nudge, 450); });
+    if (d) requestAnimationFrame(function () { d.refresh(); d.go(d.now(), 'auto'); setTimeout(d.nudge, 450); });
   };
   window.deckShow = function (li) {
     var panel = li.closest('[role="tabpanel"]'), d = panel && decks[panel.id];
-    if (d) requestAnimationFrame(function () { d.go(d.cards.indexOf(li), 'auto'); d.light(); });
+    if (d) requestAnimationFrame(function () { d.refresh(); d.go(d.cards.indexOf(li), 'auto'); });
   };
+  // Only a real change of width re-measures. On an iPhone the toolbar showing and hiding fires resize on every
+  // vertical scroll, and re-centring then would yank the row out from under the reader.
+  var lastW = window.innerWidth, resizeT;
   window.addEventListener('resize', function () {
-    var i = selected(); centre(tabs[i], strip, 'auto');
-    var d = decks['panel-' + key(i)]; if (d) { d.go(d.now(), 'auto'); d.light(); }
+    if (window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(resizeT);
+    resizeT = setTimeout(function () {
+      var i = selected(); centre(tabs[i], strip, 'auto');
+      var d = decks['panel-' + key(i)]; if (d) { d.refresh(); d.go(d.now(), 'auto'); }
+    }, 150);
   });
   tabArrows();
   requestAnimationFrame(function () { centre(tabs[selected()], strip, 'auto'); });
