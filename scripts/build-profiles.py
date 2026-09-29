@@ -1218,7 +1218,8 @@ CLINICIANS = [
         qualifications='Clinical psychologist, MClinPsych PGPsychSci BPsychSci BCrim&CrimJust MAPS',
         languages=[],
         experience=['Clinical psychologist, founder and director, Therapy Co, Benowa', 'Board Approved Supervisor', 'Clinical Registrar Program, completed 2022', 'Master of Clinical Psychology, Griffith University', 'Graduate Diploma of Psychological Science, Bond University', 'Bachelor of Psychological Science, Griffith University', 'Bachelor of Criminology and Criminal Justice, Griffith University'],
-        about=['I aim to provide a safe, comfortable space for yourself or your child to tackle the obstacles life throws. I work across the lifespan with neurodiverse clients.', 'I am a late-diagnosed neurodivergent (ADHD) adult, so I bring lived experience together with my training to support my clients.', 'When I am not at Therapy Co, I spend my time with family, my two dachshunds, friends, jigsaw puzzles, Harry Potter and travelling.'],
+        quote='I aim to provide a safe, comfortable space for yourself or your child to tackle the obstacles life throws.',
+        about=['I work across the lifespan with neurodiverse clients. I am a late-diagnosed neurodivergent (ADHD) adult, so I bring lived experience together with my training to support my clients.', 'When I am not at Therapy Co, I spend my time with family, my two dachshunds, friends, jigsaw puzzles, Harry Potter and travelling.'],
         details=[
             ('Currently', 'Accepting assessments'),
             ('Reach', TCO_REACH),
@@ -1248,7 +1249,8 @@ CLINICIANS = [
         qualifications='Psychologist, MClinPsych BPsych(Hons)',
         languages=[],
         experience=['Registered psychologist, Therapy Co, Benowa', 'Clinical Registrar Program, in progress', 'Master of Clinical Psychology, 2025', 'Bachelor of Psychology (Honours), research on neural pathways in children with ADHD', 'CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology'],
-        about=['I am passionate about the transformative potential of psychotherapy in supporting personal growth and healing, and I work to create a safe, supportive and non-judgmental space.', 'I have worked with depression, anxiety, trauma, neurodiversity (autism and ADHD), interpersonal difficulties, disordered eating and body image concerns. My approach is warm, compassionate, person-centred and strengths-based, drawing on CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology.', 'Outside work I enjoy gardening, hiking, swimming, travelling, the gym, and time with family and friends.'],
+        quote='I am passionate about the transformative potential of psychotherapy in supporting personal growth and healing.',
+        about=['I am dedicated to creating a safe, supportive and non-judgmental environment where clients feel empowered to navigate life’s challenges and work towards their goals.', 'I have worked with depression, anxiety, trauma, neurodiversity (autism and ADHD), interpersonal difficulties, disordered eating and body image concerns. My approach is warm, compassionate, person-centred and strengths-based, drawing on CBT, DBT, ACT, Compassion-Focused Therapy and Positive Psychology.', 'Outside work I enjoy gardening, hiking, swimming, travelling, the gym, and time with family and friends.'],
         details=[
             ('Currently', 'On maternity leave; ask the practice when she returns'),
             ('Reach', TCO_REACH),
@@ -1278,7 +1280,8 @@ CLINICIANS = [
         qualifications='Psychologist, BSc(Hons) MAPS',
         languages=['English', 'Portuguese'],
         experience=['Senior psychologist, Therapy Co, Benowa', 'Level 1 Couples Counselling, Gottman Institute, 2026', '5+1 Internship Program, completed 2024', 'Postgraduate Certificate in Psychodrama Psychology, Florianópolis, Brazil', 'Bachelor of Psychology with Honours thesis on learning difficulties in children, Brazil'],
-        about=['I support children’s development and help women move toward greater confidence, clarity and more fulfilling relationships. I trained in Brazil and am fully registered in Australia.', 'I work with parents and children on emotional regulation, behaviour, communication and self-esteem, with a special interest in ADHD and autism, using a strengths-based, neurodivergence-affirming approach.', 'I also support women with self-esteem, identity, life transitions, relationships, anxiety and low mood, including women exploring or adjusting to an ADHD or autism diagnosis. I offer sessions in Portuguese and English.'],
+        quote='I am a psychologist committed to supporting children’s development and helping women move toward greater confidence, clarity and more fulfilling relationships.',
+        about=['I trained in Brazil and am fully registered in Australia. I provide a warm, supportive space grounded in evidence-based practice, with clear, practical guidance.', 'I work with parents and children on emotional regulation, behaviour, communication and self-esteem, with a special interest in ADHD and autism, using a strengths-based, neurodivergence-affirming approach.', 'I also support women with self-esteem, identity, life transitions, relationships, anxiety and low mood, including women exploring or adjusting to an ADHD or autism diagnosis. I offer sessions in Portuguese and English.'],
         details=[
             ('Currently', 'Taking new clients'),
             ('Reach', TCO_REACH),
@@ -1308,7 +1311,8 @@ CLINICIANS = [
         qualifications='Psychologist, MClinPsych BPsych(Hons)',
         languages=['English', 'Mandarin', 'Shanghainese'],
         experience=['Psychologist, Therapy Co, Benowa', 'Master of Clinical Psychology, Bond University, 2026', 'Graduate Diploma of Psychology (Honours), 2023', 'CBT, DBT, ACT and positive psychology'],
-        about=['If you are navigating neurodiversity, relationships, sleep, perinatal and postnatal mental health or women’s health, I offer a supportive and culturally compassionate space shaped by my own diverse background.', 'My approach is warm, compassionate and non-judgmental, drawing on person-centred, strengths-based and evidence-based approaches including CBT, DBT, ACT and positive psychology.', 'In my downtime I get outdoors with a coffee and a good book, travel, do pilates or yoga, and make friends with the local king parrots.'],
+        quote='If you’re navigating neurodiversity, relationships, sleep, perinatal and postnatal mental health or women’s health, I offer a supportive and culturally compassionate space shaped by my own diverse background.',
+        about=['I integrate lived experience with professional training to support clients in a grounded, holistic way, in a safe and collaborative space where people feel genuinely understood.', 'My approach is warm, compassionate and non-judgmental, drawing on person-centred, strengths-based and evidence-based approaches including CBT, DBT, ACT and positive psychology.', 'In my downtime I get outdoors with a coffee and a good book, travel, do pilates or yoga, and make friends with the local king parrots.'],
         details=[
             ('Currently', 'Taking new clients'),
             ('Reach', TCO_REACH),
@@ -1338,7 +1342,8 @@ CLINICIANS = [
         qualifications='Psychologist, MClinPsyc BPsychSci(Hons) BA',
         languages=['English', 'Spanish'],
         experience=['Registered psychologist, Therapy Co, Benowa', 'Master of Psychology (Clinical), Bond University, 2026', 'Bachelor of Psychological Science (Honours), Bond University', 'Bachelor of Arts in psychology and music psychology, University of Queensland', 'Inpatient, outpatient and therapeutic community settings'],
-        about=['I take a curious, collaborative and flexible approach to therapy, and I believe the relationship is an important part of meaningful change. I tailor therapy to each person, drawing on CBT, ACT, DBT and Compassion-Focused Therapy.', 'I work across the lifespan with life transitions, anxiety and depression, grief and loss, neurodiversity, alcohol and other drug concerns, and psychological assessments, which I approach in a client-centred, strengths-based way.', 'I am originally from Peru and can also provide therapy in Spanish. Outside work I enjoy beach days, hiking, tennis, new recipes and a good record.'],
+        quote='I enjoy taking a curious, collaborative and flexible approach to therapy, and I believe the therapeutic relationship is an important part of creating meaningful change.',
+        about=['I aim to create a space where people feel respected, understood and comfortable being themselves. I tailor therapy to each person, drawing on CBT, ACT, DBT and Compassion-Focused Therapy.', 'I work across the lifespan with life transitions, anxiety and depression, grief and loss, neurodiversity, alcohol and other drug concerns, and psychological assessments, which I approach in a client-centred, strengths-based way.', 'I am originally from Peru and can also provide therapy in Spanish. Outside work I enjoy beach days, hiking, tennis, new recipes and a good record.'],
         details=[
             ('Reach', TCO_REACH),
             ('Appointments', TCO_APPOINTMENTS),
@@ -1367,7 +1372,8 @@ CLINICIANS = [
         qualifications='Therapy assistant, BPsych(Hons)',
         languages=[],
         experience=['Therapy assistant, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Bachelor of Psychology (Honours), research on disgust, empathy and moral decision-making'],
-        about=['Where people feel safe to learn, experiment and explore, they develop a sense of independence and self-confidence that is so valuable to our wellbeing.', 'My psychology honours degree gave me a good understanding of mental health through psychological theory, assessment and research. I hope to complete a Masters and become a clinical psychologist.', 'In my own time I enjoy my miniature dachshund, friends and family, jigsaw puzzles, reading and true crime podcasts.'],
+        quote='Where people feel safe to learn, experiment and explore, they develop a sense of independence and self-confidence that is so valuable to our wellbeing.',
+        about=['My psychology honours degree gave me a good understanding of mental health through psychological theory, assessment and research. I hope to complete a Masters and become a clinical psychologist.', 'In my own time I enjoy my miniature dachshund, friends and family, jigsaw puzzles, reading and true crime podcasts.'],
         details=[
             ('Reach', TCO_REACH_TA),
             ('Appointments', TCO_APPOINTMENTS),
@@ -1396,7 +1402,8 @@ CLINICIANS = [
         qualifications='Therapy assistant and support worker, BPsychSc (in progress)',
         languages=[],
         experience=['Therapy assistant and support worker, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Bachelor of Psychological Science, Griffith University, in progress'],
-        about=['I’m passionate about creating a comfortable, understanding environment where clients feel respected and supported as they work toward their goals.', 'I’m studying a Bachelor of Psychological Science at Griffith University, with a strong interest in developmental psychology, and my studies inform my therapy assistant and support work.', 'In my spare time you will find me with a good book, with friends, or on a sunny beach day with an iced caramel latte.'],
+        quote='I’m passionate about creating a comfortable, understanding environment where clients feel respected and supported as they work toward their goals.',
+        about=['I’m studying a Bachelor of Psychological Science at Griffith University, with a strong interest in developmental psychology, and my studies inform my therapy assistant and support work.', 'In my spare time you will find me with a good book, with friends, or on a sunny beach day with an iced caramel latte.'],
         details=[
             ('Reach', TCO_REACH_TA),
             ('Appointments', TCO_APPOINTMENTS),
@@ -1425,7 +1432,8 @@ CLINICIANS = [
         qualifications='Therapy assistant and support worker, BPsychSc(Hons)',
         languages=[],
         experience=['Therapy assistant and support worker, Therapy Co, Benowa, supervised by the practice’s psychologists', 'Master of Clinical Psychology, Griffith University, in progress', 'Bachelor of Psychological Science (Honours), University of New England'],
-        about=['Eliza enjoys creating a calm, supportive and engaging space where you can feel comfortable to learn new skills.', 'She is completing her Master of Clinical Psychology at Griffith University, with a particular interest in child and adolescent mental health, psychological assessment, and supporting children and adults with everyday life skills.', 'Outside work and study you’ll usually find her at the beach, with family and friends, or enjoying a good coffee.'],
+        quote='Eliza enjoys creating a calm, supportive and engaging environment where you can feel comfortable to learn new skills.',
+        about=['She is completing her Master of Clinical Psychology at Griffith University, with a particular interest in child and adolescent mental health, psychological assessment, and supporting children and adults with everyday life skills.', 'Outside work and study you’ll usually find her at the beach, with family and friends, or enjoying a good coffee.'],
         details=[
             ('Reach', TCO_REACH_TA),
             ('Appointments', TCO_APPOINTMENTS),
@@ -2099,7 +2107,10 @@ def about_html(c):
         lead.append(rest.pop(0))
     more = ([' '.join(rest)] if rest else []) + list(c['about'][1:])
     para = lambda t: f'<p class="m-0">{esc(t)}</p>'
-    return para(' '.join(lead)) + (READ_MORE.format('Read more', '<div class="mt-4 flex flex-col gap-4">'
+    # `quote`: the line the clinician chose to lead their own practice bio with, word for word, set apart above About
+    quote = (f'<blockquote class="m-0 pl-5 border-l-4 border-[#f1bc31] text-[20px] leading-[1.45] font-bold '
+             f'tracking-tight text-[#1a1c1c] text-balance">“{esc(c["quote"])}”</blockquote>') if c.get('quote') else ''
+    return quote + para(' '.join(lead)) + (READ_MORE.format('Read more', '<div class="mt-4 flex flex-col gap-4">'
                                                     + ''.join(para(t) for t in more) + '</div>') if more else '')
 
 
