@@ -65,7 +65,7 @@ JOURNEY = '''<!-- JOURNEY: the care pathway, a GP diagnosis as the start -->
       <span class="journey__n" style="--tint:#1a1c1c; color:#fff">4</span>
       <div class="journey__card rounded-3xl bg-[#1a1c1c]">
         <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#f1bc31]">Life, working</h3>
-        <p class="mt-2 text-[15px] leading-[1.55] text-white/75">Reviews with your GP, and a team that already gets ADHD. No starting over, no explaining yourself from the beginning.</p>
+        <p class="mt-2 text-[15px] leading-[1.55] text-white/75">Reviews with your GP, and a team that already gets ADHD. No starting over, no retelling your story.</p>
         <a class="journey__link journey__link--light" href="how-it-works.html">How it works <span aria-hidden="true">→</span></a>
       </div>
     </li>
@@ -425,7 +425,7 @@ def build():
             {'@type': 'ListItem', 'position': 2, 'name': 'Care Navigator', 'item': url}]}]}
     return f'''{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
-<h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">Where does ADHD get in the way?</h1>
+<h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">What would you like to get easier?</h1>
 <p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto text-balance">Pick an area of life, then what you’d like support with, and see clinicians who work on it.</p>
 <div id="nav-crumb" class="nav-crumb mt-6" role="group" aria-label="Change area">{''.join(crumbs)}</div>
 </div>
