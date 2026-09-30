@@ -83,7 +83,7 @@ SECTIONS = [
     ('Clinicians', lambda p: p['kind'] == 'profile'),
     ('ADHD care by place and profession', lambda p: p['kind'] == 'guide'),
     ('Guides', lambda p: p['kind'] == 'post'),
-    ('About', lambda p: p['kind'] == 'page' and p['slug'] in ('our-story', 'learn')),
+    ('About', lambda p: p['kind'] == 'page' and p['slug'] in ('our-story', 'learn', 'school-support')),
     ('Optional', lambda p: p['kind'] == 'page' and p['slug'] in ('privacy', 'terms', 'automated-decisions')),
 ]
 
