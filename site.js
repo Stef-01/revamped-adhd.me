@@ -263,6 +263,8 @@
     return cards;
   }
   var sortBtns = [].slice.call(document.querySelectorAll('.deck-sort__btn'));
+  var SORTABLE = { 'panel-psychologists': true, 'panel-coaches': true };   // the long lists; the rest are a swipe or two
+  var sortBox = document.querySelector('.deck-sort');
   function applySort(mode, keep) {
     sortBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-sort') === mode)); });
     Object.keys(decks).forEach(function (id) {
@@ -275,10 +277,20 @@
     });
     try { sessionStorage.setItem('adhdme-order', mode); } catch (e) {}
   }
-  sortBtns.forEach(function (b) { b.addEventListener('click', function () { applySort(b.getAttribute('data-sort'), false); }); });
+  // each button is a toggle: press it to order that way, press it again for the suggested order
+  sortBtns.forEach(function (b) { b.addEventListener('click', function () { applySort(b.getAttribute('aria-pressed') === 'true' ? 'suggested' : b.getAttribute('data-sort'), false); }); });
   var savedOrder = null;
   try { savedOrder = sessionStorage.getItem('adhdme-order'); } catch (e) {}
   if (savedOrder && savedOrder !== 'suggested') applySort(savedOrder, true);
+  if (sortBox) sortBox.hidden = !SORTABLE['panel-' + key(selected())];
+
+  // what this kind of clinician does, in the tab's own colour
+  var intro = document.getElementById('deck-intro');
+  function showIntro(i) {
+    if (!intro) return;
+    intro.style.setProperty('--tint', tabs[i].style.getPropertyValue('--tint'));
+    intro.firstElementChild.textContent = tabs[i].getAttribute('data-intro') || '';
+  }
 
   window.deckSync = function (cat) {
     var i = -1;
@@ -286,9 +298,8 @@
     if (i < 0) return;
     centre(tabs[i], strip, behave);
     tabArrows();
-    // what this kind of clinician does, in the tab's own colour
-    var intro = document.getElementById('deck-intro');
-    if (intro) { intro.style.setProperty('--tint', tabs[i].style.getPropertyValue('--tint')); intro.firstElementChild.textContent = tabs[i].getAttribute('data-intro') || ''; }
+    showIntro(i);
+    if (sortBox) sortBox.hidden = !SORTABLE['panel-' + cat];
     var d = decks['panel-' + cat];
     if (d) requestAnimationFrame(function () { d.refresh(); d.go(d.now(), 'auto'); setTimeout(d.nudge, 450); });
   };
@@ -309,5 +320,6 @@
     }, 150);
   });
   tabArrows();
+  showIntro(selected());
   requestAnimationFrame(function () { centre(tabs[selected()], strip, 'auto'); });
 })();
