@@ -2071,7 +2071,8 @@ def deck_card(c, size, rank):
     lived = ' data-lived' if c.get('lived') else ''
     where = (f'<span class="block mt-2 text-[15px] font-extrabold text-[#1a1c1c]">{esc(city(c))}</span>'
              + (f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(suburbs(c))}</span>' if suburbs(c) else ''))
-    return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0" data-name="{esc(c['name'])}" data-region="{esc(city(c))}">
+    modes = ' '.join(m for m, on in (('in-person', c.get('in_person', True)), ('telehealth', c['telehealth'])) if on)
+    return f'''<li id="{c['id']}"{lived} class="dir-card" data-name="{esc(c['name'])}" data-region="{esc(city(c))}" data-modes="{modes}">
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(c['descriptor'] or c['role'])}</span>{where}</span>
@@ -2334,7 +2335,7 @@ def render_deck(deck, sizes):
         if len(found) != 1:
             raise BuildError(f'the-doctors.html: panel "{panel}" needs exactly one <div role="tabpanel" id="panel-{panel}"><ul>…</ul></div> to hold '
                              f'{", ".join(c["name"] for c in members)}; found {len(found)}. Replace the "Expected soon" placeholder with '
-                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="deck-track list-none m-0">\n</ul></div>')
+                             '<div role="tabpanel" aria-labelledby="tab-btn-' + panel + '" id="panel-' + panel + '" class="hidden"><ul class="dir-list">\n</ul></div>')
         cards = '\n'.join(deck_card(c, sizes[c['id']], first_row.index(c['id']) if c['id'] in first_row else None)
                           for c in members) + '\n'
         deck = pat.sub(lambda m: m.group(1) + cards + m.group(3), deck, count=1)
