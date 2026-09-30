@@ -65,12 +65,16 @@ for panel in re.findall(r'<div role="tabpanel"[^>]*id="panel-([\w-]+)"[^>]*><ul[
         if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
             problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
 
-# Cost figures on How it works are hand-written; every one must still be a figure the generator holds.
+# Cost figures on How it works are hand-written; every one must still be a figure the generator holds. The GP
+# assessment fees live on the GPs' own profiles, so How it works no longer quotes them.
 profiles = (ROOT / 'scripts' / 'build-profiles.py').read_text(encoding='utf-8')
 hiw = (ROOT / 'how-it-works.html').read_text(encoding='utf-8')
-for figure in ('$299', '$199', '$498', '$1,770.44'):
+for figure in ('$1,770.44',):
     if figure not in hiw or figure not in profiles:
         problems.append(f'how-it-works.html and build-profiles.py disagree about {figure}')
+for figure in ('$299', '$199', '$498'):
+    if figure not in profiles:
+        problems.append(f'build-profiles.py no longer holds the GP assessment figure {figure}')
 
 # Every page outside the Academy carries the same site header, and all but the home page the same footer. Only the
 # current-page mark (aria-current and the dark pill classes) and the landing-report tags may differ; a nav or footer
