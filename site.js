@@ -248,12 +248,47 @@
     if (!panel.classList.contains('hidden')) refresh(); else mark(0);
   });
 
+  // Order: Suggested (lived experience, then online diaries, shuffled), By location (city, then name) or A to Z.
+  // The choice is kept for the visit, so coming back from a profile keeps it.
+  var suggested = {};
+  Object.keys(decks).forEach(function (id) { suggested[id] = decks[id].cards.slice(); });
+  function ordered(id, mode) {
+    var cards = suggested[id].slice();
+    var by = function (f) { return function (a, b) { return f(a).localeCompare(f(b)); }; };
+    if (mode === 'name') cards.sort(by(function (li) { return li.getAttribute('data-name') || ''; }));
+    if (mode === 'location') cards.sort(function (a, b) {
+      var r = (a.getAttribute('data-region') || '').localeCompare(b.getAttribute('data-region') || '');
+      return r || (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || '');
+    });
+    return cards;
+  }
+  var sortBtns = [].slice.call(document.querySelectorAll('.deck-sort__btn'));
+  function applySort(mode, keep) {
+    sortBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-sort') === mode)); });
+    Object.keys(decks).forEach(function (id) {
+      var d = decks[id], track = d.cards[0] && d.cards[0].parentNode;
+      if (!track) return;
+      var order = ordered(id, mode);
+      order.forEach(function (li) { track.appendChild(li); });
+      d.cards.length = 0; order.forEach(function (li) { d.cards.push(li); });
+      if (!d.panel.classList.contains('hidden')) { d.refresh(); d.go(keep ? d.now() : 0, 'auto'); }
+    });
+    try { sessionStorage.setItem('adhdme-order', mode); } catch (e) {}
+  }
+  sortBtns.forEach(function (b) { b.addEventListener('click', function () { applySort(b.getAttribute('data-sort'), false); }); });
+  var savedOrder = null;
+  try { savedOrder = sessionStorage.getItem('adhdme-order'); } catch (e) {}
+  if (savedOrder && savedOrder !== 'suggested') applySort(savedOrder, true);
+
   window.deckSync = function (cat) {
     var i = -1;
     for (var n = 0; n < tabs.length; n++) if (key(n) === cat) i = n;
     if (i < 0) return;
     centre(tabs[i], strip, behave);
     tabArrows();
+    // what this kind of clinician does, in the tab's own colour
+    var intro = document.getElementById('deck-intro');
+    if (intro) { intro.style.setProperty('--tint', tabs[i].style.getPropertyValue('--tint')); intro.firstElementChild.textContent = tabs[i].getAttribute('data-intro') || ''; }
     var d = decks['panel-' + cat];
     if (d) requestAnimationFrame(function () { d.refresh(); d.go(d.now(), 'auto'); setTimeout(d.nudge, 450); });
   };

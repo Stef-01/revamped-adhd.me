@@ -277,6 +277,7 @@ def arc_details():
 CLINICIANS = [
     dict(
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
+        ages=['adults'],
         name='Dr Anubhav Saxena', short='Dr Saxena', role='GP', pronouns='he/him',
         practice='Beecroft Family & Skin Cancer Clinic', place='Beecroft & Double Bay', descriptor=None,
         description='ADHD assessment with a documented physical baseline, looked at alongside sleep, heart and metabolic health.',
@@ -307,6 +308,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-anu-saxena', id='anu-saxena', category='gp',
+        ages=['children', 'adults'],
         name='Dr Anu Saxena', short='Dr Anu Saxena', role='GP', pronouns='she/her',
         practice='Bay Health Clinic', place='Double Bay & Hornsby', descriptor=None,
         description='A GP with an honours degree in psychology and clinical interests in ADHD, mental health and women’s health.',
@@ -345,6 +347,7 @@ CLINICIANS = [
     # not yet, so `assesses=False` keeps him off the assessment search pages until that changes.
     dict(
         slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False, bulk_billed=True,
+        ages=['adults'],
         name='Dr Yogesh Kalra', short='Dr Yogesh Kalra', role='GP', pronouns='he/him',
         practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay, Central Coast', descriptor='Continuation prescriber',
         description='Continues ADHD medication for people already diagnosed. Not offering ADHD assessment or diagnosis yet.',
@@ -385,6 +388,7 @@ CLINICIANS = [
     ),
     dict(
         slug='paula-garrido', id='paula-garrido', category='psychologist',
+        ages=['adults'],
         name='Paula Garrido', short='Paula Garrido', role='Clinical Psychologist', pronouns='she/her',
         practice='Wellness Psychology Clinic', place='Telehealth Australia-wide', descriptor='Clinical psychologist',
         description='Clinical psychologist certified in ADHD and autism care, seeing clients by video anywhere in Australia.',
@@ -438,6 +442,7 @@ CLINICIANS = [
     ),
     dict(
         slug='kate-row', id='kate-row', category='psychologist',
+        ages=['children', 'teens', 'adults'],
         name='Kate Row', short='Kate Row', role='Psychologist and Clinic Director', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist & clinic director',
         description='Works with toddlers through to adults using CBT, ACT and MI, and supports families with the NDIS.',
@@ -478,6 +483,7 @@ CLINICIANS = [
     ),
     dict(
         slug='ellie-putland', id='ellie-putland', category='psychologist',
+        ages=['teens', 'adults'],
         name='Ellie Putland', short='Ellie Putland', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
         description='Trauma-informed therapy for children, teens and adults, with a particular interest in young people.',
@@ -520,6 +526,7 @@ CLINICIANS = [
     ),
     dict(
         slug='lachlan-avent', id='lachlan-avent', category='psychologist',
+        ages=['children', 'teens', 'adults'],
         name='Lachlan Avent', short='Lachlan Avent', role='Psychologist', pronouns='he/him',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
         description='Therapy, parenting support, and autism and ADHD assessment for children, teenagers and adults.',
@@ -561,6 +568,7 @@ CLINICIANS = [
     ),
     dict(
         slug='samantha-courtney', id='samantha-courtney', category='psychologist',
+        ages=['adults'],
         name='Samantha Courtney', short='Samantha Courtney', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
         description='A credentialed eating disorder clinician who also sees teens and adults for perinatal mental health.',
@@ -607,6 +615,7 @@ CLINICIANS = [
     ),
     dict(
         slug='lauren-poulos', id='lauren-poulos', category='psychologist',
+        ages=['children'],
         name='Lauren Poulos', short='Lauren Poulos', role='Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Psychologist',
         description='Early intervention and Parent-Child Interaction Therapy for young children, and therapy for teens and adults.',
@@ -651,6 +660,7 @@ CLINICIANS = [
     ),
     dict(
         slug='alice-bui', id='alice-bui', category='psychologist',
+        ages=['teens', 'adults'],
         name='Alice Bui', short='Alice Bui', role='Provisional Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Provisional psychologist',
         description='Trauma-informed therapy, with a special interest in refugee, newly arrived and culturally diverse clients.',
@@ -694,6 +704,7 @@ CLINICIANS = [
     ),
     dict(
         slug='meera-lakhani', id='meera-lakhani', category='psychologist',
+        ages=['children', 'teens'],
         name='Meera Lakhani', short='Meera Lakhani', role='Educational and Developmental Psychologist', pronouns='she/her',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Educational & developmental psychologist',
         description='Educational and developmental psychologist focused on autism, ADHD and cognitive assessment.',
@@ -742,6 +753,7 @@ CLINICIANS = [
     # file's order within each half, so her position here is what puts her at the top.
     dict(
         slug='trisha-harris', id='trisha-harris', category='allied',
+        ages=['teens', 'adults'],
         name='Trisha Harris', short='Trisha', role='Clinical Counsellor', pronouns='she/her',
         practice='Riverview Counselling', place='Glenbrook & telehealth',
         descriptor='Clinical counsellor',
@@ -803,6 +815,7 @@ CLINICIANS = [
     ),
     dict(
         slug='flynn-simonis', id='flynn-simonis', category='occupational-therapy',
+        ages=['children', 'teens'],
         name='Flynn Simonis', short='Flynn Simonis', role='Occupational Therapist', pronouns='he/him',
         practice='GOALS Psychology', place=GOALS_PLACE, descriptor='Occupational therapist',
         description='Paediatric occupational therapy led by the child’s own interests, in clinic, at home or at school.',
@@ -845,6 +858,7 @@ CLINICIANS = [
     ),
     dict(
         slug='lara-schulz', id='lara-schulz', category='allied',
+        ages=['children', 'teens', 'adults'],
         name='Lara Schulz', short='Lara Schulz', role='Neurotherapy Practitioner and Director', pronouns='she/her',
         practice='Neurotherapy Clinics Australia', place='Jindabyne & Snowy Mountains',
         descriptor='Neurotherapy practitioner & director',
@@ -910,6 +924,7 @@ CLINICIANS = [
     ),
     dict(
         slug='fiona-alexander', id='fiona-alexander', category='coach',
+        ages=['children', 'teens', 'adults'],
         name='Fiona Alexander', short='Fiona Alexander', role='ADHD Coach',
         # REACH's coaches write their own bios in the first person and none of them states a pronoun,
         # so the field is left empty rather than guessed; meta_line drops it.
@@ -952,6 +967,7 @@ CLINICIANS = [
     ),
     dict(
         slug='debbie-hirte', id='debbie-hirte', category='coach',
+        ages=['children', 'teens'],
         name='Debbie Hirte', short='Debbie Hirte', role='ADHD Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD coach',
@@ -990,6 +1006,7 @@ CLINICIANS = [
     ),
     dict(
         slug='romney-taylor', id='romney-taylor', category='coach',
+        ages=['children', 'teens'],
         name='Romney Taylor', short='Romney Taylor', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
@@ -1029,6 +1046,7 @@ CLINICIANS = [
     ),
     dict(
         slug='erin-lysle', id='erin-lysle', category='coach',
+        ages=['children', 'teens', 'adults'],
         name='Erin Lysle', short='Erin Lysle', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
@@ -1065,6 +1083,7 @@ CLINICIANS = [
     ),
     dict(
         slug='donna-italiano', id='donna-italiano', category='coach',
+        ages=['children', 'teens'],
         name='Donna Italiano', short='Donna Italiano', role='ADHD Consultant Coach',
         pronouns='she/her',  # the only one of the six whose bio states it
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
@@ -1103,6 +1122,7 @@ CLINICIANS = [
     ),
     dict(
         slug='kate-dallimore', id='kate-dallimore', category='coach',
+        ages=['teens', 'adults'],
         name='Kate Dallimore', short='Kate Dallimore', role='ADHD Consultant Coach', pronouns='',
         practice='REACH ADHD Coaching and Consultancy', place=REACH_PLACE,
         descriptor='ADHD consultant coach',
@@ -1143,6 +1163,7 @@ CLINICIANS = [
     ),
     dict(
         slug='jessica-katsamatsas', id='jessica-katsamatsas', category='psychologist',
+        ages=['adults'],
         name='Jessica Katsamatsas', short='Jess', role='Psychologist and Director',
         pronouns='',  # not declared anywhere on the practice's site
         practice='Neutral Minds Psychology', place='Brisbane & telehealth',
@@ -1207,6 +1228,7 @@ CLINICIANS = [
     # Therapy Co, Benowa: five psychologists, then three therapy assistants (Allied health).
     dict(
         slug='chantelle-pin', id='chantelle-pin', category='psychologist', lived='Has ADHD',
+        ages=['children', 'teens', 'adults'],
         name='Chantelle Pin', short='Chantelle', role='Clinical Psychologist, Founder and Director', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Clinical psychologist & founder',
         description='A clinical psychologist, late-diagnosed with ADHD herself, working with neurodivergent children and adults. Taking on assessments.',
@@ -1238,6 +1260,7 @@ CLINICIANS = [
     ),
     dict(
         slug='sarah-bibo', id='sarah-bibo', category='psychologist',
+        ages=['adults'],
         name='Sarah Bibo', short='Sarah', role='Registered Psychologist and Clinical Psychology Registrar', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist, on maternity leave',
         description='On maternity leave for now. Works with anxiety, low mood, trauma, ADHD, autism, eating and body image.',
@@ -1269,6 +1292,7 @@ CLINICIANS = [
     ),
     dict(
         slug='gisele-fortkamp', id='gisele-fortkamp', category='psychologist',
+        ages=['children', 'adults'],
         name='Gisele Fortkamp', short='Gisele', role='Senior Psychologist', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Senior psychologist',
         description='Supports children with ADHD or autism and their parents, and women adjusting to a diagnosis. Sessions in English or Portuguese.',
@@ -1300,6 +1324,7 @@ CLINICIANS = [
     ),
     dict(
         slug='lana-hiscock', id='lana-hiscock', category='psychologist',
+        ages=['adults'],
         name='Lana Hiscock', short='Lana', role='Psychologist', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist',
         description='Neurodiversity, relationships, sleep, perinatal mental health and women’s health. Sessions in English or Mandarin.',
@@ -1331,6 +1356,7 @@ CLINICIANS = [
     ),
     dict(
         slug='valeria-urrutia', id='valeria-urrutia', category='psychologist',
+        ages=['children', 'teens', 'adults'],
         name='Valeria Urrutia', short='Valeria', role='Registered Psychologist', pronouns='',
         practice='Therapy Co', place=TCO_PLACE, descriptor='Psychologist',
         description='Anxiety, low mood, grief, life changes, neurodiversity and psychological assessments. Sessions in English or Spanish.',
@@ -1361,6 +1387,7 @@ CLINICIANS = [
     ),
     dict(
         slug='ebony-young', id='ebony-young', category='allied',
+        ages=['children', 'teens', 'adults'],
         name='Ebony Young', short='Ebony', role='Therapy Assistant', pronouns='',
         practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant',
         description='A therapy assistant with a psychology honours degree, practising skills with you between sessions, supervised by your psychologist.',
@@ -1391,6 +1418,7 @@ CLINICIANS = [
     ),
     dict(
         slug='alexandra-wainwright', id='alexandra-wainwright', category='allied',
+        ages=['children', 'teens', 'adults'],
         name='Alexandra Wainwright', short='Alexandra', role='Therapy Assistant and Support Worker', pronouns='',
         practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant & support worker',
         description='Studying psychology at Griffith University. Practises skills with you between sessions, supervised by your psychologist.',
@@ -1421,6 +1449,7 @@ CLINICIANS = [
     ),
     dict(
         slug='eliza-keefe', id='eliza-keefe', category='allied',
+        ages=['children', 'teens', 'adults'],
         name='Eliza Keefe', short='Eliza', role='Therapy Assistant and Support Worker', pronouns='she/her',
         practice='Therapy Co', place='Benowa, Gold Coast', descriptor='Therapy assistant & support worker',
         description='Finishing a Master of Clinical Psychology, with an interest in children and teens. Practises life skills with you, supervised by your psychologist.',
@@ -1451,6 +1480,7 @@ CLINICIANS = [
     ),
     dict(
         slug='bart-traynor', id='bart-traynor', category='psychologist',
+        ages=['adults'],
         name='Bart Traynor', short='Bart', role='Clinical Psychologist and Director', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist & director',
         description='Clinical psychologist and director who works with career and performance pressure and major life changes.',
@@ -1480,6 +1510,7 @@ CLINICIANS = [
     ),
     dict(
         slug='jeff-leech', id='jeff-leech', category='psychologist',
+        ages=['adults'],
         name='Jeff Leech', short='Jeff', role='Clinical Psychologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Clinical psychologist',
         description='Clinical psychologist using schema therapy and ACT for trauma, anxiety, depression and performance.',
@@ -1509,6 +1540,7 @@ CLINICIANS = [
     ),
     dict(
         slug='michael-rehardt', id='michael-rehardt', category='psychologist',
+        ages=['adults'],
         name='Michael Rehardt', short='Michael', role='Provisional Psychologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Provisional psychologist',
         description='Provisional psychologist on the final placement of his Master of Clinical Psychology at Griffith University.',
@@ -1535,6 +1567,7 @@ CLINICIANS = [
     ),
     dict(
         slug='sarah-savage', id='sarah-savage', category='exercise-physiology',
+        ages=['adults'],
         name='Sarah Savage', short='Sarah', role='Senior Exercise Physiologist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior exercise physiologist',
         description='Senior exercise physiologist using Pilates and hydrotherapy, with an interest in older adults.',
@@ -1562,6 +1595,7 @@ CLINICIANS = [
     ),
     dict(
         slug='yuri-lima', id='yuri-lima', category='physiotherapy',
+        ages=['adults'],
         name='Dr Yuri Lima', short='Yuri', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Physiotherapist in orthopaedic and sports rehabilitation, with a PhD on ACL injuries in athletes.',
@@ -1588,6 +1622,7 @@ CLINICIANS = [
     ),
     dict(
         slug='tom-hissey', id='tom-hissey', category='physiotherapy',
+        ages=['adults'],
         name='Tom Hissey', short='Tom', role='Senior Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Senior physiotherapist',
         description='Musculoskeletal and occupational rehabilitation physiotherapist, and an Australian Army veteran.',
@@ -1616,6 +1651,7 @@ CLINICIANS = [
     ),
     dict(
         slug='lester-rafanan', id='lester-rafanan', category='physiotherapy',
+        ages=['adults'],
         name='Lester Rafanan', short='Lester', role='Physiotherapist', pronouns='',  # not declared on the practice's site
         practice='Atlantis Recovery Centre', place=ARC_PLACE, descriptor='Physiotherapist',
         description='Physiotherapist for recovery from injury or surgery, chronic pain, return to sport and NDIS supports.',
@@ -1643,6 +1679,7 @@ CLINICIANS = [
     ),
     dict(
         slug='alex-lawson', id='alex-lawson', category='coach',
+        ages=['teens', 'adults'],
         name='Alex Lawson', short='Alex', role='ADHD Coach and Mentor', pronouns='he/him',
         practice='Lawson ADHD Solutions', place='Sutherland Shire & online',
         descriptor='ADHD coach & mentor',
@@ -1783,6 +1820,36 @@ def meta_line(c):
     return ' · '.join(p for p in parts if p)
 
 
+# Where a clinician is, the way a reader thinks of it first: the city and state, then the suburbs. The city comes
+# from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
+CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
+        'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA'}
+REGION_BY_ID = {'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
+                'paula-garrido': 'Australia-wide via telehealth'}
+SUBURBS_BY_ID = {'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
+                 'paula-garrido': '', 'alex-lawson': 'Sutherland Shire'}
+AGE_LABEL = {'children': 'children', 'teens': 'teens', 'adults': 'adults'}
+
+
+def city(c):
+    return REGION_BY_ID.get(c['id']) or CITY[c['schema']['works_for']['locality']]
+
+
+def suburbs(c):
+    """The suburb line under the city, empty when it would only repeat the city (Perth, telehealth-only)."""
+    if c['id'] in SUBURBS_BY_ID:
+        return SUBURBS_BY_ID[c['id']]
+    loc = c['schema']['works_for']['locality']
+    return '' if city(c).startswith(loc) else loc
+
+
+def ages_line(c):
+    parts = [AGE_LABEL[a] for a in c['ages'] if a in AGE_LABEL]
+    if not parts:
+        return ''
+    text = parts[0] if len(parts) == 1 else ', '.join(parts[:-1]) + ' & ' + parts[-1]
+    return 'For ' + text
+
 # There are many psychologists, in many places, so on theirs the place stands out: bold and in ink.
 PLACE_BOLD = '<b class="font-extrabold text-[#1a1c1c]">{}</b>'
 
@@ -1796,7 +1863,8 @@ def subline_html(c):
 
 
 def meta_line_html(c):
-    parts = [esc(p) for p in (c['pronouns'], c['descriptor'], c['practice']) if p] + [place_html(c)]
+    where = PLACE_BOLD.format(esc(city(c))) + (' · ' + esc(suburbs(c)) if suburbs(c) else '')
+    parts = [esc(p) for p in (c['pronouns'], c['descriptor'], c['practice']) if p] + [where]
     return ' · '.join(parts)
 
 
@@ -2001,12 +2069,15 @@ def deck_card(c, size, rank):
     sizes = '(min-width: 1024px) 340px, (min-width: 640px) 240px, 84vw'   # the photo's width in the one-at-a-time card
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     lived = ' data-lived' if c.get('lived') else ''
-    return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0">
+    where = (f'<span class="block mt-2 text-[15px] font-extrabold text-[#1a1c1c]">{esc(city(c))}</span>'
+             + (f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(suburbs(c))}</span>' if suburbs(c) else ''))
+    return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0" data-name="{esc(c['name'])}" data-region="{esc(city(c))}">
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
-    <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{subline_html(c)}</span></span>
+    <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(c['descriptor'] or c['role'])}</span>{where}</span>
   </a>
   <div class="flex flex-wrap gap-2 pt-3">{chip_row(c, DECK_CHIPS)}</div>
+  <p class="deck-ages">{esc(ages_line(c))}</p>
   <p class="deck-bio">{esc(CARD_LINES.get(c['id'], c['description']))}</p>
   <div class="mt-auto pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="{book_verb(c)} with {esc(c['name'])}" href="{c['slug']}.html">{book_verb(c)} <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>'''
@@ -2169,7 +2240,7 @@ def render_main(c, size, sizes):
                    + '\n    </dl>')
     return f'''<main id="main" class="w-full bg-[#FAFAF7]">
 <script type="application/ld+json">{jsonld(c)}</script>
-<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}The Network</a></div>
+<div class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6"><a class="inline-flex items-center gap-2 h-11 text-[15px] font-bold text-[#1a1c1c]" href="{BOOK_HREF.format(c['id'])}">{ARROW_BACK}Back to the clinician network</a></div>
 <article class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pt-6 pb-16">
 <div class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
   <div class="lg:col-span-5 arrive" style="--i:0">{portrait_span(c, size, 'div', '', HERO_SIZES, 'fetchpriority="high" decoding="async"', 'w-full h-full object-cover object-[center_30%]')}</div>
