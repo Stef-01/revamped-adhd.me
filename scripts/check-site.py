@@ -9,6 +9,7 @@ What it looks for, and the mistake each one came from (see UX-EVALUATION-UPGRADE
   - a second typeface: font-serif on any page                                       (LRN-01)
   - a cost figure on How it works that the generator no longer holds                (HIW-03)
   - a site header or footer that differs from the rest (a nav edit that missed a page)
+  - a dashboard list of live diaries that differs from the one analytics.js sends
   - a card or profile whose button says Book when the link is an enquiry form, or
     an enquiry listed above a bookable diary on The Network, after the clinicians
     who say they have ADHD, who come first                                          (X-01)
@@ -93,6 +94,16 @@ for part, variants in chrome.items():
     if len(variants) > 1:
         ranked = sorted(variants.values(), key=len)
         problems.append(f'site {part} differs on {", ".join(n for v in ranked[:-1] for n in v)} (the rest match {ranked[-1][0]})')
+
+# The dashboard decides diary against enquiry from the destination for clicks older than
+# handoff_kind, so its list of diaries has to be the one analytics.js sends.
+js = (ROOT / 'analytics.js').read_text(encoding='utf-8')
+kinds = re.search(r'var DESTINATION_KIND = \{(.*?)\};', js, re.S).group(1)
+js_diaries = sorted(re.findall(r"'?([\w-]+)'?: 'diary'", kinds))
+dash = (ROOT / 'scripts' / 'posthog-dashboard.py').read_text(encoding='utf-8')
+dash_diaries = sorted(re.findall(r"'([\w-]+)'", re.search(r'DIARY_DESTINATIONS = \[(.*?)\]', dash).group(1)))
+if js_diaries != dash_diaries:
+    problems.append(f'posthog-dashboard.py DIARY_DESTINATIONS {dash_diaries} differs from analytics.js {js_diaries}')
 
 if problems:
     print('\n'.join(problems))
