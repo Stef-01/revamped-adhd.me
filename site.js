@@ -142,15 +142,13 @@
   tPrev.addEventListener('click', function () { var i = selected(); if (i > 0) window.switchCategory(key(i - 1)); });
   tNext.addEventListener('click', function () { var i = selected(); if (i < tabs.length - 1) window.switchCategory(key(i + 1)); });
 
-  // a fresh order on every visit, so no one is always first. People who say they have ADHD lead, then those with an
-  // online diary, then those you enquire with (the site check holds the page to that); each group is shuffled on its own.
+  // a fresh order on every visit, so no one is always first. People with an online diary come before those you
+  // enquire with (the site check holds the page to that); each group is shuffled on its own.
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   [].slice.call(document.querySelectorAll('[role="tabpanel"] > .deck-track')).forEach(function (track) {
     var cards = [].slice.call(track.children);
     var books = function (li) { var b = li.querySelector('.btn-press'); return b && /^Book/.test((b.getAttribute('aria-label') || b.textContent).trim()); };
-    var lived = function (li) { return li.hasAttribute('data-lived'); };
-    var rest = cards.filter(function (li) { return !lived(li); });
-    shuffle(cards.filter(lived)).concat(shuffle(rest.filter(books)), shuffle(rest.filter(function (li) { return !books(li); })))
+    shuffle(cards.filter(books)).concat(shuffle(cards.filter(function (li) { return !books(li); })))
       .forEach(function (li) { track.appendChild(li); });
     // the photo now first in the row should not wait on lazy loading
     var first = track.firstElementChild && track.firstElementChild.querySelector('img');
@@ -248,7 +246,7 @@
     if (!panel.classList.contains('hidden')) refresh(); else mark(0);
   });
 
-  // Order: Suggested (lived experience, then online diaries, shuffled), By location (city, then name) or A to Z.
+  // Order: Suggested (online diaries first, shuffled), By location (city, then name) or A to Z.
   // The choice is kept for the visit, so coming back from a profile keeps it.
   var suggested = {};
   Object.keys(decks).forEach(function (id) { suggested[id] = decks[id].cards.slice(); });

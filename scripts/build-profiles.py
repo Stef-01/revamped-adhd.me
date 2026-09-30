@@ -2321,9 +2321,8 @@ def deck_jsonld():
 
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
-    # Clinicians who say they have ADHD lead each panel, then online diaries, then enquiry forms.
-    # Stable: CLINICIANS order holds within each group.
-    ordered = sorted(CLINICIANS, key=lambda c: (not c.get('lived'), not books_online(c)))
+    # Online diaries lead each panel, then enquiry forms. Stable: CLINICIANS order holds within each group.
+    ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))
     # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
     first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():

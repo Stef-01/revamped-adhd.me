@@ -56,14 +56,9 @@ for path in sorted(ROOT.glob('*.html')):
 
 deck = (ROOT / 'the-doctors.html').read_text(encoding='utf-8')
 for panel in re.findall(r'<div role="tabpanel"[^>]*id="panel-([\w-]+)"[^>]*><ul[^>]*>(.*?)</ul>', deck, re.S):
-    cards = re.findall(r'<li data-reveal id="[^"]+"( data-lived)?.*?aria-label="(Book|Enquire) with ', panel[1], re.S)
-    lived = [bool(l) for l, _ in cards]
-    if lived != sorted(lived, reverse=True):
-        problems.append(f'the-doctors.html: panel "{panel[0]}" lists someone without lived experience above someone with it')
-    for group in (True, False):
-        verbs = [v for l, v in cards if bool(l) == group]
-        if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
-            problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
+    verbs = re.findall(r'<li data-reveal id="[^"]+".*?aria-label="(Book|Enquire) with ', panel[1], re.S)
+    if verbs != sorted(verbs):  # 'Book' sorts before 'Enquire'
+        problems.append(f'the-doctors.html: panel "{panel[0]}" lists an enquiry above a bookable diary')
 
 # Cost figures on How it works are hand-written; every one must still be a figure the generator holds. The GP
 # assessment fees live on the GPs' own profiles, so How it works no longer quotes them.
