@@ -93,6 +93,7 @@
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['occupational-therapy', 'education', 'ndis'], ages: ['children', 'teens']
     },
+<<<<<<< HEAD
     'lara-schulz': {
       booking: /ncau\.com\.au\/contact-us/, profile: 'lara-schulz.html',
       name: 'Lara Schulz', category: 'allied',
@@ -242,6 +243,105 @@
       name: 'Lester Rafanan', category: 'allied',
       practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
       expertise: ['physiotherapy', 'physical-health', 'ndis'], ages: ['adults']
+=======
+    // Nurtured Thoughts Psychology: one contact page books all sixteen, so the regex cannot tell them
+    // apart; clinicianFor() resolves it from the profile page the click came from, as for GOALS.,
+    'jae-cho': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-jae-cho.html',
+      name: 'Dr Jae Cho', category: 'psychiatrist',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['psychiatry', 'assessment', 'trauma'], ages: ['adults']
+    },
+    'rajitha-de-silva': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-rajitha-de-silva.html',
+      name: 'Dr Rajitha De Silva', category: 'psychiatrist',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['psychiatry', 'mental-health', 'cald'], ages: ['adults']
+    },
+    'beth-hansen': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-beth-hansen.html',
+      name: 'Dr Beth Hansen', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'womens-health'], ages: ['adults']
+    },
+    'bill-liley': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-bill-liley.html',
+      name: 'Dr Bill Liley', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'rural'], ages: ['adults']
+    },
+    'hannah-gray': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-hannah-gray.html',
+      name: 'Dr Hannah Gray', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'students'], ages: ['adults']
+    },
+    'john-ruberry': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-john-ruberry.html',
+      name: 'Dr John Ruberry', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'mental-health'], ages: ['adults']
+    },
+    'kay-walls': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-kay-walls.html',
+      name: 'Dr Kay Walls', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'womens-health', 'perinatal'], ages: ['adults']
+    },
+    'natalie-cook': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-natalie-cook.html',
+      name: 'Dr Natalie Cook', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'complex-care'], ages: ['adults']
+    },
+    'richard-hostiadi': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-richard-hostiadi.html',
+      name: 'Dr Richard Hostiadi', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'mens-health', 'lifestyle'], ages: ['adults']
+    },
+    'sally-mcleod': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-sally-mcleod.html',
+      name: 'Dr Sally McLeod', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'womens-health'], ages: ['teens', 'adults']
+    },
+    'shwetha-murthy': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-shwetha-murthy.html',
+      name: 'Dr Shwetha Murthy', category: 'gp',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'parenting'], ages: ['adults']
+    },
+    'heather-mcauliffe': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'heather-mcauliffe.html',
+      name: 'Heather McAuliffe', category: 'psychologist',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['assessment', 'autism', 'neuroaffirming'], ages: ['children', 'teens', 'adults']
+    },
+    'matthew-persello': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'matthew-persello.html',
+      name: 'Matthew Persello', category: 'psychologist',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['therapy', 'mens-health', 'lgbtqia'], ages: ['teens', 'adults']
+    },
+    'nzubechi-oguoma': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'nzubechi-oguoma.html',
+      name: 'Nzubechi Oguoma', category: 'psychologist',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['therapy', 'trauma', 'family'], ages: ['children', 'teens', 'adults']
+    },
+    'canice-curtis': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'canice-curtis.html',
+      name: 'Canice Curtis', category: 'allied',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['therapy', 'trauma', 'mens-health'], ages: ['teens', 'adults']
+    },
+    'tracey-dale': {
+      booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'tracey-dale.html',
+      name: 'Tracey Dale', category: 'allied',
+      practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
+      expertise: ['therapy', 'trauma', 'perinatal'], ages: ['children', 'teens', 'adults']
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     }
   };
 
@@ -264,7 +364,11 @@
 
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var CLINICIAN_NAMES = column('name');
+<<<<<<< HEAD
   var CATEGORIES = column('category');        // gp · psychologist · allied · exercise-physiology · coach
+=======
+  var CATEGORIES = column('category');        // gp · psychiatrist · psychologist · allied
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
   var PRACTICES = column('practice');
   var DESTINATIONS = column('destination');   // healthengine · halaxy · hotdoc · zanda · clinic-form · clinic-contact
   // What the handoff actually was. A live diary can end in an appointment on the spot; an enquiry
@@ -1022,7 +1126,7 @@
 
   // ------------------------------------------------------------------ this device's own tally
   // measurement.html reads it back. Everything below is local: it never leaves the browser.
-  var CATEGORY_WORDS = { gp: 'GP', psychologist: 'Psychologist', allied: 'Allied health' };
+  var CATEGORY_WORDS = { gp: 'GP', psychiatrist: 'Psychiatrist', psychologist: 'Psychologist', allied: 'Allied health' };
 
   var tallyEl = document.getElementById('tally');
   if (tallyEl) {

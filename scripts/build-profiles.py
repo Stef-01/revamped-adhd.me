@@ -34,11 +34,17 @@ SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
 SHARE_CARDS = 'assets/clinicians/og'
 
+<<<<<<< HEAD
 # The Network: which tab panel each category's cards go in. The first row of the default panel loads
 # eagerly (its first card at high priority); every other card is lazy.
 PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'occupational-therapy': 'occupational-therapy',
           'physiotherapy': 'physiotherapy', 'allied': 'allied-health',
           'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
+=======
+# The Network: which tab panel each category's cards go in. The first clinician in the default panel
+# is the one card that loads eagerly; every other card is lazy.
+PANELS = {'gp': 'gps', 'psychiatrist': 'psychiatrists', 'psychologist': 'psychologists', 'allied': 'allied-health'}
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -273,6 +279,81 @@ def arc_details():
         ('Wheelchair access', ARC_ACCESS),
     ]
 
+
+# Nurtured Thoughts Psychology, Graceville. One practice, sixteen clinicians across four categories, so the
+# shared facts sit here once. Every profile's words come from the clinician's own page on the practice site,
+# nurturedthoughtspsychology.com.au/practitioners/<name>, read 2026-10-01. The practice books through its
+# contact page rather than an online calendar, so every booking button goes there.
+NT = 'https://www.nurturedthoughtspsychology.com.au/'
+NT_BOOK = NT + 'contact'
+NT_BOOK_HINT = 'Opens Nurtured Thoughts Psychology’s booking enquiry page, in a new tab.'
+NT_PLACE = 'Brisbane & telehealth'
+NT_LINKS = [
+    ('instagram', '@nurturedthoughtspsychology', 'https://www.instagram.com/nurturedthoughtspsychology/'),
+    ('website', 'nurturedthoughtspsychology.com.au', NT),
+]
+NT_REACH = 'Clinic appointments in Graceville, Brisbane, and telehealth'
+NT_APPOINTMENTS = 'Clinicians see people Monday to Saturday, with evenings Monday to Wednesday; times set with the practice'
+# The practice's own wording: a heritage-listed building with no wheelchair access to the building or bathrooms.
+NT_ACCESS = 'No: the practice is in a heritage-listed building without wheelchair access to the building or bathrooms'
+NT_DISCLOSURE = ('Nurtured Thoughts Psychology is an independent practice: it sets its own fees, availability and '
+                 'clinical approach, and ADHDme receives no part of what you pay.')
+NT_WORKS_FOR = dict(url=NT, telephone='(07) 3056 0921', locality='Graceville', state='QLD')
+NT_SAME_AS = [NT + 'practitioners', 'https://www.instagram.com/nurturedthoughtspsychology/']
+NT_SCHEMA_DR = dict(type='Physician', areas=['Graceville'], state='QLD')
+NT_RESPONSIBLE = ('<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
+                  'Published here, from the practice’s own fee page, so the cost is settled before you arrive.')
+
+# Fees as the practice publishes them at nurturedthoughtspsychology.com.au/fees and /adhd-fees (2026-10-01).
+NT_FEES_GP = dict(
+    heading='What a diagnosis costs',
+    figures=[('$1,950', 'Adult ADHD assessment, diagnosis and treatment'), ('~$200', 'Typical Medicare rebate')],
+    notes=[
+        'One all-inclusive fee for adults and young people aged 15 and over: the assessment, the diagnosis, treatment if '
+        'appropriate, and a written report for you and your GP. The practice estimates about $1,750 out of pocket.',
+        'The rebate depends on your address and eligibility; the practice confirms the exact figure before you book. '
+        'A $50 deposit secures a first booking and comes off the first fee.',
+        NT_RESPONSIBLE,
+    ],
+)
+NT_FEES_PSYCHIATRY = dict(
+    heading='What a consultation costs',
+    figures=[('$900', 'Initial psychiatry consultation'), ('$395–$445', 'Review consultation')],
+    notes=[
+        'Medicare rebates $265 of the initial consultation, leaving $635 out of pocket, and $85–$135 of a review, '
+        'leaving $310. The practice confirms the exact fee when you book.',
+        NT_RESPONSIBLE,
+    ],
+)
+
+
+def nt_therapy_fees(fee, rebate, gap):
+    return dict(
+        heading='What a session costs',
+        figures=[(fee, 'Per session'), (gap, 'Out of pocket with a plan')],
+        notes=[
+            f'With a Mental Health Treatment Plan or Eating Disorder Care Plan from your GP, Medicare rebates {rebate} '
+            'of each session, for up to 10 sessions a year. Private health extras may cover some of the fee instead. '
+            'A $50 deposit secures a first booking and comes off the first session.',
+            NT_RESPONSIBLE,
+        ],
+    )
+
+
+NT_FEES_PSYCHOLOGIST = nt_therapy_fees('$240', '$98.95', '$141.05')
+NT_FEES_SOCIAL_WORKER = nt_therapy_fees('$230', '$87.25', '$142.75')
+# The fee page lists registered psychologists and social workers only; it carries no clinical psychologist rate,
+# so this block shows no figure rather than borrowing the registered rate.
+NT_FEES_CLINICAL = dict(
+    heading='What a session costs',
+    figures=[],
+    notes=[
+        'Nurtured Thoughts Psychology does not publish a separate clinical psychologist fee. The practice quotes it '
+        'when you book; with a Mental Health Treatment Plan from your GP, Medicare rebates part of it for up to 10 '
+        'sessions a year.',
+        NT_RESPONSIBLE,
+    ],
+)
 
 CLINICIANS = [
     dict(
@@ -856,6 +937,7 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+<<<<<<< HEAD
     dict(
         slug='lara-schulz', id='lara-schulz', category='allied',
         ages=['children', 'teens', 'adults'],
@@ -1742,6 +1824,518 @@ CLINICIANS = [
             works_for=dict(type='ProfessionalService', url=LAS, telephone='', locality='Sutherland', state='NSW'),
             area='Australia',
         ),
+=======
+    # ---- Nurtured Thoughts Psychology: psychiatrists
+    dict(
+        slug='dr-jae-cho', id='jae-cho', category='psychiatrist',
+        name='Dr Jae Cho', short='Dr Cho', role='Psychiatrist', pronouns='he/him',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Specialist psychiatrist',
+        description='Thorough, compassionate general psychiatry, with calm explanations that make difficult topics feel manageable and clear.',
+        chips=['General psychiatry', 'ADHD', 'Trauma-informed'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_PSYCHIATRY,
+        qualifications='Specialist psychiatrist, MD FRANZCP',
+        languages=[],
+        experience=[
+            'Specialist psychiatrist, Nurtured Thoughts Psychology, Graceville',
+            'Fellow of the Royal Australian and New Zealand College of Psychiatrists',
+            'Medical degree, Western Sydney University',
+            'Specialist psychiatric training across major Sydney hospitals',
+            'Acute inpatient, community mental health, consultation-liaison and outpatient psychiatry',
+            'Supervises psychiatry trainees and medical students',
+        ],
+        about=[
+            'Dr Jae Cho is a specialist psychiatrist who provides thorough, compassionate care across all areas of general psychiatry, with a strong interest in anxiety, depression, insomnia, trauma, ADHD, personality disorder, bipolar disorder, OCD, addiction and other complex mental health conditions. Patients appreciate his calm manner, thoughtful explanations, and ability to make difficult topics feel manageable and clear.',
+            'Jae’s approach is evidence-based, trauma-informed, and grounded in the biopsychosocial model. He takes the time to understand each patient’s background, strengths, and goals, and works collaboratively to create a tailored treatment plan. He values close partnership with GPs, psychologists, families, and other clinicians to ensure holistic, coordinated care.',
+            'He is a Fellow of the Royal Australian and New Zealand College of Psychiatrists and completed his medical degree at Western Sydney University before undertaking specialist psychiatric training across major hospitals in Sydney. His experience spans acute inpatient care, community mental health, consultation-liaison psychiatry, and outpatient management of complex cases. He also supervises psychiatry trainees and medical students.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$900 initial, $395–$445 review, Medicare rebate applies; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(NT_SCHEMA_DR, specialty='Psychiatric'),
+    ),
+    dict(
+        slug='dr-rajitha-de-silva', id='rajitha-de-silva', category='psychiatrist',
+        name='Dr Rajitha De Silva', short='Dr De Silva', role='Psychiatrist', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Consultant psychiatrist',
+        description='Over 16 years caring for adults, with a culturally sensitive approach that begins with feeling heard.',
+        chips=['Adults', 'Anxiety & mood', 'Culturally sensitive'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_PSYCHIATRY,
+        qualifications='Consultant psychiatrist, FRANZCP MD(Psychiatry), Board Certification in Psychiatry',
+        languages=[],
+        experience=[
+            'Consultant psychiatrist, Nurtured Thoughts Psychology, Graceville',
+            'Over 16 years caring for adults, in Sri Lanka and Australia',
+            'Fellow of the Royal Australian and New Zealand College of Psychiatrists',
+            'MD (Psychiatry) and Board Certification in Psychiatry',
+            'Particular interests in anxiety, depression, bipolar, OCD, trauma and psychosis',
+        ],
+        about=[
+            'Dr Rajitha Marcellin De Silva is a compassionate consultant psychiatrist with over 16 years of experience caring for adults experiencing a wide range of mental health concerns. Having practised in both Sri Lanka and Australia, she brings a thoughtful, culturally sensitive approach to helping people navigate life’s challenges.',
+            'She believes that the best care begins with feeling heard. Rajitha takes the time to understand each person’s unique experiences, concerns, and goals, creating a safe, supportive, and non-judgemental environment where patients feel comfortable discussing even the most difficult issues.',
+            'Her approach combines empathy with evidence-based medicine, working collaboratively with patients to develop personalised treatment plans that reflect the latest research while respecting individual preferences and circumstances.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$900 initial, $395–$445 review, Medicare rebate applies; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(NT_SCHEMA_DR, specialty='Psychiatric'),
+    ),
+    # ---- Nurtured Thoughts Psychology: GPs
+    dict(
+        slug='dr-beth-hansen', id='beth-hansen', category='gp',
+        name='Dr Beth Hansen', short='Dr Hansen', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='A gentle, practical and thorough ADHD assessment for adults who have spent years masking, overcompensating or pushing through.',
+        chips=['ADHD in women', 'Late-identified ADHD', 'ADHD in parents'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP',
+        languages=[],
+        experience=[
+            'General practice with a special interest in mental health, adult ADHD and women’s health',
+            'Fellow of the Royal Australian College of General Practitioners',
+            'Medical degree, University of Queensland',
+            'Urban, rural and remote practice',
+        ],
+        about=[
+            'Dr Beth Hansen is a GP with a special interest in mental health, adult ADHD and women’s health. A UQ graduate and a Fellow of the Royal Australian College of General Practitioners, she brings a gentle, practical and thorough approach to ADHD assessment and care.',
+            'Beth is particularly interested in supporting adults who have managed for many years by masking, overcompensating or pushing through, often at the cost of exhaustion, anxiety, self-criticism or burnout. She has a strong interest in how ADHD can present in women, especially when symptoms have been missed, minimised or attributed to other causes.',
+            'In her consultations, Beth aims to create a space where patients feel heard, understood and taken seriously. She takes time to explore symptoms in the context of a person’s life, including work, study, relationships, parenting, sleep, emotional regulation and mental health. She has worked across urban, rural and remote settings, which has shaped her interest in accessible and compassionate mental health care.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-bill-liley', id='bill-liley', category='gp',
+        name='Dr Bill Liley', short='Dr Liley', role='GP', pronouns='he/him',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Rural generalist',
+        description='More than 40 years of practice and a whole-person approach to how ADHD shapes your day-to-day life.',
+        chips=['40+ years in practice', 'Rural & regional', 'Whole-person care'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, FRACGP FACRRM',
+        languages=[],
+        experience=[
+            'Rural generalist GP, more than 40 years of clinical experience',
+            'Metropolitan, regional, rural and remote practice in Queensland, New South Wales and Victoria',
+            'Private practice, community and public hospital settings',
+            'Aboriginal Community Controlled Health Organisations',
+        ],
+        about=[
+            'Dr Bill Liley is an experienced Rural Generalist GP with more than 40 years of clinical experience and a particular interest in supporting people with ADHD.',
+            'Throughout his career, Bill has worked across metropolitan, regional, rural and remote communities in Queensland, New South Wales and Victoria, including in private practice, community and public hospital settings, Aboriginal Community Controlled Health Organisations, and rural generalist practice. This breadth has given him extensive experience working with people from diverse backgrounds, including many who experience the effects of ADHD in their everyday lives.',
+            'Bill brings a practical, whole-person approach to ADHD care, taking into consideration each patient’s individual circumstances and how ADHD impacts their day-to-day life. Based in regional Queensland, he also appreciates the accessibility that telehealth provides, particularly for people who may otherwise have difficulty accessing ADHD care.',
+        ],
+        details=[
+            ('Reach', 'Telehealth from regional Queensland'),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', 'Not applicable to telehealth'),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-hannah-gray', id='hannah-gray', category='gp',
+        name='Dr Hannah Gray', short='Dr Gray', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='Calm, structured and collaborative, explaining each step so you understand the plan and why.',
+        chips=['Students & early career', 'Organisation & follow-through', 'New to assessment'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP',
+        languages=[],
+        experience=[
+            'General practice with a strong interest in mental health and adult ADHD',
+            'Fellow of the Royal Australian College of General Practitioners',
+            'Adult ADHD in university students and early-career professionals',
+            'Organisation, procrastination and follow-through in study and work',
+        ],
+        about=[
+            'Dr Hannah Gray is a warm and approachable GP with a strong interest in mental health and adult ADHD. She works primarily with adults who are managing study, early career roles or professional responsibilities and are concerned that attention, organisation or follow-through difficulties may be affecting their performance and wellbeing.',
+            'In consultations, Hannah is calm, structured and collaborative. She takes pride in explaining her thinking and plans clearly so patients understand each step of the process. Her recommendations emphasise practical strategies and realistic next steps that fit a person’s day-to-day life, and she particularly welcomes patients who are new to mental health or ADHD assessment.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-john-ruberry', id='john-ruberry', category='gp',
+        name='Dr John Ruberry', short='Dr Ruberry', role='GP', pronouns='he/him',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='Thirteen years in community general practice, and passionate about improving access to ADHD care.',
+        chips=['13 years in practice', 'Access to ADHD care', 'Mental health'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS',
+        languages=[],
+        experience=[
+            '13 years in community general practice',
+            'Five years as owner and principal of his own clinic',
+            'Strong interest in mental health and ADHD treatment',
+        ],
+        about=[
+            'Dr John is a General Practitioner with 13 years of experience in community general practice, including five years as the owner and principal of his own busy clinic. Throughout his career, he has developed a strong interest in mental health and has seen firsthand the positive difference effective ADHD treatment can make to a person’s quality of life. He is passionate about improving access to ADHD care and supporting patients through their assessment and treatment journey.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-kay-walls', id='kay-walls', category='gp',
+        name='Dr Kay Walls', short='Dr Walls', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='An ADHD assessment that is never just a checklist: room to tell your whole story, and a plan that fits your life.',
+        chips=['ADHD in adult women', 'Mothers & postnatal', 'Focused Psychological Strategies'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS BHealthSci FRACGP',
+        languages=[],
+        experience=[
+            'Specialist general practice, with a background in mental health and women’s health',
+            'Medical degree, University of Sydney',
+            'General practice training, James Cook University; Fellow of the Royal Australian College of General Practitioners',
+            'Additional training in Focused Psychological Strategies',
+        ],
+        about=[
+            'Dr Kay Walls is a specialist general practitioner who brings warmth, curiosity, and a deeply holistic lens to everything she does. With a background spanning mental health and women’s health, she has developed a particular focus on ADHD in adult women, a group she feels has historically been under-recognised and underserved.',
+            'For Kay, an ADHD assessment is never just a checklist. She is interested in the whole person, including their history, relationships, long-standing patterns, and the strengths that often sit alongside the challenges. She creates space for patients to tell their story fully, and many describe her consultations as the first time they have felt genuinely listened to.',
+            'Her interests include supporting mothers and high-functioning women navigating a new ADHD diagnosis, culturally sensitive and person-centred care, and emotional regulation, anxiety and depression, particularly in the postnatal period. She works closely with psychologists, psychiatrists, and allied health providers to ensure coordinated, comprehensive support.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-natalie-cook', id='natalie-cook', category='gp',
+        name='Dr Natalie Cook', short='Dr Cook', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='Direct, honest and safety-focused advice, tailored to your work, sleep, family and day-to-day demands.',
+        chips=['Complex adult ADHD', 'Evidence-based', 'Central Queensland'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP',
+        languages=[],
+        experience=[
+            'General practice in Central Queensland for over 11 years',
+            'Russian-born and trained; FRACGP and AMC qualifications in Australia',
+            'Assessing and managing adults with ADHD, including complex cases with psychiatrists and other specialists',
+        ],
+        about=[
+            'Dr Natalie Cook is a Russian-born and trained GP who has practised in Central Queensland for over 11 years. She holds FRACGP and AMC qualifications in Australia.',
+            'Her approach is direct, honest and safety-focused, providing clear, evidence-based advice while tailoring treatment to each patient’s individual circumstances, preferences and goals, including their work, sleep, family and day-to-day demands. She has extensive experience assessing and managing adults with ADHD, including complex cases requiring collaboration with psychiatrists and other specialists.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-richard-hostiadi', id='richard-hostiadi', category='gp',
+        name='Dr Richard Hostiadi', short='Dr Hostiadi', role='GP', pronouns='he/him',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='Adult ADHD, men’s mental health and lifestyle medicine, with real insight into demanding, high-pressure work.',
+        chips=['Men’s mental health', 'ADHD at work', 'Lifestyle medicine'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP',
+        languages=[],
+        experience=[
+            'Fellow of the Royal Australian College of General Practitioners',
+            'Adult ADHD assessments and ongoing management',
+            'Medical Officer, Royal Australian Navy Reserve',
+            'Registered Nurse, St Vincent’s Hospital, Sydney',
+            'Workers’ compensation, life insurance and disability claims',
+        ],
+        about=[
+            'Dr Richard Hostiadi is a Fellow of the Royal Australian College of General Practitioners with a focus on adult ADHD, men’s mental health and lifestyle medicine. Before studying medicine, he worked as a Registered Nurse at St Vincent’s Hospital in Sydney across a range of clinical areas for several years.',
+            'He also worked in workers’ compensation, life insurance and disability claims. Together with his experience as a General Practitioner and Medical Officer in the Royal Australian Navy Reserve, this has given him insight into occupational medicine, workplace health and the challenges faced by professionals, tradespeople and shift workers in physically demanding and high-pressure occupations.',
+            'Outside medicine, Richard keeps active and has completed half and full marathons, HYROX events, obstacle course races and the Everest Base Camp trek. He lives with his wife and two young boys, and their dog.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-sally-mcleod', id='sally-mcleod', category='gp',
+        name='Dr Sally McLeod', short='Dr McLeod', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='Helping adolescents and adults understand how their brain works, with thorough, evidence-based assessment.',
+        chips=['Women & girls', 'Late diagnosis', 'Perimenopause'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP',
+        languages=[],
+        experience=[
+            'Medical degree, University of Queensland, 2009',
+            'Junior doctor training, Mater Hospital, South Brisbane',
+            'Fellow of the Royal Australian College of General Practitioners, 2016',
+            'ADHD in women and girls, including late diagnosis in adulthood',
+            'Perimenopause and its interaction with ADHD and mental health',
+        ],
+        about=[
+            'Dr Sally McLeod completed her medical degree at the University of Queensland in 2009 before her junior doctor training at the Mater Hospital in South Brisbane, and her Fellowship of the Royal Australian College of General Practitioners in 2016.',
+            'Sally has a special interest in ADHD and is passionate about helping adolescents and adults better understand how their brain works. She provides thorough, evidence-based assessments and works collaboratively with patients to develop practical, individualised treatment plans. Her interests include ADHD in women and girls, high-functioning and late-identified ADHD in professionals, perimenopause, and autism, anxiety and depression in the context of neurodivergence.',
+            'Outside of medicine, Sally enjoys spending time with her three sons. She loves reading, music, and the outdoors, particularly bushwalking, camping and travelling to remote parts of Australia.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    dict(
+        slug='dr-shwetha-murthy', id='shwetha-murthy', category='gp',
+        name='Dr Shwetha Murthy', short='Dr Murthy', role='GP', pronouns='she/her',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
+        description='A structured assessment that maps how ADHD has shown up over time, and what it means for family life at home and at work.',
+        chips=['Parents & carers', 'ADHD in families', 'Sydney Child Health Program'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_GP,
+        qualifications='General practitioner, MBBS FRACGP SCHP',
+        languages=[],
+        experience=[
+            'Specialist General Practitioner with a particular interest in adult ADHD and mental health',
+            'Medical degree in India; clinical experience in the United Kingdom; in Australia since 2007',
+            'Tertiary and regional hospitals in NSW, WA and Queensland: General Medicine, Nephrology, Nuclear Medicine and Radiology',
+            'Sydney Child Health Program, University of Sydney',
+        ],
+        about=[
+            'Dr Shwetha Murthy is a Specialist General Practitioner with a particular interest in adult ADHD and mental health. Many of the people she sees are managing busy households, caring for children or relatives, and noticing patterns of attention, organisation or emotional regulation that seem to run through the family. She is especially interested in supporting women who are starting to wonder how their own history, their children’s experiences and ADHD might be connected, and in adult ADHD in men across blue-collar and white-collar work.',
+            'In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands. She maps how symptoms have shown up over time, how they interact with mood, sleep and physical health, and what this means day to day, aiming for a structured, clinically sound assessment explained in clear, practical language.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$1,950 all-inclusive adult ADHD pathway, about $200 Medicare rebate; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=NT_SCHEMA_DR,
+    ),
+    # ---- Nurtured Thoughts Psychology: psychologists
+    dict(
+        slug='heather-mcauliffe', id='heather-mcauliffe', category='psychologist',
+        name='Heather McAuliffe', short='Heather McAuliffe', role='Clinical Psychologist', pronouns=None,
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Clinical psychologist',
+        description='A neurodivergent clinical psychologist who makes assessment warm and safe, and treats you as the expert on your own experience.',
+        chips=['Neurodevelopmental assessment', 'Neurodivergent clinician', 'Collaborative care'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_CLINICAL,
+        qualifications='Clinical psychologist',
+        languages=[],
+        experience=[
+            'Clinical psychologist with a particular interest in neurodevelopment',
+            'Private and community practice',
+            'Detailed assessment and diagnosis, therapeutic intervention and care coordination',
+            'Consults with paediatricians, psychiatrists and allied health professionals',
+        ],
+        about=[
+            'Heather is a neurodivergent Clinical Psychologist with a particular interest in neurodevelopment. Her background includes private and community practice, where she has engaged in detailed assessment and diagnosis, therapeutic intervention, and collaborative care coordination.',
+            'She strives to ensure that the assessment process provides warmth, safety, and supportive recommendations, valuing the individual as the expert of their own experiences. Her approach is collaborative, and she often consults with paediatricians, psychiatrists, clinical psychologists, and other allied health professionals for a holistic understanding of each person’s needs.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', 'Set and charged by the practice; quoted when you book'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Clinical psychologist'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
+    ),
+    dict(
+        slug='matthew-persello', id='matthew-persello', category='psychologist',
+        name='Matthew Persello', short='Matthew Persello', role='Registered Psychologist', pronouns=None,
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Registered psychologist',
+        description='Strengths-based, solution-focused therapy for adolescents and adults, with a focus on men’s mental health, neurodiversity and the LGBTQIA+ community.',
+        chips=['Teens 13+ & adults', 'Men’s mental health', 'LGBTQIA+'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_PSYCHOLOGIST,
+        qualifications='Registered psychologist',
+        languages=[],
+        experience=[
+            'Therapy for adolescents (13+) and adults',
+            'Psychology honours, studied in Australia and the United States',
+            'Year-long research project on romantic self-sabotage in gender and sexually diverse populations',
+            'CBT, ACT, Solution Focused Therapy and Motivational Interviewing',
+        ],
+        about=[
+            'Matthew is a Registered Psychologist specialising in therapy for adolescents (13+ years) and adults, with a strong focus on men’s mental health, neurodiversity and the LGBTQIA+ community. He completed his psychology honours degree through studies in both Australia and the United States, including a year-long research project exploring romantic self-sabotage within gender and sexually diverse populations.',
+            'His areas of interest include anxiety, depression and stress, sleep difficulties, neurodiversity including autism and ADHD, gender and sexual identity, self-esteem, emotional regulation and relationship challenges. His approach is strengths-based and solution-focused, drawing on CBT, ACT, Solution Focused Therapy and Motivational Interviewing tailored to each client’s needs.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$240 a session, $98.95 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Registered psychologist'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
+    ),
+    dict(
+        slug='nzubechi-oguoma', id='nzubechi-oguoma', category='psychologist',
+        name='Nzubechi Oguoma', short='Nzubechi Oguoma', role='Registered Psychologist', pronouns=None,
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Registered psychologist',
+        description='Working with individuals and families from age 5 and across the lifespan, including neurodevelopmental conditions.',
+        chips=['Ages 5+', 'Family therapy', 'Trauma & PTSD'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_PSYCHOLOGIST,
+        qualifications='Registered psychologist',
+        languages=[],
+        experience=[
+            'Individuals and families from age 5 and across the lifespan',
+            'Mental health conditions and neurodevelopmental disorders',
+            'CBT, ACT and Trauma-Informed Practice',
+        ],
+        about=[
+            'Nzubechi is a Registered Psychologist with experience working with individuals and families from age 5 and across the lifespan, presenting with a range of mental health conditions as well as neurodevelopmental disorders.',
+            'Areas of interest include anxiety, depression, trauma and post-traumatic stress disorder, family therapy, relationships, self-esteem and self-development, and work-related issues. The primary evidence-based modalities used are Cognitive Behaviour Therapy, Acceptance and Commitment Therapy and Trauma-Informed Practice.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$240 a session, $98.95 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Registered psychologist'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
+    ),
+    # ---- Nurtured Thoughts Psychology: mental health social workers
+    dict(
+        slug='canice-curtis', id='canice-curtis', category='allied',
+        name='Canice Curtis', short='Canice Curtis', role='Mental Health Social Worker', pronouns='he/him',
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Mental health social worker',
+        description='A grounded, integrated and evidence-informed approach for people 15 and over, including complex trauma and ADHD.',
+        chips=['Ages 15+', 'Trauma & EMDR', 'Men’s mental health'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_SOCIAL_WORKER,
+        qualifications='Mental health social worker, MSW MPaDS BA, AASW member',
+        languages=[],
+        experience=[
+            'Mental health social worker, people aged 15 and over',
+            'Nominated by colleagues for the AASW Social Worker of the Year Award',
+            'Background in international development, child protection and academia',
+            'Trauma and EMDR, men’s mental health, and mental health after major life changes or disasters',
+        ],
+        about=[
+            'Canice Curtis is a deeply attuned and compassionate Mental Health Social Worker who considers it a privilege to walk alongside clients as they navigate challenges and work towards meaningful change. His commitment to client care led colleagues to nominate him for the AASW Social Worker of the Year Award.',
+            'He supports people aged 15+ experiencing complex trauma, dissociative conditions, addictions, personality disorders, bipolar disorder, ADHD, chronic pain, parenting and relationship difficulties, men’s mental health concerns, grief and loss, anxiety, depression, and the mental health impacts of climate change and natural disasters. With a background spanning international development, child protection and academia, he brings a grounded, integrated, evidence-informed approach tailored to each person.',
+            'Outside the therapy room, Canice enjoys time with his young family, playing the drums, bushwalking, yoga, reading, and exploring Buddhist philosophy and mindfulness practices.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$230 a session, $87.25 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Master of Social Work', 'Master of Peace and Development Studies', 'Bachelor of Arts'],
+                    same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
+    ),
+    dict(
+        slug='tracey-dale', id='tracey-dale', category='allied',
+        name='Tracey Dale', short='Tracey Dale', role='Accredited Mental Health Social Worker', pronouns=None,
+        practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Mental health social worker',
+        description='Warm, empowering and highly personalised therapy, kept straightforward and free from unnecessary jargon.',
+        chips=['All ages', 'Burnout & life transitions', 'EMDR'],
+        telehealth=True,
+        book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
+        links=NT_LINKS,
+        fees=NT_FEES_SOCIAL_WORKER,
+        qualifications='Accredited mental health social worker',
+        languages=[],
+        experience=[
+            'Over 10 years in counselling, therapy and psychotherapy',
+            'Counsellor, Queensland University of Technology',
+            'Private practice, and clinical operations lead in mental health and crisis support services',
+            'CBT, ACT, DBT, EMDR, Narrative Therapy and individual psychotherapy',
+        ],
+        about=[
+            'Tracey is an Accredited Mental Health Social Worker with over 10 years of experience in counselling, therapy and psychotherapy. She works with clients of all ages through major life transitions such as pregnancy and motherhood, and challenges like anxiety, depression, burnout, trauma (including complex PTSD using EMDR), grief, sleep difficulties, disordered eating, and recovery from violence or substance use.',
+            'She has provided counselling at QUT, worked in private practice and led clinical operations in busy mental health settings, including crisis support services. Clients often describe her approach as warm, empowering and highly personalised; she draws on CBT, ACT, DBT, EMDR and Narrative Therapy, tailoring each session and keeping things straightforward.',
+            'The first session is about getting to know you, your story and what you would like to achieve, and she aims for you to leave each session with practical skills to take into everyday life. Outside therapy she reads, gardens, hikes, and tries her hand at pottery on a throwing wheel.',
+        ],
+        details=[
+            ('Reach', NT_REACH),
+            ('Appointments', NT_APPOINTMENTS),
+            ('Billing', '$230 a session, $87.25 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', NT_ACCESS),
+        ],
+        disclosure=NT_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Accredited Mental Health Social Worker'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     ),
 ]
 
@@ -2102,6 +2696,7 @@ def jsonld(c):
     image = f"{SITE}/{PORTRAITS}/{c['id']}.jpg"
     job = c['qualifications'].split(',')[0]   # the role; the degrees are hasCredential
     if s['type'] == 'Physician':
+<<<<<<< HEAD
         # A doctor is a Person who works for a clinic; schema.org's Physician is an Organization type.
         d = {'@type': 'Person', '@id': page + '#physician',
              'name': c['name'], 'url': page, 'jobTitle': job, 'knowsLanguage': c['languages'], 'image': image,
@@ -2109,6 +2704,14 @@ def jsonld(c):
              'worksFor': {'@type': 'MedicalClinic', 'name': c['practice'], 'medicalSpecialty': 'PrimaryCare',
                           'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
                           'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']]}}
+=======
+        d = {'@context': 'https://schema.org', '@type': 'Physician', '@id': page + '#physician',
+             'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'medicalSpecialty': s.get('specialty', 'PrimaryCare'),
+             'knowsLanguage': c['languages'], 'image': image,
+             'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
+             'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']],
+             'affiliation': {'@type': 'MedicalOrganization', 'name': c['practice']}}
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     elif s['type'] == 'Person':
         w = s['works_for']
         # A link several clinicians share is the practice's page or account, not theirs.

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url><loc>https://www.adhdme.au/</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://www.adhdme.au/the-doctors.html</loc><lastmod>2026-09-30</lastmod></url>
@@ -68,4 +69,45 @@
   <url><loc>https://www.adhdme.au/privacy.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://www.adhdme.au/terms.html</loc><lastmod>2026-09-30</lastmod></url>
   <url><loc>https://www.adhdme.au/automated-decisions.html</loc><lastmod>2026-09-30</lastmod></url>
+=======
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.adhdme.au/</loc></url>
+  <url><loc>https://www.adhdme.au/the-doctors.html</loc></url>
+  <url><loc>https://www.adhdme.au/how-it-works.html</loc></url>
+  <url><loc>https://www.adhdme.au/learn.html</loc></url>
+  <url><loc>https://www.adhdme.au/our-story.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-anubhav-saxena.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-anu-saxena.html</loc></url>
+  <url><loc>https://www.adhdme.au/paula-garrido.html</loc></url>
+  <url><loc>https://www.adhdme.au/kate-row.html</loc></url>
+  <url><loc>https://www.adhdme.au/ellie-putland.html</loc></url>
+  <url><loc>https://www.adhdme.au/lachlan-avent.html</loc></url>
+  <url><loc>https://www.adhdme.au/samantha-courtney.html</loc></url>
+  <url><loc>https://www.adhdme.au/lauren-poulos.html</loc></url>
+  <url><loc>https://www.adhdme.au/alice-bui.html</loc></url>
+  <url><loc>https://www.adhdme.au/meera-lakhani.html</loc></url>
+  <url><loc>https://www.adhdme.au/flynn-simonis.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-jae-cho.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-rajitha-de-silva.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-beth-hansen.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-bill-liley.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-hannah-gray.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-john-ruberry.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-kay-walls.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-natalie-cook.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-richard-hostiadi.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-sally-mcleod.html</loc></url>
+  <url><loc>https://www.adhdme.au/dr-shwetha-murthy.html</loc></url>
+  <url><loc>https://www.adhdme.au/heather-mcauliffe.html</loc></url>
+  <url><loc>https://www.adhdme.au/matthew-persello.html</loc></url>
+  <url><loc>https://www.adhdme.au/nzubechi-oguoma.html</loc></url>
+  <url><loc>https://www.adhdme.au/canice-curtis.html</loc></url>
+  <url><loc>https://www.adhdme.au/tracey-dale.html</loc></url>
+  <url><loc>https://www.adhdme.au/blog-how-booking-works.html</loc></url>
+  <url><loc>https://www.adhdme.au/blog-body-doubling.html</loc></url>
+  <url><loc>https://www.adhdme.au/blog-late-diagnosis.html</loc></url>
+  <url><loc>https://www.adhdme.au/privacy.html</loc></url>
+  <url><loc>https://www.adhdme.au/terms.html</loc></url>
+  <url><loc>https://www.adhdme.au/automated-decisions.html</loc></url>
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
 </urlset>

@@ -42,6 +42,7 @@ DASHBOARD_NOTE = (
 WINDOW = '-30d'
 
 # The categories analytics.js sends, in the words the site uses for them.
+<<<<<<< HEAD
 CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'),
               ('exercise-physiology', 'Exercise physiology'), ('coach', 'Coaches')]
 
@@ -54,6 +55,9 @@ DIARY_DESTINATIONS = ['healthengine', 'halaxy', 'hotdoc']
 HANDOFF_KIND = ('coalesce(properties.handoff_kind, if(properties.destination in ('
                 + ', '.join(f"'{d}'" for d in DIARY_DESTINATIONS) + "), 'diary', 'enquiry'))")
 TO_A_DIARY = [{'key': 'destination', 'value': DIARY_DESTINATIONS, 'operator': 'exact', 'type': 'event'}]
+=======
+CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'), ('psychiatrist', 'Psychiatrists')]
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
 
 
 # --------------------------------------------------------------------------- query shorthand
@@ -147,7 +151,11 @@ def tiles():
          trend('booking-outbound', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
 
         ('Booking clicks by discipline',
+<<<<<<< HEAD
          'Psychologist, allied health, GP, exercise physiology or coach. The site’s own five categories.',
+=======
+         'Psychologist, allied health, GP or psychiatrist. The site’s own four categories.',
+>>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
          trend('booking-outbound', breakdown='category', display='ActionsBarValue')),
 
         ('Booking clicks by practice',
