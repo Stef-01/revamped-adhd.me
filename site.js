@@ -143,12 +143,15 @@
   tNext.addEventListener('click', function () { var i = selected(); if (i < tabs.length - 1) window.switchCategory(key(i + 1)); });
 
   // a fresh order on every visit, so no one is always first. People with an online diary come before those you
-  // enquire with (the site check holds the page to that); each group is shuffled on its own.
+  // enquire with (the site check holds the page to that); each group is shuffled on its own. Pinned cards (the two
+  // most affordable GPs) come before both, in a random order of their own, so either may lead.
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   [].slice.call(document.querySelectorAll('[role="tabpanel"] > .deck-track')).forEach(function (track) {
     var cards = [].slice.call(track.children);
+    var pinned = cards.filter(function (li) { return li.hasAttribute('data-pinned'); });
+    cards = cards.filter(function (li) { return !li.hasAttribute('data-pinned'); });
     var books = function (li) { var b = li.querySelector('.btn-press'); return b && /^Book/.test((b.getAttribute('aria-label') || b.textContent).trim()); };
-    shuffle(cards.filter(books)).concat(shuffle(cards.filter(function (li) { return !books(li); })))
+    shuffle(pinned).concat(shuffle(cards.filter(books)), shuffle(cards.filter(function (li) { return !books(li); })))
       .forEach(function (li) { track.appendChild(li); });
     // the photo now first in the row should not wait on lazy loading
     var first = track.firstElementChild && track.firstElementChild.querySelector('img');
@@ -258,7 +261,9 @@
       var r = (a.getAttribute('data-region') || '').localeCompare(b.getAttribute('data-region') || '');
       return r || (a.getAttribute('data-name') || '').localeCompare(b.getAttribute('data-name') || '');
     });
-    return cards;
+    // pinned cards stay in front whichever order is chosen
+    var pin = function (li) { return li.hasAttribute('data-pinned'); };
+    return cards.filter(pin).concat(cards.filter(function (li) { return !pin(li); }));
   }
   var sortBtns = [].slice.call(document.querySelectorAll('.deck-sort__btn'));
   var SORTABLE = { 'panel-psychologists': true, 'panel-coaches': true };   // the long lists; the rest are a swipe or two

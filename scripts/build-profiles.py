@@ -36,9 +36,12 @@ SHARE_CARDS = 'assets/clinicians/og'
 
 # The Network: which tab panel each category's cards go in. The first row of the default panel loads
 # eagerly (its first card at high priority); every other card is lazy.
-PANELS = {'gp': 'gps', 'psychiatrist': 'psychiatrists', 'psychologist': 'psychologists', 'occupational-therapy': 'occupational-therapy',
-          'physiotherapy': 'physiotherapy', 'allied': 'allied-health',
-          'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
+PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'psychiatrist': 'psychiatrists', 'allied': 'allied-health',
+          'coach': 'coaches', 'occupational-therapy': 'occupational-therapy', 'physiotherapy': 'physiotherapy',
+          'exercise-physiology': 'exercise-physiology'}
+# Pinned to the front of their panel, ahead of everyone else, in an order site.js flips at random on each visit:
+# the two Saxenas are the network's most affordable GPs. No other panel has pinned cards.
+PINNED = {'anubhav-saxena', 'anu-saxena'}
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -2672,6 +2675,7 @@ def deck_card(c, size, rank):
     sizes = '(min-width: 1024px) 340px, (min-width: 640px) 240px, 84vw'   # the photo's width in the one-at-a-time card
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     lived = ' data-lived' if c.get('lived') else ''
+    lived += ' data-pinned' if c['id'] in PINNED else ''
     where = (f'<span class="block mt-2 text-[15px] font-extrabold text-[#1a1c1c]">{esc(city(c))}</span>'
              + (f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(suburbs(c))}</span>' if suburbs(c) else ''))
     return f'''<li data-reveal id="{c['id']}"{lived} class="flex flex-col min-w-0" data-name="{esc(c['name'])}" data-region="{esc(city(c))}">
@@ -2924,8 +2928,8 @@ def deck_jsonld():
 
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
-    # Online diaries lead each panel, then enquiry forms. Stable: CLINICIANS order holds within each group.
-    ordered = sorted(CLINICIANS, key=lambda c: not books_online(c))
+    # Pinned cards lead, then online diaries, then enquiry forms. Stable: CLINICIANS order holds within each group.
+    ordered = sorted(CLINICIANS, key=lambda c: (c['id'] not in PINNED, not books_online(c)))
     # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
     first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():
