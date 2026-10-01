@@ -34,17 +34,11 @@ SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
 SHARE_CARDS = 'assets/clinicians/og'
 
-<<<<<<< HEAD
 # The Network: which tab panel each category's cards go in. The first row of the default panel loads
 # eagerly (its first card at high priority); every other card is lazy.
-PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'occupational-therapy': 'occupational-therapy',
+PANELS = {'gp': 'gps', 'psychiatrist': 'psychiatrists', 'psychologist': 'psychologists', 'occupational-therapy': 'occupational-therapy',
           'physiotherapy': 'physiotherapy', 'allied': 'allied-health',
           'exercise-physiology': 'exercise-physiology', 'coach': 'coaches'}
-=======
-# The Network: which tab panel each category's cards go in. The first clinician in the default panel
-# is the one card that loads eagerly; every other card is lazy.
-PANELS = {'gp': 'gps', 'psychiatrist': 'psychiatrists', 'psychologist': 'psychologists', 'allied': 'allied-health'}
->>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -300,7 +294,7 @@ NT_DISCLOSURE = ('Nurtured Thoughts Psychology is an independent practice: it se
                  'clinical approach, and ADHDme receives no part of what you pay.')
 NT_WORKS_FOR = dict(url=NT, telephone='(07) 3056 0921', locality='Graceville', state='QLD')
 NT_SAME_AS = [NT + 'practitioners', 'https://www.instagram.com/nurturedthoughtspsychology/']
-NT_SCHEMA_DR = dict(type='Physician', areas=['Graceville'], state='QLD')
+NT_SCHEMA_DR = dict(type='Physician', areas=['Graceville'], state='QLD', works_for=NT_WORKS_FOR)
 NT_RESPONSIBLE = ('<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
                   'Published here, from the practice’s own fee page, so the cost is settled before you arrive.')
 
@@ -937,7 +931,6 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
-<<<<<<< HEAD
     dict(
         slug='lara-schulz', id='lara-schulz', category='allied',
         ages=['children', 'teens', 'adults'],
@@ -1824,10 +1817,11 @@ CLINICIANS = [
             works_for=dict(type='ProfessionalService', url=LAS, telephone='', locality='Sutherland', state='NSW'),
             area='Australia',
         ),
-=======
+    ),
     # ---- Nurtured Thoughts Psychology: psychiatrists
     dict(
         slug='dr-jae-cho', id='jae-cho', category='psychiatrist',
+        ages=['adults'],
         name='Dr Jae Cho', short='Dr Cho', role='Psychiatrist', pronouns='he/him',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Specialist psychiatrist',
         description='Thorough, compassionate general psychiatry, with calm explanations that make difficult topics feel manageable and clear.',
@@ -1862,6 +1856,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-rajitha-de-silva', id='rajitha-de-silva', category='psychiatrist',
+        ages=['adults'],
         name='Dr Rajitha De Silva', short='Dr De Silva', role='Psychiatrist', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Consultant psychiatrist',
         description='Over 16 years caring for adults, with a culturally sensitive approach that begins with feeling heard.',
@@ -1896,6 +1891,7 @@ CLINICIANS = [
     # ---- Nurtured Thoughts Psychology: GPs
     dict(
         slug='dr-beth-hansen', id='beth-hansen', category='gp',
+        ages=['adults'],
         name='Dr Beth Hansen', short='Dr Hansen', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='A gentle, practical and thorough ADHD assessment for adults who have spent years masking, overcompensating or pushing through.',
@@ -1928,6 +1924,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-bill-liley', id='bill-liley', category='gp',
+        ages=['adults'],
         name='Dr Bill Liley', short='Dr Liley', role='GP', pronouns='he/him',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Rural generalist',
         description='More than 40 years of practice and a whole-person approach to how ADHD shapes your day-to-day life.',
@@ -1960,6 +1957,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-hannah-gray', id='hannah-gray', category='gp',
+        ages=['adults'],
         name='Dr Hannah Gray', short='Dr Gray', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='Calm, structured and collaborative, explaining each step so you understand the plan and why.',
@@ -1991,6 +1989,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-john-ruberry', id='john-ruberry', category='gp',
+        ages=['adults'],
         name='Dr John Ruberry', short='Dr Ruberry', role='GP', pronouns='he/him',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='Thirteen years in community general practice, and passionate about improving access to ADHD care.',
@@ -2020,6 +2019,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-kay-walls', id='kay-walls', category='gp',
+        ages=['adults'],
         name='Dr Kay Walls', short='Dr Walls', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='An ADHD assessment that is never just a checklist: room to tell your whole story, and a plan that fits your life.',
@@ -2052,6 +2052,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-natalie-cook', id='natalie-cook', category='gp',
+        ages=['adults'],
         name='Dr Natalie Cook', short='Dr Cook', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='Direct, honest and safety-focused advice, tailored to your work, sleep, family and day-to-day demands.',
@@ -2082,6 +2083,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-richard-hostiadi', id='richard-hostiadi', category='gp',
+        ages=['adults'],
         name='Dr Richard Hostiadi', short='Dr Hostiadi', role='GP', pronouns='he/him',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='Adult ADHD, men’s mental health and lifestyle medicine, with real insight into demanding, high-pressure work.',
@@ -2115,6 +2117,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-sally-mcleod', id='sally-mcleod', category='gp',
+        ages=['teens', 'adults'],
         name='Dr Sally McLeod', short='Dr McLeod', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='Helping adolescents and adults understand how their brain works, with thorough, evidence-based assessment.',
@@ -2148,6 +2151,7 @@ CLINICIANS = [
     ),
     dict(
         slug='dr-shwetha-murthy', id='shwetha-murthy', category='gp',
+        ages=['adults'],
         name='Dr Shwetha Murthy', short='Dr Murthy', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
         description='A structured assessment that maps how ADHD has shown up over time, and what it means for family life at home and at work.',
@@ -2180,6 +2184,7 @@ CLINICIANS = [
     # ---- Nurtured Thoughts Psychology: psychologists
     dict(
         slug='heather-mcauliffe', id='heather-mcauliffe', category='psychologist',
+        ages=['children', 'teens', 'adults'],
         name='Heather McAuliffe', short='Heather McAuliffe', role='Clinical Psychologist', pronouns=None,
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Clinical psychologist',
         description='A neurodivergent clinical psychologist who makes assessment warm and safe, and treats you as the expert on your own experience.',
@@ -2211,6 +2216,7 @@ CLINICIANS = [
     ),
     dict(
         slug='matthew-persello', id='matthew-persello', category='psychologist',
+        ages=['teens', 'adults'],
         name='Matthew Persello', short='Matthew Persello', role='Registered Psychologist', pronouns=None,
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Registered psychologist',
         description='Strengths-based, solution-focused therapy for adolescents and adults, with a focus on men’s mental health, neurodiversity and the LGBTQIA+ community.',
@@ -2242,6 +2248,7 @@ CLINICIANS = [
     ),
     dict(
         slug='nzubechi-oguoma', id='nzubechi-oguoma', category='psychologist',
+        ages=['children', 'teens', 'adults'],
         name='Nzubechi Oguoma', short='Nzubechi Oguoma', role='Registered Psychologist', pronouns=None,
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Registered psychologist',
         description='Working with individuals and families from age 5 and across the lifespan, including neurodevelopmental conditions.',
@@ -2273,6 +2280,7 @@ CLINICIANS = [
     # ---- Nurtured Thoughts Psychology: mental health social workers
     dict(
         slug='canice-curtis', id='canice-curtis', category='allied',
+        ages=['teens', 'adults'],
         name='Canice Curtis', short='Canice Curtis', role='Mental Health Social Worker', pronouns='he/him',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Mental health social worker',
         description='A grounded, integrated and evidence-informed approach for people 15 and over, including complex trauma and ADHD.',
@@ -2306,6 +2314,7 @@ CLINICIANS = [
     ),
     dict(
         slug='tracey-dale', id='tracey-dale', category='allied',
+        ages=['children', 'teens', 'adults'],
         name='Tracey Dale', short='Tracey Dale', role='Accredited Mental Health Social Worker', pronouns=None,
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor='Mental health social worker',
         description='Warm, empowering and highly personalised therapy, kept straightforward and free from unnecessary jargon.',
@@ -2335,7 +2344,6 @@ CLINICIANS = [
         ],
         disclosure=NT_DISCLOSURE,
         schema=dict(type='Person', credentials=['Accredited Mental Health Social Worker'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
->>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     ),
 ]
 
@@ -2417,7 +2425,8 @@ def meta_line(c):
 # Where a clinician is, the way a reader thinks of it first: the city and state, then the suburbs. The city comes
 # from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
-        'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA'}
+        'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
+        'Graceville': 'Brisbane, QLD'}
 REGION_BY_ID = {'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
                 'paula-garrido': 'Australia-wide via telehealth'}
 SUBURBS_BY_ID = {'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
@@ -2696,22 +2705,13 @@ def jsonld(c):
     image = f"{SITE}/{PORTRAITS}/{c['id']}.jpg"
     job = c['qualifications'].split(',')[0]   # the role; the degrees are hasCredential
     if s['type'] == 'Physician':
-<<<<<<< HEAD
         # A doctor is a Person who works for a clinic; schema.org's Physician is an Organization type.
         d = {'@type': 'Person', '@id': page + '#physician',
              'name': c['name'], 'url': page, 'jobTitle': job, 'knowsLanguage': c['languages'], 'image': image,
              'sameAs': [c['book_href']],
-             'worksFor': {'@type': 'MedicalClinic', 'name': c['practice'], 'medicalSpecialty': 'PrimaryCare',
+             'worksFor': {'@type': 'MedicalClinic', 'name': c['practice'], 'medicalSpecialty': s.get('specialty', 'PrimaryCare'),
                           'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
                           'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']]}}
-=======
-        d = {'@context': 'https://schema.org', '@type': 'Physician', '@id': page + '#physician',
-             'name': c['name'], 'url': page, 'jobTitle': c['qualifications'], 'medicalSpecialty': s.get('specialty', 'PrimaryCare'),
-             'knowsLanguage': c['languages'], 'image': image,
-             'address': {'@type': 'PostalAddress', 'addressLocality': s['areas'][0], 'addressRegion': s['state'], 'addressCountry': 'AU'},
-             'areaServed': [{'@type': 'Place', 'name': f"{a}, {s['state']}, Australia"} for a in s['areas']],
-             'affiliation': {'@type': 'MedicalOrganization', 'name': c['practice']}}
->>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     elif s['type'] == 'Person':
         w = s['works_for']
         # A link several clinicians share is the practice's page or account, not theirs.

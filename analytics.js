@@ -93,7 +93,6 @@
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['occupational-therapy', 'education', 'ndis'], ages: ['children', 'teens']
     },
-<<<<<<< HEAD
     'lara-schulz': {
       booking: /ncau\.com\.au\/contact-us/, profile: 'lara-schulz.html',
       name: 'Lara Schulz', category: 'allied',
@@ -243,7 +242,7 @@
       name: 'Lester Rafanan', category: 'allied',
       practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
       expertise: ['physiotherapy', 'physical-health', 'ndis'], ages: ['adults']
-=======
+    },
     // Nurtured Thoughts Psychology: one contact page books all sixteen, so the regex cannot tell them
     // apart; clinicianFor() resolves it from the profile page the click came from, as for GOALS.,
     'jae-cho': {
@@ -341,7 +340,6 @@
       name: 'Tracey Dale', category: 'allied',
       practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
       expertise: ['therapy', 'trauma', 'perinatal'], ages: ['children', 'teens', 'adults']
->>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
     }
   };
 
@@ -364,11 +362,7 @@
 
   var CLINICIAN_IDS = Object.keys(CLINICIANS);
   var CLINICIAN_NAMES = column('name');
-<<<<<<< HEAD
-  var CATEGORIES = column('category');        // gp · psychologist · allied · exercise-physiology · coach
-=======
-  var CATEGORIES = column('category');        // gp · psychiatrist · psychologist · allied
->>>>>>> 8c482b2 (Onboard Nurtured Thoughts Psychology: sixteen clinicians and a Psychiatrists tab)
+  var CATEGORIES = column('category');        // gp · psychiatrist · psychologist · allied · exercise-physiology · coach
   var PRACTICES = column('practice');
   var DESTINATIONS = column('destination');   // healthengine · halaxy · hotdoc · zanda · clinic-form · clinic-contact
   // What the handoff actually was. A live diary can end in an appointment on the spot; an enquiry
