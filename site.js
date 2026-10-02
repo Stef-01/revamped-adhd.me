@@ -123,6 +123,9 @@
   var clear = document.querySelector('.dir-clear'), intro = document.getElementById('dir-intro');
   var orderBox = document.querySelector('.dir-order'), orderSel = document.getElementById('dir-order');
   var modeBoxes = [].slice.call(document.querySelectorAll('.dir-modes input'));
+  var gpSel = document.getElementById('dir-gp'), stateSel = document.getElementById('dir-state'), ageSel = document.getElementById('dir-age');
+  var gpBox = gpSel && gpSel.closest('.dir-select');
+  var EMPTY = function () { return { q: '', modes: [], order: 'suggested', gp: '', st: '', age: '' }; };
   var SORTABLE = { psychologists: true, coaches: true };
   var key = function (t) { return t.id.replace(/^tab-btn-/, ''); };
   function selected() { for (var i = 0; i < tabs.length; i++) if (tabs[i].getAttribute('aria-selected') === 'true') return key(tabs[i]); return key(tabs[0]); }
@@ -149,18 +152,22 @@
     index[li.id] = parts.join(' ').toLowerCase().replace(/\s+/g, ' ');
   });
 
-  var state = { q: '', modes: [], order: 'suggested' };
+  var state = EMPTY();
   function readUrl() {
     var p = new URLSearchParams(location.search);
     state.q = p.get('q') || '';
     state.modes = (p.get('mode') || '').split(',').filter(Boolean);
     state.order = p.get('order') || 'suggested';
+    state.gp = p.get('gp') || ''; state.st = p.get('state') || ''; state.age = p.get('age') || '';
   }
   function writeUrl(push) {
     var p = new URLSearchParams();
     if (state.q) p.set('q', state.q);
     if (state.modes.length) p.set('mode', state.modes.join(','));
     if (state.order !== 'suggested') p.set('order', state.order);
+    if (state.gp && selected() === 'gps') p.set('gp', state.gp);
+    if (state.st) p.set('state', state.st);
+    if (state.age) p.set('age', state.age);
     var qs = p.toString(), url = location.pathname + (qs ? '?' + qs : '') + '#panel-' + selected();
     try { (push ? history.pushState : history.replaceState).call(history, null, '', url); } catch (e) {}
     try { sessionStorage.setItem('adhdme-directory', qs ? '?' + qs : ''); } catch (e) {}
@@ -182,12 +189,17 @@
     sortPanel(panel);
     [].slice.call(panel.querySelectorAll('.dir-card')).forEach(function (li) {
       var hay = index[li.id] || '', modes = ' ' + (li.getAttribute('data-modes') || '') + ' ';
-      var ok = terms.every(function (t) { return hay.indexOf(t) >= 0; }) && state.modes.every(function (m) { return modes.indexOf(' ' + m + ' ') >= 0; });
+      var ok = terms.every(function (t) { return hay.indexOf(t) >= 0; }) && state.modes.every(function (m) { return modes.indexOf(' ' + m + ' ') >= 0; })
+        && (!state.st || li.getAttribute('data-state') === state.st)
+        && (!state.age || (' ' + (li.getAttribute('data-ages') || '') + ' ').indexOf(' ' + state.age + ' ') >= 0)
+        && (!state.gp || cat !== 'gps' || li.getAttribute('data-gp') === state.gp);
       li.hidden = !ok; if (ok) shown++;
     });
     count.textContent = shown + (shown === 1 ? ' clinician' : ' clinicians');
     empty.hidden = shown > 0;
-    var active = !!(state.q || state.modes.length || state.order !== 'suggested');
+    var active = !!(state.q || state.modes.length || state.order !== 'suggested' || state.st || state.age || (state.gp && cat === 'gps'));
+    if (gpBox) gpBox.hidden = cat !== 'gps';
+    var sheetGp = document.querySelector('[data-sheet-gp]'); if (sheetGp) sheetGp.hidden = cat !== 'gps';
     clear.hidden = !active;
     var fb = document.querySelector('.dir-filter-btn'); if (fb) fb.classList.toggle('is-active', active);
     var sortable = !!SORTABLE[cat];
@@ -200,6 +212,7 @@
     search.value = state.q;
     modeBoxes.forEach(function (b) { b.checked = state.modes.indexOf(b.value) >= 0; });
     orderSel.value = state.order;
+    if (gpSel) gpSel.value = state.gp; if (stateSel) stateSel.value = state.st; if (ageSel) ageSel.value = state.age;
     var t = tabs.filter(function (x) { return key(x) === selected(); })[0];
     if (intro && t) { intro.style.setProperty('--tint', t.style.getPropertyValue('--tint')); intro.textContent = t.getAttribute('data-intro') || ''; }
     // on a phone the strip scrolls; keep the chosen category in view (the strip only, never the page)
@@ -216,7 +229,10 @@
   });
   modeBoxes.forEach(function (b) { b.addEventListener('change', function () { state.modes = modeBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; }); apply(); writeUrl(false); }); });
   orderSel.addEventListener('change', function () { state.order = orderSel.value; apply(); writeUrl(false); });
-  clear.addEventListener('click', function () { state = { q: '', modes: [], order: 'suggested' }; paint(); apply(); writeUrl(false); search.focus(); });
+  [[gpSel, 'gp'], [stateSel, 'st'], [ageSel, 'age']].forEach(function (pair) {
+    if (pair[0]) pair[0].addEventListener('change', function () { state[pair[1]] = pair[0].value; apply(); writeUrl(false); });
+  });
+  clear.addEventListener('click', function () { state = EMPTY(); paint(); apply(); writeUrl(false); search.focus(); });
   window.addEventListener('popstate', function () {
     readUrl();
     var cat = (location.hash.match(/^#panel-([\w-]+)$/) || [])[1];
@@ -235,6 +251,9 @@
       sCats.forEach(function (r) { r.checked = r.value === selected(); });
       sModes.forEach(function (c) { c.checked = state.modes.indexOf(c.value) >= 0; });
       sOrder.forEach(function (r) { r.checked = r.value === state.order; });
+      [['sheet-gp', state.gp], ['sheet-state', state.st], ['sheet-age', state.age]].forEach(function (g) {
+        [].slice.call(sheet.querySelectorAll('input[name="' + g[0] + '"]')).forEach(function (r) { r.checked = r.value === g[1]; });
+      });
     }
     fbtn.addEventListener('click', function () { fill(); sheet.showModal(); fbtn.setAttribute('aria-expanded', 'true'); });
     sheet.addEventListener('change', function (e) {
@@ -242,8 +261,9 @@
       if (t.name === 'sheet-cat') { window.switchCategory(t.value); }
       else if (t.name === 'sheet-mode') { state.modes = sModes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; }); apply(); writeUrl(false); }
       else if (t.name === 'sheet-order') { state.order = t.value; apply(); writeUrl(false); }
+      else if (t.name === 'sheet-gp' || t.name === 'sheet-state' || t.name === 'sheet-age') { state[{ 'sheet-gp': 'gp', 'sheet-state': 'st', 'sheet-age': 'age' }[t.name]] = t.value; paint(); apply(); writeUrl(false); }
     });
-    sheet.querySelector('.dir-sheet__clear').addEventListener('click', function () { state = { q: '', modes: [], order: 'suggested' }; fill(); paint(); apply(); writeUrl(false); });
+    sheet.querySelector('.dir-sheet__clear').addEventListener('click', function () { state = EMPTY(); fill(); paint(); apply(); writeUrl(false); });
     sheet.addEventListener('click', function (e) { if (e.target === sheet) sheet.close(); });   // the backdrop
     sheet.addEventListener('close', function () { fbtn.setAttribute('aria-expanded', 'false'); fbtn.focus(); });
   } else if (fbtn) { fbtn.hidden = true; }

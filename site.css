@@ -327,6 +327,10 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .dir-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #d9d6cc; background: #fff; font-size: 15px; font-weight: 600; color: #1a1c1c; cursor: pointer; }
 .dir-check:has(input:checked) { border-color: #1a1c1c; background: #f6f4ee; }
 .dir-check input { width: 18px; height: 18px; margin: 0; accent-color: #1a1c1c; }
+.dir-select { display: inline-flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; color: #1a1c1c; }
+.dir-select[hidden] { display: none; }
+.dir-select select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 15px; font-weight: 500; color: #1a1c1c; }
+.dir-select select:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 3px; }
 .dir-order { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: #1a1c1c; }
 .dir-order[hidden] { display: none; }
 .dir-order select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 15px; color: #1a1c1c; }
@@ -374,7 +378,7 @@ body:has(.dir-sheet[open]) { overflow: hidden; }
   .dir-tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding: 4px 2px 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .dir-tabs::-webkit-scrollbar { display: none; }
   .dir-tab { flex: 0 0 auto; }
-  .dir-modes, .dir-order { display: none; }
+  .dir-modes, .dir-order, .dir-select { display: none; }
   .dir-filter-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #1a1c1c; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: #1a1c1c; cursor: pointer; }
   .dir-filter-btn[aria-expanded="true"], .dir-filter-btn.is-active { background: #1a1c1c; color: #fff; }
   .dir-card { grid-template-columns: 88px minmax(0, 1fr); column-gap: 14px; padding: 14px; contain-intrinsic-size: auto 22rem; }

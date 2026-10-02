@@ -48,7 +48,6 @@ GP_FEES = dict(
     figures=[('$299', 'Initial consultation'), ('$199', 'Follow-up consultation')],
     notes=[  # html
         'The two consultations make up the ADHD assessment and diagnosis, $498 in total.',
-        'Some people need an extra 30-minute review. The practice explains why, and the cost, before booking it.',
         'There is no Medicare rebate for either consultation.',
         '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
     ],
@@ -294,12 +293,22 @@ CLINICIANS = [
             'Integrative and preventive care',
             'Chronic disease management',
         ],
+        pathway=[
+            ('First consultation', 'A long first appointment, in person or by phone. $299.'),
+            ('Follow-up consultation', 'Completes the assessment and diagnosis. $199.'),
+            ('After the diagnosis', 'Medication if it’s right for you, then reviews at set intervals. Some people need an extra 30-minute review; the practice explains why and the cost first.'),
+        ],
+        works_with=[
+            'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
+            'For daily life, occupational therapists and coaches turn the plan into routines.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Ask at your appointment how your GP shares information with your other clinicians.',
+        ],
         about=[
             'Anubhav trained at the University of Sydney and works in Double Bay and Beecroft. He works from measurement rather than impression, and takes an integrative view: ADHD is looked at alongside sleep, cardiovascular and metabolic health rather than on its own, with a documented baseline before anything starts and review at set intervals rather than only when a problem gets loud enough to prompt a call. He also does aged-care and home visits, and gives a good deal of his spare time to the long-suffering cause of the Parramatta Eels.',
         ],
         details=[  # html values; Qualifications and Languages rows are added by the script
             ('Reach', 'Practice appointments and phone consultations'),
-            ('Appointments', 'Long first appointment, scheduled reviews'),
             ('Billing', GP_BILLING),
             ('Wheelchair access', 'Yes'),
         ],
@@ -331,12 +340,22 @@ CLINICIANS = [
             'Focused Psychological Strategies, training underway',
             'Functional medicine, nutrition, lifestyle medicine and health coaching, further qualifications underway',
         ],
+        pathway=[
+            ('First consultation', 'In person or by telehealth, for children and adults. $299.'),
+            ('Follow-up consultation', 'Completes the assessment and diagnosis. $199.'),
+            ('After the diagnosis', 'Medication if it’s right for you. Some people need an extra 30-minute review; the practice explains why and the cost first. Ask how ongoing reviews are arranged.'),
+        ],
+        works_with=[
+            'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
+            'For daily life, occupational therapists and coaches turn the plan into routines.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Ask at your appointment how your GP shares information with your other clinicians.',
+        ],
         about=[
             'Anu is an experienced GP at Bay Health Clinic in Double Bay, and a Fellow of the Royal Australian College of General Practitioners. She came to medicine through psychology, a Bachelor of Psychology with First Class Honours at the University of Sydney, then her MD at the Australian National University, with a background in psychiatry and general medicine: hospital training across NSW, including Blacktown and Bathurst, rotations in cardiology, paediatrics and psychiatry, and the Sydney Child Health Program through the Sydney Children\'s Hospital Network; she holds a Diploma of Child Health. Her clinical interests are ADHD, mental health, women\'s health and functional medicine. She has completed an endorsed ADHD prescriber course, is training in Focused Psychological Strategies, and is completing further qualifications in functional medicine, nutrition, lifestyle medicine and health coaching. Of Indian origin and speaking Hindi and Urdu, she values culturally sensitive, holistic and patient-centred care. Outside medicine she enjoys travelling, learning about different cultures, charity and community work, and staying active through sport, cricket and tennis included.',
         ],
         details=[
             ('Reach', 'Practice appointments in Double Bay and Hornsby, and telehealth'),
-            ('Appointments', 'Appointment lengths set with the practice'),
             ('Billing', GP_BILLING),
             ('Wheelchair access', 'Not declared'),
         ],
@@ -361,7 +380,6 @@ CLINICIANS = [
             notes=[
                 'The practice bulk bills all eligible Medicare services for Medicare card holders.',
                 'Department of Veterans’ Affairs card holders are welcome.',
-                'ADHD assessment and diagnosis are not offered here yet. For a diagnosis, book with a GP in the network who assesses.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
@@ -373,11 +391,21 @@ CLINICIANS = [
             'Diploma in Skin Cancer Surgery',
             'Professional Diploma of Dermoscopy',
         ],
+        pathway=[
+            ('Already diagnosed', 'For people who already have an ADHD diagnosis and a treatment plan.'),
+            ('Book an appointment', 'In person at Bateau Bay, bulk billed.'),
+            ('Ongoing prescriptions', 'He keeps your medication going close to home. Ask the practice what to bring.'),
+        ],
+        works_with=[
+            'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
+            'For daily life, occupational therapists and coaches turn the plan into routines.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Ask at your appointment how your GP shares information with your other clinicians.',
+        ],
         about=[
             'Yogesh is a GP and a Fellow of the Royal Australian College of General Practitioners, practising at his own surgery in Bateau Bay on the Central Coast. For ADHD, he is a continuation prescriber: he keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home. He is not offering ADHD assessment or diagnosis yet; that is planned for the future. His other interests are family medicine, women’s health, and skin cancer checks and surgery, with diplomas in skin cancer surgery and dermoscopy. He speaks English and Hindi, and the practice bulk bills all eligible Medicare services.',
         ],
         details=[
-            ('ADHD care', 'Continues ADHD medication for people already diagnosed. Not assessing or diagnosing ADHD yet'),
             ('Reach', 'Practice appointments in Bateau Bay'),
             ('Appointments', 'Appointment lengths set with the practice'),
             ('Billing', 'Bulk billed for eligible Medicare services; set and charged by the practice'),
@@ -1835,6 +1863,11 @@ def city(c):
     return REGION_BY_ID.get(c['id']) or CITY[c['schema']['works_for']['locality']]
 
 
+def state_of(c):
+    """The state the practice is in: NSW, QLD or WA."""
+    return (c['schema'].get('works_for') or {}).get('state') or c['schema'].get('state') or ''
+
+
 def suburbs(c):
     """The suburb line under the city, empty when it would only repeat the city (Perth, telehealth-only)."""
     if c['id'] in SUBURBS_BY_ID:
@@ -1962,10 +1995,24 @@ LIVED_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 round
               '<circle cx="12" cy="8" r="3.5"/><path d="M5 20.5c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>'
               '{}</span>')
 
+# What a GP does for ADHD, said plainly and first: assess, diagnose and start treatment, or continue a
+# prescription someone else started. Set by `assesses` on the record.
+GP_ASSESS_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold '
+                  'text-white bg-[#1a1c1c] border border-[#1a1c1c]">Diagnoses &amp; prescribes</span>')
+GP_CONTINUE_PILL = ('<span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-bold '
+                    'text-[#1a1c1c] bg-white border-2 border-[#1a1c1c]">Continuation only</span>')
+
+
+def gp_pill(c):
+    if c['category'] != 'gp':
+        return ''
+    return GP_ASSESS_PILL if c.get('assesses', True) else GP_CONTINUE_PILL
+
+
 def chip_row(c, limit=None):
     """The clinician's interest chips, behind the markers they carry: lived experience, in person, telehealth, then exercise. A card
     in the deck shows the first `limit` chips; the profile shows them all."""
-    markers = ((LIVED_PILL.format(esc(c['lived'])) if c.get('lived') else '') + (IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
+    markers = (gp_pill(c) + (LIVED_PILL.format(esc(c['lived'])) if c.get('lived') else '') + (IN_PERSON_PILL if c.get('in_person', True) else '') + (TELEHEALTH_PILL if c['telehealth'] else '')
                + (EXERCISE_PILL if c.get('exercise') else '') + (BULK_PILL if c.get('bulk_billed') else ''))
     return markers + ''.join(CHIP.format(esc(x)) for x in c['chips'][:limit])
 BOOK_HREF = 'the-doctors.html#{}'
@@ -2072,7 +2119,8 @@ def deck_card(c, size, rank):
     where = (f'<span class="block mt-2 text-[15px] font-extrabold text-[#1a1c1c]">{esc(city(c))}</span>'
              + (f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(suburbs(c))}</span>' if suburbs(c) else ''))
     modes = ' '.join(m for m, on in (('in-person', c.get('in_person', True)), ('telehealth', c['telehealth'])) if on)
-    return f'''<li id="{c['id']}"{lived} class="dir-card" data-name="{esc(c['name'])}" data-region="{esc(city(c))}" data-modes="{modes}">
+    gp = (' data-gp="' + ('assess' if c.get('assesses', True) else 'continue') + '"') if c['category'] == 'gp' else ''
+    return f'''<li id="{c['id']}"{lived} class="dir-card" data-name="{esc(c['name'])}" data-region="{esc(city(c))}" data-modes="{modes}" data-state="{state_of(c)}" data-ages="{' '.join(c['ages'])}"{gp}>
   <a class="block group" href="{c['slug']}.html">
     {portrait_span(c, size, 'span', 'block ', sizes, img_attrs, img_class)}
     <span class="block pt-4"><strong class="block text-[22px] font-extrabold tracking-tight text-[#1a1c1c] leading-tight">{esc(c['name'])}</strong><span class="block mt-1 text-[15px] font-semibold text-[#5f5e59]">{esc(c['descriptor'] or c['role'])}</span>{where}</span>
@@ -2186,9 +2234,31 @@ def about_html(c):
                                                     + ''.join(para(t) for t in more) + '</div>') if more else '')
 
 
+def pathway_html(c):
+    """A GP's steps from booking to follow-up: how many appointments, what each is, what it costs."""
+    if not c.get('pathway'):
+        return ''
+    steps = ''.join(f'<li class="py-3 border-b border-[#e8e6df] grid grid-cols-[2.25rem_1fr] gap-x-3">'
+                    f'<span class="how-n" style="--tint:#fdf3d6; width:36px; height:36px; font-size:16px" aria-hidden="true">{i}</span>'
+                    f'<div><strong class="block text-[17px] font-extrabold text-[#1a1c1c]">{esc(title)}</strong>'
+                    f'<span class="block mt-1 text-[17px] text-[#2b2820] max-w-[58ch]">{esc(text)}</span></div></li>'
+                    for i, (title, text) in enumerate(c['pathway'], 1))
+    return SECTION.format('How it works', f'<ol class="lg:col-span-8 list-none p-0 m-0">{steps}</ol>') + '\n  '
+
+
+def works_with_html(c):
+    """How a GP's care joins up with psychologists, allied health and, for complex presentations, a psychiatrist."""
+    if not c.get('works_with'):
+        return ''
+    para = lambda t: f'<p class="m-0">{esc(t)}</p>'
+    body = READ_MORE.format('Psychologists, allied health and psychiatrists', '<div class="mt-4 flex flex-col gap-4">' + ''.join(para(t) for t in c['works_with']) + '</div>')
+    return SECTION.format('Working with other clinicians', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]">' + body + '</div>') + '\n  '
+
+
 def experience_html(c):
     item = lambda x: f'<li class="py-2.5 border-b border-[#e8e6df]">{esc(x)}</li>'
-    cut = EXPERIENCE_SHOWN if len(c['experience']) > EXPERIENCE_SHOWN + 1 else len(c['experience'])
+    shown = 3 if c.get('pathway') else EXPERIENCE_SHOWN   # a profile that opens with its steps shows less here
+    cut = shown if len(c['experience']) > shown + 1 else len(c['experience'])
     shown, rest = c['experience'][:cut], c['experience'][cut:]
     html_ = '<ul class="list-none p-0 m-0">' + ''.join(item(x) for x in shown) + '</ul>'
     if rest:
@@ -2257,9 +2327,9 @@ def render_main(c, size, sizes):
   </div>
 </div>
 <div class="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-  {SECTION.format('Experience', '<div class="lg:col-span-8 text-[17px]" data-declared-by="clinician">' + experience_html(c) + '</div>')}
+  {pathway_html(c)}{SECTION.format('Experience', '<div class="lg:col-span-8 text-[17px]" data-declared-by="clinician">' + experience_html(c) + '</div>')}
   {SECTION.format('About', '<div class="lg:col-span-8 flex flex-col gap-4 text-[17px] leading-relaxed text-[#2b2820] max-w-[62ch]" data-declared-by="clinician">' + about_html(c) + '</div>')}
-  {SECTION.format('Details', '<dl class="lg:col-span-8 m-0">' + ''.join(DETAIL_ROW.format(esc(k), v) for k, v in details) + '</dl>')}
+  {works_with_html(c)}{SECTION.format('Details', '<dl class="lg:col-span-8 m-0">' + ''.join(DETAIL_ROW.format(esc(k), v) for k, v in details) + '</dl>')}
 </div>
 <section class="rounded-3xl bg-white border border-[#e8e6df] p-6 sm:p-10 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16" data-reveal aria-labelledby="fees-title">
   <h2 id="fees-title" class="lg:col-span-4 text-2xl font-extrabold tracking-tight text-[#1a1c1c]">{esc(fees['heading'])}</h2>
