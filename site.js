@@ -137,7 +137,10 @@
   panels.forEach(function (panel) {
     var track = panel.querySelector('ul'), cards = [].slice.call(track.children);
     var books = function (li) { var b = li.querySelector('.btn-press'); return b && /^Book/.test((b.getAttribute('aria-label') || b.textContent).trim()); };
-    var order = shuffle(cards.filter(books)).concat(shuffle(cards.filter(function (li) { return !books(li); })));
+    // pinned cards (the two most affordable GPs) come before both, in a random order of their own, so either may lead
+    var pin = function (li) { return li.hasAttribute('data-pinned'); };
+    var rest = cards.filter(function (li) { return !pin(li); });
+    var order = shuffle(cards.filter(pin)).concat(shuffle(rest.filter(books)), shuffle(rest.filter(function (li) { return !books(li); })));
     order.forEach(function (li) { track.appendChild(li); });
     suggested[panel.id] = order;
     var first = order[0] && order[0].querySelector('img'); if (first) first.loading = 'eager';
@@ -179,6 +182,9 @@
     if (state.order === 'name') cards.sort(function (a, b) { return name(a).localeCompare(name(b)); });
     if (state.order === 'location') cards.sort(function (a, b) { return (a.getAttribute('data-region') || '').localeCompare(b.getAttribute('data-region') || '') || name(a).localeCompare(name(b)); });
     if (!SORTABLE[panel.id.replace(/^panel-/, '')]) cards = suggested[panel.id];
+    // pinned cards stay in front whichever order is chosen
+    var pinned = function (li) { return li.hasAttribute('data-pinned'); };
+    cards = cards.filter(pinned).concat(cards.filter(function (li) { return !pinned(li); }));
     cards.forEach(function (li) { track.appendChild(li); });
   }
 

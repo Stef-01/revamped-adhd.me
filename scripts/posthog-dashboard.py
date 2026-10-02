@@ -42,8 +42,18 @@ DASHBOARD_NOTE = (
 WINDOW = '-30d'
 
 # The categories analytics.js sends, in the words the site uses for them.
-CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'),
+CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'), ('psychiatrist', 'Psychiatrists'),
               ('exercise-physiology', 'Exercise physiology'), ('coach', 'Coaches')]
+
+# A live diary, as analytics.js's DESTINATION_KIND has it (and build-profiles.py's ONLINE_DIARIES);
+# every other destination is an enquiry. Booking clicks from before 22 September 2026 carry a
+# destination but no handoff_kind, so a tile that reads handoff_kind alone drops them. Every tile
+# here reads the kind through HANDOFF_KIND, or filters on the destination, so old and new clicks
+# count the same way.
+DIARY_DESTINATIONS = ['healthengine', 'halaxy', 'hotdoc']
+HANDOFF_KIND = ('coalesce(properties.handoff_kind, if(properties.destination in ('
+                + ', '.join(f"'{d}'" for d in DIARY_DESTINATIONS) + "), 'diary', 'enquiry'))")
+TO_A_DIARY = [{'key': 'destination', 'value': DIARY_DESTINATIONS, 'operator': 'exact', 'type': 'event'}]
 
 
 # --------------------------------------------------------------------------- query shorthand
@@ -56,7 +66,7 @@ def events(*names, math='total'):
 
 
 def trend(*names, math='total', breakdown=None, display='ActionsLineGraph', interval='day',
-          properties=None, window=WINDOW):
+          properties=None, window=WINDOW, breakdown_type='event'):
     source = {
         'kind': 'TrendsQuery',
         'dateRange': {'date_from': window},
@@ -66,7 +76,7 @@ def trend(*names, math='total', breakdown=None, display='ActionsLineGraph', inte
         'filterTestAccounts': True,
     }
     if breakdown:
-        source['breakdownFilter'] = {'breakdowns': [{'type': 'event', 'property': breakdown}], 'breakdown_limit': 25}
+        source['breakdownFilter'] = {'breakdowns': [{'type': breakdown_type, 'property': breakdown}], 'breakdown_limit': 25}
     if properties:
         source['properties'] = properties
     return {'kind': 'InsightVizNode', 'source': source}
@@ -88,9 +98,10 @@ def funnel(*names, breakdown=None, window=WINDOW):
 def sql(query):
     """A SQL tile. Trends answer "how many"; these answer the questions with a join or a ratio in
     them — which clinician converts the readers they get, which post produced a handoff, and what
-    the network is asked for and has nobody for."""
+    the network is asked for and has nobody for. A query writes HANDOFF_KIND where it means the
+    kind of handoff; it is expanded here so older clicks without the property still count."""
     return {'kind': 'DataVisualizationNode',
-            'source': {'kind': 'HogQLQuery', 'query': query},
+            'source': {'kind': 'HogQLQuery', 'query': query.replace('HANDOFF_KIND', HANDOFF_KIND)},
             'display': 'ActionsTable'}
 
 
@@ -136,7 +147,7 @@ def tiles():
          trend('booking-outbound', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
 
         ('Booking clicks by discipline',
-         'Psychologist, allied health, GP, exercise physiology or coach. The site’s own five categories.',
+         'Psychologist, allied health, GP, psychiatrist, exercise physiology or coach. The site’s own six categories.',
          trend('booking-outbound', breakdown='category', display='ActionsBarValue')),
 
         ('Booking clicks by practice',
@@ -178,16 +189,16 @@ def tiles():
                display='ActionsLineGraph', interval='week', window='-90d')),
 
         ('Diary bookings against enquiries',
-         'The split that matters: a live diary (Healthengine, Halaxy) can end in an appointment '
+         'The split that matters: a live diary (Healthengine, Halaxy, HotDoc) can end in an appointment '
          'there and then; a clinic contact form can only end in somebody being emailed back. '
          'Counting them together flatters whoever has a form.',
-         trend('booking-outbound', breakdown='handoff_kind', display='ActionsBarValue')),
+         trend('booking-outbound', breakdown=HANDOFF_KIND, breakdown_type='hogql', display='ActionsBarValue')),
 
         ('Diary handoffs — people, by clinician',
          'Distinct people who went to a live diary, per clinician. The closest thing on this '
          'dashboard to "who is getting real bookings".',
          trend('booking-outbound', math='dau', breakdown='clinician_name',
-               display='ActionsBarValue', properties=equals('handoff_kind', 'diary'))),
+               display='ActionsBarValue', properties=TO_A_DIARY)),
 
         ('How long they stayed on the practice’s page',
          'Booking links open in a new tab, so this site can time the tab next door. Under thirty '
@@ -255,13 +266,13 @@ select properties.clinician_name                                      as clinici
        countIf(event = 'booking-outbound')                            as handoff_clicks,
        uniqIf(person_id, event = 'booking-outbound')                  as handoff_people,
        uniqIf(person_id, event = 'booking-outbound'
-              and properties.handoff_kind = 'diary')                  as diary_people,
+              and HANDOFF_KIND = 'diary')                  as diary_people,
        uniqIf(person_id, event = 'booking-outbound'
-              and properties.handoff_kind = 'enquiry')                as enquiry_people,
+              and HANDOFF_KIND = 'enquiry')                as enquiry_people,
        greatest(0, countIf(event = 'booking-outbound'
-                           and properties.handoff_kind = 'diary')
+                           and HANDOFF_KIND = 'diary')
                  - countIf(event = 'booking-returned'
-                           and properties.handoff_kind = 'diary'
+                           and HANDOFF_KIND = 'diary'
                            and properties.away_band in ('under-30s', '30s-2m')))
                                                                       as likely_booked,
        countIf(event = 'booking-returned'
@@ -286,11 +297,11 @@ select properties.practice                                            as practic
        uniqIf(person_id, event = 'profile-viewed')                    as unique_visitors,
        uniqIf(person_id, event = 'booking-outbound')                  as handoff_people,
        uniqIf(person_id, event = 'booking-outbound'
-              and properties.handoff_kind = 'diary')                  as diary_people,
+              and HANDOFF_KIND = 'diary')                  as diary_people,
        greatest(0, countIf(event = 'booking-outbound'
-                           and properties.handoff_kind = 'diary')
+                           and HANDOFF_KIND = 'diary')
                  - countIf(event = 'booking-returned'
-                           and properties.handoff_kind = 'diary'
+                           and HANDOFF_KIND = 'diary'
                            and properties.away_band in ('under-30s', '30s-2m')))
                                                                       as likely_booked,
        round(100.0 * uniqIf(person_id, event = 'booking-outbound')
@@ -521,9 +532,9 @@ def cohorts():
     ]
     out += [
         ('Went to a live diary (90 days)',
-         'Everybody who followed a link to Healthengine or Halaxy, where an appointment can '
+         'Everybody who followed a link to Healthengine, Halaxy or HotDoc, where an appointment can '
          'actually be made — as opposed to a clinic contact form.',
-         behavioural('booking-outbound', properties=equals('handoff_kind', 'diary'))),
+         behavioural('booking-outbound', properties=TO_A_DIARY)),
 
         ('Likely booked — diary, no quick return (90 days)',
          'Went to a live diary and did not come straight back to this site. The nearest thing to '
@@ -533,7 +544,7 @@ def cohorts():
              {'type': 'AND', 'values': [{
                  'key': 'booking-outbound', 'type': 'behavioral', 'value': 'performed_event',
                  'event_type': 'events', 'time_value': 90, 'time_interval': 'day',
-                 'event_filters': equals('handoff_kind', 'diary'),
+                 'event_filters': TO_A_DIARY,
              }]},
              {'type': 'AND', 'values': [{
                  'key': 'booking-returned', 'type': 'behavioral', 'value': 'performed_event',

@@ -103,7 +103,13 @@ html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }
   ::view-transition-group(portrait-alex-lawson),
   ::view-transition-group(portrait-trisha-harris),
   ::view-transition-group(portrait-bart-traynor), ::view-transition-group(portrait-jeff-leech), ::view-transition-group(portrait-michael-rehardt), ::view-transition-group(portrait-sarah-savage),
-  ::view-transition-group(portrait-yuri-lima), ::view-transition-group(portrait-tom-hissey), ::view-transition-group(portrait-lester-rafanan) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  ::view-transition-group(portrait-yuri-lima), ::view-transition-group(portrait-tom-hissey), ::view-transition-group(portrait-lester-rafanan),
+  ::view-transition-group(portrait-jae-cho), ::view-transition-group(portrait-rajitha-de-silva), ::view-transition-group(portrait-beth-hansen),
+  ::view-transition-group(portrait-bill-liley), ::view-transition-group(portrait-hannah-gray), ::view-transition-group(portrait-john-ruberry),
+  ::view-transition-group(portrait-kay-walls), ::view-transition-group(portrait-natalie-cook), ::view-transition-group(portrait-richard-hostiadi),
+  ::view-transition-group(portrait-sally-mcleod), ::view-transition-group(portrait-shwetha-murthy), ::view-transition-group(portrait-heather-mcauliffe),
+  ::view-transition-group(portrait-matthew-persello), ::view-transition-group(portrait-nzubechi-oguoma), ::view-transition-group(portrait-canice-curtis),
+  ::view-transition-group(portrait-tracey-dale) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 }
 /* A block that arrives via a page transition is already on screen: no second reveal */
 .js [data-reveal].no-anim, .js [data-reveal].no-anim img { transition: none !important; }

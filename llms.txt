@@ -50,6 +50,22 @@ Clinician profiles are written from each clinician's own description of their wo
 - [Dr Yuri Lima, Physiotherapist, Bundall, Gold Coast](https://www.adhdme.au/yuri-lima.html): Physiotherapist in orthopaedic and sports rehabilitation, with a PhD on ACL injuries in athletes. Atlantis Recovery Centre, Bundall, Gold Coast.
 - [Tom Hissey, Senior physiotherapist](https://www.adhdme.au/tom-hissey.html): Musculoskeletal and occupational rehabilitation physiotherapist, and an Australian Army veteran. Atlantis Recovery Centre, Bundall, Gold Coast.
 - [Lester Rafanan, Physiotherapist](https://www.adhdme.au/lester-rafanan.html): Physiotherapist for recovery from injury or surgery, chronic pain, return to sport and NDIS supports. Atlantis Recovery Centre, Bundall, Gold Coast.
+- [Dr Jae Cho, Specialist psychiatrist](https://www.adhdme.au/dr-jae-cho.html): Thorough, compassionate general psychiatry, with calm explanations that make difficult topics feel manageable and clear. Nurtured Thoughts Psychology.
+- [Dr Rajitha De Silva, Consultant psychiatrist](https://www.adhdme.au/dr-rajitha-de-silva.html): Over 16 years caring for adults, with a culturally sensitive approach that begins with feeling heard. Consultant psychiatrist at Nurtured Thoughts Psychology.
+- [Dr Beth Hansen, GP, Brisbane & telehealth](https://www.adhdme.au/dr-beth-hansen.html): A gentle, practical and thorough ADHD assessment for adults who have spent years masking, overcompensating or pushing through. GP, Brisbane & telehealth.
+- [Dr Bill Liley, Rural generalist](https://www.adhdme.au/dr-bill-liley.html): More than 40 years of practice and a whole-person approach to how ADHD shapes your day-to-day life. Rural generalist at Nurtured Thoughts Psychology.
+- [Dr Hannah Gray, GP, Brisbane & telehealth](https://www.adhdme.au/dr-hannah-gray.html): Calm, structured and collaborative, explaining each step so you understand the plan and why. GP at Nurtured Thoughts Psychology, Brisbane & telehealth.
+- [Dr John Ruberry, GP, Brisbane & telehealth](https://www.adhdme.au/dr-john-ruberry.html): Thirteen years in community general practice, and passionate about improving access to ADHD care. GP at Nurtured Thoughts Psychology, Brisbane & telehealth.
+- [Dr Kay Walls, GP, Brisbane & telehealth](https://www.adhdme.au/dr-kay-walls.html): An ADHD assessment that is never just a checklist: room to tell your whole story, and a plan that fits your life. GP at Nurtured Thoughts Psychology.
+- [Dr Natalie Cook, GP, Brisbane & telehealth](https://www.adhdme.au/dr-natalie-cook.html): Direct, honest and safety-focused advice, tailored to your work, sleep, family and day-to-day demands. GP at Nurtured Thoughts Psychology.
+- [Dr Richard Hostiadi, GP, Brisbane & telehealth](https://www.adhdme.au/dr-richard-hostiadi.html): Adult ADHD, men’s mental health and lifestyle medicine, with real insight into demanding, high-pressure work. GP at Nurtured Thoughts Psychology.
+- [Dr Sally McLeod, GP, Brisbane & telehealth](https://www.adhdme.au/dr-sally-mcleod.html): Helping adolescents and adults understand how their brain works, with thorough, evidence-based assessment. GP at Nurtured Thoughts Psychology.
+- [Dr Shwetha Murthy, GP, Brisbane & telehealth](https://www.adhdme.au/dr-shwetha-murthy.html): A structured assessment that maps how ADHD has shown up over time, and what it means for family life at home and at work. GP at Nurtured Thoughts Psychology.
+- [Heather McAuliffe, Clinical psychologist](https://www.adhdme.au/heather-mcauliffe.html): A neurodivergent clinical psychologist who makes assessment warm and safe, and treats you as the expert on your own experience. Nurtured Thoughts Psychology.
+- [Matthew Persello, Registered psychologist](https://www.adhdme.au/matthew-persello.html): Strengths-based, solution-focused therapy for adolescents and adults, with a focus on men’s mental health, neurodiversity and the LGBTQIA+ community.
+- [Nzubechi Oguoma, Registered psychologist](https://www.adhdme.au/nzubechi-oguoma.html): Working with individuals and families from age 5 and across the lifespan, including neurodevelopmental conditions. Nurtured Thoughts Psychology.
+- [Canice Curtis, Mental health social worker](https://www.adhdme.au/canice-curtis.html): A grounded, integrated and evidence-informed approach for people 15 and over, including complex trauma and ADHD. Nurtured Thoughts Psychology.
+- [Tracey Dale, Mental health social worker](https://www.adhdme.au/tracey-dale.html): Warm, empowering and highly personalised therapy, kept straightforward and free from unnecessary jargon. Mental health social worker, Brisbane & telehealth.
 
 ## ADHD care by place and profession
 
@@ -80,7 +96,7 @@ Clinician profiles are written from each clinician's own description of their wo
 
 ## About
 
-- [School support: preparing to talk to your child’s school](https://www.adhdme.au/school-support.html): A clearer way to work with your child’s school after an ADHD diagnosis or assessment. Three steps, what support can look like, and a guide for the meeting.
+- [School support: talking with your child’s school](https://www.adhdme.au/school-support.html): A clearer way to work with your child’s school after an ADHD diagnosis or assessment. Three steps, what support can look like, and a guide for the meeting.
 - [Learn about ADHD: research and resources](https://www.adhdme.au/learn.html): ADHD apps, lessons and resources for patients and parents, including Australia's clinical guideline, a First Nations factsheet and reading clinicians recommend.
 - [Our story: why we started ADHDme](https://www.adhdme.au/our-story.html): ADHDme was founded by two medical trainees with ADHD who had very different experiences of care. They built a network that looks beyond symptoms.
 
