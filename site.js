@@ -119,7 +119,7 @@
   if (!tablist || typeof window.switchCategory !== 'function') return;
   var tabs = [].slice.call(tablist.querySelectorAll('[role="tab"]'));
   var panels = [].slice.call(document.querySelectorAll('[role="tabpanel"]'));
-  var search = document.getElementById('dir-search'), count = document.getElementById('dir-count'), empty = document.getElementById('dir-empty');
+  var specialty = document.getElementById('dir-specialty'), count = document.getElementById('dir-count'), empty = document.getElementById('dir-empty');
   var clear = document.querySelector('.dir-clear'), intro = document.getElementById('dir-intro');
   var orderBox = document.querySelector('.dir-order'), orderSel = document.getElementById('dir-order');
   var modeBoxes = [].slice.call(document.querySelectorAll('.dir-modes input'));
@@ -158,7 +158,7 @@
   var state = EMPTY();
   function readUrl() {
     var p = new URLSearchParams(location.search);
-    state.q = p.get('q') || '';
+    state.q = '';   // the search field is gone; the specialty picker took its place
     state.modes = (p.get('mode') || '').split(',').filter(Boolean);
     state.order = p.get('order') || 'suggested';
     state.gp = p.get('gp') || ''; state.st = p.get('state') || ''; state.age = p.get('age') || '';
@@ -215,7 +215,7 @@
     return shown;
   }
   function paint() {
-    search.value = state.q;
+    if (specialty) specialty.value = selected();
     modeBoxes.forEach(function (b) { b.checked = state.modes.indexOf(b.value) >= 0; });
     orderSel.value = state.order;
     if (gpSel) gpSel.value = state.gp; if (stateSel) stateSel.value = state.st; if (ageSel) ageSel.value = state.age;
@@ -228,17 +228,13 @@
   // the page tells us when a category changes (a tab, a deep link, the sheet)
   var syncing = false;
   window.dirSync = function () { paint(); apply(); if (!syncing) writeUrl(true); };
-  var debounce;
-  search.addEventListener('input', function () {
-    clearTimeout(debounce);
-    debounce = setTimeout(function () { state.q = search.value.trim(); apply(); writeUrl(false); }, 200);
-  });
+  if (specialty) specialty.addEventListener('change', function () { window.switchCategory(specialty.value); });
   modeBoxes.forEach(function (b) { b.addEventListener('change', function () { state.modes = modeBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; }); apply(); writeUrl(false); }); });
   orderSel.addEventListener('change', function () { state.order = orderSel.value; apply(); writeUrl(false); });
   [[gpSel, 'gp'], [stateSel, 'st'], [ageSel, 'age']].forEach(function (pair) {
     if (pair[0]) pair[0].addEventListener('change', function () { state[pair[1]] = pair[0].value; apply(); writeUrl(false); });
   });
-  clear.addEventListener('click', function () { state = EMPTY(); paint(); apply(); writeUrl(false); search.focus(); });
+  clear.addEventListener('click', function () { state = EMPTY(); paint(); apply(); writeUrl(false); if (specialty) specialty.focus(); });
   window.addEventListener('popstate', function () {
     readUrl();
     var cat = (location.hash.match(/^#panel-([\w-]+)$/) || [])[1];

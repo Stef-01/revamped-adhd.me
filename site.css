@@ -323,8 +323,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .dir-tab:hover { background: #f6f4ee; border-color: #1a1c1c; }
 .dir-tab[aria-selected="true"] { background: #1a1c1c; border-color: #1a1c1c; color: #fff; }
 .dir-tab[aria-selected="true"]::before { content: "\2713"; font-size: 13px; }   /* a check as well as the colour */
-.dir-intro { max-width: 62ch; margin: 18px auto 0; padding: 12px 18px; border-left: 4px solid var(--tint, #f1bc31); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--tint, #f1bc31) 18%, #fff); font-size: 16px; line-height: 1.5; color: #1a1c1c; }
-.dir-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 20px; margin: 26px 0 18px; padding-top: 22px; border-top: 1px solid #e8e6df; }
+.dir-intro { max-width: none; margin: 0 0 18px; padding: 12px 18px; border-left: 4px solid var(--tint, #f1bc31); border-radius: 0 12px 12px 0; background: color-mix(in srgb, var(--tint, #f1bc31) 18%, #fff); font-size: 16px; line-height: 1.5; color: #1a1c1c; }
+.dir-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 12px 20px; margin: 26px 0 16px; }
 .dir-tools__search { flex: 1 1 260px; }
 .dir-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 700; color: #1a1c1c; }
 .dir-search { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 16px; color: #1a1c1c; }
@@ -337,6 +337,8 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .dir-select[hidden] { display: none; }
 .dir-select select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 15px; font-weight: 500; color: #1a1c1c; }
 .dir-select select:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 3px; }
+.dir-select--spec { flex: 1 1 240px; }
+.dir-select--spec select { width: 100%; font-weight: 700; }
 .dir-order { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: #1a1c1c; }
 .dir-order[hidden] { display: none; }
 .dir-order select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 15px; color: #1a1c1c; }
@@ -348,7 +350,7 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 html.no-js .dir-panels [role="tabpanel"].hidden { display: block; margin-top: 14px; }
 html.no-js .dir-tools, html.no-js .dir-intro { display: none; }
 .dir-panels ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.dir-card { display: grid; grid-template-columns: 198px minmax(0, 1fr); column-gap: 26px; align-items: start; padding: 18px; border-radius: 16px; background: #fff; border: 1px solid #e8e6df; scroll-margin-top: 6.5rem; content-visibility: auto; contain-intrinsic-size: auto 22rem; }
+.dir-card { display: grid; grid-template-columns: 198px minmax(0, 1fr); column-gap: 26px; align-items: start; padding: 18px; border-radius: 16px; background: #fff; border: 1px solid #e8e6df; scroll-margin-top: 6.5rem; content-visibility: auto; contain-intrinsic-block-size: auto 22rem; }   /* height only: the one-value shorthand would also claim 22rem of width */
 .dir-card[hidden] { display: none; }
 .dir-card > a { display: contents; }
 .dir-card > a > span:first-child { grid-column: 1; grid-row: 1 / span 4; }
@@ -384,10 +386,11 @@ body:has(.dir-sheet[open]) { overflow: hidden; }
   .dir-tabs { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding: 4px 2px 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .dir-tabs::-webkit-scrollbar { display: none; }
   .dir-tab { flex: 0 0 auto; }
-  .dir-modes, .dir-order, .dir-select { display: none; }
+  .dir-modes, .dir-order, .dir-select:not(.dir-select--spec) { display: none; }
+  .dir-select--spec { flex: 1 1 100%; }
   .dir-filter-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #1a1c1c; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: #1a1c1c; cursor: pointer; }
   .dir-filter-btn[aria-expanded="true"], .dir-filter-btn.is-active { background: #1a1c1c; color: #fff; }
-  .dir-card { grid-template-columns: 132px minmax(0, 1fr); column-gap: 14px; padding: 14px; contain-intrinsic-size: auto 30rem; }
+  .dir-card { grid-template-columns: 132px minmax(0, 1fr); column-gap: 14px; padding: 14px; contain-intrinsic-block-size: auto 30rem; }
   .dir-card strong { font-size: 19px; }
   .dir-card > .deck-bio, .dir-card > .deck-ages, .dir-card > div { grid-column: 1 / -1; }
 }

@@ -59,14 +59,13 @@
 <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.05]">ADHD clinicians in our network.</h1>
 <ul class="dir-trust" aria-label="How booking works"><li>Book directly with each practice.</li><li>No referral needed.</li><li>We take no commission.</li></ul>
 </div>
-<nav class="dir-cats" aria-label="Clinician categories">
+<nav class="dir-cats" aria-label="Clinician categories" hidden>
 <div role="tablist" aria-label="Clinician categories" class="dir-tabs">
 <button id="tab-btn-gps" class="dir-tab" data-intro="Answers at last. Get assessed and diagnosed, and start medication if it’s right for you. Already diagnosed? A GP can keep it going." style="--tint:#f1bc31" role="tab" aria-selected="true" aria-controls="panel-gps" onclick="switchCategory('gps')" type="button">GPs</button><button id="tab-btn-psychologists" class="dir-tab" data-intro="Feel like yourself again. Talk therapy for anxiety, low mood and the years of “try harder”, for children, teens and adults. Several also assess and diagnose." style="--tint:#8fc3ec" role="tab" aria-selected="false" aria-controls="panel-psychologists" onclick="switchCategory('psychologists')" type="button">Psychologists</button><button id="tab-btn-psychiatrists" class="dir-tab" data-intro="Specialist doctors for complex or overlapping conditions, medication questions a GP wants a second view on, and a thorough psychiatric assessment." style="--tint:#9dd6cf" role="tab" aria-selected="false" aria-controls="panel-psychiatrists" onclick="switchCategory('psychiatrists')" type="button">Psychiatrists</button><button id="tab-btn-allied-health" class="dir-tab" data-intro="More ways forward beyond medication: counselling for teens, adults and couples, brain training, and practising new skills between sessions until they stick." style="--tint:#e3bf8a" role="tab" aria-selected="false" aria-controls="panel-allied-health" onclick="switchCategory('allied-health')" type="button">Allied health</button><button id="tab-btn-coaches" class="dir-tab" data-intro="Get organised and stay on track. Coaches who understand ADHD, most of them former teachers, help students, families and adults build routines that last." style="--tint:#f7a58c" role="tab" aria-selected="false" aria-controls="panel-coaches" onclick="switchCategory('coaches')" type="button">Coaches</button><button id="tab-btn-occupational-therapy" class="dir-tab" data-intro="Calmer mornings, easier school days. For children and teens: routines and strategies that fit how your child works, built at home, at school or in the clinic." style="--tint:#9fd08f" role="tab" aria-selected="false" aria-controls="panel-occupational-therapy" onclick="switchCategory('occupational-therapy')" type="button">Occupational therapy</button><button id="tab-btn-physiotherapy" class="dir-tab" data-intro="Get moving again. Recover from pain or injury and get back to the things you love, at a pace you can keep up." style="--tint:#b7b0f0" role="tab" aria-selected="false" aria-controls="panel-physiotherapy" onclick="switchCategory('physiotherapy')" type="button">Physiotherapy</button><button id="tab-btn-exercise-physiology" class="dir-tab" data-intro="Exercise that works with your brain. Pilates, warm water and movement that helps focus, sleep and mood, built around what you’ll enjoy." style="--tint:#f2a7c8" role="tab" aria-selected="false" aria-controls="panel-exercise-physiology" onclick="switchCategory('exercise-physiology')" type="button">Exercise physiology</button>
 </div>
 </nav>
-<p id="dir-intro" class="dir-intro" style="--tint:#f1bc31">Answers at last. Get assessed and diagnosed, and start medication if it’s right for you. Already diagnosed? A GP can keep it going.</p>
 <form class="dir-tools" role="search" aria-label="Search and filter clinicians">
-<div class="dir-tools__search"><label class="dir-label" for="dir-search">Search clinicians</label><input id="dir-search" class="dir-search" type="search" autocomplete="off" spellcheck="false"></div>
+<label class="dir-select dir-select--spec"><span>Specialty</span><select id="dir-specialty"><option value="gps">GPs</option><option value="psychologists">Psychologists</option><option value="psychiatrists">Psychiatrists</option><option value="allied-health">Allied health</option><option value="coaches">Coaches</option><option value="occupational-therapy">Occupational therapy</option><option value="physiotherapy">Physiotherapy</option><option value="exercise-physiology">Exercise physiology</option></select></label>
 <fieldset class="dir-modes"><legend class="sr-only">Appointment mode</legend><label class="dir-check"><input type="checkbox" name="mode" value="in-person"> In person</label><label class="dir-check"><input type="checkbox" name="mode" value="telehealth"> Telehealth</label></fieldset>
 <label class="dir-select" data-for="gp" hidden><span>GP service</span><select id="dir-gp"><option value="">All GPs</option><option value="assess">Diagnoses and prescribes</option><option value="continue">Continuation only</option></select></label>
 <label class="dir-select"><span>State</span><select id="dir-state"><option value="">All states</option><option value="NSW">NSW</option><option value="QLD">QLD</option><option value="WA">WA</option></select></label>
@@ -76,6 +75,7 @@
 <p id="dir-count" class="dir-count" aria-live="polite"></p>
 <button type="button" class="dir-clear" hidden>Clear filters</button>
 </form>
+<p id="dir-intro" class="dir-intro" style="--tint:#f1bc31">Answers at last. Get assessed and diagnosed, and start medication if it’s right for you. Already diagnosed? A GP can keep it going.</p>
 <div class="w-full dir-panels">
 <div role="tabpanel" aria-labelledby="tab-btn-gps" id="panel-gps"><ul class="dir-list">
 <li id="anubhav-saxena" data-pinned class="dir-card" data-name="Dr Anubhav Saxena" data-region="Sydney, NSW" data-modes="in-person telehealth" data-state="NSW" data-ages="adults" data-gp="assess">
@@ -673,7 +673,7 @@
       var el = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null; if (!el) return null;
       var panel = el.closest('[role="tabpanel"]'); if (!panel) return null;
       if (panel.classList.contains('hidden')) switchCategory(panel.id.replace(/^panel-/, ''));
-      var target = el === panel ? (document.querySelector('[role="tablist"]') || el) : el;
+      var target = el === panel ? (document.querySelector('.dir-tools') || el) : el;
       target.scrollIntoView({ behavior: behavior, block: 'start' });
       return el;
     }
