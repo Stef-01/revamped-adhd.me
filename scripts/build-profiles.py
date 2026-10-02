@@ -379,7 +379,7 @@ CLINICIANS = [
         works_with=[
             'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
             'For daily life, occupational therapists and coaches turn the plan into routines.',
-            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral. You’ll find psychiatrists in the network too.',
             'Ask at your appointment how your GP shares information with your other clinicians.',
         ],
         about=[
@@ -426,7 +426,7 @@ CLINICIANS = [
         works_with=[
             'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
             'For daily life, occupational therapists and coaches turn the plan into routines.',
-            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral. You’ll find psychiatrists in the network too.',
             'Ask at your appointment how your GP shares information with your other clinicians.',
         ],
         about=[
@@ -477,7 +477,7 @@ CLINICIANS = [
         works_with=[
             'For the thinking and feeling side, a psychologist in the network. With a Mental Health Treatment Plan from a GP, Medicare pays part of up to 10 sessions a year.',
             'For daily life, occupational therapists and coaches turn the plan into routines.',
-            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral, and ADHDme does not list psychiatrists.',
+            'Where the picture is more complex, such as another serious mental illness or a history that makes stimulants risky, a psychiatrist is the right choice. That needs a GP referral. You’ll find psychiatrists in the network too.',
             'Ask at your appointment how your GP shares information with your other clinicians.',
         ],
         about=[
