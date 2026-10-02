@@ -37,6 +37,12 @@
       practice: 'Dr Yogesh Kalra\u2019s Surgery', destination: 'healthengine',
       expertise: ['medication', 'womens-health'], ages: ['adults']
     },
+    'allen-macbell': {
+      booking: /automedsystems\.com\.au\/ams\/clinics\/198\//, profile: 'dr-allen-macbell.html',
+      name: 'Dr Allen Macbell', category: 'gp',
+      practice: 'The Local Doctor', destination: 'automed',
+      expertise: ['assessment', 'medication', 'autism'], ages: ['children', 'teens', 'adults']
+    },
     'paula-garrido': {
       booking: /wellnesspsychologyclinic\.com\.au\/appointment-page/, profile: 'paula-garrido.html',
       name: 'Paula Garrido', category: 'psychologist',
@@ -364,7 +370,7 @@
   var CLINICIAN_NAMES = column('name');
   var CATEGORIES = column('category');        // gp · psychiatrist · psychologist · allied · exercise-physiology · coach
   var PRACTICES = column('practice');
-  var DESTINATIONS = column('destination');   // healthengine · halaxy · hotdoc · zanda · clinic-form · clinic-contact
+  var DESTINATIONS = column('destination');   // healthengine · halaxy · hotdoc · automed · zanda · clinic-form · clinic-contact
   // What the handoff actually was. A live diary can end in an appointment on the spot; an enquiry
   // form can only end in somebody being emailed back. Counting them in one bar makes a practice
   // with a contact form look like it converts as well as one with an open diary, which is the
@@ -377,7 +383,7 @@
   // a destination missing from this map is counted as an enquiry, which understates rather than
   // flatters.
   var DESTINATION_KIND = {
-    healthengine: 'diary', halaxy: 'diary', hotdoc: 'diary',
+    healthengine: 'diary', halaxy: 'diary', hotdoc: 'diary', automed: 'diary',
     zanda: 'enquiry', 'clinic-form': 'enquiry', 'clinic-contact': 'enquiry'
   };
   var HANDOFF_KINDS = ['diary', 'enquiry'];

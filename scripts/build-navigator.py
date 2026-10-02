@@ -174,12 +174,14 @@ DOMAINS = [
   dict(key='assessment', label='ADHD assessment and diagnosis', who=[
    ('anubhav-saxena', 'Structured adult ADHD assessment'),
    ('anu-saxena', 'Endorsed ADHD prescriber course'),
+   ('allen-macbell', 'Children 10 and over, teens and adults'),
    ('lachlan-avent', 'Autism & ADHD assessment'),
    ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment'),
    ('chantelle-pin', 'Clinical psychologist · Taking on assessments')]),
   dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course'),
+   ('allen-macbell', 'Same doctor from assessment to follow-up'),
    ('yogesh-kalra', 'Continues ADHD medication · Bulk billed')]),
   dict(key='mood', label='Anxiety and low mood', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),

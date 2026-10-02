@@ -19,7 +19,7 @@ CITIES = [  # name, lon, lat, label position, live
     ('Gold Coast',      153.40, -28.02, 'right-down', True),
     ('Sydney',          151.21, -33.87, 'right',      True),
     ('Snowy Mountains', 148.62, -36.41, 'right',      True),
-    ('Melbourne',       144.96, -37.81, 'left-down',  False),
+    ('Melbourne',       144.96, -37.81, 'left-down',  True),
     ('Perth',           115.86, -31.95, 'right',      True),
 ]
 

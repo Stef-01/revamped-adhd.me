@@ -492,6 +492,61 @@ CLINICIANS = [
         disclosure='Dr Yogesh Kalra’s Surgery is an independent practice.',
         schema=dict(type='Physician', areas=['Bateau Bay'], state='NSW'),
     ),
+    # Dr Allen Macbell, The Local Doctor, Ivanhoe in Melbourne. From thelocaldoctor.com.au/doctors/allen-macbell/ and
+    # /services/adhd/ (2026-10-02), with his permission. ADHD appointments are at the Ivanhoe clinic only.
+    dict(
+        slug='dr-allen-macbell', id='allen-macbell', category='gp',
+        ages=['children', 'teens', 'adults'],
+        name='Dr Allen Macbell', short='Dr Macbell', role='GP', pronouns='he/him',
+        practice='The Local Doctor', place='Ivanhoe, Melbourne', descriptor=None,
+        description='ADHD assessment, diagnosis and ongoing care for children aged 10 and over, teens and adults, with the same doctor throughout.',
+        chips=['Children 10 and over', 'Autism and ADHD together', 'No referral needed'],
+        telehealth=False,
+        book_href='https://automedsystems.com.au/ams/clinics/198/the-local-doctor-ivanhoe-3079/doctors', book_hint='Opens AutoMed Systems in a new tab.',
+        links=[('website', 'thelocaldoctor.com.au', 'https://thelocaldoctor.com.au/services/adhd/')],
+        fees=dict(
+            heading='What a diagnosis costs',
+            figures=[('$128', 'Initial consultation'), ('$248', 'Comprehensive assessment'), ('$248', 'Diagnostic consultation')],
+            notes=[
+                'Three appointments, $624 out of pocket in total.',
+                'Medicare rebates apply where eligible. An extra review is occasionally needed.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='General practitioner, FRACGP',
+        languages=[],
+        experience=[
+            'More than 15 years of ADHD assessment and care',
+            'RACGP Victorian GP ADHD Training and Support Program',
+            'Member, Australasian ADHD Professionals Association (AADPA)',
+            'Teacher, tutor and mentor, University of Melbourne and Monash University',
+            'Fellow of the Royal Australian College of General Practitioners',
+            'Earlier work in emergency departments and aged care',
+        ],
+        pathway=[
+            ('Initial consultation', '20 minutes to see if a full assessment is right for you. $128.'),
+            ('Comprehensive assessment', '40 minutes on your history. $248.'),
+            ('Diagnostic consultation', '40 minutes on the findings and your plan. $248.'),
+            ('After the diagnosis', 'Medication if it’s right for you, reviewed every 4 to 6 weeks at first.'),
+        ],
+        works_with=[
+            'Allen works with psychologists, psychiatrists, schools and allied health professionals when it helps.',
+            'Where specialist input is needed, he may recommend a referral to a paediatrician or psychiatrist.',
+            'Already diagnosed by a paediatrician or psychiatrist? He can review that assessment and, where appropriate, continue your care without a new one.',
+            'You can keep your regular GP for everything else.',
+        ],
+        about=[
+            'Allen is a GP at The Local Doctor in Ivanhoe, in Melbourne’s north-east, with more than 15 years in ADHD care. He has assessed and managed ADHD in many hundreds of children, teenagers and adults, including people with both autism and ADHD. He sees children aged 10 and over, teens and adults, and does every assessment himself, so you stay with one doctor from the first consultation through diagnosis, treatment and follow-up. His approach is practical and individual, looking at how ADHD affects study, work, relationships and everyday life. He was selected for the RACGP Victorian GP ADHD Training and Support Program, and teaches and mentors medical students and graduates. His other interest is skin cancer medicine.',
+        ],
+        details=[
+            ('Reach', 'Practice appointments in Ivanhoe, Melbourne'),
+            ('Appointments', '20 minutes, then two of 40 minutes'),
+            ('Billing', '$624 out of pocket across three appointments; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure='The Local Doctor is an independent practice.',
+        schema=dict(type='Physician', areas=['Ivanhoe'], state='VIC'),
+    ),
     dict(
         slug='paula-garrido', id='paula-garrido', category='psychologist',
         ages=['adults'],
@@ -2459,8 +2514,10 @@ CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benow
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
         'Graceville': 'Brisbane, QLD'}
 REGION_BY_ID = {'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
+                'allen-macbell': 'Melbourne, VIC',
                 'paula-garrido': 'Australia-wide via telehealth'}
 SUBURBS_BY_ID = {'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
+                 'allen-macbell': 'Ivanhoe',
                  'paula-garrido': '', 'alex-lawson': 'Sutherland Shire'}
 AGE_LABEL = {'children': 'children', 'teens': 'teens', 'adults': 'adults'}
 
@@ -2470,7 +2527,7 @@ def city(c):
 
 
 def state_of(c):
-    """The state the practice is in: NSW, QLD or WA."""
+    """The state the practice is in: NSW, QLD, VIC or WA."""
     return (c['schema'].get('works_for') or {}).get('state') or c['schema'].get('state') or ''
 
 
@@ -2625,7 +2682,7 @@ BOOK_HREF = 'the-doctors.html#{}'
 
 # A diary you can pick a time in, or a form the practice answers. The button says which, and each
 # list on The Network puts the diaries first: the easiest people to reach are the first ones you meet.
-ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au')
+ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au', 'automedsystems.com.au')
 
 
 def books_online(c):
@@ -2678,6 +2735,7 @@ CARD_LINES = {
     'anubhav-saxena': 'An ADHD assessment that looks at the whole of you: sleep, heart and general health, with a baseline taken before anything starts. He works from measurement, not impression, and reviews you at set times.',
     'anu-saxena': 'A GP who came to medicine through a psychology degree, with a special interest in ADHD, mental health and women’s health. She sees children and adults, in English, Hindi or Urdu.',
     'yogesh-kalra': 'Keeps your ADHD medication going once you’re diagnosed, so you can manage it close to home, bulk billed. He isn’t diagnosing ADHD yet; that’s planned for the future.',
+    'allen-macbell': 'More than 15 years of ADHD care for children aged 10 and over, teens and adults, including autism and ADHD together. You see the same doctor from the first appointment to diagnosis, treatment and follow-up.',
     'paula-garrido': 'A clinical psychologist certified in ADHD and autism care, seeing you by video anywhere in Australia. Her care is neuroaffirming and trauma-aware, and helps you understand your strengths as well as your challenges.',
     'kate-row': 'Helps everyone from toddlers to adults build a toolkit of practical coping strategies. She has a lifelong passion for supporting people with disability, and can guide your family through the NDIS.',
     'ellie-putland': 'Gentle, trauma-aware therapy for children, teens and adults, with a soft spot for young people. She works alongside families and stays in touch with the rest of your support team.',

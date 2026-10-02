@@ -50,7 +50,7 @@ CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('
 # destination but no handoff_kind, so a tile that reads handoff_kind alone drops them. Every tile
 # here reads the kind through HANDOFF_KIND, or filters on the destination, so old and new clicks
 # count the same way.
-DIARY_DESTINATIONS = ['healthengine', 'halaxy', 'hotdoc']
+DIARY_DESTINATIONS = ['healthengine', 'halaxy', 'hotdoc', 'automed']
 HANDOFF_KIND = ('coalesce(properties.handoff_kind, if(properties.destination in ('
                 + ', '.join(f"'{d}'" for d in DIARY_DESTINATIONS) + "), 'diary', 'enquiry'))")
 TO_A_DIARY = [{'key': 'destination', 'value': DIARY_DESTINATIONS, 'operator': 'exact', 'type': 'event'}]
