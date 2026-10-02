@@ -44,8 +44,9 @@ const RULES = {
   legal:   { words: 800, fold: 200, block: 60, h1: 8,  lede: 40 },   // privacy, terms and the like
 };
 // Pages allowed past their type's limit, each with the reason. Learn carries the Apps list (twelve apps, a line
-// each), which the owner asked for in full.
-const OVERRIDES = { learn: { words: 600 } };
+// each), which the owner asked for in full. The Network's cards carry a two-sentence bio each, which the owner
+// asked for so a reader can tell clinicians apart without opening every profile.
+const OVERRIDES = { learn: { words: 600 }, 'the-doctors': { words: 260, fold: 100 } };
 const LEGAL = ['privacy', 'terms', 'automated-decisions', 'measurement'];
 const HUBS = ['learn', 'adhd-services'];
 

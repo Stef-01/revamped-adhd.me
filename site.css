@@ -342,7 +342,7 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 html.no-js .dir-panels [role="tabpanel"].hidden { display: block; margin-top: 14px; }
 html.no-js .dir-tools, html.no-js .dir-intro { display: none; }
 .dir-panels ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.dir-card { display: grid; grid-template-columns: 132px minmax(0, 1fr); column-gap: 22px; align-items: start; padding: 18px; border-radius: 16px; background: #fff; border: 1px solid #e8e6df; scroll-margin-top: 6.5rem; content-visibility: auto; contain-intrinsic-size: auto 18rem; }
+.dir-card { display: grid; grid-template-columns: 198px minmax(0, 1fr); column-gap: 26px; align-items: start; padding: 18px; border-radius: 16px; background: #fff; border: 1px solid #e8e6df; scroll-margin-top: 6.5rem; content-visibility: auto; contain-intrinsic-size: auto 22rem; }
 .dir-card[hidden] { display: none; }
 .dir-card > a { display: contents; }
 .dir-card > a > span:first-child { grid-column: 1; grid-row: 1 / span 4; }
@@ -381,7 +381,7 @@ body:has(.dir-sheet[open]) { overflow: hidden; }
   .dir-modes, .dir-order, .dir-select { display: none; }
   .dir-filter-btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1.5px solid #1a1c1c; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: #1a1c1c; cursor: pointer; }
   .dir-filter-btn[aria-expanded="true"], .dir-filter-btn.is-active { background: #1a1c1c; color: #fff; }
-  .dir-card { grid-template-columns: 88px minmax(0, 1fr); column-gap: 14px; padding: 14px; contain-intrinsic-size: auto 22rem; }
+  .dir-card { grid-template-columns: 132px minmax(0, 1fr); column-gap: 14px; padding: 14px; contain-intrinsic-size: auto 30rem; }
   .dir-card strong { font-size: 19px; }
   .dir-card > .deck-bio, .dir-card > .deck-ages, .dir-card > div { grid-column: 1 / -1; }
 }
