@@ -262,7 +262,7 @@ posthog-js refuses to capture anything from a user agent it reads as a bot, and 
 
 Two things separate a handoff that could have become an appointment from one that could not, and the dashboard now reads both.
 
-**A diary is not an enquiry.** Healthengine, Halaxy and HotDoc land in a live diary where an appointment is made on the spot. Zanda and the clinic contact forms can only end in somebody being emailed back. Counted in one bar, a practice with a form looks like it converts as well as one with an open diary. `booking-outbound` carries `handoff_kind` for this, and the split is not a separate opinion: it is `ONLINE_DIARIES` in `scripts/build-profiles.py`, already what decides whether a card's button reads Book or Enquire, and what `check-site.py` enforces. Zanda counts as an enquiry despite its URL saying `appointment-booking`, because the button says "Enquire". **Keep `DESTINATION_KIND` in `analytics.js` in step with that tuple**; a destination missing from the map counts as an enquiry, which understates rather than flatters.
+**A diary is not an enquiry.** Healthengine, Halaxy and HotDoc land in a live diary where an appointment is made on the spot. Zanda and the clinic contact forms can only end in somebody being emailed back. Counted in one bar, a practice with a form looks like it converts as well as one with an open diary. `booking-outbound` carries `handoff_kind` for this, and the split is not a separate opinion: it is `ONLINE_DIARIES` in `scripts/build-profiles.py`, already what decides whether a card's button reads Book or Enquire, and what `check-site.py` enforces. Zanda counts as an enquiry despite its URL saying `appointment-booking`, because the button says "Enquire". `DESTINATION_KIND` in `analytics.js` is written from that same test by `scripts/build-profiles.py`, so the two cannot drift; a destination missing from the map would count as an enquiry, which understates rather than flatters.
 
 **How long the practice's page held them.** Booking links open in a new tab, so the page survives the handoff and can time the tab next door. `booking-returned` reports the gap in bands — under thirty seconds is a glance, minutes is a form being filled in. The *absence* of the event is the strong signal: a handoff nobody comes back from is somebody who stayed. A return after more than two hours is dropped, because that is a closed laptop.
 
@@ -286,12 +286,14 @@ Three playlists are built alongside the dashboard, so nobody has to scroll a tho
 | `deck-viewed` | The Network was opened, and how many cards it held |
 | `deck-card-opened` | which clinician card was pressed, and their discipline |
 | `profile-viewed` | whose page, their discipline, their practice, which surface they came from |
+| `profile-fees-seen` | the fee table scrolled into view, once per profile view, at the moment it happened |
+| `profile-engaged` | sent as a profile page goes away: how far it was read, how long it held the screen, and whether it ended in a booking click |
 | `booking-outbound` | who they went to book with, their discipline, their practice, where the link lands, which surface, which named link, and whether that link is a live diary or an enquiry form |
 | `booking-returned` | they came back to this tab from the practice's page, and roughly how long they were gone |
 
 ### Expertise, and what the network is short of
 
-Each clinician in the `analytics.js` registry carries `expertise` and `ages` alongside their discipline and practice, derived from the `chips` and `experience` in `scripts/build-profiles.py`. They ride along on `profile-viewed`, `booking-outbound` and `profile-engaged` as lists, so a breakdown counts a clinician once under each thing they are sought for. The point is the gap: *What the network is asked for* reads how many people opened somebody with a given expertise against how many went on to book, and a wide gap there is a discipline the network is thin on rather than a page that reads badly. Keep the two registries in step when a clinician's focus changes.
+Each clinician in the `analytics.js` registry carries `expertise` and `ages` alongside their discipline and practice, kept as `EXPERTISE` in `scripts/build-profiles.py` (a clinician without a row gets their category's default). They ride along on `profile-viewed`, `booking-outbound` and `profile-engaged` as lists, so a breakdown counts a clinician once under each thing they are sought for. The point is the gap: *What the network is asked for* reads how many people opened somebody with a given expertise against how many went on to book, and a wide gap there is a discipline the network is thin on rather than a page that reads badly. Change a clinician's focus there and rebuild.
 
 ### Where a visit came from, and which post produced it
 
@@ -303,7 +305,15 @@ The tag is held in `sessionStorage` for the length of the visit, so a booking th
 
 Trends answer "how many". The questions with a ratio or a join in them are HogQL tiles in `scripts/posthog-dashboard.py`: the clinician scorecard, who is starved of referrals, what the network is asked for, and who read the fee table and left anyway. Two things to know if you edit them: every property comes out of the store as a string, so a number needs `toFloat()` before `avg`; and a list property is a JSON string in a nullable column, so it needs `JSONExtract(ifNull(properties.x, '[]'), 'Array(String)')` rather than going straight into `arrayJoin`.
 
-The clinician, discipline, practice and destination vocabularies are generated from the registry at the top of `analytics.js`, so a dashboard cannot show a clinician this site does not have. `scripts/build-profiles.py --check` refuses to build a profile page that registry does not declare. Adding a clinician means adding them in both places.
+The clinician, discipline, practice and destination vocabularies are generated from the registry at the top of `analytics.js`, so a dashboard cannot show a clinician this site does not have. That registry is itself written by `scripts/build-profiles.py` from `CLINICIANS`, between `// BEGIN:GENERATED` markers, so adding a clinician there is all it takes; `--check` fails if the file on disk has drifted from the data.
+
+### The funnels
+
+A visit has six stages, and the dashboard shows every one: arrived, browsed The Network, opened a card there, opened a clinician's page, scrolled to the fees, pressed Book or Enquire. Arrival, the profile and the booking click are required stages. The other three are marked optional (`optionalInFunnel`), so a visitor who lands on a profile from a search, or books from the top of a page without scrolling, still counts at every stage after the one they skipped. *Every stage, from arrival to booking* is that funnel; *Every stage, by where they came from* splits it by channel; *Profile → fees → booking, by clinician* is the same idea per clinician, with every stage attributed to that one clinician.
+
+PostHog's funnel can only follow events in order, so *Every stage, furthest reached* does the rest as a table: everybody who got at least as far as each stage, with search pages and the care navigator counted as browsing, and two stages past the click — reaching a live diary, and not coming straight back from it within two minutes (likely booked, a proxy like `likely_booked`). The old landing-first funnel and the two-step profile → booking funnel are listed in `RETIRED` in `scripts/posthog-dashboard.py`, which takes them off the dashboard on the next run without deleting them.
+
+Every tile's query is checked against PostHog's own schema before it ships: `posthog/schema.py` from PostHog's repository validates each tile's JSON (it forbids unknown fields, so a misspelt one fails), and the `hogql-parser` package parses each SQL tile.
 
 A page that grows a second booking link should mark it with `data-booking-link="<name>"` and add that name to `BOOKING_LINKS`; otherwise the link is attributed to the page it sits on (`profile-cta` on a profile, `deck-card` on The Network).
 

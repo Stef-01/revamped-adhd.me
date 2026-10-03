@@ -64,6 +64,29 @@ HANDOFF_KIND = ('coalesce(properties.handoff_kind, if(properties.destination in 
                 + ', '.join(f"'{d}'" for d in DIARY_DESTINATIONS) + "), 'diary', 'enquiry'))")
 TO_A_DIARY = [{'key': 'destination', 'value': DIARY_DESTINATIONS, 'operator': 'exact', 'type': 'event'}]
 
+# Words for tile descriptions, from the same data, so a description cannot go stale when the network grows.
+DESTINATION_NAMES = {'healthengine': 'Healthengine', 'halaxy': 'Halaxy', 'hotdoc': 'HotDoc', 'automed': 'AutoMed',
+                     'zanda': 'Zanda'}
+NUMBER_WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+
+
+def number(n):
+    return NUMBER_WORDS[n] if n < len(NUMBER_WORDS) else str(n)
+
+
+def listed(words):
+    return words[0] if len(words) == 1 else ', '.join(words[:-1]) + ' and ' + words[-1]
+
+
+DIARY_WORDS = listed([DESTINATION_NAMES.get(d, d.title()) for d in DIARY_DESTINATIONS])
+CATEGORY_WORDS = listed([plural if plural[:2].isupper() else plural.lower() for _, plural in CATEGORIES])
+_by_practice = {}
+for _c in profiles.CLINICIANS:
+    _by_practice.setdefault(_c['practice'], []).append(_c)
+LARGEST_PRACTICE, _largest = max(_by_practice.items(), key=lambda kv: len(kv[1]))
+LARGEST_COUNT = len(_largest)
+PRACTICE_COUNT = len(_by_practice)
+
 
 # --------------------------------------------------------------------------- query shorthand
 
@@ -91,17 +114,51 @@ def trend(*names, math='total', breakdown=None, display='ActionsLineGraph', inte
     return {'kind': 'InsightVizNode', 'source': source}
 
 
-def funnel(*names, breakdown=None, window=WINDOW):
+def step(event, label, optional=False, properties=None):
+    """One funnel stage, named in the dashboard's words. An optional stage can be skipped without
+    dropping the person from the stages after it: somebody who lands on a profile from a search never
+    sees The Network, and still counts when they book."""
+    node = {'kind': 'EventsNode', 'event': event, 'name': event, 'custom_name': label}
+    if optional:
+        node['optionalInFunnel'] = True
+    if properties:
+        node['properties'] = properties
+    return node
+
+
+def funnel(*steps, breakdown=None, window=WINDOW, attribution=None):
+    series = [s if isinstance(s, dict) else {'kind': 'EventsNode', 'event': s, 'name': s} for s in steps]
+    # PostHog requires the first and last stages to be required; a funnel that could be entered or
+    # finished by skipping would have no fixed start or end to measure between.
+    assert not series[0].get('optionalInFunnel') and not series[-1].get('optionalInFunnel'), \
+        'the first and last funnel stages must be required'
+    funnels_filter = {'funnelVizType': 'steps', 'funnelOrderType': 'ordered'}
+    if attribution:
+        funnels_filter['breakdownAttributionType'] = attribution
     source = {
         'kind': 'FunnelsQuery',
         'dateRange': {'date_from': window},
-        'series': [{'kind': 'EventsNode', 'event': n, 'name': n} for n in names],
-        'funnelsFilter': {'funnelVizType': 'steps', 'funnelOrderType': 'ordered'},
+        'series': series,
+        'funnelsFilter': funnels_filter,
         'filterTestAccounts': True,
     }
     if breakdown:
         source['breakdownFilter'] = {'breakdowns': [{'type': 'event', 'property': breakdown}], 'breakdown_limit': 25}
     return {'kind': 'InsightVizNode', 'source': source}
+
+
+# Every stage of a visit, in the order it happens. Arrival, opening a clinician's page and pressing Book
+# or Enquire are required; the stages between them are optional, because a visitor from a search lands
+# on a profile without seeing The Network, and somebody can book from the top of a profile without
+# scrolling to the fees. Each optional bar still shows how many people went through that stage.
+JOURNEY = [
+    step('page-viewed', 'Arrived on the site'),
+    step('deck-viewed', 'Browsed The Network', optional=True),
+    step('deck-card-opened', 'Opened a card on The Network', optional=True),
+    step('profile-viewed', 'Opened a clinician’s page'),
+    step('profile-fees-seen', 'Scrolled to the fees', optional=True),
+    step('booking-outbound', 'Pressed Book or Enquire'),
+]
 
 
 def sql(query):
@@ -112,6 +169,58 @@ def sql(query):
     return {'kind': 'DataVisualizationNode',
             'source': {'kind': 'HogQLQuery', 'query': query.replace('HANDOFF_KIND', HANDOFF_KIND)},
             'display': 'ActionsTable'}
+
+
+# Every stage as a table: each person's furthest stage, then everybody who got at least that far, so the
+# rows only ever shrink. Unlike the native funnel it has no fixed order and no fixed entry, so a search
+# page or the care navigator counts as browsing, and it can follow a handoff past the click: to a live
+# diary, and to a diary they did not come straight back from. Older profile views that predate
+# profile-fees-seen count as reaching the fees from profile-engaged's depth instead.
+STAGE_NAMES = ['1 · Arrived on the site', '2 · Looked at clinicians', '3 · Opened a clinician’s page',
+               '4 · Scrolled to the fees', '5 · Pressed Book or Enquire', '6 · Reached a live diary',
+               '7 · Did not come straight back (likely booked)']
+STAGES_SQL = """
+select arrayElement([""" + ', '.join("'" + n + "'" for n in STAGE_NAMES) + """], i) as stage,
+       arrayElement([s1, s2, s3, s4, s5, s6, s7], i)                             as people,
+       round(100.0 * arrayElement([s1, s2, s3, s4, s5, s6, s7], i)
+             / nullIf(arrayElement([s1, s1, s2, s3, s4, s5, s6], i), 0), 1)       as pct_of_previous,
+       round(100.0 * arrayElement([s1, s2, s3, s4, s5, s6, s7], i)
+             / nullIf(s1, 0), 1)                                                 as pct_of_arrivals
+from (
+    select arrayJoin([1, 2, 3, 4, 5, 6, 7]) as i, s1, s2, s3, s4, s5, s6, s7
+    from (
+        select count()                                          as s1,
+               countIf(reached >= 2)                            as s2,
+               countIf(reached >= 3)                            as s3,
+               countIf(reached >= 4)                            as s4,
+               countIf(reached >= 5)                            as s5,
+               countIf(reached >= 6)                            as s6,
+               countIf(reached >= 6 and came_straight_back = 0) as s7
+        from (
+            select person_id,
+                   max(multiIf(event = 'booking-outbound' and HANDOFF_KIND = 'diary', 6,
+                               event = 'booking-outbound', 5,
+                               event = 'profile-fees-seen', 4,
+                               event = 'profile-engaged'
+                                 and properties.depth in ('fees', 'network', 'end'), 4,
+                               event = 'profile-viewed', 3,
+                               event in ('deck-viewed', 'deck-card-opened'), 2,
+                               event = 'page-viewed'
+                                 and properties.page in ('network', 'service', 'navigator'), 2,
+                               1))                              as reached,
+                   countIf(event = 'booking-returned' and HANDOFF_KIND = 'diary'
+                           and properties.away_band in ('under-30s', '30s-2m')) as came_straight_back
+            from events
+            where properties.$host in ('www.adhdme.au', 'adhdme.au')
+              and ifNull(person.properties.$internal_or_test_user, false) = false
+              and timestamp > now() - interval 30 day
+              and event in ('page-viewed', 'deck-viewed', 'deck-card-opened', 'profile-viewed',
+                            'profile-fees-seen', 'profile-engaged', 'booking-outbound', 'booking-returned')
+            group by person_id
+        )
+    )
+)
+order by stage"""
 
 
 def lifecycle(event='$pageview', interval='week', window='-90d'):
@@ -126,6 +235,15 @@ def lifecycle(event='$pageview', interval='week', window='-90d'):
 
 def equals(key, value):
     return [{'key': key, 'value': [value], 'operator': 'exact', 'type': 'event'}]
+
+
+# Tiles this file used to build under another name. Each run takes them off the dashboard (the insight
+# itself is kept in PostHog, so nothing it showed is lost); unlike --prune it touches only these names,
+# never a tile somebody added by hand.
+RETIRED = [
+    'Landing → deck → profile → booking',   # started at the landing page, so a search arrival never entered it
+    'Profile → booking, by clinician',      # two stages; replaced by Profile → fees → booking
+]
 
 
 # --------------------------------------------------------------------------- the tiles
@@ -156,16 +274,15 @@ def tiles():
          trend('booking-outbound', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
 
         ('Booking clicks by discipline',
-         'Psychologist, allied health, GP, psychiatrist, exercise physiology or coach. The site’s own six categories.',
+         f'{CATEGORY_WORDS[0].upper() + CATEGORY_WORDS[1:]}: the site’s own {number(len(CATEGORIES))} categories.',
          trend('booking-outbound', breakdown='category', display='ActionsBarValue')),
 
         ('Booking clicks by practice',
-         'Which practice the handoff went to: GOALS Psychology, Wellness Psychology Clinic, REACH '
-         'ADHD, Neurotherapy Clinics Australia, or a GP clinic.',
+         f'Which practice the handoff went to, across the {number(PRACTICE_COUNT)} practices in the network.',
          trend('booking-outbound', breakdown='practice', display='ActionsBarValue')),
 
         ('Booking clicks by destination',
-         'Healthengine, Halaxy, or a clinic’s own form. Where a click actually lands.',
+         f'{DIARY_WORDS}, or a clinic’s own form or contact page. Where a click actually lands.',
          trend('booking-outbound', breakdown='destination', display='ActionsPie')),
 
         ('Which link they pressed',
@@ -187,8 +304,8 @@ def tiles():
          trend('profile-viewed', math='dau', breakdown='clinician_name', display='ActionsBarValue')),
 
         ('Unique visitors by practice',
-         'The same people count rolled up to the practice, so GOALS Psychology’s eight clinicians '
-         'read as one audience rather than eight small ones.',
+         f'The same people count rolled up to the practice, so {LARGEST_PRACTICE}’s '
+         f'{number(LARGEST_COUNT)} clinicians read as one audience rather than {number(LARGEST_COUNT)} small ones.',
          trend('profile-viewed', math='dau', breakdown='practice', display='ActionsBarValue')),
 
         ('Unique visitors by clinician, by week',
@@ -198,7 +315,7 @@ def tiles():
                display='ActionsLineGraph', interval='week', window='-90d')),
 
         ('Diary bookings against enquiries',
-         'The split that matters: a live diary (Healthengine, Halaxy, HotDoc) can end in an appointment '
+         f'The split that matters: a live diary ({DIARY_WORDS}) can end in an appointment '
          'there and then; a clinic contact form can only end in somebody being emailed back. '
          'Counting them together flatters whoever has a form.',
          trend('booking-outbound', breakdown=HANDOFF_KIND, breakdown_type='hogql', display='ActionsBarValue')),
@@ -219,14 +336,30 @@ def tiles():
          'Which clinician card people press on The Network.',
          trend('deck-card-opened', breakdown='clinician_name', display='ActionsBarValue')),
 
-        ('Landing → deck → profile → booking',
-         'The whole funnel. The last step is a handoff, not a booking: whether an appointment '
-         'happened is not observable from this site.',
-         funnel('landing-viewed', 'deck-viewed', 'profile-viewed', 'booking-outbound')),
+        ('Every stage, from arrival to booking',
+         'All six stages of a visit, whichever page it starts on. The Network, its cards and the fee '
+         'table are optional stages: skipping one does not drop a person from the stages after it. '
+         'The last stage is a handoff, not a booking; the stage table below follows it to the diary.',
+         funnel(*JOURNEY)),
 
-        ('Profile → booking, by clinician',
-         'Of the people who open a clinician’s page, how many follow their booking link.',
-         funnel('profile-viewed', 'booking-outbound', breakdown='clinician_name')),
+        ('Every stage, by where they came from',
+         'The same six stages, split by the channel of the visit (search, Instagram, newsletter, '
+         'direct and so on), so a channel that sends readers who never book shows up as one.',
+         funnel(*JOURNEY, breakdown='channel')),
+
+        ('Every stage, furthest reached (30 days)',
+         'One row per stage: everybody who got at least that far, whichever route they took, so search '
+         'pages and the care navigator count as browsing. Goes past the click to a live diary, and to '
+         'a diary they did not come straight back from within two minutes (likely booked).',
+         sql(STAGES_SQL)),
+
+        ('Profile → fees → booking, by clinician',
+         'Per clinician: people who opened the page, scrolled to the fees, and pressed Book or Enquire '
+         'for that same clinician. The fee stage is optional, so a booking from the top still counts.',
+         funnel(step('profile-viewed', 'Opened the page'),
+                step('profile-fees-seen', 'Scrolled to the fees', optional=True),
+                step('booking-outbound', 'Pressed Book or Enquire'),
+                breakdown='clinician_name', attribution='all_events')),
 
         ('Which door they came through',
          'The named controls on the landing page and in the header.',
@@ -238,16 +371,19 @@ def tiles():
     ]
     out += [
         ('Clinician scorecard (30 days)',
-         'One row per clinician: how many people saw their card, opened their page, and went on to '
-         'book. The rate counts people, not clicks, so it cannot exceed 100%. days_since is blank '
-         'for anyone who has never had a handoff.',
+         'One row per clinician: how many people saw their card, opened their page, scrolled to the '
+         'fees, pressed Book or Enquire, and reached a live diary. The rate counts people, not clicks, '
+         'so it cannot exceed 100%. days_since is blank for anyone who has never had a handoff.',
          sql("""
 select properties.clinician_name                                        as clinician,
        anyIf(properties.practice, event = 'profile-viewed')             as practice,
        anyIf(properties.category, event = 'profile-viewed')             as discipline,
        uniqIf(person_id, event = 'deck-card-opened')                    as saw_card,
        uniqIf(person_id, event = 'profile-viewed')                      as read_page,
+       uniqIf(person_id, event = 'profile-fees-seen')                   as saw_fees,
        uniqIf(person_id, event = 'booking-outbound')                    as booked,
+       uniqIf(person_id, event = 'booking-outbound'
+              and HANDOFF_KIND = 'diary')                  as reached_diary,
        round(100.0 * uniqIf(person_id, event = 'booking-outbound')
              / nullIf(uniqIf(person_id, event = 'profile-viewed'), 0), 1) as pct_of_readers,
        countIf(event = 'booking-outbound')                              as handoff_clicks,
@@ -257,7 +393,7 @@ from events
 where properties.$host in ('www.adhdme.au', 'adhdme.au')
   and ifNull(person.properties.$internal_or_test_user, false) = false
   and timestamp > now() - interval 30 day
-  and event in ('deck-card-opened', 'profile-viewed', 'booking-outbound')
+  and event in ('deck-card-opened', 'profile-viewed', 'profile-fees-seen', 'booking-outbound')
   and properties.clinician_name is not null
 group by clinician
 order by booked desc, read_page desc""")),
@@ -708,6 +844,9 @@ def audit():
                          f'{DESCRIPTION_LIMIT}-character limit PostHog enforces:\n{lines}')
     names = [n for _, items in (('t', tiles()), ('c', cohorts()), ('p', playlists()))
              for n, _, _ in items]
+    revived = sorted(set(RETIRED) & set(names))
+    if revived:
+        raise SystemExit('posthog-dashboard: these names are both built and retired: ' + ', '.join(revived))
     dupes = sorted({n for n in names if names.count(n) > 1})
     if dupes:
         raise SystemExit('posthog-dashboard: two objects share a name, so each run would '
@@ -739,6 +878,13 @@ def sync(client, prune=False):
         else:
             client.request('POST', client.api('/insights/'), payload)
             print(f'  tile  · created  {name}')
+
+    for name in RETIRED:
+        found = insights.get(name)
+        on_board = found and board_id in [d if isinstance(d, int) else d.get('id') for d in (found.get('dashboards') or [])]
+        if on_board:
+            client.request('PATCH', client.api(f'/insights/{found["id"]}/'), {'dashboards': []})
+            print(f'  tile  · retired  {name}')
 
     if prune:
         keep = {name for name, _, _ in wanted}

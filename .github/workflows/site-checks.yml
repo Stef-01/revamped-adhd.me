@@ -31,5 +31,7 @@ jobs:
         run: npm ci && npm run build && git diff --exit-code assets/css assets/js
       - name: Site rules
         run: python3 scripts/check-site.py
+      - name: PostHog tiles match PostHog's own schema
+        run: pip install --quiet pydantic certifi hogql-parser && python3 scripts/check-posthog-tiles.py
       - name: On-page SEO rules, valid HTML and no broken internal links
         run: npm run seo:check

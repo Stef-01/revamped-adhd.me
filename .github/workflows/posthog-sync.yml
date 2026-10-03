@@ -34,6 +34,10 @@ jobs:
           python-version: '3.12'
       - name: Analytics registry matches the clinician data
         run: python3 scripts/build-profiles.py --check
+      - name: Every tile matches PostHog's own schema, and every SQL tile parses
+        run: |
+          pip install --quiet pydantic certifi hogql-parser
+          python3 scripts/check-posthog-tiles.py
       - name: Rebuild the dashboard
         env:
           POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}

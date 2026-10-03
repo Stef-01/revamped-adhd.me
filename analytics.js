@@ -492,6 +492,12 @@
       practice: { kind: 'vocabulary', values: PRACTICES },
       surface: { kind: 'vocabulary', values: BOOKING_SURFACES }
     }),
+    // The fee table scrolled into view, once per profile view, at the moment it happens. A funnel stage
+    // in its own right: profile-engaged below says how far a page was read, but it is sent when the page
+    // goes away, after any booking click, so it cannot sit between "opened" and "booked" in a funnel.
+    'profile-fees-seen': spec(WHO, SOUGHT, CAME, {
+      practice: { kind: 'vocabulary', values: PRACTICES }
+    }),
     // One summary per profile view, sent when the page goes away: how far it was read, how long it
     // held attention, and whether it ended in a handoff. One event per view, not one per scroll —
     // the question is "who read as far as the fees and still did not book", and that needs a row
@@ -963,6 +969,7 @@
     // runs its own handler before the page hides, so 'acted' is already true by the time this goes.
     // The one reading it cannot give: tabbing away mid-page ends the measurement there.
     var reached = 0;                       // index into READ_DEPTHS
+    var feesSeen = false;                  // profile-fees-seen goes once per view
     var acted = false;
     var visibleSince = document.visibilityState === 'visible' ? Date.now() : 0;
     var dwellMs = 0;
@@ -978,6 +985,10 @@
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
           landmarks.forEach(function (m) { if (m.el === e.target && m.at > reached) reached = m.at; });
+          if (!feesSeen && reached >= 1) {
+            feesSeen = true;
+            track('profile-fees-seen', withVisit(spec(who(profileId), { practice: c.practice })));
+          }
         });
       }, { threshold: 0 });
       landmarks.forEach(function (m) { if (m.el) io.observe(m.el); });

@@ -14,7 +14,8 @@
     "seo:links": "npx -y linkinator@8.1.0 . --recurse --skip \"^https?://(?!localhost|127\\\\.0\\\\.0\\\\.1)\"",
     "seo:lighthouse": "node scripts/seo-lighthouse.mjs",
     "seo:check": "python3 scripts/check-seo.py && npm run seo:html && npm run seo:links",
-    "check:overwhelm": "node scripts/overwhelm-check.cjs"
+    "check:overwhelm": "node scripts/overwhelm-check.cjs",
+    "check:posthog": "python3 scripts/check-posthog-tiles.py"
   },
   "engines": {
     "node": ">=18"
