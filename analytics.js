@@ -16,29 +16,30 @@
 
   // ------------------------------------------------------------------ the registry
   // One row per bookable clinician: the booking link the outbound handler matches, the profile page
-  // that names them, and the words a dashboard reads back. Keep this in step with CLINICIANS in
-  // scripts/build-profiles.py — its --check refuses to build a profile this file does not declare.
+  // that names them, and the words a dashboard reads back. Written by scripts/build-profiles.py from its
+  // CLINICIANS, so it cannot fall out of step: edit the data there and rebuild, never the rows here.
+  // BEGIN:GENERATED clinicians
   var CLINICIANS = {
     'anubhav-saxena': {
-      booking: /dr-anubhav-saxena\/p123180/, profile: 'dr-anubhav-saxena.html',
+      booking: /healthengine\.com\.au\/doctor\/nsw\/beecroft\/dr-anubhav-saxena\/p123180/, profile: 'dr-anubhav-saxena.html',
       name: 'Dr Anubhav Saxena', category: 'gp',
       practice: 'Beecroft Family & Skin Cancer Clinic', destination: 'healthengine',
       expertise: ['assessment', 'physical-health', 'integrative'], ages: ['adults']
     },
     'anu-saxena': {
-      booking: /dr-anusha-saxena\/p160121/, profile: 'dr-anu-saxena.html',
+      booking: /healthengine\.com\.au\/doctor\/nsw\/double-bay\/dr-anusha-saxena\/p160121/, profile: 'dr-anu-saxena.html',
       name: 'Dr Anu Saxena', category: 'gp',
       practice: 'Bay Health Clinic', destination: 'healthengine',
       expertise: ['mental-health', 'womens-health'], ages: ['children', 'adults']
     },
     'yogesh-kalra': {
-      booking: /dr-yogesh-kalra\/p57872/, profile: 'dr-yogesh-kalra.html',
+      booking: /healthengine\.com\.au\/doctor\/nsw\/bateau-bay\/dr-yogesh-kalra\/p57872/, profile: 'dr-yogesh-kalra.html',
       name: 'Dr Yogesh Kalra', category: 'gp',
       practice: 'Dr Yogesh Kalra\u2019s Surgery', destination: 'healthengine',
       expertise: ['medication', 'womens-health'], ages: ['adults']
     },
     'allen-macbell': {
-      booking: /automedsystems\.com\.au\/ams\/clinics\/198\//, profile: 'dr-allen-macbell.html',
+      booking: /automedsystems\.com\.au\/ams\/clinics\/198\/the-local-doctor-ivanhoe-3079\/doctors/, profile: 'dr-allen-macbell.html',
       name: 'Dr Allen Macbell', category: 'gp',
       practice: 'The Local Doctor', destination: 'automed',
       expertise: ['assessment', 'medication', 'autism'], ages: ['children', 'teens', 'adults']
@@ -49,40 +50,38 @@
       practice: 'Wellness Psychology Clinic', destination: 'clinic-form',
       expertise: ['autism', 'trauma', 'neuroaffirming'], ages: ['adults']
     },
-    // GOALS Psychology: one clinic booking page for the seven bookable clinicians, so the regex cannot
-    // tell them apart. clinicianFor() resolves it from the profile page the click came from.
     'kate-row': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'kate-row.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'kate-row.html',
       name: 'Kate Row', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['therapy', 'ndis'], ages: ['children', 'teens', 'adults']
     },
     'ellie-putland': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'ellie-putland.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'ellie-putland.html',
       name: 'Ellie Putland', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['therapy', 'trauma'], ages: ['teens', 'adults']
     },
     'lachlan-avent': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lachlan-avent.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'lachlan-avent.html',
       name: 'Lachlan Avent', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['assessment', 'autism', 'parenting'], ages: ['children', 'teens', 'adults']
     },
     'samantha-courtney': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'samantha-courtney.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'samantha-courtney.html',
       name: 'Samantha Courtney', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['eating-disorders', 'perinatal'], ages: ['adults']
     },
     'lauren-poulos': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'lauren-poulos.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'lauren-poulos.html',
       name: 'Lauren Poulos', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['assessment', 'early-intervention', 'parenting'], ages: ['children']
     },
     'alice-bui': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'alice-bui.html',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'alice-bui.html',
       name: 'Alice Bui', category: 'psychologist',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['therapy', 'trauma', 'cald'], ages: ['teens', 'adults']
@@ -93,9 +92,15 @@
       practice: 'GOALS Psychology', destination: 'clinic-contact',
       expertise: ['assessment', 'autism', 'education'], ages: ['children', 'teens']
     },
+    'trisha-harris': {
+      booking: /halaxy\.com\/book\/riverview-counselling\/location\/671701/, profile: 'trisha-harris.html',
+      name: 'Trisha Harris', category: 'allied',
+      practice: 'Riverview Counselling', destination: 'halaxy',
+      expertise: ['counselling', 'relationships', 'ndis'], ages: ['teens', 'adults']
+    },
     'flynn-simonis': {
-      booking: /halaxy\.com\/book\/goals-psychology/, profile: 'flynn-simonis.html',
-      name: 'Flynn Simonis', category: 'allied',
+      booking: /halaxy\.com\/book\/goals-psychology\/location\/726621/, profile: 'flynn-simonis.html',
+      name: 'Flynn Simonis', category: 'occupational-therapy',
       practice: 'GOALS Psychology', destination: 'halaxy',
       expertise: ['occupational-therapy', 'education', 'ndis'], ages: ['children', 'teens']
     },
@@ -142,13 +147,13 @@
       expertise: ['executive-function', 'coaching', 'trauma'], ages: ['teens', 'adults']
     },
     'jessica-katsamatsas': {
-      booking: /zandahealth\.com\/clientportal\/neutralmindspsychology/, profile: 'jessica-katsamatsas.html',
+      booking: /clientportal\.zandahealth\.com\/clientportal\/neutralmindspsychology\/appointment-booking/, profile: 'jessica-katsamatsas.html',
       name: 'Jessica Katsamatsas', category: 'psychologist',
       practice: 'Neutral Minds Psychology', destination: 'zanda',
       expertise: ['therapy', 'neuroaffirming', 'trauma'], ages: ['adults']
     },
     'chantelle-pin': {
-      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'chantelle-pin.html',
+      booking: /halaxy\.com\/book\/appointment\/therapy-co\/location\/598571/, profile: 'chantelle-pin.html',
       name: 'Chantelle Pin', category: 'psychologist',
       practice: 'Therapy Co', destination: 'halaxy',
       expertise: ['assessment', 'therapy', 'neuroaffirming'], ages: ['children', 'teens', 'adults']
@@ -160,19 +165,19 @@
       expertise: ['therapy', 'trauma'], ages: ['adults']
     },
     'gisele-fortkamp': {
-      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'gisele-fortkamp.html',
+      booking: /halaxy\.com\/book\/appointment\/therapy-co\/location\/598571/, profile: 'gisele-fortkamp.html',
       name: 'Gisele Fortkamp', category: 'psychologist',
       practice: 'Therapy Co', destination: 'halaxy',
       expertise: ['therapy', 'parenting', 'womens-health', 'neuroaffirming'], ages: ['children', 'adults']
     },
     'lana-hiscock': {
-      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'lana-hiscock.html',
+      booking: /halaxy\.com\/book\/appointment\/therapy-co\/location\/598571/, profile: 'lana-hiscock.html',
       name: 'Lana Hiscock', category: 'psychologist',
       practice: 'Therapy Co', destination: 'halaxy',
       expertise: ['therapy', 'perinatal', 'womens-health', 'relationships'], ages: ['adults']
     },
     'valeria-urrutia': {
-      booking: /halaxy\.com\/book\/appointment\/therapy-co/, profile: 'valeria-urrutia.html',
+      booking: /halaxy\.com\/book\/appointment\/therapy-co\/location\/598571/, profile: 'valeria-urrutia.html',
       name: 'Valeria Urrutia', category: 'psychologist',
       practice: 'Therapy Co', destination: 'halaxy',
       expertise: ['therapy', 'assessment'], ages: ['children', 'teens', 'adults']
@@ -195,62 +200,54 @@
       practice: 'Therapy Co', destination: 'clinic-form',
       expertise: ['therapy-assistant', 'ndis'], ages: ['children', 'teens', 'adults']
     },
+    'bart-traynor': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors\/bart-traynor-1/, profile: 'bart-traynor.html',
+      name: 'Bart Traynor', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy', 'performance', 'supervision'], ages: ['adults']
+    },
+    'jeff-leech': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors/, profile: 'jeff-leech.html',
+      name: 'Jeff Leech', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy', 'trauma', 'performance'], ages: ['adults']
+    },
+    'michael-rehardt': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors/, profile: 'michael-rehardt.html',
+      name: 'Michael Rehardt', category: 'psychologist',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['therapy'], ages: ['adults']
+    },
+    'sarah-savage': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors\/sarah-savage/, profile: 'sarah-savage.html',
+      name: 'Sarah Savage', category: 'exercise-physiology',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['exercise-physiology', 'physical-health'], ages: ['adults']
+    },
+    'yuri-lima': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors/, profile: 'yuri-lima.html',
+      name: 'Dr Yuri Lima', category: 'physiotherapy',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
+    },
+    'tom-hissey': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors/, profile: 'tom-hissey.html',
+      name: 'Tom Hissey', category: 'physiotherapy',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
+    },
+    'lester-rafanan': {
+      booking: /hotdoc\.com\.au\/medical-centres\/bundall-QLD-4217\/atlantis-recovery-centre\/doctors/, profile: 'lester-rafanan.html',
+      name: 'Lester Rafanan', category: 'physiotherapy',
+      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
+      expertise: ['physiotherapy', 'physical-health', 'ndis'], ages: ['adults']
+    },
     'alex-lawson': {
       booking: /lawsonadhdsolutions\.com\.au\/book-here/, profile: 'alex-lawson.html',
       name: 'Alex Lawson', category: 'coach',
       practice: 'Lawson ADHD Solutions', destination: 'clinic-form',
       expertise: ['coaching', 'executive-function', 'education'], ages: ['teens', 'adults']
     },
-    'trisha-harris': {
-      booking: /halaxy\.com\/book\/riverview-counselling/, profile: 'trisha-harris.html',
-      name: 'Trisha Harris', category: 'allied',
-      practice: 'Riverview Counselling', destination: 'halaxy',
-      expertise: ['counselling', 'relationships', 'ndis'], ages: ['teens', 'adults']
-    },
-    'bart-traynor': {
-      booking: /atlantis-recovery-centre\/doctors\/bart-traynor-1/, profile: 'bart-traynor.html',
-      name: 'Bart Traynor', category: 'psychologist',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['therapy', 'performance', 'supervision'], ages: ['adults']
-    },
-    'jeff-leech': {
-      booking: /atlantis-recovery-centre\/doctors/, profile: 'jeff-leech.html',
-      name: 'Jeff Leech', category: 'psychologist',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['therapy', 'trauma', 'performance'], ages: ['adults']
-    },
-    'michael-rehardt': {
-      booking: /atlantis-recovery-centre\/doctors/, profile: 'michael-rehardt.html',
-      name: 'Michael Rehardt', category: 'psychologist',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['therapy'], ages: ['adults']
-    },
-    'sarah-savage': {
-      booking: /atlantis-recovery-centre\/doctors\/sarah-savage/, profile: 'sarah-savage.html',
-      name: 'Sarah Savage', category: 'exercise-physiology',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['exercise-physiology', 'physical-health'], ages: ['adults']
-    },
-    'yuri-lima': {
-      booking: /atlantis-recovery-centre\/doctors/, profile: 'yuri-lima.html',
-      name: 'Dr Yuri Lima', category: 'allied',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
-    },
-    'tom-hissey': {
-      booking: /atlantis-recovery-centre\/doctors/, profile: 'tom-hissey.html',
-      name: 'Tom Hissey', category: 'allied',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['physiotherapy', 'physical-health'], ages: ['adults']
-    },
-    'lester-rafanan': {
-      booking: /atlantis-recovery-centre\/doctors/, profile: 'lester-rafanan.html',
-      name: 'Lester Rafanan', category: 'allied',
-      practice: 'Atlantis Recovery Centre', destination: 'hotdoc',
-      expertise: ['physiotherapy', 'physical-health', 'ndis'], ages: ['adults']
-    },
-    // Nurtured Thoughts Psychology: one contact page books all sixteen, so the regex cannot tell them
-    // apart; clinicianFor() resolves it from the profile page the click came from, as for GOALS.,
     'jae-cho': {
       booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'dr-jae-cho.html',
       name: 'Dr Jae Cho', category: 'psychiatrist',
@@ -348,6 +345,7 @@
       expertise: ['therapy', 'trauma', 'perinatal'], ages: ['children', 'teens', 'adults']
     }
   };
+  // END:GENERATED clinicians
 
   function unique(list) {
     var out = [];
@@ -382,10 +380,9 @@
   // "Enquire with Jess" — even though its URL says appointment-booking. Keep the three in step;
   // a destination missing from this map is counted as an enquiry, which understates rather than
   // flatters.
-  var DESTINATION_KIND = {
-    healthengine: 'diary', halaxy: 'diary', hotdoc: 'diary', automed: 'diary',
-    zanda: 'enquiry', 'clinic-form': 'enquiry', 'clinic-contact': 'enquiry'
-  };
+  // BEGIN:GENERATED destination-kind
+  var DESTINATION_KIND = { 'automed': 'diary', 'clinic-contact': 'enquiry', 'clinic-form': 'enquiry', 'halaxy': 'diary', 'healthengine': 'diary', 'hotdoc': 'diary', 'zanda': 'enquiry' };
+  // END:GENERATED destination-kind
   var HANDOFF_KINDS = ['diary', 'enquiry'];
   // How long the practice's own page held them before they came back to this tab. Booking links
   // open in a new tab, so this tab stays alive and can time the visit next door — the closest this
@@ -440,13 +437,16 @@
     'blog-diagnosed-what-now.html': 'blog', 'blog-adhd-support-beyond-medication.html': 'blog',
     'blog-adhd-and-exercise.html': 'blog', 'blog-adhd-workplace-support.html': 'blog',
     'blog-adhd-nutrition.html': 'blog', 'blog-adhd-executive-functioning.html': 'blog',
-    'care-navigator.html': 'navigator',
+    'care-navigator.html': 'navigator', 'school-support.html': 'school-support',
+    // BEGIN:GENERATED service-pages
     'adhd-services.html': 'service', 'adhd-doctor-gold-coast.html': 'service',
     'adhd-gp-brisbane.html': 'service', 'adhd-assessment-queensland.html': 'service',
     'adhd-assessment-sydney.html': 'service', 'adhd-assessment-online.html': 'service',
     'adhd-treatment-after-diagnosis.html': 'service', 'adhd-exercise-physiologist.html': 'service',
-    'adhd-psychologist.html': 'service', 'adhd-psychologist-brisbane.html': 'service',
-    'adhd-occupational-therapist.html': 'service', 'adhd-coach.html': 'service'
+    'adhd-psychiatrist-brisbane.html': 'service', 'adhd-psychologist.html': 'service',
+    'adhd-psychologist-brisbane.html': 'service', 'adhd-occupational-therapist.html': 'service',
+    'adhd-coach.html': 'service'
+    // END:GENERATED service-pages
   };
   var PAGE_NAMES = unique(Object.keys(PAGES).map(function (k) { return PAGES[k]; }).concat(['profile', 'other']));
 
@@ -1126,7 +1126,9 @@
 
   // ------------------------------------------------------------------ this device's own tally
   // measurement.html reads it back. Everything below is local: it never leaves the browser.
-  var CATEGORY_WORDS = { gp: 'GP', psychiatrist: 'Psychiatrist', psychologist: 'Psychologist', allied: 'Allied health' };
+  // BEGIN:GENERATED category-words
+  var CATEGORY_WORDS = { 'gp': 'GP', 'psychologist': 'Psychologist', 'psychiatrist': 'Psychiatrist', 'allied': 'Allied health', 'coach': 'Coach', 'occupational-therapy': 'Occupational therapy', 'physiotherapy': 'Physiotherapy', 'exercise-physiology': 'Exercise physiology' };
+  // END:GENERATED category-words
 
   var tallyEl = document.getElementById('tally');
   if (tallyEl) {

@@ -11,12 +11,12 @@ The page shell (head, header, footer) is scripts/profile-shell.html; the tokens 
 in below. Portraits live in assets/clinicians/ as <id>.jpg, <id>-640.jpg, <id>-320.jpg plus the same
 three as .webp, all square; the full size is read from the JPEG itself so srcset descriptors and the
 og:image size can never go stale. Before writing, the script refuses to run if a portrait is missing,
-if a clinician is absent from sitemap.xml, analytics.js or the view-transition rule in site.css, or if
+if a clinician is absent from sitemap.xml or the view-transition rule in site.css, or if
 a category panel on the-doctors.html has no <ul> to put a card in.
 
 Text fields are plain text and are escaped on the way out. Fields marked "html" in the comments are
 raw HTML. Adding a clinician: copy an entry, add the six portrait files, add the page to sitemap.xml,
-add the clinician to CLINICIANS in analytics.js, add ::view-transition-group(portrait-<id>) to site.css,
+add ::view-transition-group(portrait-<id>) to site.css,
 then run this script.
 """
 import html
@@ -3084,6 +3084,150 @@ def region(page, name, body, where):
     return page[:i + len(start)] + body + page[j:]
 
 
+# ---------------------------------------------------------------- analytics.js and the PostHog dashboard
+
+# analytics.js refuses any event property value it has not declared, so its registry of clinicians is what decides
+# which data PostHog can receive. It is written from CLINICIANS below, between // BEGIN:GENERATED and
+# // END:GENERATED markers, so a clinician added here is reportable on the next build with nothing else to edit.
+# scripts/posthog-dashboard.py reads CATEGORY_LABELS and DESTINATION_KIND from this file for the same reason.
+ANALYTICS = ROOT / 'analytics.js'
+
+# What each clinician is sought for, as dashboard words. A clinician without a row here gets their category's
+# default below, so a new profile is never refused for want of one; add a row when you want something sharper.
+EXPERTISE = {
+    'anubhav-saxena': ['assessment', 'physical-health', 'integrative'],
+    'anu-saxena': ['mental-health', 'womens-health'],
+    'yogesh-kalra': ['medication', 'womens-health'],
+    'allen-macbell': ['assessment', 'medication', 'autism'],
+    'paula-garrido': ['autism', 'trauma', 'neuroaffirming'],
+    'kate-row': ['therapy', 'ndis'],
+    'ellie-putland': ['therapy', 'trauma'],
+    'lachlan-avent': ['assessment', 'autism', 'parenting'],
+    'samantha-courtney': ['eating-disorders', 'perinatal'],
+    'lauren-poulos': ['assessment', 'early-intervention', 'parenting'],
+    'alice-bui': ['therapy', 'trauma', 'cald'],
+    'meera-lakhani': ['assessment', 'autism', 'education'],
+    'flynn-simonis': ['occupational-therapy', 'education', 'ndis'],
+    'lara-schulz': ['brain-mapping', 'neurotherapy'],
+    'fiona-alexander': ['executive-function', 'education', 'coaching'],
+    'debbie-hirte': ['executive-function', 'education', 'coaching'],
+    'romney-taylor': ['executive-function', 'education', 'coaching'],
+    'erin-lysle': ['executive-function', 'coaching', 'social-skills'],
+    'donna-italiano': ['executive-function', 'coaching', 'emotional-regulation'],
+    'kate-dallimore': ['executive-function', 'coaching', 'trauma'],
+    'jessica-katsamatsas': ['therapy', 'neuroaffirming', 'trauma'],
+    'chantelle-pin': ['assessment', 'therapy', 'neuroaffirming'],
+    'sarah-bibo': ['therapy', 'trauma'],
+    'gisele-fortkamp': ['therapy', 'parenting', 'womens-health', 'neuroaffirming'],
+    'lana-hiscock': ['therapy', 'perinatal', 'womens-health', 'relationships'],
+    'valeria-urrutia': ['therapy', 'assessment'],
+    'ebony-young': ['therapy-assistant', 'ndis'],
+    'alexandra-wainwright': ['therapy-assistant', 'ndis'],
+    'eliza-keefe': ['therapy-assistant', 'ndis'],
+    'alex-lawson': ['coaching', 'executive-function', 'education'],
+    'trisha-harris': ['counselling', 'relationships', 'ndis'],
+    'bart-traynor': ['therapy', 'performance', 'supervision'],
+    'jeff-leech': ['therapy', 'trauma', 'performance'],
+    'michael-rehardt': ['therapy'],
+    'sarah-savage': ['exercise-physiology', 'physical-health'],
+    'yuri-lima': ['physiotherapy', 'physical-health'],
+    'tom-hissey': ['physiotherapy', 'physical-health'],
+    'lester-rafanan': ['physiotherapy', 'physical-health', 'ndis'],
+    'jae-cho': ['psychiatry', 'assessment', 'trauma'],
+    'rajitha-de-silva': ['psychiatry', 'mental-health', 'cald'],
+    'beth-hansen': ['assessment', 'womens-health'],
+    'bill-liley': ['assessment', 'rural'],
+    'hannah-gray': ['assessment', 'students'],
+    'john-ruberry': ['assessment', 'mental-health'],
+    'kay-walls': ['assessment', 'womens-health', 'perinatal'],
+    'natalie-cook': ['assessment', 'complex-care'],
+    'richard-hostiadi': ['assessment', 'mens-health', 'lifestyle'],
+    'sally-mcleod': ['assessment', 'womens-health'],
+    'shwetha-murthy': ['assessment', 'parenting'],
+    'heather-mcauliffe': ['assessment', 'autism', 'neuroaffirming'],
+    'matthew-persello': ['therapy', 'mens-health', 'lgbtqia'],
+    'nzubechi-oguoma': ['therapy', 'trauma', 'family'],
+    'canice-curtis': ['therapy', 'trauma', 'mens-health'],
+    'tracey-dale': ['therapy', 'trauma', 'perinatal']
+}
+EXPERTISE_DEFAULT = {'gp': ['assessment'], 'psychiatrist': ['psychiatry'], 'psychologist': ['therapy'],
+                     'occupational-therapy': ['occupational-therapy'], 'physiotherapy': ['physiotherapy'],
+                     'exercise-physiology': ['exercise-physiology'], 'allied': ['therapy'], 'coach': ['coaching']}
+
+# Category words: singular for a row on measurement.html, plural for a dashboard series. Order is the tab order.
+CATEGORY_LABELS = {'gp': ('GP', 'GPs'), 'psychologist': ('Psychologist', 'Psychologists'),
+                   'psychiatrist': ('Psychiatrist', 'Psychiatrists'), 'allied': ('Allied health', 'Allied health'),
+                   'coach': ('Coach', 'Coaches'), 'occupational-therapy': ('Occupational therapy', 'Occupational therapy'),
+                   'physiotherapy': ('Physiotherapy', 'Physiotherapy'),
+                   'exercise-physiology': ('Exercise physiology', 'Exercise physiology')}
+
+# Where a booking button lands, named by the booking system's host. Anything else is the practice's own page: a
+# contact page if its path says so, otherwise a form. A host listed in CLINIC_FORM_HOSTS is a form whatever its
+# path says (Therapy Co's /contact/ is a booking request form, and has been counted as one since it joined).
+DESTINATION_HOSTS = {'healthengine.com.au': 'healthengine', 'halaxy.com': 'halaxy', 'hotdoc.com.au': 'hotdoc',
+                     'automedsystems.com.au': 'automed', 'zandahealth.com': 'zanda'}
+CLINIC_FORM_HOSTS = {'thetherapyco.com.au'}
+
+
+def destination(c):
+    host = re.sub(r'^https?://(www\.)?', '', c['book_href']).split('/')[0]
+    for h, name in DESTINATION_HOSTS.items():
+        if host == h or host.endswith('.' + h):
+            return name
+    path = c['book_href'].split(host, 1)[1]
+    return 'clinic-contact' if 'contact' in path and host not in CLINIC_FORM_HOSTS else 'clinic-form'
+
+
+def destination_kinds():
+    """Every destination analytics.js may send, and whether it is a diary you pick a time in or an enquiry. Read off
+    the same test as the Book/Enquire button (books_online), so a dashboard counts a click the way the card worded it."""
+    kinds = {'clinic-form': 'enquiry', 'clinic-contact': 'enquiry'}
+    for c in CLINICIANS:
+        kinds[destination(c)] = 'diary' if books_online(c) else 'enquiry'
+    return kinds
+
+
+def booking_pattern(c):
+    """A JS regex source matching this clinician's booking link, with or without the UTM tail the site adds."""
+    url = re.sub(r'^https?://(www\.)?', '', c['book_href']).split('?')[0].split('#')[0].rstrip('/')
+    return re.sub(r'([.\/?+*()\[\]{}|^$])', r'\\\1', url)
+
+
+def js(value):
+    """A JS literal in analytics.js's own style: single-quoted strings, non-ASCII escaped."""
+    if isinstance(value, list):
+        return '[' + ', '.join(js(v) for v in value) + ']'
+    return "'" + json.dumps(value, ensure_ascii=True)[1:-1].replace('\\"', '"').replace("'", "\\'") + "'"
+
+
+def analytics_registry():
+    rows = []
+    for c in CLINICIANS:
+        rows.append(f"""    {js(c['id'])}: {{
+      booking: /{booking_pattern(c)}/, profile: {js(c['slug'] + '.html')},
+      name: {js(c['name'])}, category: {js(c['category'])},
+      practice: {js(c['practice'])}, destination: {js(destination(c))},
+      expertise: {js(EXPERTISE.get(c['id'], EXPERTISE_DEFAULT[c['category']]))}, ages: {js(c['ages'])}
+    }}""")
+    return '\n  var CLINICIANS = {\n' + ',\n'.join(rows) + '\n  };\n  '
+
+
+def js_region(text, name, body):
+    start, end = f'// BEGIN:GENERATED {name}', f'// END:GENERATED {name}'
+    i, j = text.find(start), text.find(end)
+    if i < 0 or j < i:
+        raise BuildError(f'analytics.js: no {start} … {end} region to fill')
+    return text[:i + len(start)] + body + text[j:]
+
+
+def render_analytics(text):
+    text = js_region(text, 'clinicians', analytics_registry())
+    words = ', '.join(f'{js(k)}: {js(v[0])}' for k, v in CATEGORY_LABELS.items())
+    text = js_region(text, 'category-words', f'\n  var CATEGORY_WORDS = {{ {words} }};\n  ')
+    kinds = ', '.join(f'{js(k)}: {js(v)}' for k, v in sorted(destination_kinds().items()))
+    return js_region(text, 'destination-kind', f'\n  var DESTINATION_KIND = {{ {kinds} }};\n  ')
+
+
 # ---------------------------------------------------------------- checks
 
 def check_data():
@@ -3098,19 +3242,18 @@ def check_data():
         missing = [k for k in required if k not in c]
         if missing:
             problems.append(f"{c.get('name', c.get('slug'))}: missing fields {missing}")
+        if c.get('category') not in CATEGORY_LABELS:
+            problems.append(f"{c['name']}: add {c.get('category')!r} to CATEGORY_LABELS so analytics and the dashboard can name it")
         if c.get('category') not in PANELS:
             problems.append(f"{c['name']}: category must be one of {sorted(PANELS)}")
         for kind, _, _ in c.get('links', []):
             if kind not in ICONS:
                 problems.append(f"{c['name']}: link kind {kind!r} has no icon; use one of {sorted(ICONS)}")
     sitemap = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
-    analytics = (ROOT / 'analytics.js').read_text(encoding='utf-8')
     css = (ROOT / 'site.css').read_text(encoding='utf-8')
     for c in CLINICIANS:
         if f"{SITE}/{c['slug']}.html" not in sitemap:
             problems.append(f"sitemap.xml has no entry for {c['slug']}.html")
-        if f"profile: '{c['slug']}.html'" not in analytics:
-            problems.append(f"analytics.js CLINICIANS does not declare {c['slug']}.html (profile views and booking clicks would be refused)")
         if f"::view-transition-group(portrait-{c['id']})" not in css:
             problems.append(f"site.css: add ::view-transition-group(portrait-{c['id']}) to the portrait transition rule")
     if problems:
@@ -3123,6 +3266,7 @@ def build():
     shell = SHELL.read_text(encoding='utf-8')
     out = {ROOT / f"{c['slug']}.html": render_page(c, shell, sizes) for c in CLINICIANS}
     out[DECK] = render_deck(DECK.read_text(encoding='utf-8'), sizes)
+    out[ANALYTICS] = render_analytics(ANALYTICS.read_text(encoding='utf-8'))
     return out
 
 

@@ -1,0 +1,47 @@
+name: PostHog dashboard sync
+
+# Keeps the PostHog dashboard in step with the clinician data. analytics.js's registry is written from
+# scripts/build-profiles.py, so a clinician added there can be reported as soon as the site deploys; this job
+# then rebuilds the dashboard's tiles (categories, diary destinations) from the same data. The script matches
+# tiles by name and updates them in place, so running it on every change never leaves a second copy.
+#
+# Needs one repository secret, POSTHOG_PERSONAL_API_KEY (PostHog: Settings -> Personal API keys, read+write on
+# project 618934). Without it the job says so and passes, rather than failing every push.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/build-profiles.py
+      - scripts/posthog-dashboard.py
+      - analytics.js
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: posthog-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Analytics registry matches the clinician data
+        run: python3 scripts/build-profiles.py --check
+      - name: Rebuild the dashboard
+        env:
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: '618934'
+          POSTHOG_HOST: https://us.posthog.com
+        run: |
+          if [ -z "$POSTHOG_PERSONAL_API_KEY" ]; then
+            echo "::notice::POSTHOG_PERSONAL_API_KEY is not set; skipping the dashboard sync."
+            exit 0
+          fi
+          python3 scripts/posthog-dashboard.py

@@ -666,7 +666,25 @@ def build():
     out = {ROOT / f'{HUB}.html': hub_page(head, header_for(header), footer)}
     for p in PAGES:
         out[ROOT / f'{p["slug"]}.html'] = page(p, head, header_for(header), footer)
+    out[ANALYTICS] = analytics_pages(ANALYTICS.read_text(encoding='utf-8'))
     return out
+
+
+# analytics.js names every page it reports, and refuses names it does not know, so each search page is named
+# 'service' there. Written from PAGES, between // BEGIN:GENERATED service-pages markers, so a page added above
+# is reported as a service page from its first visit.
+ANALYTICS = ROOT / 'analytics.js'
+
+
+def analytics_pages(text):
+    start, end = '// BEGIN:GENERATED service-pages', '    // END:GENERATED service-pages'
+    i, j = text.find(start), text.find(end)
+    if i < 0 or j < i:
+        raise SystemExit(f'build-seo-pages: analytics.js has no {start} region')
+    files = [f'{HUB}.html'] + [f'{p["slug"]}.html' for p in PAGES]
+    pairs = [f"'{f}': 'service'" for f in files]
+    rows = [', '.join(pairs[k:k + 2]) for k in range(0, len(pairs), 2)]
+    return text[:i + len(start)] + '\n    ' + ',\n    '.join(rows) + '\n' + text[j:]
 
 
 def main(argv):

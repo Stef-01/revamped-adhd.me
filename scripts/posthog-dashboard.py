@@ -41,16 +41,25 @@ DASHBOARD_NOTE = (
 )
 WINDOW = '-30d'
 
-# The categories analytics.js sends, in the words the site uses for them.
-CATEGORIES = [('psychologist', 'Psychologists'), ('allied', 'Allied health'), ('gp', 'GPs'), ('psychiatrist', 'Psychiatrists'),
-              ('exercise-physiology', 'Exercise physiology'), ('coach', 'Coaches')]
+# The categories and destinations analytics.js sends come from the same data that writes its registry
+# (scripts/build-profiles.py), so a clinician, category or booking system added there reaches these tiles on
+# the next run with nothing to edit here.
+import importlib.util
+import pathlib
+_spec = importlib.util.spec_from_file_location(
+    'profiles', pathlib.Path(__file__).resolve().parent / 'build-profiles.py')
+profiles = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(profiles)
 
-# A live diary, as analytics.js's DESTINATION_KIND has it (and build-profiles.py's ONLINE_DIARIES);
-# every other destination is an enquiry. Booking clicks from before 22 September 2026 carry a
-# destination but no handoff_kind, so a tile that reads handoff_kind alone drops them. Every tile
-# here reads the kind through HANDOFF_KIND, or filters on the destination, so old and new clicks
-# count the same way.
-DIARY_DESTINATIONS = ['healthengine', 'halaxy', 'hotdoc', 'automed']
+# Every category in use, in tab order, in the words the site uses for them.
+_used = {c['category'] for c in profiles.CLINICIANS}
+CATEGORIES = [(k, plural) for k, (_, plural) in profiles.CATEGORY_LABELS.items() if k in _used]
+
+# A live diary, as analytics.js's DESTINATION_KIND has it; every other destination is an enquiry. Booking
+# clicks from before 22 September 2026 carry a destination but no handoff_kind, so a tile that reads
+# handoff_kind alone drops them. Every tile here reads the kind through HANDOFF_KIND, or filters on the
+# destination, so old and new clicks count the same way.
+DIARY_DESTINATIONS = sorted(d for d, kind in profiles.destination_kinds().items() if kind == 'diary')
 HANDOFF_KIND = ('coalesce(properties.handoff_kind, if(properties.destination in ('
                 + ', '.join(f"'{d}'" for d in DIARY_DESTINATIONS) + "), 'diary', 'enquiry'))")
 TO_A_DIARY = [{'key': 'destination', 'value': DIARY_DESTINATIONS, 'operator': 'exact', 'type': 'event'}]
