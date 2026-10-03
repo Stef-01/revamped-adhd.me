@@ -48,4 +48,4 @@ jobs:
             echo "::notice::POSTHOG_PERSONAL_API_KEY is not set; skipping the dashboard sync."
             exit 0
           fi
-          python3 scripts/posthog-dashboard.py
+          python3 scripts/posthog-dashboard.py --verify

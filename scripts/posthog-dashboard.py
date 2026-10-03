@@ -12,6 +12,7 @@ and cohorts by name and updates them in place, so it never leaves a second copy 
 
     python3 scripts/posthog-dashboard.py --dry-run     # print every payload, send nothing
     python3 scripts/posthog-dashboard.py --prune       # also delete tiles this file no longer names
+    python3 scripts/posthog-dashboard.py --verify      # then run every tile live and fail on any error
 
 Note the host: the personal API key talks to the app host (us.posthog.com), not the ingestion host
 the browser posts events to (us.i.posthog.com). Either is accepted here; the ingestion form is
@@ -934,10 +935,54 @@ def sync(client, prune=False):
     return board_id
 
 
+def has_data(result):
+    """Whether a query result holds anything at all, whatever the query kind returned."""
+    rows = result.get('results') or []
+    for row in rows:
+        if isinstance(row, dict):
+            if row.get('count') or any(v for v in (row.get('data') or []) if isinstance(v, (int, float))):
+                return True
+        elif isinstance(row, list) and row:
+            if any(has_data({'results': [r]}) for r in row if isinstance(r, dict)) or not isinstance(row[0], dict):
+                return True
+    return False
+
+
+def verify(client):
+    """Run every tile's query once against the live project, with a forced recompute, and report which
+    ran. The forced run also replaces any empty result cached before the first event arrived.
+
+    It prints no figures, only whether a tile ran and whether it has data yet: the repository is public,
+    and so is every workflow log this prints into."""
+    failed = 0
+    for name, _, query in tiles():
+        try:
+            result = client.request('POST', client.api('/query/'),
+                                    {'query': query['source'], 'refresh': 'force_blocking'})
+        except SystemExit as e:
+            failed += 1
+            print(f'  verify · FAILED  {name}\n    {e}')
+            continue
+        source = query['source']
+        if source['kind'] == 'FunnelsQuery' and 'breakdownFilter' not in source:
+            # A funnel without a breakdown: say which of its stages have reported, by the stage's own name.
+            steps = result.get('results') or []
+            stages = ', '.join(f"{(st.get('custom_name') or st.get('name'))} {'✓' if st.get('count') else '·'}"
+                               for st in steps if isinstance(st, dict))
+            print(f'  verify · ok      {name}: {len(steps)} stages ({stages})')
+        else:
+            print(f"  verify · ok      {name}{'' if has_data(result) else ' (no data yet)'}")
+    print(f'verify: {len(tiles()) - failed} of {len(tiles())} tiles ran'
+          + ('' if not failed else f'; {failed} failed'))
+    return failed
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description='Create or refresh the ADHDme dashboard in PostHog.')
     ap.add_argument('--dry-run', action='store_true', help='print every payload and send nothing')
     ap.add_argument('--prune', action='store_true', help='take tiles this file no longer names off the dashboard')
+    ap.add_argument('--verify', action='store_true',
+                    help='after the sync, run every tile against the live project and fail if any errors')
     ap.add_argument('--host', default=os.environ.get('POSTHOG_HOST', 'https://us.posthog.com'))
     ap.add_argument('--project', default=os.environ.get('POSTHOG_PROJECT_ID', ''))
     args = ap.parse_args(argv)
@@ -968,6 +1013,10 @@ def main(argv):
         print()
         print('Every bar and every point opens the list of people behind it: click a data point, '
               'then "View persons".')
+    if args.verify and not args.dry_run:
+        print()
+        if verify(client):
+            return 1
     return 0
 
 
