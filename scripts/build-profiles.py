@@ -297,18 +297,15 @@ NT_DISCLOSURE = ('Nurtured Thoughts Psychology is an independent practice: it se
 NT_WORKS_FOR = dict(url=NT, telephone='(07) 3056 0921', locality='Graceville', state='QLD')
 NT_SAME_AS = [NT + 'practitioners', 'https://www.instagram.com/nurturedthoughtspsychology/']
 NT_SCHEMA_DR = dict(type='Physician', areas=['Graceville'], state='QLD', works_for=NT_WORKS_FOR)
-NT_RESPONSIBLE = ('<strong>The fee is set and charged by the practice you book with; ADHDme receives no part of it.</strong> '
-                  'Published here, from the practice’s own fee page, so the cost is settled before you arrive.')
+NT_RESPONSIBLE = '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>'
 
 # Fees as the practice publishes them at nurturedthoughtspsychology.com.au/fees and /adhd-fees (2026-10-01).
 NT_FEES_GP = dict(
     heading='What a diagnosis costs',
     figures=[('$1,950', 'Adult ADHD assessment, diagnosis and treatment'), ('~$200', 'Typical Medicare rebate')],
     notes=[
-        'One all-inclusive fee for adults and young people aged 15 and over: the assessment, the diagnosis, treatment if '
-        'appropriate, and a written report for you and your GP. The practice estimates about $1,750 out of pocket.',
-        'The rebate depends on your address and eligibility; the practice confirms the exact figure before you book. '
-        'A $50 deposit secures a first booking and comes off the first fee.',
+        'One fee for ages 15 and over: assessment, diagnosis, treatment if appropriate, and a report for you and your GP. '
+        'The practice confirms your rebate before you book.',
         NT_RESPONSIBLE,
     ],
 )
@@ -316,8 +313,7 @@ NT_FEES_PSYCHIATRY = dict(
     heading='What a consultation costs',
     figures=[('$900', 'Initial psychiatry consultation'), ('$395–$445', 'Review consultation')],
     notes=[
-        'Medicare rebates $265 of the initial consultation, leaving $635 out of pocket, and $85–$135 of a review, '
-        'leaving $310. The practice confirms the exact fee when you book.',
+        'Medicare pays $265 of the first consultation and $85–$135 of a review. The practice confirms the fee when you book.',
         NT_RESPONSIBLE,
     ],
 )
@@ -328,9 +324,8 @@ def nt_therapy_fees(fee, rebate, gap):
         heading='What a session costs',
         figures=[(fee, 'Per session'), (gap, 'Out of pocket with a plan')],
         notes=[
-            f'With a Mental Health Treatment Plan or Eating Disorder Care Plan from your GP, Medicare rebates {rebate} '
-            'of each session, for up to 10 sessions a year. Private health extras may cover some of the fee instead. '
-            'A $50 deposit secures a first booking and comes off the first session.',
+            f'With a Mental Health Treatment Plan from your GP, Medicare pays {rebate} of each session, for up to 10 '
+            'sessions a year.',
             NT_RESPONSIBLE,
         ],
     )
@@ -344,9 +339,8 @@ NT_FEES_CLINICAL = dict(
     heading='What a session costs',
     figures=[],
     notes=[
-        'Nurtured Thoughts Psychology does not publish a separate clinical psychologist fee. The practice quotes it '
-        'when you book; with a Mental Health Treatment Plan from your GP, Medicare rebates part of it for up to 10 '
-        'sessions a year.',
+        'The practice quotes this fee when you book. With a Mental Health Treatment Plan, Medicare pays part of it for up '
+        'to 10 sessions a year.',
         NT_RESPONSIBLE,
     ],
 )
@@ -1924,12 +1918,11 @@ CLINICIANS = [
             'Medical degree, Western Sydney University',
             'Specialist psychiatric training across major Sydney hospitals',
             'Acute inpatient, community mental health, consultation-liaison and outpatient psychiatry',
-            'Supervises psychiatry trainees and medical students',
         ],
         about=[
             'Dr Jae Cho is a specialist psychiatrist who provides thorough, compassionate care across all areas of general psychiatry, with a strong interest in anxiety, depression, insomnia, trauma, ADHD, personality disorder, bipolar disorder, OCD, addiction and other complex mental health conditions. Patients appreciate his calm manner, thoughtful explanations, and ability to make difficult topics feel manageable and clear.',
             'Jae’s approach is evidence-based, trauma-informed, and grounded in the biopsychosocial model. He takes the time to understand each patient’s background, strengths, and goals, and works collaboratively to create a tailored treatment plan. He values close partnership with GPs, psychologists, families, and other clinicians to ensure holistic, coordinated care.',
-            'He is a Fellow of the Royal Australian and New Zealand College of Psychiatrists and completed his medical degree at Western Sydney University before undertaking specialist psychiatric training across major hospitals in Sydney. His experience spans acute inpatient care, community mental health, consultation-liaison psychiatry, and outpatient management of complex cases. He also supervises psychiatry trainees and medical students.',
+            'He is a Fellow of the Royal Australian and New Zealand College of Psychiatrists and completed his medical degree at Western Sydney University before undertaking specialist psychiatric training across major hospitals in Sydney. His experience spans acute inpatient care, community mental health, consultation-liaison psychiatry, and outpatient management of complex cases.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -1958,12 +1951,10 @@ CLINICIANS = [
             'Over 16 years caring for adults, in Sri Lanka and Australia',
             'Fellow of the Royal Australian and New Zealand College of Psychiatrists',
             'MD (Psychiatry) and Board Certification in Psychiatry',
-            'Particular interests in anxiety, depression, bipolar, OCD, trauma and psychosis',
         ],
         about=[
             'Dr Rajitha Marcellin De Silva is a compassionate consultant psychiatrist with over 16 years of experience caring for adults experiencing a wide range of mental health concerns. Having practised in both Sri Lanka and Australia, she brings a thoughtful, culturally sensitive approach to helping people navigate life’s challenges.',
             'She believes that the best care begins with feeling heard. Rajitha takes the time to understand each person’s unique experiences, concerns, and goals, creating a safe, supportive, and non-judgemental environment where patients feel comfortable discussing even the most difficult issues.',
-            'Her approach combines empathy with evidence-based medicine, working collaboratively with patients to develop personalised treatment plans that reflect the latest research while respecting individual preferences and circumstances.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -2108,7 +2099,7 @@ CLINICIANS = [
         ages=['adults'],
         name='Dr Kay Walls', short='Dr Walls', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
-        description='An ADHD assessment that is never just a checklist: room to tell your whole story, and a plan that fits your life.',
+        description='An ADHD assessment that is never just a checklist, and a plan that fits your life.',
         chips=['ADHD in adult women', 'Mothers & postnatal', 'Focused Psychological Strategies'],
         telehealth=True,
         book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
@@ -2125,7 +2116,7 @@ CLINICIANS = [
         about=[
             'Dr Kay Walls is a specialist general practitioner who brings warmth, curiosity, and a deeply holistic lens to everything she does. With a background spanning mental health and women’s health, she has developed a particular focus on ADHD in adult women, a group she feels has historically been under-recognised and underserved.',
             'For Kay, an ADHD assessment is never just a checklist. She is interested in the whole person, including their history, relationships, long-standing patterns, and the strengths that often sit alongside the challenges. She creates space for patients to tell their story fully, and many describe her consultations as the first time they have felt genuinely listened to.',
-            'Her interests include supporting mothers and high-functioning women navigating a new ADHD diagnosis, culturally sensitive and person-centred care, and emotional regulation, anxiety and depression, particularly in the postnatal period. She works closely with psychologists, psychiatrists, and allied health providers to ensure coordinated, comprehensive support.',
+            'Her interests include supporting mothers and high-functioning women navigating a new ADHD diagnosis, culturally sensitive and person-centred care, and emotional regulation, anxiety and depression, particularly in the postnatal period.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -2216,7 +2207,6 @@ CLINICIANS = [
         languages=[],
         experience=[
             'Medical degree, University of Queensland, 2009',
-            'Junior doctor training, Mater Hospital, South Brisbane',
             'Fellow of the Royal Australian College of General Practitioners, 2016',
             'ADHD in women and girls, including late diagnosis in adulthood',
             'Perimenopause and its interaction with ADHD and mental health',
@@ -2224,7 +2214,7 @@ CLINICIANS = [
         about=[
             'Dr Sally McLeod completed her medical degree at the University of Queensland in 2009 before her junior doctor training at the Mater Hospital in South Brisbane, and her Fellowship of the Royal Australian College of General Practitioners in 2016.',
             'Sally has a special interest in ADHD and is passionate about helping adolescents and adults better understand how their brain works. She provides thorough, evidence-based assessments and works collaboratively with patients to develop practical, individualised treatment plans. Her interests include ADHD in women and girls, high-functioning and late-identified ADHD in professionals, perimenopause, and autism, anxiety and depression in the context of neurodivergence.',
-            'Outside of medicine, Sally enjoys spending time with her three sons. She loves reading, music, and the outdoors, particularly bushwalking, camping and travelling to remote parts of Australia.',
+            'Outside of medicine, Sally enjoys time with her three sons, reading, music and the outdoors.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -2240,8 +2230,8 @@ CLINICIANS = [
         ages=['adults'],
         name='Dr Shwetha Murthy', short='Dr Murthy', role='GP', pronouns='she/her',
         practice='Nurtured Thoughts Psychology', place=NT_PLACE, descriptor=None,
-        description='A structured assessment that maps how ADHD has shown up over time, and what it means for family life at home and at work.',
-        chips=['Parents & carers', 'ADHD in families', 'Sydney Child Health Program'],
+        description='A structured assessment of how ADHD has shown up over time, and what it means for family life.',
+        chips=['Parents & carers', 'ADHD in families', 'Men at work'],
         telehealth=True,
         book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
         links=NT_LINKS,
@@ -2256,7 +2246,7 @@ CLINICIANS = [
         ],
         about=[
             'Dr Shwetha Murthy is a Specialist General Practitioner with a particular interest in adult ADHD and mental health. Many of the people she sees are managing busy households, caring for children or relatives, and noticing patterns of attention, organisation or emotional regulation that seem to run through the family. She is especially interested in supporting women who are starting to wonder how their own history, their children’s experiences and ADHD might be connected, and in adult ADHD in men across blue-collar and white-collar work.',
-            'In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands. She maps how symptoms have shown up over time, how they interact with mood, sleep and physical health, and what this means day to day, aiming for a structured, clinically sound assessment explained in clear, practical language.',
+            'In consultations, Shwetha brings a calm, organised style and a strong focus on context: childhood experiences, school reports, family roles, cultural background and current life demands. She maps how symptoms have shown up over time and how they interact with mood, sleep and physical health, explained in clear, practical language.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -2380,13 +2370,11 @@ CLINICIANS = [
         experience=[
             'Mental health social worker, people aged 15 and over',
             'Nominated by colleagues for the AASW Social Worker of the Year Award',
-            'Background in international development, child protection and academia',
             'Trauma and EMDR, men’s mental health, and mental health after major life changes or disasters',
         ],
         about=[
             'Canice Curtis is a deeply attuned and compassionate Mental Health Social Worker who considers it a privilege to walk alongside clients as they navigate challenges and work towards meaningful change. His commitment to client care led colleagues to nominate him for the AASW Social Worker of the Year Award.',
             'He supports people aged 15+ experiencing complex trauma, dissociative conditions, addictions, personality disorders, bipolar disorder, ADHD, chronic pain, parenting and relationship difficulties, men’s mental health concerns, grief and loss, anxiety, depression, and the mental health impacts of climate change and natural disasters. With a background spanning international development, child protection and academia, he brings a grounded, integrated, evidence-informed approach tailored to each person.',
-            'Outside the therapy room, Canice enjoys time with his young family, playing the drums, bushwalking, yoga, reading, and exploring Buddhist philosophy and mindfulness practices.',
         ],
         details=[
             ('Reach', NT_REACH),
@@ -2568,14 +2556,19 @@ TITLE_ROOM = 60 - len(' · ADHDme')   # search results cut titles at about 60 ch
 
 
 def og_title(c):
-    """Name, role and place when they fit in a search result's title, and name and role when they do not. The role is
-    the sentence-case descriptor. A name and role that still run over stay whole: a search result then trims the
-    brand suffix, which is better than cutting a word of the role."""
+    """Name, "ADHD" and role, and place when it fits in a search result's title. The role is the sentence-case
+    descriptor. A name and role that still run over stay whole: a search result then trims the brand suffix, which
+    is better than cutting a word of the role."""
     role = c['descriptor'] or c['role']
-    for t in (f"{c['name']}, {role}, {c['place']}", f"{c['name']}, {role}"):
-        if len(t) <= TITLE_ROOM:
-            return t
-    return f"{c['name']}, {role}"
+    # "ADHD" leads the role: it is the word people search with ("ADHD GP Brisbane"), and the brand suffix alone
+    # does not carry it. It goes before the place does, and the place before the name and bare role.
+    adhd = 'ADHD ' + (role[0].lower() + role[1:] if role[1:2].islower() else role)
+    with_place, bare = f"{c['name']}, {adhd}, {c['place']}", f"{c['name']}, {adhd}"
+    if len(with_place) <= TITLE_ROOM:
+        return with_place
+    # html-validate refuses a <title> over 70 characters of source (an & counts as &amp;), suffix included; past
+    # that the role goes without "ADHD".
+    return bare if len(esc(bare)) <= 70 - len(' · ADHDme') else f"{c['name']}, {role}"
 
 
 def meta_description(c):
@@ -3045,6 +3038,7 @@ def deck_jsonld():
     url = f'{SITE}/the-doctors.html'
     graph = [
         {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': 'ADHD clinicians in our network', 'inLanguage': 'en-AU',
+         'description': 'Browse Australia’s largest directory of holistic ADHD providers: GPs, psychiatrists, psychologists, allied health and coaches, many by telehealth.',
          'isPartOf': {'@id': SITE + '/#site'}, 'mainEntity': {'@id': url + '#clinicians'}, 'breadcrumb': {'@id': url + '#breadcrumb'}},
         {'@type': 'ItemList', '@id': url + '#clinicians', 'name': 'ADHDme clinicians', 'url': url,
          'numberOfItems': len(items), 'itemListElement': items},

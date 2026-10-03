@@ -58,7 +58,9 @@ ALLIED = ('allied', 'occupational-therapy', 'physiotherapy')   # the Network giv
 def therapy_assistant(c): return 'Therapy Assistant' in c['role']   # skills practice under a psychologist: not an assessor
 def qld_allied(c): return c['category'] in ALLIED and state(c) == 'QLD' and not therapy_assistant(c)
 def locality(c): return c['schema'].get('works_for', {}).get('locality')
-def brisbane_psychologists(c): return psychologists(c) and locality(c) in ('Fortitude Valley', 'Ashgrove')
+def brisbane_psychologists(c): return psychologists(c) and locality(c) in ('Fortitude Valley', 'Ashgrove', 'Graceville')
+def brisbane_gps(c): return gps(c) and locality(c) == 'Graceville'
+def psychiatrists(c): return c['category'] == 'psychiatrist'
 def brisbane_allied(c): return c['category'] in ALLIED and locality(c) == 'Fortitude Valley'
 def gold_coast(c): return locality(c) in ('Bundall', 'Benowa')
 def exercise_physiologists(c): return 'Exercise Physiologist' in c['role']
@@ -85,7 +87,7 @@ CTA = {slug: f'{PROFILE}#panel-{panel}' for slug, panel in (
     ('adhd-gp-brisbane', 'gps'), ('adhd-assessment-queensland', 'gps'), ('adhd-assessment-sydney', 'gps'),
     ('adhd-assessment-online', 'gps'), ('adhd-psychologist', 'psychologists'), ('adhd-psychologist-brisbane', 'psychologists'),
     ('adhd-occupational-therapist', 'occupational-therapy'), ('adhd-exercise-physiologist', 'exercise-physiology'),
-    ('adhd-coach', 'coaches'))}
+    ('adhd-coach', 'coaches'), ('adhd-psychiatrist-brisbane', 'psychiatrists'))}
 PSY_PANEL = 'the-doctors.html#panel-psychologists'
 ALLIED_PANEL = 'the-doctors.html#panel-allied-health'
 COACH_PANEL = 'the-doctors.html#panel-coaches'
@@ -97,9 +99,12 @@ def a(text, href):
             f'href="{href}"{ext}>{text}</a>')
 
 
-GP_COST_PARA = (f'A GP assessment through the network costs <strong>{GP_FEE[0][0]} for the first consultation and {GP_FEE[1][0]} '
-                f'for the follow-up, {GP_TOTAL} in total</strong>. The two consultations cover the assessment and the diagnosis. '
-                f'Neither attracts a Medicare rebate. Fees are set and charged by the practice. ADHDme takes no commission.')
+NT_GP_TOTAL = profiles.NT_FEES_GP['figures'][0][0]      # '$1,950', all-inclusive
+NT_PSYCHIATRY = profiles.NT_FEES_PSYCHIATRY['figures']   # [('$900', initial), ('$395–$445', review)]
+GP_COST_PARA = (f'GP fees depend on the practice: <strong>{GP_TOTAL}</strong> across two consultations with the Sydney GPs, '
+                f'with no Medicare rebate, or <strong>{NT_GP_TOTAL} all-inclusive</strong> at Nurtured Thoughts in Brisbane, with '
+                f'about $200 back from Medicare. ADHDme takes no commission.')
+GP_RANGE = f'GP assessments in the network cost {GP_TOTAL} to {NT_GP_TOTAL}, depending on the practice'
 PSY_COST_PARA = (f'Each psychologist sets their own fee, shown on their profile. With a Mental Health Treatment Plan from a GP, '
                  f'Medicare pays part of the fee for up to 10 sessions a year. At current rates the rebate is {REBATE_REG} a '
                  f'session for a registered psychologist and {REBATE_CLIN} for a clinical psychologist.')
@@ -132,7 +137,7 @@ PAGES = [
       seo='ADHD doctor Gold Coast: who to see and costs',
       title='ADHD doctor on the Gold Coast.',
       description=f'ADHD care on the Gold Coast: psychologists in Benowa and Bundall, an exercise physiologist in Bundall, and a GP assessment by phone for {GP_TOTAL}.',
-      lede='ADHDme has psychologists at Therapy Co in Benowa and Atlantis Recovery Centre in Bundall. Its two assessing GPs see people remotely from Sydney.',
+      lede='ADHDme has psychologists at Therapy Co in Benowa and Atlantis Recovery Centre in Bundall. Its nearest GPs, in Brisbane, also work by telehealth.',
       who=[gold_coast, gps_remote], who_heading='Who you can see from the Gold Coast',
       who_note='Bundall clinicians see people in person only. Everyone else also works by telehealth.',
       sections=[
@@ -141,7 +146,7 @@ PAGES = [
         'A psychologist can assess ADHD and treat it with therapy but cannot prescribe. The practice quotes its fee when you book. It works with DVA, the NDIS, private health funds, WorkCover and GP Mental Health Treatment Plans.',
         f'{a("Therapy Co", "chantelle-pin.html")} is a psychology practice at 156 Ashmore Road, Benowa. Its founder, clinical psychologist {a("Chantelle Pin", "chantelle-pin.html")}, has ADHD herself and is taking on assessments. Its psychologists also see people by telehealth, and its therapy assistants practise skills with you between sessions, often funded by the NDIS. No referral needed.']),
        ('A GP assessment by phone', [
-        f'The network’s two GPs are in Sydney and both see people remotely. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} offers phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, so you can start with either without travelling. When you book, ask whether the whole assessment can be done remotely or whether any part needs to be in person.',
+        f'The nearest network GPs are at {a("Nurtured Thoughts Psychology", "dr-beth-hansen.html")} in Graceville, Brisbane, and they also see people by telehealth. In Sydney, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} and {a("Dr Anu Saxena", "dr-anu-saxena.html")} see people remotely too. When you book, ask whether any part needs to be in person.',
         GP_COST_PARA,
         QLD_GP_PARA]),
        ('Psychologists an hour up the M1', [
@@ -151,10 +156,10 @@ PAGES = [
         f'The {a("treatment after diagnosis", "adhd-treatment-after-diagnosis.html")} page covers what usually follows: medication and its reviews, therapy, occupational therapy, coaching, and things you can do yourself. On the Gold Coast, {a("Sarah Savage", "sarah-savage.html")} provides exercise physiology in person.']),
       ],
       faqs=[
-       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'There are psychologists at Therapy Co in Benowa and at Atlantis Recovery Centre in Bundall, but no Gold Coast GP yet. The network’s two assessing GPs see people remotely from Sydney.'),
+       ('Is there an ADHD doctor on the Gold Coast in the ADHDme network?', 'There are psychologists at Therapy Co in Benowa and at Atlantis Recovery Centre in Bundall, but no Gold Coast GP yet. The nearest network GPs are in Graceville, Brisbane, and see people by telehealth.'),
        ('Can a GP diagnose ADHD in Queensland?', 'Yes. Since 1 December 2025 a specialist GP in Queensland can diagnose ADHD in adults and prescribe stimulant medication, and Queensland GPs have prescribed for children since 2017.'),
        ('Do I need a referral?', 'No referral needed. You book or enquire directly with the practice, and a GP can write a Mental Health Treatment Plan if you want a Medicare rebate on psychology sessions.'),
-       ('What does it cost on the Gold Coast?', f'Therapy Co and Atlantis Recovery Centre quote their fees when you book, and both work with Medicare plans and the NDIS. A GP assessment by phone is {GP_TOTAL} across two consultations, with no Medicare rebate.'),
+       ('What does it cost on the Gold Coast?', f'Therapy Co and Atlantis Recovery Centre quote their fees when you book, and both work with Medicare plans and the NDIS. {GP_RANGE}.'),
        ('Can I see a Gold Coast psychologist by telehealth?', 'Yes: Therapy Co in Benowa sees people by telehealth anywhere in Australia. The Bundall clinic has not declared telehealth, so its profiles don’t list it.'),
       ],
       related=['adhd-gp-brisbane', 'adhd-assessment-queensland', 'adhd-psychologist-brisbane', 'adhd-exercise-physiologist']),
@@ -162,17 +167,17 @@ PAGES = [
  dict(slug='adhd-gp-brisbane', group='place',
       seo='ADHD GP Brisbane: diagnosis, medication, costs',
       title='ADHD GP in Brisbane.',
-      description=f'Queensland GPs can now diagnose adult ADHD and prescribe. Who sees Brisbane patients in the ADHDme network, and a GP assessment by phone for {GP_TOTAL}.',
-      lede='Queensland is the first state to let GPs diagnose adult ADHD and prescribe. ADHDme’s two GPs are in Sydney and see Brisbane patients remotely.',
-      who=any_of(gps_remote, brisbane_psychologists, brisbane_allied), who_heading='Who sees Brisbane patients',
-      who_note='The GPs are listed first, then the psychologists and the occupational therapist.',
+      description='Nine ADHD GPs in Graceville, Brisbane, who diagnose adults and prescribe under Queensland’s 2025 rules. Two psychiatrists, fees, telehealth and booking.',
+      lede='Queensland GPs can now diagnose adult ADHD and prescribe. ADHDme has nine in Graceville, Brisbane, who also work by telehealth.',
+      who=[brisbane_gps, psychiatrists, brisbane_psychologists, brisbane_allied], who_heading='Who sees Brisbane patients',
+      who_note='The GPs are listed first, then the psychiatrists, psychologists and allied health.',
       sections=[
        ('What a Queensland GP can now do', [
         QLD_GP_PARA,
         'For Brisbane patients, this removes the longest wait: months for a psychiatrist to confirm what a GP had already seen. You still need a full assessment, which means a long first appointment, a baseline and a review.']),
        ('The network’s GPs', [
-        f'ADHDme’s two GPs practise in Sydney and both see people remotely. {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} offers phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, so you can start with either without travelling. A NSW GP follows NSW rules on medication, which are changing in stages through 2026. Ask the practice what can be started by phone.',
-        'Brisbane GPs will be listed here as they join. Each clinician joins individually and declares how they work, so the network grows slowly.']),
+        f'{a("Nurtured Thoughts Psychology", "dr-beth-hansen.html")} in Graceville has nine GPs with an interest in adult ADHD. {a("Dr Beth Hansen", "dr-beth-hansen.html")}, {a("Dr Kay Walls", "dr-kay-walls.html")} and {a("Dr Sally McLeod", "dr-sally-mcleod.html")} focus on women and late diagnosis. {a("Dr Richard Hostiadi", "dr-richard-hostiadi.html")} sees men and working adults. {a("Dr Hannah Gray", "dr-hannah-gray.html")} sees students and early-career adults.',
+        f'All nine also see people by telehealth. Two psychiatrists, {a("Dr Jae Cho", "dr-jae-cho.html")} and {a("Dr Rajitha De Silva", "dr-rajitha-de-silva.html")}, work at the same practice. The building is heritage-listed and has no wheelchair access.']),
        ('What the assessment involves', [('list', WHAT_ASSESSMENT)]),
        ('What it costs', [
         GP_COST_PARA,
@@ -182,11 +187,11 @@ PAGES = [
       ],
       faqs=[
        ('Can a GP in Brisbane prescribe ADHD medication for adults?', 'Yes, since 1 December 2025, if the GP holds FRACGP or FACRRM fellowship. They can diagnose, then start, adjust and continue medication, though each practice decides whether it offers this.'),
-       ('Does ADHDme have a Brisbane GP?', 'Not yet. The network’s two GPs are in Sydney and see people remotely, and Brisbane psychologists and an occupational therapist are in the network now.'),
+       ('Does ADHDme have a Brisbane GP?', 'Yes. Nine GPs at Nurtured Thoughts Psychology in Graceville assess and treat adult ADHD, in person or by telehealth.'),
        ('Do I need a referral to see an ADHD GP?', 'No referral needed. You only need a referral for a psychiatrist, and Queensland’s reform lets a GP take that role for many adults.'),
-       ('How long does an ADHD assessment take with a GP?', 'Two appointments: a long first consultation and a follow-up. Some people need an extra 30-minute clinical review for more history or records, and the practice explains the cost before booking it.'),
+       ('How long does an ADHD assessment take with a GP?', 'It depends on the practice. The Sydney GPs use a long first consultation and a follow-up. Nurtured Thoughts runs assessment, diagnosis and a treatment plan as one pathway.'),
       ],
-      related=['adhd-assessment-queensland', 'adhd-doctor-gold-coast', 'adhd-psychologist-brisbane', 'adhd-assessment-online']),
+      related=['adhd-assessment-queensland', 'adhd-psychiatrist-brisbane', 'adhd-psychologist-brisbane', 'adhd-doctor-gold-coast']),
 
  dict(slug='adhd-assessment-queensland', group='place',
       seo='ADHD assessment Queensland: three routes, costs',
@@ -194,11 +199,11 @@ PAGES = [
       description='How ADHD assessment works in Queensland since the December 2025 reform: GP, psychologist or psychiatrist. No referral needed for a GP or psychologist.',
       lede='In Queensland, a GP, psychologist or psychiatrist can assess ADHD. ADHDme lists GPs and psychologists who see Queensland patients.',
       who_heading='Who sees Queensland patients',
-      who=[gps_remote, qld_psychologists, qld_allied], who_note='Rooms in Brisbane, Benowa and Bundall. Everyone except the Bundall clinic also works by telehealth.',
+      who=[brisbane_gps, gps_remote, psychiatrists, qld_psychologists, qld_allied], who_note='Rooms in Brisbane, Benowa and Bundall. Everyone except the Bundall clinic also works by telehealth.',
       sections=[
        ('Route one: a GP', [
         QLD_GP_PARA,
-        f'In the network, {a("Dr Anubhav Saxena", "dr-anubhav-saxena.html")} takes phone consultations and {a("Dr Anu Saxena", "dr-anu-saxena.html")} offers telehealth, both from Sydney. They follow NSW rules on medication, but the assessment itself is the same in any state. ' + GP_COST_PARA]),
+        f'Nine GPs at {a("Nurtured Thoughts Psychology", "dr-beth-hansen.html")} in Brisbane assess and treat adults, in person or by telehealth. ' + GP_COST_PARA]),
        ('Route two: a psychologist', [
         f'A psychologist can assess and diagnose ADHD and treat it with therapy, but cannot prescribe. In Brisbane, {a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} at GOALS Psychology do ADHD and autism assessments, in person in Fortitude Valley or by telehealth. A GP or psychiatrist often works from a psychologist’s assessment report. On the Gold Coast, the clinical psychologists at {a("Atlantis Recovery Centre", "bart-traynor.html")} in Bundall start each client with a full assessment, and the practice says its approach suits ADHD. In Benowa, clinical psychologist {a("Chantelle Pin", "chantelle-pin.html")} at Therapy Co is taking on assessments.',
         PSY_COST_PARA]),
@@ -207,14 +212,14 @@ PAGES = [
         'A psychiatrist is still the right choice when the picture is complicated: another serious mental illness, a history that makes stimulants risky, or a child younger than a GP is allowed to treat.']),
        ('What an assessment involves', [('list', WHAT_ASSESSMENT)]),
        ('Outside Brisbane', [
-        'The Brisbane clinicians and both GPs also work by phone or telehealth, so you can start today from Cairns, Townsville, Toowoomba or the Sunshine Coast. Parts of the assessment that need a room, such as a physical baseline before medication, can often be done by your local GP using the assessing clinician’s letter. Ask the practice how they handle this.',
+        'The Brisbane clinicians and the network GPs also work by phone or telehealth, so you can start today from Cairns, Townsville, Toowoomba or the Sunshine Coast. Parts of the assessment that need a room, such as a physical baseline before medication, can often be done by your local GP using the assessing clinician’s letter. Ask the practice how they handle this.',
         f'For more on telehealth, see {a("ADHD assessment online", "adhd-assessment-online.html")}.']),
       ],
       faqs=[
        ('Can a GP diagnose ADHD in Queensland?', 'Yes, for adults, since 1 December 2025, if the GP holds FRACGP or FACRRM fellowship. Queensland GPs have prescribed for children since 2017.'),
-       ('How much does an ADHD assessment cost in Queensland?', f'A GP assessment through the network is {GP_TOTAL} across two consultations, with no Medicare rebate. Psychologists set their own assessment fees, shown on their profiles, and a private psychiatrist usually costs the most and has the longest wait.'),
+       ('How much does an ADHD assessment cost in Queensland?', f'{GP_RANGE}. Psychologists set their own assessment fees, shown on their profiles, and a private psychiatrist usually costs the most and has the longest wait.'),
        ('Do I need a referral for an ADHD assessment?', 'No referral needed for a GP or a psychologist. A psychiatrist needs a GP referral.'),
-       ('Can I be assessed by telehealth in Queensland?', 'Yes. Both network GPs see people remotely and the Brisbane psychologists offer telehealth. The practice will tell you if any part needs to be done in person.'),
+       ('Can I be assessed by telehealth in Queensland?', 'Yes. The network GPs and psychiatrists see people remotely, and the Brisbane psychologists offer telehealth. The practice will tell you if any part needs to be done in person.'),
        ('What happens after the diagnosis?', 'You and your clinicians plan treatment together. It can include medication with a prescriber, therapy with a psychologist, occupational therapy, coaching and things you can do yourself, as set out on the treatment after diagnosis page.'),
       ],
       related=['adhd-gp-brisbane', 'adhd-doctor-gold-coast', 'adhd-assessment-online', 'adhd-treatment-after-diagnosis']),
@@ -337,6 +342,28 @@ PAGES = [
       ],
       related=['adhd-treatment-after-diagnosis', 'adhd-doctor-gold-coast', 'adhd-coach', 'adhd-occupational-therapist']),
 
+ dict(slug='adhd-psychiatrist-brisbane', group='profession',
+      seo='ADHD psychiatrist Brisbane: fees, telehealth, wait',
+      title='ADHD psychiatrist in Brisbane.',
+      description=f'Two psychiatrists in Graceville, Brisbane, who assess ADHD and its overlaps, in person or by telehealth. {NT_PSYCHIATRY[0][0]} first consultation, Medicare rebate applies.',
+      lede='Two psychiatrists at Nurtured Thoughts Psychology in Graceville, Brisbane, in person or by telehealth. You need a GP referral.',
+      who=psychiatrists, who_heading='Psychiatrists in the network',
+      who_note='Both also see people by telehealth. Fees are on each profile.',
+      sections=[
+       ('When to see a psychiatrist', [
+        'Most adults in Queensland can now be diagnosed and treated by a GP. A psychiatrist is the right choice when the picture is complicated: another serious mental illness, a history that makes stimulants risky, or medication that has not worked.']),
+       ('The two psychiatrists', [
+        f'{a("Dr Jae Cho", "dr-jae-cho.html")} works across general psychiatry, including ADHD, anxiety, trauma, bipolar disorder and addiction. {a("Dr Rajitha De Silva", "dr-rajitha-de-silva.html")} has over 16 years with adults, with interests in anxiety, depression, bipolar disorder, OCD, trauma and psychosis.']),
+       ('What it costs', [
+        f'A first consultation is {NT_PSYCHIATRY[0][0]}, with $265 back from Medicare. A review is {NT_PSYCHIATRY[1][0]}, with $85 to $135 back. Fees are set and charged by the practice. ADHDme takes no commission.']),
+      ],
+      faqs=[
+       ('Do I need a referral to see a psychiatrist?', 'Yes. A GP referral is needed for a psychiatrist and for the Medicare rebate.'),
+       ('Can a psychiatrist see me by telehealth?', 'Yes. Both psychiatrists see people in Graceville and by telehealth.'),
+       ('Should I see a GP or a psychiatrist first?', 'For most adults in Queensland, a GP. They can diagnose and prescribe, and refer you on if the picture is complicated.'),
+      ],
+      related=['adhd-gp-brisbane', 'adhd-assessment-queensland', 'adhd-psychologist-brisbane', 'adhd-treatment-after-diagnosis']),
+
  dict(slug='adhd-psychologist', group='profession',
       seo='ADHD psychologist: assessment, therapy, costs',
       title='ADHD psychologists: assessment and therapy.',
@@ -368,14 +395,15 @@ PAGES = [
  dict(slug='adhd-psychologist-brisbane', group='profession',
       seo='ADHD psychologist Brisbane: assessment, telehealth',
       title='ADHD psychologist in Brisbane.',
-      description='Eight ADHD psychologists at GOALS Psychology in Fortitude Valley and Neutral Minds in Ashgrove. ADHD and autism assessment, therapy and telehealth.',
-      lede='ADHD and autism assessment and therapy at GOALS Psychology in Fortitude Valley and Neutral Minds Psychology in Ashgrove, for children through to adults.',
+      description='ADHD psychologists in Fortitude Valley, Ashgrove and Graceville, Brisbane. ADHD and autism assessment, therapy and telehealth, from children to adults.',
+      lede='ADHD and autism assessment and therapy in Fortitude Valley, Ashgrove and Graceville, for children through to adults.',
       who=brisbane_psychologists, who_heading='Psychologists with rooms in Brisbane',
       who_note='All also offer telehealth. Fees are on each profile.',
       sections=[
-       ('The two clinics', [
+       ('The three clinics', [
         f'<strong>GOALS Psychology, Fortitude Valley.</strong> {profiles.GOALS_ACCESS}. Sessions are fifty minutes and booked on the clinic’s Halaxy page. Some of its psychologists also visit homes, schools and community settings. Each profile shows the fee and Medicare position, and says so if a fee is not published.',
-        f'<strong>Neutral Minds Psychology, Ashgrove.</strong> This is {a("Jessica Katsamatsas", "jessica-katsamatsas.html")}’s practice. She works with neurodivergent adults in a neurodiversity-affirming, trauma-informed way, in Ashgrove and by telehealth Australia-wide.']),
+        f'<strong>Neutral Minds Psychology, Ashgrove.</strong> This is {a("Jessica Katsamatsas", "jessica-katsamatsas.html")}’s practice. She works with neurodivergent adults in a neurodiversity-affirming, trauma-informed way, in Ashgrove and by telehealth Australia-wide.',
+        f'<strong>Nurtured Thoughts Psychology, Graceville.</strong> {a("Heather McAuliffe", "heather-mcauliffe.html")} is a neurodivergent clinical psychologist who does neurodevelopmental assessment. {a("Matthew Persello", "matthew-persello.html")} sees teens and adults, and {a("Nzubechi Oguoma", "nzubechi-oguoma.html")} sees children, adults and families.']),
        ('Assessment in Brisbane', [
         f'{a("Lachlan Avent", "lachlan-avent.html")} and {a("Meera Lakhani", "meera-lakhani.html")} do ADHD and autism assessments at GOALS for children, teenagers and adults. Meera is an educational and developmental psychologist and also does cognitive assessments. Psychologists assess and diagnose but do not prescribe. For medication, see {a("ADHD GP in Brisbane", "adhd-gp-brisbane.html")}.']),
        ('What it costs', [PSY_COST_PARA]),
@@ -383,9 +411,9 @@ PAGES = [
         f'Toddlers and early intervention: {a("Lauren Poulos", "lauren-poulos.html")} and {a("Kate Row", "kate-row.html")}. Young people and families: {a("Ellie Putland", "ellie-putland.html")}. Eating disorders and perinatal mental health: {a("Samantha Courtney", "samantha-courtney.html")}. Refugee and newly arrived clients: {a("Alice Bui", "alice-bui.html")}. Neurodivergent adults: {a("Jessica Katsamatsas", "jessica-katsamatsas.html")}. The chips on The Network page show the same information.']),
       ],
       faqs=[
-       ('Where are the ADHD psychologists in Brisbane?', 'At GOALS Psychology in Fortitude Valley, which has level access and one hour of free client parking, and Neutral Minds Psychology in Ashgrove. All of them also offer telehealth.'),
+       ('Where are the ADHD psychologists in Brisbane?', 'At GOALS Psychology in Fortitude Valley, which has level access and free client parking, Neutral Minds Psychology in Ashgrove, and Nurtured Thoughts Psychology in Graceville. All also offer telehealth.'),
        ('Can I get an ADHD assessment from a psychologist in Brisbane?', 'Yes. Lachlan Avent and Meera Lakhani at GOALS Psychology assess ADHD and autism in children, teenagers and adults.'),
-       ('Is there parking?', 'Yes. GOALS Psychology has level access from a same-level car park, with one hour of free client parking in the centre.'),
+       ('Is there parking at GOALS?', 'Yes. GOALS Psychology has level access from a same-level car park, with one hour of free client parking in the centre.'),
        ('Do I need a referral?', 'No referral needed to book. To claim the Medicare rebate, you need a Mental Health Treatment Plan from a GP.'),
       ],
       related=['adhd-psychologist', 'adhd-gp-brisbane', 'adhd-doctor-gold-coast', 'adhd-occupational-therapist']),
