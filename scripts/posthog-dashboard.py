@@ -940,7 +940,9 @@ def has_data(result):
     rows = result.get('results') or []
     for row in rows:
         if isinstance(row, dict):
-            if row.get('count') or any(v for v in (row.get('data') or []) if isinstance(v, (int, float))):
+            # A bar or pie tile shows one total per series, which PostHog returns as aggregated_value.
+            if (row.get('count') or row.get('aggregated_value')
+                    or any(v for v in (row.get('data') or []) if isinstance(v, (int, float)))):
                 return True
         elif isinstance(row, list) and row:
             if any(has_data({'results': [r]}) for r in row if isinstance(r, dict)) or not isinstance(row[0], dict):
