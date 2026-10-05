@@ -8,9 +8,10 @@ few tap-only questions and get a scrolling list of clinicians who fit.
 Owns care-navigator.html in full. Edit TYPES, NEEDS, QUESTIONS or DOMAINS here and rebuild.
 
 Every step is a tap: no typing, no speech, no swiping. The matching is plain rules, no AI: a clinician is
-in the list when they see the person it is for, can be met the way asked, and work on what was picked;
-the order is how directly they work on it (a reason quoted from their own profile beats a tag), then the
-two pinned GPs, then an online diary before an enquiry form. Everything comes from CLINICIANS in
+in the list when they see the person it is for, can be met the way asked, and work on what was picked.
+The two pinned GPs lead whenever they are in the list (either may come first), as on The Network; then
+how directly each works on it (a reason quoted from their own profile beats a tag), then somebody in
+the visitor's own place, then an online diary before an enquiry form. Everything comes from CLINICIANS in
 build-profiles.py, so a clinician added there joins the navigator on the next build, in the right kind,
 with nothing to edit here. The reasons shown on each card are DOMAINS below, in the clinician's own words.
 
@@ -171,41 +172,52 @@ ASPECT_NEED = {
 TYPES = [
  dict(key='gp', label='GP', plural='GPs', sub='Diagnosis, medication', tint='#f1bc31',
       what='Can assess ADHD and prescribe medication, depending on your state, then keep it reviewed.',
+      sessions='A long first visit, then reviews',
       good=['A diagnosis', 'Medication', 'Reviews'], referral='No referral needed.'),
  dict(key='psychologist', label='Psychologist', plural='psychologists', sub='Talking therapy', tint='#8fc3ec',
       what='Talk therapy for ADHD and what comes with it, like anxiety and low mood. Some also assess.',
+      sessions='Usually 50-minute sessions',
       good=['Therapy', 'Anxiety and mood', 'Assessment'],
       referral='No referral needed. A GP plan can get you a Medicare rebate.'),
  dict(key='psychiatrist', label='Psychiatrist', plural='psychiatrists', sub='Complex care', tint='#9dd6cf',
       what='A specialist doctor for complex or overlapping conditions and harder medication questions.',
+      sessions='A first consultation, then reviews',
       good=['Complex care', 'Medication', 'A second opinion'],
       referral='You need a GP referral, which also gets you the Medicare rebate.'),
  dict(key='coach', label='ADHD coach', plural='ADHD coaches', sub='Routines, focus', tint='#f7a58c',
       what='Practical help with routines, planning and getting things done. Most here are former teachers.',
+      sessions='Weekly or fortnightly, often online',
       good=['Routines', 'Study', 'Getting organised'], referral='No referral needed. Not covered by Medicare.'),
  dict(key='ot', label='Occupational therapist', plural='occupational therapists', sub='Daily life, school', tint='#9fd08f',
       what='Routines and strategies for children and teens, built at home, at school or in the clinic.',
+      sessions='In the clinic, at home or at school',
       good=['Daily routines', 'School', 'Sensory needs'],
       referral='No referral needed. The NDIS or private health may help with fees.'),
  dict(key='counselling', label='Counsellor', plural='counsellors and social workers', sub='Talk it through', tint='#e3bf8a',
       what='Counsellors and mental health social workers: someone to talk things through with.',
+      sessions='In person or online',
       good=['Stress', 'Relationships', 'Life changes'],
       referral='No referral needed. Some offer Medicare rebates with a GP plan.'),
  dict(key='physio', label='Physiotherapist', plural='physiotherapists', sub='Pain, injury', tint='#b7b0f0',
       what='Helps you recover from pain or injury and keep moving, at a pace that suits you.',
+      sessions='Hands-on care and exercises',
       good=['Pain', 'Injury', 'Getting active'], referral='No referral needed.'),
  dict(key='ep', label='Exercise physiologist', plural='exercise physiologists', sub='Exercise as medicine', tint='#f2a7c8',
       what='Exercise built around you and what you enjoy, for focus, sleep and mood.',
+      sessions='A program built for you',
       good=['Movement', 'Sleep', 'Mood'], referral='No referral needed.'),
  dict(key='assistant', label='Therapy assistant', plural='therapy assistants', sub='Practice between sessions', tint='#dad9eb',
       what='Practises skills with you between sessions, supervised by your psychologist.',
+      sessions='Between your psychology sessions',
       good=['Practising skills', 'Routines', 'NDIS support'],
       referral='Works alongside your psychologist. Often funded by the NDIS.'),
  dict(key='neuro', label='Neurotherapy', plural='neurotherapy practitioners', sub='Brain mapping', tint='#dbe9d3',
       what='Brain mapping (QEEG) and neurotherapy sessions, in the clinic.',
+      sessions='An assessment, then training sessions',
       good=['Brain mapping', 'Training sessions'], referral='No referral needed. In person only.'),
  dict(key='allied', label='Allied health', plural='allied health clinicians', sub='More support', tint='#e8e6df',
       what='More ways forward beyond medication, from clinicians who understand ADHD.',
+      sessions='Set with the practice',
       good=['Support', 'Skills'], referral='No referral needed.'),
 ]
 TYPE_BY_KEY = {t['key']: t for t in TYPES}
@@ -279,24 +291,31 @@ def needs_of(c):
 
 
 # ---------------------------------------------------------------- the questions
-# Each answer is a tap and moves straight on. who and need narrow the list; where and meet decide who can
-# be seen. A visitor who came from a kind's sheet skips "what would help": the kind already says it.
+# Each answer is a tap and moves straight on. who and need narrow the list; where decides who can be seen.
+# where is Final-Algorithm's "Does location matter?": Anywhere means online is fine; Near a place reveals
+# the places where somebody in the network sees people in person, and online options still show below
+# them. A visitor who came from a kind's sheet skips "what would help": the kind already says it.
 QUESTIONS = [
- dict(key='who', title='Who is it for?', options=[
+ dict(key='who', title='Who is it for?', icon='who:me', options=[
   dict(value='adults', label='Me', icon='who:me'),
   dict(value='teens', label='My teenager', icon='who:teen'),
   dict(value='children', label='My child', icon='who:child')]),
- dict(key='need', title='What would help most?',
+ dict(key='need', title='What would help most?', icon='need:talk',
       options=[dict(value=n['key'], label=n['label'], icon='need:' + n['key']) for n in NEEDS]),
- dict(key='where', title='Where are you?', options=[
-  dict(value='QLD', label='Queensland'), dict(value='NSW', label='New South Wales'),
-  dict(value='VIC', label='Victoria'), dict(value='WA', label='Western Australia'),
-  dict(value='', label='Somewhere else')]),
- dict(key='meet', title='How would you like to meet?', options=[
-  dict(value='person', label='In person', icon='meet:person'),
-  dict(value='online', label='Online', icon='meet:online'),
-  dict(value='either', label='Either is fine', icon='meet:either')]),
+ dict(key='where', title='Does location matter?', icon='meet:person', options=[
+  dict(value='any', label='Anywhere', sub='Online is fine', icon='meet:online'),
+  dict(value='near', label='Near a place', sub='In person if I can', icon='meet:person')]),
 ]
+
+
+def places():
+    """Where somebody in the network sees people in person, busiest first, as the city line on their profile."""
+    seen = {}
+    for c in profiles.CLINICIANS:
+        if c.get('in_person', True) is not False:
+            seen[profiles.city(c)] = seen.get(profiles.city(c), 0) + 1
+    return [p for p, _ in sorted(seen.items(), key=lambda kv: (-kv[1], kv[0]))]
+
 
 # ---------------------------------------------------------------- icons
 # One line drawing per card, inline SVG on a 24-box, stroked in the text colour.
@@ -326,6 +345,9 @@ ICONS = {
  'meet:person': '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
  'meet:online': '<rect x="2" y="6" width="13" height="12" rx="2.5"/><path d="M15 10.5 22 7v10l-7-3.5z"/>',
  'meet:either': '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+ 'row:helps': '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+ 'row:sessions': '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+ 'row:cost': '<circle cx="12" cy="12" r="8.5"/><path d="M14.5 9.3c-.6-.9-1.6-1.4-2.7-1.4-1.6 0-2.8.9-2.8 2.2 0 3 5.8 1.5 5.8 4.4 0 1.3-1.3 2.3-3 2.3-1.3 0-2.4-.6-3-1.6M12 6v1.8M12 16.7v1.8"/>',
 }
 
 
@@ -338,7 +360,7 @@ ARROW = '<span class="nav-arrow" aria-hidden="true">→</span>'
 
 SEO = 'ADHD care navigator: who could help?'
 DESCRIPTION = ('Not sure who to see for ADHD? Tap a GP, psychologist, coach or therapist to see what they do, '
-               'or answer four quick taps to find your match.')
+               'or answer a few quick taps to find your match.')
 
 
 # ---------------------------------------------------------------- shell
@@ -405,18 +427,31 @@ STYLE = """<style>
 .nav-choose:active{transform:translateY(3px);box-shadow:0 1px 0 #c99a1a;}
 .nav-choose:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
 .nav-arrow{font-weight:800;}
-.nav-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;min-height:44px;}
+.nav-top{display:flex;align-items:center;gap:12px;margin-bottom:26px;min-height:48px;}
 .nav-back{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;font:inherit;font-size:15px;font-weight:700;color:#1a1c1c;background:transparent;border:1.5px solid #e8e6df;border-radius:999px;cursor:pointer;}
 .nav-back:hover{background:#f6f4ee;}
-.nav-dots{display:flex;gap:6px;}
-.nav-dots span{width:8px;height:8px;border-radius:999px;background:#e8e6df;transition:background .2s,width .2s;}
-.nav-dots span.is-done{background:#1a1c1c;}
-.nav-dots span.is-now{width:22px;background:#f1bc31;}
+.nav-top .nav-back{width:44px;padding:0;justify-content:center;flex:none;}
+.nav-ring{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;flex:none;border:3px solid #1a1c1c;border-radius:999px;background:#fff;color:#1a1c1c;}
+.nav-ring .nav-ic{width:22px;height:22px;}
+.nav-bar{position:relative;flex:1;height:14px;border-radius:7px;background:#ebe8e0;overflow:hidden;}
+.nav-bar__fill{position:absolute;left:0;top:0;bottom:0;width:0;min-width:14px;border-radius:7px;background:#f1bc31;box-shadow:inset 0 3px 0 rgba(255,255,255,.35);transition:width .5s cubic-bezier(.34,1.3,.64,1);}
 .nav-opts{display:grid;grid-template-columns:1fr;gap:12px;margin-top:22px;}
 @media (min-width:640px){.nav-opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}}
 .nav-opt{align-items:center;gap:14px;width:100%;min-height:68px;padding:12px 18px;font-size:18px;font-weight:700;}
 .nav-opt[aria-pressed="true"]{background:#fdf3d6;border-color:#f1bc31;box-shadow:0 4px 0 #e2ac24;}
 .nav-opt .nav-badge{width:40px;height:40px;border-radius:12px;background:#f6f4ee;}
+.nav-opts--two{grid-template-columns:repeat(2,minmax(0,1fr));}
+.nav-opts--two .nav-opt{flex-direction:column;align-items:flex-start;gap:12px;min-height:132px;padding:18px;}
+.nav-opt__text{display:flex;flex-direction:column;gap:2px;}
+.nav-opt__sub{font-size:15px;font-weight:500;color:#5f5e59;}
+.nav-places{margin-top:22px;}
+.nav-places__row{display:flex;flex-wrap:wrap;gap:10px;}
+.nav-place{display:inline-flex;align-items:center;min-height:46px;padding:0 18px;font:inherit;font-size:16px;font-weight:700;color:#1a1c1c;background:#fff;border:1.5px solid #e8e6df;border-radius:999px;box-shadow:0 3px 0 #e8e6df;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;}
+.nav-place:hover{transform:translateY(-1px);}
+.nav-place:active{transform:translateY(3px);box-shadow:none;}
+.nav-place[aria-pressed="true"]{background:#fdf3d6;border-color:#f1bc31;box-shadow:0 3px 0 #e2ac24;}
+.nav-place:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
+.nav-places__note{margin:12px 0 0;font-size:14px;color:#5f5e59;}
 .nav-opt[aria-pressed="true"] .nav-badge{background:#f1bc31;}
 .nav-answers{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
 .nav-chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;font:inherit;font-size:14px;font-weight:700;color:#1a1c1c;background:#fdf3d6;border:1.5px solid #ebd8ab;border-radius:999px;cursor:pointer;}
@@ -429,6 +464,9 @@ STYLE = """<style>
 .nav-card__img img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
 .nav-card__body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1;}
 .nav-card__name{font-size:17px;line-height:1.25;font-weight:800;letter-spacing:-.01em;}
+.nav-card__fit{align-self:flex-start;padding:2px 9px;font-size:11.5px;font-weight:800;line-height:1.5;border-radius:999px;color:#1a1c1c;background:#fff;border:1px solid #cfcac0;}
+.nav-card__fit[data-fit="2"]{background:#f1bc31;border-color:#e2ac24;}
+.nav-card__fit[data-fit="1"]{color:#fff;background:#1a1c1c;border-color:#1a1c1c;}
 .nav-card__meta{font-size:14px;line-height:1.3;font-weight:600;color:#5f5e59;}
 .nav-card__why{align-self:flex-start;margin-top:4px;padding:3px 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;line-height:1.35;font-weight:600;color:#5f5e59;background:#f6f4ee;border:1px solid #e8e6df;border-radius:999px;}
 .nav-card .nav-arrow{flex:none;font-size:18px;color:#c99a1a;}
@@ -446,9 +484,9 @@ STYLE = """<style>
 .nav-sheet__close{position:absolute;top:14px;right:14px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:22px;color:#1a1c1c;background:#f6f4ee;border:0;border-radius:999px;cursor:pointer;}
 .nav-sheet h2{margin:14px 0 0;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.02em;}
 .nav-sheet__what{margin:10px 0 0;font-size:17px;line-height:1.5;color:#1a1c1c;}
-.nav-sheet__good{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:16px 0 0;}
-.nav-sheet__good li{padding:6px 12px;font-size:14px;font-weight:700;background:#f6f4ee;border:1px solid #e8e6df;border-radius:999px;}
-.nav-sheet__ref{margin:16px 0 0;font-size:15px;line-height:1.45;color:#5f5e59;}
+.nav-facts{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px;}
+.nav-facts li{display:flex;align-items:flex-start;gap:12px;font-size:16px;line-height:1.4;font-weight:600;}
+.nav-ic--row{width:20px;height:20px;margin-top:1px;}
 .nav-sheet__act{display:grid;gap:10px;margin-top:22px;}
 @media (min-width:480px){.nav-sheet__act{grid-template-columns:1fr 1fr;}}
 .nav-sheet__act .nav-btn{width:100%;}
@@ -459,82 +497,100 @@ STYLE = """<style>
 SCRIPT = r"""<script>
 (function(){
   var nav=document.getElementById('nav');if(!nav)return;
-  var D=JSON.parse(document.getElementById('nav-data').textContent);
+  var D=JSON.parse(document.getElementById('nav-data').textContent),W=D.words;
   var sheet=document.getElementById('nav-sheet'),list=document.getElementById('nav-list');
   var cards={};Array.prototype.forEach.call(list.children,function(li){cards[li.getAttribute('data-id')]=li;});
   var state={},trail=[];
   var flip=Math.random()<0.5?1:-1;   // which pinned GP leads, decided once per visit, as on The Network
+  function each(sel,fn,root){Array.prototype.forEach.call((root||nav).querySelectorAll(sel),fn);}
   function screen(name){return nav.querySelector('[data-screen="'+name+'"]');}
-  function steps(){return state.type?['who','where','meet']:['who','need','where','meet'];}
+  function steps(){return state.type?['who','where']:['who','need','where'];}
   function next(){var s=steps();for(var i=0;i<s.length;i++)if(state[s[i]]===undefined)return s[i];return 'results';}
   function go(name,back){
     var current=nav.querySelector('[data-screen]:not([hidden])');
-    if(!back&&current)trail.push(current.getAttribute('data-screen'));
-    Array.prototype.forEach.call(nav.querySelectorAll('[data-screen]'),function(s){s.hidden=s.getAttribute('data-screen')!==name;});
-    if(name==='results')render();
-    else if(name!=='start')dots(name);
-    var h=screen(name).querySelector('.nav-h');
+    if(!back&&current&&current.getAttribute('data-screen')!==name)trail.push(current.getAttribute('data-screen'));
+    each('[data-screen]',function(s){s.hidden=s.getAttribute('data-screen')!==name;});
+    if(name==='results')render();else if(name!=='start')ask(name);
     var bar=document.querySelector('header'),top=nav.getBoundingClientRect().top+window.pageYOffset-((bar&&bar.offsetHeight)||0)-12;
     if(window.pageYOffset>top)window.scrollTo(0,top);
-    if(h&&name!=='start')h.focus({preventScroll:true});
+    var h=screen(name).querySelector('.nav-h');if(h&&name!=='start')h.focus({preventScroll:true});
   }
-  function dots(name){
-    var s=steps(),at=s.indexOf(name),box=screen(name).querySelector('.nav-dots');
-    box.innerHTML=s.map(function(_,i){return '<span class="'+(i<at?'is-done':i===at?'is-now':'')+'"></span>';}).join('');
-    box.setAttribute('aria-label','Question '+(at+1)+' of '+s.length);
-    Array.prototype.forEach.call(screen(name).querySelectorAll('.nav-opt'),function(b){b.setAttribute('aria-pressed',String(state[name]===b.getAttribute('data-v')));});
+  // A question on screen: how far along, and which answer is already chosen.
+  function ask(name){
+    var s=steps(),at=s.indexOf(name),scr=screen(name),pct=Math.round(100*(at+1)/(s.length+1));
+    scr.querySelector('.nav-bar__fill').style.width=pct+'%';
+    scr.querySelector('[data-step]').textContent='Question '+(at+1)+' of '+s.length;
+    var v=state[name],near=name==='where'&&v!==undefined&&v!=='any';
+    each('.nav-opt',function(b){var x=b.getAttribute('data-v');b.setAttribute('aria-pressed',String(x===v||(near&&x==='near')));},scr);
+    var places=scr.querySelector('[data-places]');
+    if(places){places.hidden=!near;each('.nav-place',function(b){b.setAttribute('aria-pressed',String(near&&b.getAttribute('data-place')===v));},places);}
   }
-  function fits(c,meet,where){
-    if(meet==='online')return c.o;
-    var near=c.p&&c.s===where;
-    return meet==='person'?near:(c.o||near);
-  }
+  function fits(c,where){return where==='any'||where===''?c.o:((c.p&&c.city===where)||c.o);}
   function render(){
-    var note='',meet=state.meet,where=state.where;
+    var where=state.where,note='';
     var pool=D.people.filter(function(c){return (!state.type||c.t===state.type)&&(!state.who||c.a.indexOf(state.who)!==-1);});
-    var met=meet?pool.filter(function(c){return fits(c,meet,where);}):pool;
-    if(meet&&!met.length&&meet!=='online'){met=pool.filter(function(c){return c.o;});note=D.words.noneNear;}
+    var met=where===undefined?pool:pool.filter(function(c){return fits(c,where);});
     var picked=met;
     if(state.need){
       picked=met.filter(function(c){return c.n[state.need];});
-      if(!picked.length&&met.length){picked=met;note=D.words.noneExact;}
+      if(!picked.length&&met.length){picked=met;note=W.noneExact;}
     }
-    picked=picked.map(function(c,i){return {c:c,s:(state.need&&c.n[state.need]?c.n[state.need][0]:0)+(where&&c.s===where?0.5:0),i:i};})
-      .sort(function(x,y){return (y.s-x.s)||((y.c.pin?1:0)-(x.c.pin?1:0))||(x.c.pin&&y.c.pin?(x.i-y.i)*flip:0)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);});
+    if(where===''||(where&&where!=='any'&&picked.length&&!picked.some(function(c){return c.p&&c.city===where;})))note=note||W.noneNear;
+    var local=function(c){return where&&where!=='any'&&c.p&&c.city===where;};
+    picked=picked.map(function(c,i){var k=state.need&&c.n[state.need]?c.n[state.need][0]:0;return {c:c,k:k,s:k+(local(c)?0.5:0),i:i};})
+      .sort(function(x,y){return ((y.c.pin?1:0)-(x.c.pin?1:0))||(x.c.pin&&y.c.pin?(x.i-y.i)*flip:0)||(y.s-x.s)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);});
     var shown={};
-    picked.forEach(function(p){var li=cards[p.c.i];shown[p.c.i]=1;li.hidden=false;
+    picked.forEach(function(p){
+      var li=cards[p.c.i];shown[p.c.i]=1;li.hidden=false;
       var why=li.querySelector('[data-why]');why.textContent=state.need&&p.c.n[state.need]?p.c.n[state.need][1]:why.getAttribute('data-why');
-      list.appendChild(li);});
+      var fit=li.querySelector('[data-fit]');fit.hidden=!state.need;
+      if(state.need){fit.textContent=W.fit[p.k];fit.setAttribute('data-fit',String(p.k));}
+      list.appendChild(li);
+    });
     Object.keys(cards).forEach(function(id){if(!shown[id])cards[id].hidden=true;});
-    var t=state.type?D.types[state.type]:null;
-    screen('results').querySelector('.nav-h').textContent=(t&&!state.need&&state.who===undefined)?t.title:D.words.matches;
+    var t=state.type?D.types[state.type]:null,browsing=t&&state.who===undefined;
+    screen('results').querySelector('.nav-h').textContent=browsing?t.title:W.matches;
     var n=picked.length;
-    document.getElementById('nav-count').textContent=n?(n+' '+(n===1?D.words.one:D.words.many)):D.words.none;
+    document.getElementById('nav-count').textContent=!n?W.none:browsing?(n+' '+(n===1?W.oneBare:W.manyBare)):(n+' '+(n===1?W.one:W.many));
     var noteEl=document.getElementById('nav-note');noteEl.hidden=!note;noteEl.textContent=note;
     var chips=[];
     if(t)chips.push(['type',t.label]);
-    steps().forEach(function(k){if(state[k]!==undefined)chips.push([k,D.labels[k][state[k]]]);});
+    steps().forEach(function(k){
+      if(state[k]===undefined)return;
+      var v=state[k],label=k!=='where'?D.labels[k][v]:v==='any'?D.labels.where.any:v===''?W.elsewhere:W.near+v.split(',')[0];
+      chips.push([k,label]);
+    });
     document.getElementById('nav-answers').innerHTML=chips.map(function(c){return '<button type="button" class="nav-chip" data-edit="'+c[0]+'">'+c[1]+' <span aria-hidden="true">✎</span></button>';}).join('');
-    document.getElementById('nav-narrow').hidden=!(t&&state.who===undefined);
+    document.getElementById('nav-narrow').hidden=!browsing;
   }
   function openSheet(type){
-    Array.prototype.forEach.call(sheet.querySelectorAll('[data-role]'),function(s){s.hidden=s.getAttribute('data-role')!==type;});
+    each('[data-role]',function(s){s.hidden=s.getAttribute('data-role')!==type;},sheet);
     sheet.setAttribute('aria-labelledby','role-'+type);
     if(sheet.showModal)sheet.showModal();else sheet.setAttribute('open','');
   }
   function closeSheet(){if(sheet.close)sheet.close();else sheet.removeAttribute('open');}
+  function answer(q,v,el){
+    state[q]=v;
+    if(el)each(el.className.indexOf('nav-place')!==-1?'.nav-place':'.nav-opt',function(b){b.setAttribute('aria-pressed',String(b===el));},el.closest('[data-screen]'));
+    setTimeout(function(){go(next());},170);
+  }
   nav.addEventListener('click',function(e){
-    var el=e.target.closest('[data-type],[data-start],[data-v],[data-back],[data-edit],[data-restart],[data-narrow]');if(!el)return;
+    var el=e.target.closest('[data-type],[data-start],[data-v],[data-place],[data-back],[data-edit],[data-restart],[data-narrow]');if(!el)return;
     if(el.hasAttribute('data-type')){e.preventDefault();openSheet(el.getAttribute('data-type'));return;}
     if(el.hasAttribute('data-start')){state={};trail=[];go(next());return;}
     if(el.hasAttribute('data-v')){
-      var q=el.closest('[data-screen]').getAttribute('data-screen');state[q]=el.getAttribute('data-v');
-      Array.prototype.forEach.call(el.parentNode.children,function(b){b.setAttribute('aria-pressed',String(b===el));});
-      setTimeout(function(){go(next());},170);return;}
+      var q=el.closest('[data-screen]').getAttribute('data-screen'),v=el.getAttribute('data-v');
+      if(q==='where'&&v==='near'){   // reveal the places; the answer is the place tapped next
+        each('.nav-opt',function(b){b.setAttribute('aria-pressed',String(b===el));},el.closest('[data-screen]'));
+        var places=el.closest('[data-screen]').querySelector('[data-places]');places.hidden=false;
+        var first=places.querySelector('.nav-place');if(first)first.focus({preventScroll:true});
+        places.scrollIntoView({behavior:'smooth',block:'nearest'});return;}
+      answer(q,v,el);return;}
+    if(el.hasAttribute('data-place')){answer('where',el.getAttribute('data-place'),el);return;}
     if(el.hasAttribute('data-back')){go(trail.pop()||'start',true);return;}
     if(el.hasAttribute('data-edit')){var k=el.getAttribute('data-edit');
       if(k==='type'){state={};trail=[];go('start');return;}
-      delete state[k];if(k==='where'||k==='meet'){}go(k);return;}
+      delete state[k];go(k);return;}
     if(el.hasAttribute('data-restart')){state={};trail=[];go('start');return;}
     if(el.hasAttribute('data-narrow')){var keep=state.type;state={type:keep};go(next());return;}
   });
@@ -561,7 +617,7 @@ def card(c, kinds):
     t = TYPE_BY_KEY[kinds[c['id']]]
     default_why = c['chips'][0] if c['chips'] else (c['descriptor'] or c['role'])
     return (f'<li data-id="{c["id"]}" hidden><a class="nav-card" href="{c["slug"]}.html">{portrait(c)}'
-            f'<span class="nav-card__body"><span class="nav-card__name">{esc(c["name"])}</span>'
+            f'<span class="nav-card__body"><span class="nav-card__fit" data-fit hidden></span><span class="nav-card__name">{esc(c["name"])}</span>'
             f'<span class="nav-card__meta">{esc(t["label"])} · {esc(where)}</span>'
             f'<span class="nav-card__why" data-why="{esc(default_why)}">{esc(default_why)}</span></span>{ARROW}</a></li>')
 
@@ -577,24 +633,37 @@ def tile(t, count):
 def role(t, count):
     noun = t['label'] if count == 1 else t['plural']
     see = f'See {"the" if count == 1 else "all " + str(count)} {noun}'
-    good = ''.join(f'<li>{esc(g)}</li>' for g in t['good'])
+    # One sentence-case list: "A diagnosis, medication, reviews", acronyms (NDIS) kept as they are.
+    helps = ', '.join([t['good'][0]] + [g if g[:2].isalpha() and g[:2].isupper() else g[0].lower() + g[1:] for g in t['good'][1:]])
+    rows = ''.join(f'<li>{icon("row:" + k, "nav-ic nav-ic--row")}<span><span class="sr-only">{label}: </span>{esc(v)}</span></li>'
+                   for k, label, v in (('helps', 'Helps with', helps), ('sessions', 'Sessions', t['sessions']),
+                                       ('cost', 'Referral and cost', t['referral'])))
     return (f'<section data-role="{t["key"]}" hidden><span class="nav-badge" style="--tint:{t["tint"]}">{icon(t["key"])}</span>'
             f'<h2 id="role-{t["key"]}">{esc(t["label"])}</h2><p class="nav-sheet__what">{esc(t["what"])}</p>'
-            f'<ul class="nav-sheet__good" aria-label="Good for">{good}</ul><p class="nav-sheet__ref">{esc(t["referral"])}</p>'
+            f'<ul class="nav-facts">{rows}</ul>'
             f'<div class="nav-sheet__act"><button type="button" class="nav-btn nav-btn--go" data-list="{t["key"]}">{esc(see)} {ARROW}</button>'
             f'<button type="button" class="nav-btn" data-choose="{t["key"]}">Help me choose</button></div></section>')
 
 
 def question(q):
-    opts = ''.join(
-        f'<button type="button" class="nav-opt" data-v="{esc(o["value"])}" aria-pressed="false">'
-        + (f'<span class="nav-badge">{icon(o["icon"])}</span>' if o.get('icon') else '')
-        + f'<span>{esc(o["label"])}</span></button>' for o in q['options'])
+    def option(o):
+        label = (f'<span class="nav-opt__text"><span>{esc(o["label"])}</span><span class="nav-opt__sub">{esc(o["sub"])}</span></span>'
+                 if o.get('sub') else f'<span>{esc(o["label"])}</span>')
+        return (f'<button type="button" class="nav-opt" data-v="{esc(o["value"])}" aria-pressed="false">'
+                f'<span class="nav-badge">{icon(o["icon"])}</span>{label}</button>')
+    extra = ''
+    if q['key'] == 'where':
+        chips = ''.join(f'<button type="button" class="nav-place" data-place="{esc(p)}">{esc(p.split(",")[0])}</button>' for p in places())
+        extra = (f'<div class="nav-places" data-places hidden><div class="nav-places__row" role="group" aria-label="Places">{chips}'
+                 f'<button type="button" class="nav-place" data-place="">Somewhere else</button></div>'
+                 f'<p class="nav-places__note">Online options still show.</p></div>')
     return (f'<section class="nav-screen" data-screen="{q["key"]}" hidden aria-labelledby="q-{q["key"]}">'
-            f'<div class="nav-top"><button type="button" class="nav-back" data-back><span aria-hidden="true">←</span> Back</button>'
-            f'<span class="nav-dots" role="img" aria-label="Progress"></span></div>'
+            f'<div class="nav-top"><button type="button" class="nav-back" data-back aria-label="Back"><span aria-hidden="true">←</span></button>'
+            f'<span class="nav-ring">{icon(q["icon"])}</span>'
+            f'<span class="nav-bar" aria-hidden="true"><span class="nav-bar__fill"></span></span><span class="sr-only" data-step></span></div>'
             f'<h2 id="q-{q["key"]}" class="nav-h" tabindex="-1">{esc(q["title"])}</h2>'
-            f'<div class="nav-opts" role="group" aria-labelledby="q-{q["key"]}">{opts}</div></section>')
+            f'<div class="nav-opts{" nav-opts--two" if q["key"] == "where" else ""}" role="group" aria-labelledby="q-{q["key"]}">'
+            f'{"".join(option(o) for o in q["options"])}</div>{extra}</section>')
 
 
 def state_of(c):
@@ -615,13 +684,15 @@ def build():
     # Same order as The Network: pinned GPs first, then online diaries, then enquiries, then CLINICIANS order.
     ordered = sorted(profiles.CLINICIANS, key=lambda c: (c['id'] not in profiles.PINNED, not profiles.books_online(c)))
     people = [dict(i=c['id'], t=kinds[c['id']], a=c['ages'], o=bool(c['telehealth']), p=c.get('in_person', True) is not False,
-                   s=state_of(c), n={k: list(v) for k, v in needs_of(c).items()}, pin=c['id'] in profiles.PINNED,
+                   s=state_of(c), city=profiles.city(c), n={k: list(v) for k, v in needs_of(c).items()}, pin=c['id'] in profiles.PINNED,
                    b=profiles.books_online(c)) for c in ordered]
     data = dict(
         people=people,
         types={t['key']: dict(label=t['label'], title=(t['label'] if counts[t['key']] == 1 else t['plural'][0].upper() + t['plural'][1:])) for t in present},
-        labels={q['key']: {o['value']: o['label'] for o in q['options']} for q in QUESTIONS},
-        words=dict(matches='Your matches', one='clinician', many='clinicians', none='No one fits all of that yet.',
+        labels={q['key']: {o['value']: (o['sub'] if q['key'] == 'where' else o['label']) for o in q['options']} for q in QUESTIONS},
+        words=dict(matches='Your matches', one='clinician fits.', many='clinicians, best first.', none='No one fits all of that yet.',
+                   oneBare='clinician', manyBare='clinicians',
+                   fit=['Worth considering', 'Good fit', 'Strong fit'], near='Near ', elsewhere='Somewhere else',
                    noneNear='No one sees people in person there yet. These work online.',
                    noneExact='No exact match for that yet. These could still help.'),
     )
@@ -641,12 +712,12 @@ def build():
 <div id="nav" class="nav px-5 md:px-8 pt-10 pb-20">
 <section class="nav-screen" data-screen="start" aria-labelledby="nav-title">
 <h1 id="nav-title" class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">Who could help?</h1>
-<p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do. Not sure? Four taps find your match.</p>
+<p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do. Not sure? A few taps find your match.</p>
 <ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide nav-js"><button type="button" class="nav-choose" data-start>Not sure? Help me choose {ARROW}</button></li></ul>
 </section>
 {questions}
 <section class="nav-screen" data-screen="results" hidden aria-labelledby="nav-results-title">
-<div class="nav-top"><button type="button" class="nav-back" data-back><span aria-hidden="true">←</span> Back</button></div>
+<div class="nav-top"><button type="button" class="nav-back" data-back aria-label="Back"><span aria-hidden="true">←</span></button></div>
 <h2 id="nav-results-title" class="nav-h" tabindex="-1">Your matches</h2>
 <p id="nav-count" class="nav-count" aria-live="polite"></p>
 <div id="nav-answers" class="nav-answers"></div>
