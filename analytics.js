@@ -343,6 +343,12 @@
       name: 'Tracey Dale', category: 'allied',
       practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
       expertise: ['therapy', 'trauma', 'perinatal'], ages: ['children', 'teens', 'adults']
+    },
+    'ashleigh-feltham': {
+      booking: /feedyourfuturedietetics\.com\/contacts/, profile: 'ashleigh-feltham.html',
+      name: 'Ashleigh Feltham', category: 'allied',
+      practice: 'Feed Your Future Dietetics', destination: 'clinic-contact',
+      expertise: ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'], ages: ['children', 'teens', 'adults']
     }
   };
   // END:GENERATED clinicians

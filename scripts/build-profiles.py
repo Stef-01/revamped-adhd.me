@@ -345,6 +345,8 @@ NT_FEES_CLINICAL = dict(
     ],
 )
 
+FYF = 'https://feedyourfuturedietetics.com/'   # Feed Your Future Dietetics, Canberra; telehealth Australia-wide
+
 CLINICIANS = [
     dict(
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
@@ -2420,6 +2422,63 @@ CLINICIANS = [
         disclosure=NT_DISCLOSURE,
         schema=dict(type='Person', credentials=['Accredited Mental Health Social Worker'], same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
     ),
+    # Feed Your Future Dietetics: Ashleigh's own words from feedyourfuturedietetics.com (about-us, pricing,
+    # contacts, ndis-and-dietetics), read 2026-10-05. Telehealth only, from Canberra; no online diary, so the
+    # button opens the practice's contact page and reads Enquire.
+    dict(
+        slug='ashleigh-feltham', id='ashleigh-feltham', category='allied',
+        ages=['children', 'teens', 'adults'],
+        name='Ashleigh Feltham', short='Ashleigh Feltham', role='Accredited Practising Dietitian', pronouns='she/her',
+        practice='Feed Your Future Dietetics', place='Telehealth Australia-wide', descriptor='Accredited practising dietitian',
+        description='A neurodivergent-affirming dietitian for eating disorders, restrictive eating and challenges around food, by telehealth anywhere in Australia.',
+        chips=['Neurodivergent-affirming', 'Eating disorders', 'Restrictive eating'],
+        telehealth=True,
+        in_person=False,   # consultations are by Telehealth, Zoom, Teams or phone
+        book_href=FYF + 'contacts/', book_hint='Opens the practice’s website in a new tab.',
+        links=[
+            ('website', 'feedyourfuturedietetics.com', FYF),
+        ],
+        fees=dict(
+            heading='What a consultation costs',
+            figures=[('$270', 'Initial consultation, from'), ('$140', 'Follow-up, from')],
+            notes=[
+                'Consultations are by Telehealth, Zoom, Teams or phone, wherever you are in Australia.',
+                'Private health insurance may cover part of the fee; check what your fund offers for dietetics.',
+                'Self-managed and plan-managed NDIS participants can use Capacity Building funding.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='Accredited Practising Dietitian, Master of Nutrition and Dietetics, Bachelor of Human Nutrition',
+        languages=[],
+        experience=[
+            'Owner and Accredited Practising Dietitian, Feed Your Future Dietetics, since 2016',
+            'Over 10 years as an Accredited Practising Dietitian',
+            'Master of Nutrition and Dietetics',
+            'Bachelor of Human Nutrition',
+            'Qualified personal trainer and group fitness instructor, over 16 years in the fitness industry',
+            'Neurodivergent-affirming practice: eating disorders, restrictive eating and challenges around food',
+            'Voted The Best Nutritionist in South Canberra, Quality Business Awards 2026',
+        ],
+        about=[
+            'Ashleigh is an Accredited Practising Dietitian (APD) and the owner of Feed Your Future Dietetics. She holds a Master of Nutrition and Dietetics and a Bachelor of Human Nutrition and has over 10 years of experience as an Accredited Practising Dietitian. Alongside her work in dietetics, she is a qualified personal trainer and group fitness instructor, with over 16 years of experience in the fitness industry.',
+            'Feed Your Future Dietetics is a neurodivergent-affirming practice that puts you at the centre of your care. It takes a holistic and individualised approach, developing practical strategies that consider your lifestyle, preferences, abilities, goals and relationship with food. Ashleigh is particularly passionate about supporting neurodivergent individuals and people experiencing eating disorders, restrictive eating and challenges around food.',
+            'Consultations are available Australia-wide via Telehealth and Zoom. The practice works collaboratively with you and, where appropriate, the people involved in your care, building skills and confidence for positive and sustainable change, without judgement or unnecessary pressure.',
+        ],
+        details=[
+            ('Reach', 'Telehealth, Australia-wide; based in Canberra'),
+            ('Appointments', 'By Telehealth, Zoom, Teams or phone; times set with the practice'),
+            ('Billing', 'Initial consultation from $270, follow-up from $140; set and charged by the practice'),
+            ('Wheelchair access', 'Not applicable: telehealth only, no premises to visit'),
+        ],
+        disclosure='Feed Your Future Dietetics is an independent practice.',
+        schema=dict(
+            type='Person',
+            credentials=['Accredited Practising Dietitian', 'Master of Nutrition and Dietetics', 'Bachelor of Human Nutrition'],
+            same_as=[FYF + 'about-us/'],
+            works_for=dict(url=FYF, telephone='1300 552 497', locality='Canberra', state='ACT'),
+            area='Australia',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -2503,9 +2562,11 @@ CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benow
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
         'Graceville': 'Brisbane, QLD'}
 REGION_BY_ID = {'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
+                'ashleigh-feltham': 'Australia-wide via telehealth',
                 'allen-macbell': 'Melbourne, VIC',
                 'paula-garrido': 'Australia-wide via telehealth'}
 SUBURBS_BY_ID = {'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
+                 'ashleigh-feltham': '',
                  'allen-macbell': 'Ivanhoe',
                  'paula-garrido': '', 'alex-lawson': 'Sutherland Shire'}
 AGE_LABEL = {'children': 'children', 'teens': 'teens', 'adults': 'adults'}
@@ -3096,6 +3157,7 @@ ANALYTICS = ROOT / 'analytics.js'
 # What each clinician is sought for, as dashboard words. A clinician without a row here gets their category's
 # default below, so a new profile is never refused for want of one; add a row when you want something sharper.
 EXPERTISE = {
+    'ashleigh-feltham': ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'],
     'anubhav-saxena': ['assessment', 'physical-health', 'integrative'],
     'anu-saxena': ['mental-health', 'womens-health'],
     'yogesh-kalra': ['medication', 'womens-health'],

@@ -45,8 +45,11 @@ const RULES = {
 };
 // Pages allowed past their type's limit, each with the reason. Learn carries the Apps list (twelve apps, a line
 // each), which the owner asked for in full. The Network's cards carry a two-sentence bio each, which the owner
-// asked for so a reader can tell clinicians apart without opening every profile.
-const OVERRIDES = { learn: { words: 600 }, 'the-doctors': { words: 260, fold: 100 } };
+// asked for so a reader can tell clinicians apart without opening every profile. The navigator's "Who could
+// help?" screen has no text limit at the owner's request (October 2026): each kind of clinician carries a full
+// line, and each match is an expanded profile card.
+const NO_LIMIT = { words: Infinity, fold: Infinity, block: Infinity, lede: Infinity };
+const OVERRIDES = { learn: { words: 600 }, 'the-doctors': { words: 260, fold: 100 }, 'care-navigator': NO_LIMIT };
 const LEGAL = ['privacy', 'terms', 'automated-decisions', 'measurement'];
 const HUBS = ['learn', 'adhd-services'];
 
