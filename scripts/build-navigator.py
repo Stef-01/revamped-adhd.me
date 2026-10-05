@@ -154,86 +154,84 @@ DOMAINS = [
    ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
    ('ellie-putland', 'Trauma-informed · CBT, ACT & DBT'),
    ('alice-bui', 'Trauma-informed · CALD & refugee clients')]),
+ ]),
+ dict(key='food', label='Food and diet', tint='#f6d58a', aspects=[
   dict(key='eating', label='Appetite and eating problems', who=[
    ('samantha-courtney', 'Eating disorders · CEDC-MH credentialed'),
+   ('ashleigh-feltham', 'Eating disorders · Neurodivergent-affirming'),
    ('anubhav-saxena', 'Baseline physical screening')]),
+  dict(key='restrictive', label='Restrictive eating', who=[
+   ('ashleigh-feltham', 'Restrictive eating and challenges around food')]),
+  dict(key='nutrition', label='Healthy eating and nutrition', who=[
+   ('ashleigh-feltham', 'Accredited practising dietitian · Personal trainer')]),
  ]),
 ]
 
 
-# What each aspect above is evidence of, as one of the needs a visitor can pick. A clinician listed under an
-# aspect matches that need first, with the reason beside their name.
-ASPECT_NEED = {
-    'school:focus': 'school', 'school:homework': 'school', 'school:friends': 'school', 'school:system': 'school',
-    'work:done': 'focus', 'work:burnout': 'mood', 'work:confidence': 'mood', 'work:career': 'talk',
-    'home:routines': 'focus', 'home:parenting': 'family', 'home:emotions': 'mood', 'home:body': 'body',
-    'relationships:partner': 'family', 'relationships:rejection': 'mood', 'relationships:social': 'family',
-    'relationships:conflict': 'family',
-    'health:assessment': 'diagnosis', 'health:medication': 'medication', 'health:mood': 'mood', 'health:eating': 'food',
-}
-
 # ---------------------------------------------------------------- kinds of clinician
-# The cards on the first screen, in the order a visitor reads them. sub: two or three words under the name.
+# The cards on the first screen, in the order a visitor reads them. sub: what the profession covers, as a short
+# comma list (benchmarked against Healthdirect's one-line descriptions of each profession); it describes the
+# kind, not every person in it, so nothing here claims every psychologist does talk therapy.
 # what / good / referral: the sheet a card opens. Kept short on purpose (CLAUDE.md: blocks of about 15
 # words). A kind with nobody in it is left off the page.
 TYPES = [
  dict(key='gp', label='GP', plural='GPs', tint='#f1bc31',
-      blurb='Answers at last. Get assessed and diagnosed, and start medication if it’s right for you. Already diagnosed? A GP can keep it going.',
+      sub='Diagnosis, medication, reviews',
       what='Can assess ADHD and prescribe medication, depending on your state, then keep it reviewed.',
       sessions='A long first visit, then reviews', good=['A diagnosis', 'Medication', 'Reviews'],
       referral='No referral needed.'),
  dict(key='psychologist', label='Psychologist', plural='psychologists', tint='#8fc3ec',
-      blurb='Feel like yourself again. Support for anxiety, low mood and the years of “try harder”, for children, teens and adults. Several also assess and diagnose.',
-      what='Help with ADHD and what comes with it, like anxiety and low mood. Several also assess and diagnose.',
-      sessions='Usually 50-minute sessions', good=['Anxiety and mood', 'Strategies', 'Assessment'],
+      sub='Assessment, therapy, strategies',
+      what='What each offers differs: some assess and diagnose, others focus on therapy, strategies or parenting support.',
+      sessions='Usually 50-minute sessions', good=['Assessment', 'Therapy', 'Strategies'],
       referral='No referral needed. A GP plan can get you a Medicare rebate.'),
  dict(key='psychiatrist', label='Psychiatrist', plural='psychiatrists', tint='#9dd6cf',
-      blurb='Specialist doctors for complex or overlapping conditions, and the medication questions a GP wants a second view on.',
+      sub='Complex care, medication',
       what='A specialist doctor for complex or overlapping conditions and harder medication questions.',
       sessions='A first consultation, then reviews', good=['Complex care', 'Medication', 'A second opinion'],
       referral='You need a GP referral, which also gets you the Medicare rebate.'),
  dict(key='coach', label='ADHD coach', plural='ADHD coaches', tint='#f7a58c',
-      blurb='Get organised and stay on track. Coaches who understand ADHD, most of them former teachers, help students, families and adults build routines that last.',
+      sub='Routines, focus, study',
       what='Practical help with routines, planning and getting things done. Most here are former teachers.',
       sessions='Weekly or fortnightly, often online', good=['Routines', 'Study', 'Getting organised'],
       referral='No referral needed. Not covered by Medicare.'),
  dict(key='ot', label='Occupational therapist', plural='occupational therapists', tint='#9fd08f',
-      blurb='Calmer mornings, easier school days. Routines and strategies for children and teens that fit how they work, at home, at school or in the clinic.',
+      sub='Everyday skills, school, sensory',
       what='Routines and strategies for children and teens, built at home, at school or in the clinic.',
       sessions='In the clinic, at home or at school', good=['Daily routines', 'School', 'Sensory needs'],
       referral='No referral needed. The NDIS or private health may help with fees.'),
  dict(key='counselling', label='Counsellor', plural='counsellors and social workers', tint='#e3bf8a',
-      blurb='Someone in your corner. Counsellors and mental health social workers help with stress, relationships and big life changes.',
+      sub='Stress, relationships, life changes',
       what='Counsellors and mental health social workers: someone to talk things through with.',
       sessions='In person or online', good=['Stress', 'Relationships', 'Life changes'],
       referral='No referral needed. Some offer Medicare rebates with a GP plan.'),
  dict(key='physio', label='Physiotherapist', plural='physiotherapists', tint='#b7b0f0',
-      blurb='Get moving again. Recover from pain or injury and get back to the things you love, at a pace you can keep up.',
+      sub='Pain, injury, movement',
       what='Helps you recover from pain or injury and keep moving, at a pace that suits you.',
       sessions='Hands-on care and exercises', good=['Pain', 'Injury', 'Getting active'],
       referral='No referral needed.'),
  dict(key='ep', label='Exercise physiologist', plural='exercise physiologists', tint='#f2a7c8',
-      blurb='Exercise that works with your brain. Pilates, warm water and movement that helps focus, sleep and mood, built around what you’ll enjoy.',
+      sub='Exercise, movement, wellbeing',
       what='Exercise built around you and what you enjoy, for focus, sleep and mood.',
       sessions='A program built for you', good=['Movement', 'Sleep', 'Mood'],
       referral='No referral needed.'),
  dict(key='dietitian', label='Dietitian', plural='dietitians', tint='#f6d58a',
-      blurb='Food that works for you. Support with eating, nutrition and challenges around food, built around your life and without judgement.',
+      sub='Food, nutrition, eating',
       what='Practical help with food and nutrition, including eating disorders and restrictive eating.',
       sessions='Online, wherever you are', good=['Eating', 'Nutrition', 'Restrictive eating'],
       referral='No referral needed. Private health or the NDIS may help with fees.'),
  dict(key='assistant', label='Therapy assistant', plural='therapy assistants', tint='#dad9eb',
-      blurb='Practice that sticks. Work on new skills between sessions, supervised by your psychologist and often funded by the NDIS.',
+      sub='Skills practice, NDIS support',
       what='Practises skills with you between sessions, supervised by your psychologist.',
       sessions='Between your psychology sessions', good=['Practising skills', 'Routines', 'NDIS support'],
       referral='Works alongside your psychologist. Often funded by the NDIS.'),
  dict(key='neuro', label='Neurotherapy', plural='neurotherapy practitioners', tint='#dbe9d3',
-      blurb='Brain mapping (QEEG) and neurotherapy sessions in the clinic, with a consultation on the findings before training starts.',
+      sub='Brain mapping, training',
       what='Brain mapping (QEEG) and neurotherapy sessions, in the clinic.',
       sessions='An assessment, then training sessions', good=['Brain mapping', 'Training sessions'],
       referral='No referral needed. In person only.'),
  dict(key='allied', label='Allied health', plural='allied health clinicians', tint='#e8e6df',
-      blurb='More ways forward beyond medication, from clinicians who understand ADHD.',
+      sub='Allied health support',
       what='More ways forward beyond medication, from clinicians who understand ADHD.',
       sessions='Set with the practice', good=['Support', 'Skills'],
       referral='No referral needed.'),
@@ -259,82 +257,140 @@ def kind(c):
     return 'allied'
 
 
-# ---------------------------------------------------------------- what would help
-# The second question. A clinician matches a need through a reason quoted from their profile (DOMAINS),
-# an expertise tag (EXPERTISE in build-profiles.py), or what their kind of clinician does.
-NEEDS = [
- dict(key='diagnosis', label='Find out if it’s ADHD'),
- dict(key='medication', label='Medication'),
- dict(key='talk', label='Someone to talk to'),
- dict(key='focus', label='Focus and routines'),
- dict(key='school', label='School'),
- dict(key='mood', label='Stress or low mood'),
- dict(key='family', label='Family and relationships'),
- dict(key='food', label='Food and eating'),
- dict(key='body', label='Sleep, body, movement'),
+# ---------------------------------------------------------------- what they offer, and where it helps
+# Two things a visitor picks: the kind of help (a service) and where ADHD gets in the way (an area of life, then
+# a part of it). A clinician offers a service, or works on an area, only on the evidence of their own profile: a
+# reason quoted under DOMAINS (strength 2), an expertise tag or words in their chips, summary and experience
+# (strength 1), or what every one of their kind does (strength 1). Nothing is assumed of a whole profession that
+# only some of it does: a psychologist is "someone to talk to" only when their profile names a therapy.
+SERVICES = [
+ dict(key='diagnosis', label='Find out if it’s ADHD', chip='Finding out if it’s ADHD'),
+ dict(key='medication', label='Medication', chip='Medication'),
+ dict(key='talk', label='Someone to talk to', chip='Someone to talk to'),
+ dict(key='strategies', label='Practical strategies', chip='Practical strategies'),
 ]
-TAG_NEED = {
-    'assessment': 'diagnosis', 'medication': 'medication',
-    'therapy': 'talk', 'counselling': 'talk',
-    'trauma': 'mood', 'mental-health': 'mood', 'perinatal': 'mood', 'eating-disorders': 'food', 'nutrition': 'food',
-    'emotional-regulation': 'mood', 'performance': 'mood', 'complex-care': 'mood',
-    'executive-function': 'focus', 'coaching': 'focus', 'therapy-assistant': 'focus', 'neurotherapy': 'focus',
-    'occupational-therapy': 'focus',
-    'education': 'school', 'students': 'school', 'social-skills': 'school',
-    'relationships': 'family', 'parenting': 'family', 'family': 'family', 'early-intervention': 'family',
-    'physical-health': 'body', 'lifestyle': 'body', 'physiotherapy': 'body', 'exercise-physiology': 'body',
-    'integrative': 'body',
+SERVICE_TAGS = {'assessment': 'diagnosis', 'medication': 'medication', 'psychiatry': 'medication',
+                'therapy': 'talk', 'counselling': 'talk',
+                'executive-function': 'strategies', 'coaching': 'strategies', 'therapy-assistant': 'strategies',
+                'occupational-therapy': 'strategies', 'education': 'strategies', 'social-skills': 'strategies',
+                'parenting': 'strategies', 'early-intervention': 'strategies', 'nutrition': 'strategies',
+                'physiotherapy': 'strategies', 'exercise-physiology': 'strategies'}
+SERVICE_WORDS = {'diagnosis': r'\bassess|\bdiagnos', 'medication': r'\bprescrib|\bmedication',
+                 'talk': r'\btherap(y|ies|ist|eutic)\b|\bcbt\b|\bact\b|\bdbt\b|\bemdr\b|\bschema\b|\bcounsell|\bpsychotherap',
+                 'strategies': r'\bstrateg|\bskills?\b|\bexecutive|\broutines?\b|\bcoach|\bparent'}
+KIND_SERVICES = {'gp': ['diagnosis', 'medication'], 'psychiatrist': ['diagnosis', 'medication'], 'psychologist': [],
+                 'coach': ['strategies'], 'ot': ['strategies'], 'counselling': ['talk'], 'physio': ['strategies'],
+                 'ep': ['strategies'], 'dietitian': ['strategies'], 'assistant': ['strategies'], 'neuro': [], 'allied': []}
+# Who can offer each kind of help at all, whatever words a profile uses: only a doctor prescribes; only a GP,
+# psychiatrist or psychologist can diagnose ADHD (an OT's functional assessment or a QEEG brain map is not an
+# ADHD diagnosis); and "therapy" in "occupational therapy" or "therapy assistant" is not somebody to talk to.
+SERVICE_KINDS = {'diagnosis': ('gp', 'psychiatrist', 'psychologist'), 'medication': ('gp', 'psychiatrist'),
+                 'talk': ('psychologist', 'psychiatrist', 'counselling')}
+# Areas of life are the domains above. A tag or a kind can place somebody in an area; only a quoted reason
+# places them in a particular part of it.
+AREA_TAGS = {
+    'school': ['education', 'students', 'social-skills'],
+    'work': ['performance'],
+    'home': ['parenting', 'family', 'early-intervention', 'occupational-therapy', 'therapy-assistant', 'executive-function'],
+    'relationships': ['relationships', 'family'],
+    'health': ['trauma', 'mental-health', 'perinatal', 'emotional-regulation', 'complex-care', 'physical-health', 'psychiatry',
+               'assessment', 'medication', 'lifestyle', 'physiotherapy', 'exercise-physiology', 'integrative', 'mens-health',
+               'womens-health', 'neurotherapy', 'brain-mapping'],
+    'food': ['eating-disorders', 'nutrition'],
 }
-KIND_NEEDS = {'gp': ['diagnosis', 'medication'], 'psychiatrist': ['diagnosis', 'medication', 'mood'],
-              'psychologist': ['talk', 'mood'], 'coach': ['focus', 'school'], 'ot': ['focus', 'school'],
-              'counselling': ['talk', 'mood', 'family'], 'physio': ['body'], 'ep': ['body'], 'dietitian': ['food', 'body'],
-              'assistant': ['focus'], 'neuro': ['focus'], 'allied': ['talk']}
-
-
-# Words that tie one of a clinician's chips to a need, so a match through a tag shows the chip that says why.
-NEED_WORDS = {
+KIND_AREAS = {'gp': ['health'], 'psychiatrist': ['health'], 'psychologist': ['health'], 'coach': ['school', 'work', 'home'],
+              'ot': ['school', 'home'], 'counselling': ['relationships', 'health'], 'physio': ['health'], 'ep': ['health'],
+              'dietitian': ['food', 'health'], 'assistant': ['home', 'school'], 'neuro': ['health'], 'allied': ['health']}
+# Words that tie one of a clinician's chips to a service or an area, so the reason shown is the chip that says why.
+CHIP_WORDS = {
     'diagnosis': ('assess', 'diagnos'), 'medication': ('medication', 'prescrib'),
-    'talk': ('counsel', 'therapy', 'cbt', 'act ', 'talk'), 'focus': ('executive', 'focus', 'routine', 'organis', 'skills'),
-    'school': ('school', 'student', 'study', 'education', 'learn'),
-    'mood': ('anx', 'mood', 'stress', 'trauma', 'depress', 'burnout', 'emotion'),
-    'family': ('parent', 'family', 'relationship', 'couple', 'perinatal', 'child'),
-    'food': ('eat', 'food', 'nutri', 'diet'), 'body': ('physical', 'exercise', 'pain', 'injur', 'sleep', 'movement', 'pilates', 'sport'),
+    'talk': ('therap', 'cbt', 'act', 'dbt', 'counsel', 'emdr', 'schema'), 'strategies': ('executive', 'skills', 'routine', 'strateg', 'coach', 'parent'),
+    'school': ('school', 'student', 'study', 'education', 'learn', 'class'), 'work': ('work', 'career', 'performance', 'burnout', 'leader'),
+    'home': ('home', 'parent', 'family', 'routine', 'child', 'toddler'), 'relationships': ('relationship', 'couple', 'partner', 'social', 'friend', 'attachment'),
+    'health': ('anx', 'mood', 'trauma', 'depress', 'stress', 'health', 'medic', 'assess', 'sleep', 'pain', 'injur', 'screen'),
+    'food': ('eat', 'food', 'nutri', 'diet'),
 }
 
 
-def chip_for(c, need):
+def short(line, room=72):
+    return line if len(line) <= room else line[:line.rfind(' ', 0, room)].rstrip(' ,;:·') + '…'
+
+
+def says(text, key):
+    """Whether a line of a profile says `key`: whole words for a service ("ACT" is not "practitioner")."""
+    low = text.lower()
+    pattern = SERVICE_WORDS.get(key)
+    return bool(re.search(pattern, low)) if pattern else any(w in low for w in CHIP_WORDS[key])
+
+
+def chip_for(c, key):
+    """Their own words for why they match: a chip that says it, else the first experience line that does, else
+    their role. The practice's name never counts ("Therapy Co" is not therapy)."""
     for chip in c['chips']:
-        if any(w in chip.lower() for w in NEED_WORDS[need]):
+        if says(chip, key):
             return chip
-    return c['chips'][0] if c['chips'] else c['descriptor'] or c['role']
+    for line in c['experience']:
+        if says(line.replace(c['practice'], ''), key):
+            return short(line)
+    return c['descriptor'] or c['role']
 
 
-def needs_of(c):
-    """{need: (strength, why)} — 2 for a reason quoted from the profile, 1 for a tag or what the kind does."""
+def evidence(c):
+    """The parts of a profile that say what somebody does: chips, summary and experience, lower-cased, without the
+    practice's own name."""
+    return ' '.join(c['chips'] + [c['description']] + c['experience']).replace(c['practice'], '').lower()
+
+
+def offers(c):
+    """{service: (strength, why)} for the kind of help a clinician offers."""
     out = {}
     for d in DOMAINS:
         for asp in d['aspects']:
-            need = ASPECT_NEED[f"{d['key']}:{asp['key']}"]
-            for cid, why in asp['who']:
-                if cid == c['id'] and need not in out:
-                    out[need] = (2, why)
+            service = {'health:assessment': 'diagnosis', 'health:medication': 'medication'}.get(f"{d['key']}:{asp['key']}")
+            if service:
+                for cid, why in asp['who']:
+                    if cid == c['id']:
+                        out.setdefault(service, (2, why))
     tags = profiles.EXPERTISE.get(c['id'], profiles.EXPERTISE_DEFAULT[c['category']])
-    for need in [TAG_NEED[t] for t in tags if t in TAG_NEED] + KIND_NEEDS[kind(c)]:
-        out.setdefault(need, (1, chip_for(c, need)))
+    text = evidence(c)
+    found = [SERVICE_TAGS[t] for t in tags if t in SERVICE_TAGS] + KIND_SERVICES[kind(c)]
+    found += [k for k, pattern in SERVICE_WORDS.items() if re.search(pattern, text)]
+    for service in found:
+        out.setdefault(service, (1, chip_for(c, service)))
+    for service, allowed in SERVICE_KINDS.items():
+        if kind(c) not in allowed:
+            out.pop(service, None)
     if kind(c) == 'gp' and not c.get('assesses', True):
         out.pop('diagnosis', None)                     # a continuation prescriber does not diagnose
-    if kind(c) == 'coach' and not set(c['ages']) & {'children', 'teens'}:
-        out.pop('school', None)
     return out
 
 
+def areas(c):
+    """({area: (strength, why)}, {area:aspect: why}) — where in life a clinician works, and on which parts of it."""
+    area, aspect = {}, {}
+    for d in DOMAINS:
+        for asp in d['aspects']:
+            for cid, why in asp['who']:
+                if cid == c['id']:
+                    aspect[f"{d['key']}:{asp['key']}"] = why
+                    area.setdefault(d['key'], (2, why))
+    tags = profiles.EXPERTISE.get(c['id'], profiles.EXPERTISE_DEFAULT[c['category']])
+    for key, wanted in AREA_TAGS.items():
+        if set(tags) & set(wanted):
+            area.setdefault(key, (1, chip_for(c, key)))
+    for key in KIND_AREAS[kind(c)]:
+        if key == 'school' and not set(c['ages']) & {'children', 'teens'}:
+            continue
+        area.setdefault(key, (1, chip_for(c, key)))
+    return area, aspect
+
+
 # ---------------------------------------------------------------- the questions
-# Each answer is a tap and moves straight on: who it is for, what would help most, what matters most, and
-# Final-Algorithm's "Does location matter?" (Anywhere means online is fine; Near a place reveals the places
-# where somebody in the network sees people in person, and online options still show below them). The page
-# only offers an answer somebody in the remaining list can satisfy, so no tap leads to an empty list; a
-# question left with nothing to choose between is skipped. A visitor who picked a kind first keeps it as a
-# filter all the way through.
+# At most eight, each answered with one tap: who it is for, whether ADHD has been diagnosed, the kind of help,
+# where it gets in the way and which part of that (the old navigator's areas and their parts), what matters
+# most, the preferred language, and Final-Algorithm's "Does location matter?". The page only offers an answer
+# somebody still in the list can satisfy, so no tap leads to an empty list, and a question left with nothing to
+# choose between is answered for the visitor and skipped. A visitor who picked a kind first keeps it as a filter.
 def languages():
     """Every language besides English that somebody in the network works in, in the order they appear."""
     seen = []
@@ -347,22 +403,38 @@ def languages():
 
 QUESTIONS = [
  dict(key='who', title='Who is it for?', icon='who:me', options=[
-  dict(value='adults', label='Me', icon='who:me'),
-  dict(value='teens', label='My teenager', icon='who:teen'),
-  dict(value='children', label='My child', icon='who:child')]),
- dict(key='need', title='What would help most?', icon='need:talk',
-      options=[dict(value=n['key'], label=n['label'], icon='need:' + n['key']) for n in NEEDS]),
+  dict(value='adults', label='Me', icon='who:me', chip='For me'),
+  dict(value='teens', label='My teenager', icon='who:teen', chip='For my teenager'),
+  dict(value='children', label='My child', icon='who:child', chip='For my child')]),
+ dict(key='diagnosed', title='Has ADHD been diagnosed?', icon='diag:yes', options=[
+  dict(value='yes', label='Yes', icon='diag:yes', chip='Diagnosed'),
+  dict(value='no', label='Not yet', icon='diag:no', chip='Not diagnosed yet'),
+  dict(value='unsure', label='Not sure', icon='diag:unsure', chip='Not sure about diagnosis')]),
+ dict(key='help', title='What kind of help?', icon='need:talk',
+      options=[dict(value=v['key'], label=v['label'], icon='help:' + v['key'], chip=v['chip']) for v in SERVICES]
+      + [dict(value='any', label='Not sure yet', icon='diag:unsure', chip='Any kind of help')]),
+ dict(key='area', title='Where is it getting in the way?', icon='home', options=
+      [dict(value=d['key'], label=d['label'], icon=d['key'] if d['key'] != 'food' else 'need:food', chip=d['label']) for d in DOMAINS]
+      + [dict(value='any', label='Not sure', icon='diag:unsure', chip='Anywhere in life')]),
+ dict(key='aspect', title='Which part of it?', icon='need:focus', options=
+      [dict(value=f"{d['key']}:{a['key']}", label=a['label'], area=d['key'],
+            icon=f"{d['key']}:{a['key']}", chip=a['label'])
+       for d in DOMAINS for a in d['aspects']]
+      + [dict(value='any', label='Something else', icon='diag:unsure', chip='Something else')]),
  dict(key='pref', title='What matters most to you?', icon='pref:any', options=[
-  dict(value='diary', label='Booking online today', icon='pref:diary'),
-  dict(value='lived', label='They have ADHD too', icon='pref:lived'),
-  dict(value='ndis', label='Using NDIS funding', icon='pref:ndis'),
-  dict(value='bulk', label='Bulk billing', icon='pref:bulk')]
-  + [dict(value='lang:' + lang, label='Speaks ' + lang, icon='pref:lang') for lang in languages()]
-  + [dict(value='any', label='Nothing in particular', icon='pref:any')]),
+  dict(value='diary', label='Booking online today', icon='pref:diary', chip='Booking online today'),
+  dict(value='lived', label='They have ADHD too', icon='pref:lived', chip='They have ADHD too'),
+  dict(value='ndis', label='Using NDIS funding', icon='pref:ndis', chip='NDIS funding'),
+  dict(value='bulk', label='Bulk billing', icon='pref:bulk', chip='Bulk billing'),
+  dict(value='any', label='Nothing in particular', icon='pref:any', chip='')]),
+ dict(key='lang', title='Preferred language?', icon='pref:lang', options=
+      [dict(value='any', label='English is fine', icon='pref:lang', chip='')]
+      + [dict(value=lang, label=lang, icon='pref:lang', chip='Speaks ' + lang) for lang in languages()]),
  dict(key='where', title='Does location matter?', icon='meet:person', options=[
-  dict(value='any', label='Anywhere', sub='Online is fine', icon='meet:online'),
-  dict(value='near', label='Near a place', sub='In person if I can', icon='meet:person')]),
+  dict(value='any', label='Anywhere', sub='Online is fine', icon='meet:online', chip='Online is fine'),
+  dict(value='near', label='Near a place', sub='In person if I can', icon='meet:person', chip='')]),
 ]
+assert len(QUESTIONS) <= 9, 'the owner caps the questionnaire at nine questions'
 
 
 def places():
@@ -376,7 +448,46 @@ def places():
 
 # ---------------------------------------------------------------- icons
 # One line drawing per card, inline SVG on a 24-box, stroked in the text colour.
+# The old navigator's drawings for each area of life and each part of it.
+OLD_ICONS = {
+ 'school': '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v14H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V6.5M20 18v2.5H6.5"/>',
+ 'work': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/>',
+ 'home': '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/>',
+ 'relationships': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/>',
+ 'health': '<path d="M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z"/>',
+ 'school:focus': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+ 'school:homework': '<path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
+ 'school:friends': '<circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M15 13.5c3 0 5.5 2 5.5 5"/>',
+ 'school:system': '<path d="M3 20h18"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M12 8v3"/>',
+ 'work:done': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l3 3 5-6"/>',
+ 'work:burnout': '<rect x="3" y="8" width="15" height="8" rx="2"/><path d="M18 10.5h2.5v3H18"/><path d="M6.5 11v2"/>',
+ 'work:confidence': '<path d="M7 11v9H4v-9z"/><path d="M7 11l4-7c1.5 0 2.5 1 2.5 2.5V10h5a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17.5 20H7"/>',
+ 'work:career': '<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ 'home:routines': '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+ 'home:parenting': '<circle cx="9" cy="6.5" r="3"/><circle cx="17" cy="11" r="2.2"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><path d="M15 20c0-2.4 1-4 2.5-4s2.5 1.6 2.5 4"/>',
+ 'home:emotions': '<path d="M7 16a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 16"/><path d="M13 13l-2 4h3l-2 4"/>',
+ 'home:body': '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+ 'relationships:partner': '<path d="M9 18s-6-3.6-6-7.6A3.2 3.2 0 0 1 9 8.4a3.2 3.2 0 0 1 6 2c0 4-6 7.6-6 7.6z"/><path d="M15.5 6.5a3 3 0 0 1 5.5 1.7c0 3-4 5.6-5.2 6.3"/>',
+ 'relationships:rejection': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/><path d="M12 7.6l-1.5 4 3 2-1.5 4"/>',
+ 'relationships:social': '<circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2"/><path d="M9.5 9.5h.01M14.5 9.5h.01"/>',
+ 'relationships:conflict': '<path d="M4 5h9v7H8l-3 2.5V12H4z"/><path d="M13 9h7v7h-1v2.5L16 16h-3v-2"/>',
+ 'health:assessment': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ 'health:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
+ 'health:mood': '<path d="M7 17a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 17z"/>',
+ 'health:eating': '<path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 3v18"/><path d="M17 3c-2 1.5-2.5 5-2.5 8h2.5v10"/>',
+}
 ICONS = {
+ **OLD_ICONS,
+ 'diag:yes': '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+ 'diag:no': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 11h6M9 15h4"/>',
+ 'diag:unsure': '<circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 0 1 4.8.8c0 1.7-2.4 2.2-2.4 3.7M12 17h.01"/>',
+ 'help:diagnosis': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ 'help:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
+ 'help:talk': '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
+ 'help:strategies': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l3 3 5-6"/>',
+ 'food:eating': '<path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 3v18"/><path d="M17 3c-2 1.5-2.5 5-2.5 8h2.5v10"/>',
+ 'food:restrictive': '<circle cx="12" cy="13" r="7.5"/><path d="M7 8l10 10"/>',
+ 'food:nutrition': '<path d="M12 8c-1.6-1.6-6-1.8-6.8 2.6C4.4 15 7.5 21 10 21c.9 0 1.3-.5 2-.5s1.1.5 2 .5c2.5 0 5.6-6 4.8-10.4C18 6.2 13.6 6.4 12 8z"/><path d="M12 8c0-2 1-4 3-5"/>',
  'gp': '<path d="M5 3v6a5 5 0 0 0 10 0V3"/><path d="M10 14v1.5a5.5 5.5 0 0 0 11 0V13"/><circle cx="21" cy="11" r="2"/>',
  'psychologist': '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
  'psychiatrist': '<circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/>',
@@ -475,16 +586,16 @@ STYLE = """<style>
 .nav-h{font-size:30px;line-height:1.1;font-weight:800;letter-spacing:-.02em;color:#1a1c1c;margin:0;}
 .nav-h:focus{outline:none;}
 @media (min-width:640px){.nav-h{font-size:38px;}}
-.nav-grid{display:grid;grid-template-columns:1fr;gap:14px;list-style:none;padding:0;margin:0;}
-@media (min-width:720px){.nav-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}}
+.nav-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;list-style:none;padding:0;margin:0;}
+@media (min-width:720px){.nav-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}}
 .nav-tile,.nav-opt{display:flex;font:inherit;color:#1a1c1c;text-decoration:none;text-align:left;background:#fff;border:1.5px solid #e8e6df;border-radius:22px;box-shadow:0 4px 0 #e8e6df;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;}
 .nav-tile:hover,.nav-opt:hover{transform:translateY(-2px);box-shadow:0 6px 0 #e8e6df;}
 .nav-tile:active,.nav-opt:active{transform:translateY(3px);box-shadow:0 1px 0 #e8e6df;}
 .nav-tile:focus-visible,.nav-opt:focus-visible,.nav-btn:focus-visible,.nav-chip:focus-visible,.nav-back:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
-.nav-tile{flex-direction:row;align-items:flex-start;gap:16px;width:100%;height:100%;padding:18px 18px 20px;}
-.nav-tile__text{display:flex;flex-direction:column;gap:5px;min-width:0;}
-.nav-tile strong{display:block;font-size:19px;line-height:1.2;font-weight:800;letter-spacing:-.01em;}
-.nav-tile .nav-sub{font-size:15.5px;line-height:1.45;color:#5f5e59;}
+.nav-tile{flex-direction:column;align-items:flex-start;gap:12px;width:100%;height:100%;min-height:150px;padding:18px;}
+.nav-tile__text{display:flex;flex-direction:column;gap:4px;min-width:0;margin-top:auto;}
+.nav-tile strong{display:block;font-size:18px;line-height:1.2;font-weight:800;letter-spacing:-.01em;}
+.nav-tile .nav-sub{font-size:15px;line-height:1.35;color:#5f5e59;}
 .nav-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:var(--tint,#f6f4ee);color:#1a1c1c;flex:none;}
 .nav-ic{width:24px;height:24px;flex:none;}
 .nav-grid__wide{grid-column:1/-1;}
@@ -540,11 +651,10 @@ STYLE = """<style>
 .nav-prof__place{display:flex;align-items:center;gap:6px;margin:-4px 0 0;font-size:15px;font-weight:700;color:#1a1c1c;}
 .nav-prof__why{padding:14px 16px;background:#fdf3d6;border:1px solid #ebd8ab;border-radius:16px;}
 .nav-kicker{display:block;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8a6a12;}
-.nav-prof__signal{margin:6px 0 0;font-size:15px;line-height:1.4;font-weight:700;color:#1a1c1c;}
-.nav-prof__words{margin:4px 0 0;font-size:15px;line-height:1.45;color:#3a382f;}
-.nav-prof__extra{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;}
-.nav-prof__extra li{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:#3a382f;}
-.nav-prof__extra li::before{content:'✓';font-weight:800;color:#c99a1a;}
+.nav-prof__reasons{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px;}
+.nav-prof__reasons li{display:grid;grid-template-columns:18px minmax(0,1fr);column-gap:8px;font-size:14.5px;line-height:1.4;color:#3a382f;}
+.nav-prof__reasons li::before{content:'✓';font-weight:800;color:#c99a1a;}
+.nav-prof__reasons strong{display:block;font-weight:800;color:#1a1c1c;}
 .nav-prof__desc{margin:0;font-size:16px;line-height:1.5;color:#1a1c1c;}
 .nav-prof__chips{display:flex;flex-wrap:wrap;gap:8px;}
 .nav-prof__facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 0;padding-top:12px;border-top:1px solid #e8e6df;}
@@ -580,39 +690,67 @@ SCRIPT = r"""<script>
   var D=JSON.parse(document.getElementById('nav-data').textContent),W=D.words;
   var sheet=document.getElementById('nav-sheet'),list=document.getElementById('nav-list');
   var cards={};Array.prototype.forEach.call(list.children,function(li){cards[li.getAttribute('data-id')]=li;});
-  var ORDER=['who','need','pref','where'];
-  var state={},trail=[];
+  var ORDER=['who','diagnosed','help','area','aspect','pref','lang','where'];
+  var state={},auto={},trail=[];
   var flip=Math.random()<0.5?1:-1;   // which pinned GP leads, decided once per visit, as on The Network
   function each(sel,fn,root){Array.prototype.forEach.call((root||nav).querySelectorAll(sel),fn);}
   function screen(name){return nav.querySelector('[data-screen="'+name+'"]');}
-  function base(){return D.people.filter(function(c){return (!state.type||c.t===state.type)&&(!state.who||c.a.indexOf(state.who)!==-1);});}
+  function set(v){return v!==undefined&&v!==null&&v!=='any';}
   function prefOk(c,v){
-    if(!v||v==='any')return true;
+    if(!set(v))return true;
     if(v==='diary')return c.b;if(v==='lived')return c.lv;if(v==='ndis')return c.nd;if(v==='bulk')return c.bb;
-    if(v.indexOf('lang:')===0)return c.g.indexOf(v.slice(5))!==-1;
     return true;
+  }
+  function langOk(c,v){return !set(v)||c.g.indexOf(v)!==-1;}
+  // What each answer asks of a clinician. An answer narrows the list only once it is given.
+  var FITS={
+    who:function(c){return c.a.indexOf(state.who)!==-1;},
+    help:function(c){return !set(state.help)||!!c.v[state.help];},
+    area:function(c){return !set(state.area)||!!c.r[state.area];},
+    aspect:function(c){return !set(state.aspect)||!!c.x[state.aspect];},
+    pref:function(c){return prefOk(c,state.pref);},
+    lang:function(c){return langOk(c,state.lang);}
+  };
+  function pool(upto){
+    var stop=upto?ORDER.indexOf(upto):ORDER.length;
+    return D.people.filter(function(c){
+      if(state.type&&c.t!==state.type)return false;
+      for(var i=0;i<stop;i++){var q=ORDER[i];if(state[q]!==undefined&&FITS[q]&&!FITS[q](c))return false;}
+      return true;});
   }
   // The answers somebody still in the list can satisfy: an option nobody fits is never offered.
   function available(q){
-    var pool=base(),opts=Array.prototype.map.call(screen(q).querySelectorAll('.nav-opt'),function(b){return b.getAttribute('data-v');});
-    if(q==='need')return opts.filter(function(v){return pool.some(function(c){return c.n[v];});});
-    if(q==='pref'){
-      if(state.need)pool=pool.filter(function(c){return c.n[state.need];});
-      return opts.filter(function(v){return v==='any'||pool.some(function(c){return prefOk(c,v);});});
-    }
-    return opts;
+    var p=pool(q),out=[];
+    each('.nav-opt',function(b){
+      var v=b.getAttribute('data-v'),ok=true;
+      if(v!=='any'){
+        if(q==='who')ok=p.some(function(c){return c.a.indexOf(v)!==-1;});
+        else if(q==='help')ok=!(v==='diagnosis'&&state.diagnosed==='yes')&&p.some(function(c){return c.v[v];});
+        else if(q==='area')ok=p.some(function(c){return c.r[v];});
+        else if(q==='aspect')ok=b.getAttribute('data-area')===state.area&&p.some(function(c){return c.x[v];});
+        else if(q==='pref')ok=p.some(function(c){return prefOk(c,v);});
+        else if(q==='lang')ok=p.some(function(c){return langOk(c,v);});
+      }
+      if(q==='aspect'&&v==='any')ok=true;
+      if(ok)out.push(v);},screen(q));
+    return out;
   }
   // A question with nothing to choose between is answered for the visitor and skipped.
-  function settle(q){
+  function settle(q,dry){
     if(state[q]!==undefined)return true;
-    if(q==='need'){var a=available('need');if(a.length<2){state.need=a.length?a[0]:null;state.auto_need=true;return true;}}
-    if(q==='pref'&&available('pref').length<2){state.pref='any';state.auto_pref=true;return true;}
-    return false;
+    if(q==='diagnosed'||q==='where')return false;
+    var value;
+    if(q==='who'){var ages=available('who');if(ages.length===1)value=ages[0];}
+    else if(q==='aspect'&&!set(state.area))value='any';
+    else{
+      var real=available(q).filter(function(v){return v!=='any';});
+      if((q==='help'||q==='area'||q==='aspect')&&real.length<2)value=real.length?real[0]:'any';
+      else if((q==='pref'||q==='lang')&&!real.length)value='any';
+    }
+    if(value===undefined)return false;
+    if(!dry){state[q]=value;auto[q]=1;}
+    return true;
   }
-  function steps(){return ORDER.filter(function(q){
-    if(q==='need')return !state.auto_need&&(state.need!==undefined||available('need').length>1);
-    if(q==='pref')return !state.auto_pref&&(state.pref!==undefined||available('pref').length>1);
-    return true;});}
   function next(){for(var i=0;i<ORDER.length;i++){if(!settle(ORDER[i]))return ORDER[i];}return 'results';}
   function go(name,back){
     var current=nav.querySelector('[data-screen]:not([hidden])');
@@ -625,9 +763,13 @@ SCRIPT = r"""<script>
   }
   // A question on screen: how far along, which answers are on offer, and which is already chosen.
   function ask(name){
-    var s=steps(),at=s.indexOf(name),scr=screen(name),pct=Math.round(100*(at+1)/(s.length+1));
+    // The bar moves through the eight places a question can take, so it only ever goes forward; a skipped
+    // question is a longer step. The words count only the questions actually asked.
+    var scr=screen(name),pct=Math.round(100*(ORDER.indexOf(name)+1)/(ORDER.length+1));
+    var asked=ORDER.slice(0,ORDER.indexOf(name)).filter(function(q){return state[q]!==undefined&&!auto[q];}).length;
     scr.querySelector('.nav-bar__fill').style.width=pct+'%';
-    scr.querySelector('[data-step]').textContent='Question '+(at+1)+' of '+s.length;
+    scr.querySelector('[data-step]').textContent='Question '+(asked+1);
+    if(name==='aspect')scr.querySelector('.nav-h').textContent=D.aspectTitle[state.area]||scr.querySelector('.nav-h').textContent;
     var offer=available(name),v=state[name],near=name==='where'&&v!==undefined&&v!=='any';
     each('.nav-opt',function(b){var x=b.getAttribute('data-v');b.hidden=offer.indexOf(x)===-1;b.setAttribute('aria-pressed',String(x===v||(near&&x==='near')));},scr);
     var places=scr.querySelector('[data-places]');
@@ -635,28 +777,43 @@ SCRIPT = r"""<script>
   }
   function fits(c,where){return where==='any'||where===''?c.o:((c.p&&c.city===where)||c.o);}
   function render(){
-    var where=state.where,note='',need=state.need,pref=state.pref;
-    var pool=base();
-    var met=where===undefined?pool:pool.filter(function(c){return fits(c,where);});
-    var picked=met;
-    if(need){var a=met.filter(function(c){return c.n[need];});if(a.length)picked=a;else if(met.length)note=W.noneExact;}
-    if(pref&&pref!=='any'){var b=picked.filter(function(c){return prefOk(c,pref);});if(b.length)picked=b;else if(picked.length)note=note||W.nonePref;}
-    var local=function(c){return where&&where!=='any'&&c.p&&c.city===where;};
-    if(where===''||(where&&where!=='any'&&picked.length&&!picked.some(local)))note=note||W.noneNear;
-    picked=picked.map(function(c,i){var k=need&&c.n[need]?c.n[need][0]:0;return {c:c,k:k,s:k+(local(c)?0.5:0),i:i};})
+    var where=state.where,note='';
+    var people=D.people.filter(function(c){return (!state.type||c.t===state.type)&&(!state.who||FITS.who(c));});
+    // Narrow by each answer in turn; an answer that would leave nobody is set aside, and the page says so.
+    function narrow(arr,fn,msg){var b=arr.filter(fn);if(b.length||!arr.length)return b;note=note||msg;return arr;}
+    var near=where===undefined?people:people.filter(function(c){return fits(c,where);});
+    if(where!==undefined&&!near.length&&where!=='any')near=people.filter(function(c){return c.o;});
+    if(where==='any'&&!near.length&&people.length){near=people;note=W.noneOnline;}
+    if(auto.who)note=note||W.agesOnly+W.ages[state.who]+'.';
+    var picked=narrow(near,FITS.help,W.noneExact);
+    picked=narrow(picked,FITS.area,W.noneExact);
+    picked=narrow(picked,FITS.aspect,W.noneExact);
+    picked=narrow(picked,FITS.pref,W.nonePref);
+    picked=narrow(picked,FITS.lang,W.noneLang);
+    var local=function(c){return set(where)&&where!==''&&c.p&&c.city===where;};
+    if(where===''||(set(where)&&picked.length&&!picked.some(local)))note=note||W.noneNear;
+    picked=picked.map(function(c,i){
+      var kh=set(state.help)&&c.v[state.help]?c.v[state.help][0]:0;
+      var ka=set(state.aspect)&&c.x[state.aspect]?2:(set(state.area)&&c.r[state.area]?Math.min(c.r[state.area][0],set(state.aspect)?1:2):0);
+      var diag=(state.diagnosed==='no'||state.diagnosed==='unsure')&&!set(state.help)&&c.v.diagnosis?0.5:0;
+      return {c:c,k:Math.max(kh,ka),s:kh+ka+diag+(local(c)?0.5:0),i:i};})
       .sort(function(x,y){return ((y.c.pin?1:0)-(x.c.pin?1:0))||(x.c.pin&&y.c.pin?(x.i-y.i)*flip:0)||(y.s-x.s)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);});
-    var shown={};
+    var asked=set(state.help)||set(state.area),shown={};
     picked.forEach(function(p){
       var c=p.c,li=cards[c.i];shown[c.i]=1;li.hidden=false;
-      var sig=li.querySelector('[data-signal]');sig.hidden=!need;sig.textContent=need?D.signals[need]:'';
-      var why=li.querySelector('[data-why]');why.textContent=need&&c.n[need]?c.n[need][1]:why.getAttribute('data-why');
-      var extra=[];
-      if(pref&&pref!=='any'&&prefOk(c,pref))extra.push(pref.indexOf('lang:')===0?D.prefs.lang+pref.slice(5):D.prefs[pref]);
-      if(local(c))extra.push(W.inPerson+where.split(',')[0]);else if(where!==undefined&&c.o)extra.push(W.online);
-      var ex=li.querySelector('[data-extra]');ex.hidden=!extra.length;
-      ex.innerHTML='';extra.forEach(function(t){var x=document.createElement('li');x.textContent=t;ex.appendChild(x);});
-      var fit=li.querySelector('[data-fit]');fit.hidden=!need;
-      if(need){fit.textContent=W.fit[p.k];fit.setAttribute('data-fit',String(p.k));}
+      var reasons=[];
+      if(set(state.help)&&c.v[state.help])reasons.push([D.labels.help[state.help],c.v[state.help][1]]);
+      if(set(state.aspect)&&c.x[state.aspect])reasons.push([D.labels.aspect[state.aspect],c.x[state.aspect]]);
+      else if(set(state.area)&&c.r[state.area])reasons.push([D.labels.area[state.area],c.r[state.area][1]]);
+      if(set(state.pref)&&prefOk(c,state.pref))reasons.push([D.chips.pref[state.pref],'']);
+      if(set(state.lang)&&langOk(c,state.lang))reasons.push([W.speaks+state.lang,'']);
+      if(local(c))reasons.push([W.inPerson+where.split(',')[0],'']);else if(where!==undefined&&c.o)reasons.push([W.online,'']);
+      var ul=li.querySelector('[data-reasons]');ul.innerHTML='';
+      reasons.forEach(function(r){var x=document.createElement('li'),t=document.createElement('span'),b=document.createElement('strong');
+        b.textContent=r[0];t.appendChild(b);if(r[1])t.appendChild(document.createTextNode(r[1]));x.appendChild(t);ul.appendChild(x);});
+      li.querySelector('[data-whybox]').hidden=!reasons.length;
+      var fit=li.querySelector('[data-fit]');fit.hidden=!asked;
+      if(asked){fit.textContent=W.fit[p.k];fit.setAttribute('data-fit',String(p.k));}
       list.appendChild(li);
     });
     Object.keys(cards).forEach(function(id){if(!shown[id])cards[id].hidden=true;});
@@ -666,9 +823,9 @@ SCRIPT = r"""<script>
     var chips=[],t=state.type?D.types[state.type]:null;
     if(t)chips.push(['type',t.label]);
     ORDER.forEach(function(k){
-      var v=state[k];if(v===undefined||v===null||(k==='pref'&&v==='any'&&state.auto_pref))return;
-      var label=k!=='where'?D.labels[k][v]:v==='any'?D.labels.where.any:v===''?W.elsewhere:W.near+v.split(',')[0];
-      chips.push([k,label]);
+      var v=state[k];if(v===undefined||auto[k])return;
+      var label=k==='where'?(v==='any'?D.chips.where.any:v===''?W.elsewhere:W.near+v.split(',')[0]):(D.chips[k]||{})[v];
+      if(label)chips.push([k,label]);
     });
     document.getElementById('nav-answers').innerHTML=chips.map(function(c){return '<button type="button" class="nav-chip" data-edit="'+c[0]+'">'+c[1]+' <span aria-hidden="true">✎</span></button>';}).join('');
   }
@@ -679,20 +836,21 @@ SCRIPT = r"""<script>
   }
   function closeSheet(){if(sheet.close)sheet.close();else sheet.removeAttribute('open');}
   function answer(q,v,el){
-    state[q]=v;
+    state[q]=v;delete auto[q];
+    if(q==='area'){delete state.aspect;delete auto.aspect;}
     if(el)each(el.className.indexOf('nav-place')!==-1?'.nav-place':'.nav-opt',function(b){b.setAttribute('aria-pressed',String(b===el));},el.closest('[data-screen]'));
     setTimeout(function(){go(next());},170);
   }
-  // Changing an earlier answer can change what the later questions offer, so those are asked again.
+  // Changing an answer can change what later questions offer, so those it decided for the visitor are asked again.
   function edit(k){
-    var at=ORDER.indexOf(k);
-    ORDER.slice(at).forEach(function(q){if(q===k||state['auto_'+q]){delete state[q];delete state['auto_'+q];}});
+    ORDER.slice(ORDER.indexOf(k)).forEach(function(q){if(q===k||auto[q]||(k==='area'&&q==='aspect')){delete state[q];delete auto[q];}});
     go(k);
   }
+  function restart(type){state=type?{type:type}:{};auto={};trail=type?['start']:[];}
   nav.addEventListener('click',function(e){
     var el=e.target.closest('[data-type],[data-start],[data-v],[data-place],[data-back],[data-edit],[data-restart]');if(!el)return;
     if(el.hasAttribute('data-type')){e.preventDefault();openSheet(el.getAttribute('data-type'));return;}
-    if(el.hasAttribute('data-start')){state={};trail=[];go(next());return;}
+    if(el.hasAttribute('data-start')){restart();go(next());return;}
     if(el.hasAttribute('data-v')){
       var q=el.closest('[data-screen]').getAttribute('data-screen'),v=el.getAttribute('data-v');
       if(q==='where'&&v==='near'){   // reveal the places; the answer is the place tapped next
@@ -704,15 +862,15 @@ SCRIPT = r"""<script>
     if(el.hasAttribute('data-place')){answer('where',el.getAttribute('data-place'),el);return;}
     if(el.hasAttribute('data-back')){go(trail.pop()||'start',true);return;}
     if(el.hasAttribute('data-edit')){var k=el.getAttribute('data-edit');
-      if(k==='type'){state={};trail=[];go('start');return;}
+      if(k==='type'){restart();go('start');return;}
       edit(k);return;}
-    if(el.hasAttribute('data-restart')){state={};trail=[];go('start');return;}
+    if(el.hasAttribute('data-restart')){restart();go('start');return;}
   });
   sheet.addEventListener('click',function(e){
     if(e.target===sheet){closeSheet();return;}
     var el=e.target.closest('[data-close],[data-choose]');if(!el)return;
     if(el.hasAttribute('data-close')){closeSheet();return;}
-    closeSheet();trail=['start'];state={type:el.getAttribute('data-choose')};go(next(),true);
+    closeSheet();restart(el.getAttribute('data-choose'));go(next(),true);
   });
 })();
 </script>"""
@@ -723,7 +881,6 @@ def card(c, kinds):
     and the way to their profile. Every card has the same parts in the same order, so scrolling down the
     list reads like turning pages. The script fills in why they fit from the answers."""
     t = TYPE_BY_KEY[kinds[c['id']]]
-    default_why = c['chips'][0] if c['chips'] else (c['descriptor'] or c['role'])
     first = c['short'].split()[0] if not c['short'].startswith('Dr ') else c['short']
     fig = c['fees']['figures'][0] if c['fees'].get('figures') else None
     if fig and fig[1].endswith(', from'):          # "Initial consultation, from" reads as "From $270 · initial consultation"
@@ -741,10 +898,8 @@ def card(c, kinds):
             f'<h3 class="nav-prof__name"><a href="{c["slug"]}.html">{esc(c["name"])}</a></h3>'
             f'<p class="nav-prof__meta">{esc(t["label"])} · {esc(c["practice"])}</p>'
             f'<p class="nav-prof__place">{icon("meet:person", "nav-ic nav-ic--row")}{esc(profiles.city(c))}</p>'
-            f'<div class="nav-prof__why"><span class="nav-kicker">Why they fit</span>'
-            f'<p class="nav-prof__signal" data-signal hidden></p>'
-            f'<p class="nav-prof__words" data-why="{esc(default_why)}">{esc(default_why)}</p>'
-            f'<ul class="nav-prof__extra" data-extra hidden></ul></div>'
+            f'<div class="nav-prof__why" data-whybox hidden><span class="nav-kicker">Why they fit</span>'
+            f'<ul class="nav-prof__reasons" data-reasons></ul></div>'
             f'<p class="nav-prof__desc">{esc(c["description"])}</p>'
             f'<div class="nav-prof__chips">{profiles.chip_row(c, 3)}</div>'
             f'<dl class="nav-prof__facts">' + ''.join(f'<div><dt>{k}</dt><dd>{esc(v)}</dd></div>' for k, v in facts) + '</dl>'
@@ -757,7 +912,7 @@ def tile(t, count):
              'ot': 'occupational-therapy', 'physio': 'physiotherapy', 'ep': 'exercise-physiology'}.get(t['key'], 'allied-health')
     return (f'<li><a class="nav-tile" href="the-doctors.html#panel-{panel}" data-type="{t["key"]}" style="--tint:{t["tint"]}" '
             f'aria-haspopup="dialog"><span class="nav-badge">{icon(t["key"])}</span>'
-            f'<span class="nav-tile__text"><strong>{esc(t["label"])}</strong><span class="nav-sub">{esc(t["blurb"])}</span></span></a></li>')
+            f'<span class="nav-tile__text"><strong>{esc(t["label"])}</strong><span class="nav-sub">{esc(t["sub"])}</span></span></a></li>')
 
 
 def role(t, count):
@@ -776,7 +931,8 @@ def question(q):
     def option(o):
         label = (f'<span class="nav-opt__text"><span>{esc(o["label"])}</span><span class="nav-opt__sub">{esc(o["sub"])}</span></span>'
                  if o.get('sub') else f'<span>{esc(o["label"])}</span>')
-        return (f'<button type="button" class="nav-opt" data-v="{esc(o["value"])}" aria-pressed="false">'
+        area = f' data-area="{o["area"]}"' if o.get('area') else ''
+        return (f'<button type="button" class="nav-opt" data-v="{esc(o["value"])}"{area} aria-pressed="false">'
                 f'<span class="nav-badge">{icon(o["icon"])}</span>{label}</button>')
     extra = ''
     if q['key'] == 'where':
@@ -811,24 +967,26 @@ def build():
     # Same order as The Network: pinned GPs first, then online diaries, then enquiries, then CLINICIANS order.
     ordered = sorted(profiles.CLINICIANS, key=lambda c: (c['id'] not in profiles.PINNED, not profiles.books_online(c)))
     people = [dict(i=c['id'], t=kinds[c['id']], a=c['ages'], o=bool(c['telehealth']), p=c.get('in_person', True) is not False,
-                   s=state_of(c), city=profiles.city(c), n={k: list(v) for k, v in needs_of(c).items()}, pin=c['id'] in profiles.PINNED,
+                   s=state_of(c), city=profiles.city(c), v={k: list(x) for k, x in offers(c).items()},
+                   r={k: list(x) for k, x in areas(c)[0].items()}, x=areas(c)[1], pin=c['id'] in profiles.PINNED,
                    b=profiles.books_online(c), lv=bool(c.get('lived')), g=[l for l in c['languages'] if l != 'English'],
                    nd='ndis' in profiles.EXPERTISE.get(c['id'], profiles.EXPERTISE_DEFAULT[c['category']]),
                    bb=bool(c.get('bulk_billed'))) for c in ordered]
     data = dict(
         people=people,
         types={t['key']: dict(label=t['label']) for t in present},
-        # The answer, said back, as the first line of "Why they fit".
-        signals={'diagnosis': 'You want to find out if it’s ADHD.', 'medication': 'You’re looking for help with medication.',
-                 'talk': 'You want someone to talk to.', 'focus': 'You want help with focus and routines.',
-                 'school': 'You’re looking for help with school.', 'mood': 'You’re looking for help with stress or low mood.',
-                 'family': 'You want help with family and relationships.', 'food': 'You want help with food and eating.',
-                 'body': 'You want help with sleep, your body and movement.'},
-        prefs={'diary': 'You can book online today', 'lived': 'They have ADHD too', 'ndis': 'Works with NDIS funding',
-               'bulk': 'Bulk billed', 'lang': 'Speaks '},
-        labels={q['key']: {o['value']: (o['sub'] if q['key'] == 'where' else o['label']) for o in q['options']} for q in QUESTIONS},
+        # How each answer reads back: as a chip on the results, and as the label of a line under "Why they fit".
+        chips={q['key']: {o['value']: o['chip'] for o in q['options']} for q in QUESTIONS},
+        labels={q['key']: {o['value']: o['label'] for o in q['options']} for q in QUESTIONS},
+        aspectArea={f"{d['key']}:{a['key']}": d['key'] for d in DOMAINS for a in d['aspects']},
+        aspectTitle={'school': 'What about school?', 'work': 'What about work?', 'home': 'What about home?',
+                     'relationships': 'What about relationships?', 'health': 'What about your health?', 'food': 'What about food?'},
         words=dict(matches='Your matches', one='clinician fits.', many='clinicians, best first.', none='No one fits all of that yet.',
                    nonePref='No one fits that preference as well. These fit everything else.',
+                   noneLang='No one here speaks that language yet. These fit everything else.',
+                   noneOnline='No one here works online for that yet. These see people in person.',
+                   agesOnly='Everyone here for this works with ', ages={'adults': 'adults', 'teens': 'teenagers', 'children': 'children'},
+                   speaks='Speaks ',
                    inPerson='Sees people in person in ', online='Works online, wherever you are',
                    fit=['Worth considering', 'Good fit', 'Strong fit'], near='Near ', elsewhere='Somewhere else',
                    noneNear='No one sees people in person there yet. These work online.',
@@ -872,17 +1030,23 @@ def build():
 
 
 def check():
-    """Fail the build rather than ship a navigator that would silently drop somebody."""
+    """Fail the build rather than ship a navigator that would silently drop somebody, or a question without a drawing."""
     for d in DOMAINS:
+        if d['key'] not in {'food'} and d['key'] not in ICONS:
+            raise SystemExit(f'build-navigator: area {d["label"]} has no icon')
         for asp in d['aspects']:
-            if f"{d['key']}:{asp['key']}" not in ASPECT_NEED:
-                raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} has no need in ASPECT_NEED')
+            if f"{d['key']}:{asp['key']}" not in ICONS:
+                raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} has no icon')
             for cid, _ in asp['who']:
                 if cid not in BY_ID:
                     raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
     for c in profiles.CLINICIANS:
-        if not needs_of(c):
-            raise SystemExit(f'build-navigator: {c["name"]} matches no need, so no answer would ever list them')
+        if not offers(c) and not areas(c)[0]:
+            raise SystemExit(f'build-navigator: {c["name"]} matches no answer, so no visitor would ever be shown them')
+    for q in QUESTIONS:
+        for o in q['options']:
+            if o.get('icon') and o['icon'] not in ICONS:
+                raise SystemExit(f'build-navigator: {q["key"]} › {o["label"]} has no icon {o["icon"]!r}')
     for t in TYPES:
         if t['key'] not in ICONS:
             raise SystemExit(f'build-navigator: kind {t["key"]!r} has no icon')
