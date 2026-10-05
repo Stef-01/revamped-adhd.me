@@ -1,21 +1,22 @@
 #!/usr/bin/env python3
-"""Build care-navigator.html: a two-level bubble map from where ADHD gets in the way to the clinicians
-whose profiles say they work on exactly that.
+"""Build care-navigator.html: "Who could help?" — tap a kind of clinician to see what they do, or answer a
+few tap-only questions and get a scrolling list of clinicians who fit.
 
     python3 scripts/build-navigator.py          # write the page
     python3 scripts/build-navigator.py --check  # exit 1 if the page on disk differs from what would be written
 
-Owns care-navigator.html in full. Edit DOMAINS here and rebuild.
+Owns care-navigator.html in full. Edit TYPES, NEEDS, QUESTIONS or DOMAINS here and rebuild.
 
-Deterministic on purpose: a domain (School, Work, Home, Relationships, Health) opens four aspects, and an
-aspect opens a fixed list of clinicians. Each entry names the clinician by id and gives the reason in the
-words of their own profile (a chip or an experience line), so the page cannot claim a focus the profile
-does not declare. The build refuses an id that is not in CLINICIANS. Every result panel is rendered
-into the HTML, so without JavaScript the page is the whole tree as a list; the script only chooses which
-panel shows and where the bubbles sit.
+Every step is a tap: no typing, no speech, no swiping. The matching is plain rules, no AI: a clinician is
+in the list when they see the person it is for, can be met the way asked, and work on what was picked;
+the order is how directly they work on it (a reason quoted from their own profile beats a tag), then the
+two pinned GPs, then an online diary before an enquiry form. Everything comes from CLINICIANS in
+build-profiles.py, so a clinician added there joins the navigator on the next build, in the right kind,
+with nothing to edit here. The reasons shown on each card are DOMAINS below, in the clinician's own words.
 
 The page shell (head, header, footer) is lifted from how-it-works.html at build time, like the search
-pages, so header and footer changes reach it on rebuild.
+pages, so header and footer changes reach it on rebuild. Without JavaScript the provider cards are plain
+links to their tab on The Network.
 """
 import html
 import importlib.util
@@ -28,51 +29,6 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://www.adhdme.au'
 SHELL = ROOT / 'how-it-works.html'
 OUT = ROOT / 'care-navigator.html'
-
-# The care pathway beneath the navigator: a GP diagnosis as the start, not the end.
-JOURNEY = '''<!-- JOURNEY: the care pathway, a GP diagnosis as the start -->
-<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-20 lg:pb-28" aria-labelledby="journey-title">
-<div data-reveal class="pt-12 border-t border-[#e8e6df]">
-  <p class="text-[15px] font-bold text-[#5f5e59]">The care pathway</p>
-  <h2 id="journey-title" class="mt-3 text-[32px] sm:text-[40px] leading-[1.1] font-extrabold tracking-tight text-[#1a1c1c] max-w-[20ch]">A GP diagnosis is the start, <span class="text-[#c99a1a]">not the end.</span></h2>
-  <p class="mt-4 text-[17px] leading-[1.6] text-[#5f5e59] max-w-[54ch]">Medication can settle the symptoms. Turning that into mornings, work, sleep and relationships that go better is what the rest of the network is for.</p>
-  <ol class="journey mt-10">
-    <li class="journey__step">
-      <span class="journey__n" style="--tint:#f1bc31">1</span>
-      <div class="journey__card rounded-3xl bg-[#fdf3d6] border border-[#ebd8ab]">
-        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Assessment and diagnosis</h3>
-        <p class="mt-2 text-[15px] leading-[1.55] text-[#5f5e59]">A GP who understands ADHD. Two consultations, then a diagnosis, a plan and medication if it’s right for you.</p>
-        <a class="journey__link" href="the-doctors.html#panel-gps">The GPs <span aria-hidden="true">→</span></a>
-      </div>
-    </li>
-    <li class="journey__step">
-      <span class="journey__n" style="--tint:#cfe4f6">2</span>
-      <div class="journey__card rounded-3xl border border-[#b9d6ee]" style="background: linear-gradient(180deg, #dcedfa 0%, #cfe4f6 55%, #c3dcf2 100%);">
-        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Therapy</h3>
-        <p class="mt-2 text-[15px] leading-[1.55] text-[#1e547a]">A psychologist for the thinking and feeling side: anxiety, low mood, rejection sensitivity, the years of “try harder”.</p>
-        <a class="journey__link" href="the-doctors.html#panel-psychologists">The psychologists <span aria-hidden="true">→</span></a>
-      </div>
-    </li>
-    <li class="journey__step">
-      <span class="journey__n" style="--tint:#f3f1ea">3</span>
-      <div class="journey__card rounded-3xl bg-[#f3f1ea] border border-[#e8e6df]">
-        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#1a1c1c]">Daily life</h3>
-        <p class="mt-2 text-[15px] leading-[1.55] text-[#5f5e59]">Occupational therapy, exercise physiology, nutrition and coaching turn the plan into routines: sleep, food, work, home.</p>
-        <a class="journey__link" href="the-doctors.html#panel-occupational-therapy">Occupational therapy <span aria-hidden="true">→</span></a>
-      </div>
-    </li>
-    <li class="journey__step">
-      <span class="journey__n" style="--tint:#1a1c1c; color:#fff">4</span>
-      <div class="journey__card rounded-3xl bg-[#1a1c1c]">
-        <h3 class="text-[20px] leading-[1.25] font-extrabold tracking-tight text-[#f1bc31]">Life, working</h3>
-        <p class="mt-2 text-[15px] leading-[1.55] text-white/75">Reviews with your GP, and a team that already gets ADHD. No starting over, no retelling your story.</p>
-        <a class="journey__link journey__link--light" href="how-it-works.html">How it works <span aria-hidden="true">→</span></a>
-      </div>
-    </li>
-  </ol>
-  <p class="journey__along"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 3h3l.6 3.2a7.6 7.6 0 0 1 1.9 1.1l3.1-1.1 1.5 2.6-2.5 2.1a7.7 7.7 0 0 1 0 2.2l2.5 2.1-1.5 2.6-3.1-1.1a7.6 7.6 0 0 1-1.9 1.1L13.5 21h-3l-.6-3.2a7.6 7.6 0 0 1-1.9-1.1l-3.1 1.1-1.5-2.6 2.5-2.1a7.7 7.7 0 0 1 0-2.2L3.4 8.8l1.5-2.6L8 7.3a7.6 7.6 0 0 1 1.9-1.1z"/><circle cx="12" cy="12" r="3"/></svg>Medication, if you use it, and GP reviews run alongside every step. Allied health is what makes them count day to day.</p>
-</div>
-</section>'''
 SLUG = 'care-navigator'
 
 spec = importlib.util.spec_from_file_location('profiles', ROOT / 'scripts' / 'build-profiles.py')
@@ -85,9 +41,10 @@ def esc(text):
     return html.escape(text, quote=True)
 
 
-# ---------------------------------------------------------------- the tree
-# tint: the landing page's door colours, one per domain. who: (clinician id, why), the why quoted from
-# the profile. A clinician can sit under several aspects; a reason is always in their own words.
+# ---------------------------------------------------------------- reasons, in the clinicians' own words
+# Where ADHD gets in the way, and who works on each part of it. who: (clinician id, why), the why quoted from
+# the profile (a chip or an experience line), so a card can never claim a focus the profile does not
+# declare. These are the strongest matches in the navigator and the reason printed under a name.
 DOMAINS = [
  dict(key='school', label='School', tint='#f1bc31', aspects=[
   dict(key='focus', label='Concentrating in class', who=[
@@ -195,54 +152,193 @@ DOMAINS = [
  ]),
 ]
 
+
+# What each aspect above is evidence of, as one of the needs a visitor can pick. A clinician listed under an
+# aspect matches that need first, with the reason beside their name.
+ASPECT_NEED = {
+    'school:focus': 'school', 'school:homework': 'school', 'school:friends': 'school', 'school:system': 'school',
+    'work:done': 'focus', 'work:burnout': 'mood', 'work:confidence': 'mood', 'work:career': 'talk',
+    'home:routines': 'focus', 'home:parenting': 'family', 'home:emotions': 'mood', 'home:body': 'body',
+    'relationships:partner': 'family', 'relationships:rejection': 'mood', 'relationships:social': 'family',
+    'relationships:conflict': 'family',
+    'health:assessment': 'diagnosis', 'health:medication': 'medication', 'health:mood': 'mood', 'health:eating': 'mood',
+}
+
+# ---------------------------------------------------------------- kinds of clinician
+# The cards on the first screen, in the order a visitor reads them. sub: two or three words under the name.
+# what / good / referral: the sheet a card opens. Kept short on purpose (CLAUDE.md: blocks of about 15
+# words). A kind with nobody in it is left off the page.
+TYPES = [
+ dict(key='gp', label='GP', plural='GPs', sub='Diagnosis, medication', tint='#f1bc31',
+      what='Can assess ADHD and prescribe medication, depending on your state, then keep it reviewed.',
+      good=['A diagnosis', 'Medication', 'Reviews'], referral='No referral needed.'),
+ dict(key='psychologist', label='Psychologist', plural='psychologists', sub='Talking therapy', tint='#8fc3ec',
+      what='Talk therapy for ADHD and what comes with it, like anxiety and low mood. Some also assess.',
+      good=['Therapy', 'Anxiety and mood', 'Assessment'],
+      referral='No referral needed. A GP plan can get you a Medicare rebate.'),
+ dict(key='psychiatrist', label='Psychiatrist', plural='psychiatrists', sub='Complex care', tint='#9dd6cf',
+      what='A specialist doctor for complex or overlapping conditions and harder medication questions.',
+      good=['Complex care', 'Medication', 'A second opinion'],
+      referral='You need a GP referral, which also gets you the Medicare rebate.'),
+ dict(key='coach', label='ADHD coach', plural='ADHD coaches', sub='Routines, focus', tint='#f7a58c',
+      what='Practical help with routines, planning and getting things done. Most here are former teachers.',
+      good=['Routines', 'Study', 'Getting organised'], referral='No referral needed. Not covered by Medicare.'),
+ dict(key='ot', label='Occupational therapist', plural='occupational therapists', sub='Daily life, school', tint='#9fd08f',
+      what='Routines and strategies for children and teens, built at home, at school or in the clinic.',
+      good=['Daily routines', 'School', 'Sensory needs'],
+      referral='No referral needed. The NDIS or private health may help with fees.'),
+ dict(key='counselling', label='Counsellor', plural='counsellors and social workers', sub='Talk it through', tint='#e3bf8a',
+      what='Counsellors and mental health social workers: someone to talk things through with.',
+      good=['Stress', 'Relationships', 'Life changes'],
+      referral='No referral needed. Some offer Medicare rebates with a GP plan.'),
+ dict(key='physio', label='Physiotherapist', plural='physiotherapists', sub='Pain, injury', tint='#b7b0f0',
+      what='Helps you recover from pain or injury and keep moving, at a pace that suits you.',
+      good=['Pain', 'Injury', 'Getting active'], referral='No referral needed.'),
+ dict(key='ep', label='Exercise physiologist', plural='exercise physiologists', sub='Exercise as medicine', tint='#f2a7c8',
+      what='Exercise built around you and what you enjoy, for focus, sleep and mood.',
+      good=['Movement', 'Sleep', 'Mood'], referral='No referral needed.'),
+ dict(key='assistant', label='Therapy assistant', plural='therapy assistants', sub='Practice between sessions', tint='#dad9eb',
+      what='Practises skills with you between sessions, supervised by your psychologist.',
+      good=['Practising skills', 'Routines', 'NDIS support'],
+      referral='Works alongside your psychologist. Often funded by the NDIS.'),
+ dict(key='neuro', label='Neurotherapy', plural='neurotherapy practitioners', sub='Brain mapping', tint='#dbe9d3',
+      what='Brain mapping (QEEG) and neurotherapy sessions, in the clinic.',
+      good=['Brain mapping', 'Training sessions'], referral='No referral needed. In person only.'),
+ dict(key='allied', label='Allied health', plural='allied health clinicians', sub='More support', tint='#e8e6df',
+      what='More ways forward beyond medication, from clinicians who understand ADHD.',
+      good=['Support', 'Skills'], referral='No referral needed.'),
+]
+TYPE_BY_KEY = {t['key']: t for t in TYPES}
+CATEGORY_TYPE = {'gp': 'gp', 'psychologist': 'psychologist', 'psychiatrist': 'psychiatrist', 'coach': 'coach',
+                 'occupational-therapy': 'ot', 'physiotherapy': 'physio', 'exercise-physiology': 'ep'}
+
+
+def kind(c):
+    """Which card a clinician sits under. Allied health is several professions, told apart by the role."""
+    if c['category'] in CATEGORY_TYPE:
+        return CATEGORY_TYPE[c['category']]
+    role = c['role'].lower()
+    if 'neurotherapy' in role:
+        return 'neuro'
+    if 'therapy assistant' in role:
+        return 'assistant'
+    if 'counsellor' in role or 'social worker' in role:
+        return 'counselling'
+    return 'allied'
+
+
+# ---------------------------------------------------------------- what would help
+# The second question. A clinician matches a need through a reason quoted from their profile (DOMAINS),
+# an expertise tag (EXPERTISE in build-profiles.py), or what their kind of clinician does.
+NEEDS = [
+ dict(key='diagnosis', label='Find out if it’s ADHD'),
+ dict(key='medication', label='Medication'),
+ dict(key='talk', label='Someone to talk to'),
+ dict(key='focus', label='Focus and routines'),
+ dict(key='school', label='School'),
+ dict(key='mood', label='Stress or low mood'),
+ dict(key='family', label='Family and relationships'),
+ dict(key='body', label='Sleep, body, movement'),
+]
+TAG_NEED = {
+    'assessment': 'diagnosis', 'medication': 'medication',
+    'therapy': 'talk', 'counselling': 'talk',
+    'trauma': 'mood', 'mental-health': 'mood', 'perinatal': 'mood', 'eating-disorders': 'mood',
+    'emotional-regulation': 'mood', 'performance': 'mood', 'complex-care': 'mood',
+    'executive-function': 'focus', 'coaching': 'focus', 'therapy-assistant': 'focus', 'neurotherapy': 'focus',
+    'occupational-therapy': 'focus',
+    'education': 'school', 'students': 'school', 'social-skills': 'school',
+    'relationships': 'family', 'parenting': 'family', 'family': 'family', 'early-intervention': 'family',
+    'physical-health': 'body', 'lifestyle': 'body', 'physiotherapy': 'body', 'exercise-physiology': 'body',
+    'integrative': 'body',
+}
+KIND_NEEDS = {'gp': ['diagnosis', 'medication'], 'psychiatrist': ['diagnosis', 'medication', 'mood'],
+              'psychologist': ['talk', 'mood'], 'coach': ['focus', 'school'], 'ot': ['focus', 'school'],
+              'counselling': ['talk', 'mood', 'family'], 'physio': ['body'], 'ep': ['body'],
+              'assistant': ['focus'], 'neuro': ['focus'], 'allied': ['talk']}
+
+
+def needs_of(c):
+    """{need: (strength, why)} — 2 for a reason quoted from the profile, 1 for a tag or what the kind does."""
+    out = {}
+    for d in DOMAINS:
+        for asp in d['aspects']:
+            need = ASPECT_NEED[f"{d['key']}:{asp['key']}"]
+            for cid, why in asp['who']:
+                if cid == c['id'] and need not in out:
+                    out[need] = (2, why)
+    chip = c['chips'][0] if c['chips'] else c['descriptor'] or c['role']
+    tags = profiles.EXPERTISE.get(c['id'], profiles.EXPERTISE_DEFAULT[c['category']])
+    for need in [TAG_NEED[t] for t in tags if t in TAG_NEED] + KIND_NEEDS[kind(c)]:
+        out.setdefault(need, (1, chip))
+    if kind(c) == 'gp' and not c.get('assesses', True):
+        out.pop('diagnosis', None)                     # a continuation prescriber does not diagnose
+    if kind(c) == 'coach' and not set(c['ages']) & {'children', 'teens'}:
+        out.pop('school', None)
+    return out
+
+
+# ---------------------------------------------------------------- the questions
+# Each answer is a tap and moves straight on. who and need narrow the list; where and meet decide who can
+# be seen. A visitor who came from a kind's sheet skips "what would help": the kind already says it.
+QUESTIONS = [
+ dict(key='who', title='Who is it for?', options=[
+  dict(value='adults', label='Me', icon='who:me'),
+  dict(value='teens', label='My teenager', icon='who:teen'),
+  dict(value='children', label='My child', icon='who:child')]),
+ dict(key='need', title='What would help most?',
+      options=[dict(value=n['key'], label=n['label'], icon='need:' + n['key']) for n in NEEDS]),
+ dict(key='where', title='Where are you?', options=[
+  dict(value='QLD', label='Queensland'), dict(value='NSW', label='New South Wales'),
+  dict(value='VIC', label='Victoria'), dict(value='WA', label='Western Australia'),
+  dict(value='', label='Somewhere else')]),
+ dict(key='meet', title='How would you like to meet?', options=[
+  dict(value='person', label='In person', icon='meet:person'),
+  dict(value='online', label='Online', icon='meet:online'),
+  dict(value='either', label='Either is fine', icon='meet:either')]),
+]
+
 # ---------------------------------------------------------------- icons
-# One line drawing per bubble, inline SVG on a 24-box, stroked in the bubble's own text colour.
+# One line drawing per card, inline SVG on a 24-box, stroked in the text colour.
 ICONS = {
- 'school': '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v14H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V6.5M20 18v2.5H6.5"/>',
- 'work': '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 12h18"/>',
- 'home': '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/>',
- 'relationships': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/>',
- 'health': '<path d="M9.5 3h5v6.5H21v5h-6.5V21h-5v-6.5H3v-5h6.5z"/>',
- 'school:focus': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
- 'school:homework': '<path d="M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M14 7l3 3"/>',
- 'school:friends': '<circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M15 13.5c3 0 5.5 2 5.5 5"/>',
- 'school:system': '<path d="M3 20h18"/><path d="M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/><path d="M12 8v3"/>',
- 'work:done': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l3 3 5-6"/>',
- 'work:burnout': '<rect x="3" y="8" width="15" height="8" rx="2"/><path d="M18 10.5h2.5v3H18"/><path d="M6.5 11v2"/>',
- 'work:confidence': '<path d="M7 11v9H4v-9z"/><path d="M7 11l4-7c1.5 0 2.5 1 2.5 2.5V10h5a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17.5 20H7"/>',
- 'work:career': '<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
- 'home:routines': '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
- 'home:parenting': '<circle cx="9" cy="6.5" r="3"/><circle cx="17" cy="11" r="2.2"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><path d="M15 20c0-2.4 1-4 2.5-4s2.5 1.6 2.5 4"/>',
- 'home:emotions': '<path d="M7 16a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 16"/><path d="M13 13l-2 4h3l-2 4"/>',
- 'home:body': '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
- 'relationships:partner': '<path d="M9 18s-6-3.6-6-7.6A3.2 3.2 0 0 1 9 8.4a3.2 3.2 0 0 1 6 2c0 4-6 7.6-6 7.6z"/><path d="M15.5 6.5a3 3 0 0 1 5.5 1.7c0 3-4 5.6-5.2 6.3"/>',
- 'relationships:rejection': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/><path d="M12 7.6l-1.5 4 3 2-1.5 4"/>',
- 'relationships:social': '<circle cx="12" cy="12" r="8.5"/><path d="M8.5 14.5c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2"/><path d="M9.5 9.5h.01M14.5 9.5h.01"/>',
- 'relationships:conflict': '<path d="M4 5h9v7H8l-3 2.5V12H4z"/><path d="M13 9h7v7h-1v2.5L16 16h-3v-2"/>',
- 'health:assessment': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
- 'health:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
- 'health:mood': '<path d="M7 17a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 17z"/>',
- 'health:eating': '<path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 3v18"/><path d="M17 3c-2 1.5-2.5 5-2.5 8h2.5v10"/>',
+ 'gp': '<path d="M5 3v6a5 5 0 0 0 10 0V3"/><path d="M10 14v1.5a5.5 5.5 0 0 0 11 0V13"/><circle cx="21" cy="11" r="2"/>',
+ 'psychologist': '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
+ 'psychiatrist': '<circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/>',
+ 'coach': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+ 'ot': '<path d="M8 13V6.5a1.5 1.5 0 0 1 3 0V12M11 11V4.5a1.5 1.5 0 0 1 3 0V12M14 11.5V6a1.5 1.5 0 0 1 3 0v8a6 6 0 0 1-6 6h-1a6 6 0 0 1-4.6-2.2L3.5 15a1.6 1.6 0 0 1 2.4-2.1L8 15"/>',
+ 'counselling': '<path d="M4 5h9v7H8l-3 2.5V12H4z"/><path d="M13 9h7v7h-1v2.5L16 16h-3v-2"/>',
+ 'physio': '<path d="M8.5 8.5l7 7"/><path d="M8.2 4.9a2.3 2.3 0 1 0-3.3 3.3 2.3 2.3 0 1 0 3.3-3.3z"/><path d="M19.1 15.8a2.3 2.3 0 1 0-3.3 3.3 2.3 2.3 0 1 0 3.3-3.3z"/>',
+ 'ep': '<circle cx="14" cy="4.5" r="1.9"/><path d="M9 21l2.5-5.5 3 2.5v3.5M7.5 12l2.5-4 3.5 1 2 3.5H19M10 8l-1.2 5.5"/>',
+ 'assistant': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 11l2 2 4-4M8.5 16.5h7"/>',
+ 'neuro': '<path d="M3 12h4l2-5 4 10 2-5h6"/>',
+ 'allied': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/>',
+ 'who:me': '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/>',
+ 'who:teen': '<circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.6"/><path d="M3 19c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M15 13.5c3 0 5.5 2 5.5 5"/>',
+ 'who:child': '<circle cx="9" cy="6.5" r="3"/><circle cx="17" cy="11" r="2.2"/><path d="M3.5 20c0-3.6 2.5-6 5.5-6s5.5 2.4 5.5 6"/><path d="M15 20c0-2.4 1-4 2.5-4s2.5 1.6 2.5 4"/>',
+ 'need:diagnosis': '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+ 'need:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
+ 'need:talk': '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
+ 'need:focus': '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/>',
+ 'need:school': '<path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H20v14H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V6.5M20 18v2.5H6.5"/>',
+ 'need:mood': '<path d="M7 17a4 4 0 0 1-.5-8 5.5 5.5 0 0 1 10.6 1.2A3.4 3.4 0 0 1 17 17z"/>',
+ 'need:family': '<path d="M12 20.5s-8-4.8-8-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 8 2.7c0 5.4-8 10.2-8 10.2z"/>',
+ 'need:body': '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>',
+ 'meet:person': '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+ 'meet:online': '<rect x="2" y="6" width="13" height="12" rx="2.5"/><path d="M15 10.5 22 7v10l-7-3.5z"/>',
+ 'meet:either': '<circle cx="12" cy="12" r="8.5"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
 }
 
 
-def icon(key):
-    return (f'<svg class="bubble__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+def icon(key, cls='nav-ic'):
+    return (f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
             f'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[key]}</svg>')
 
 
-for d in DOMAINS:
-    assert len(d['aspects']) == 4, f"{d['label']}: four aspects, not {len(d['aspects'])}"
-    assert d['key'] in ICONS, f"{d['label']}: no icon"
-    for asp in d['aspects']:
-        assert f"{d['key']}:{asp['key']}" in ICONS, f"{d['label']} › {asp['label']}: no icon"
-        for cid, _ in asp['who']:
-            if cid not in BY_ID:
-                raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
+ARROW = '<span class="nav-arrow" aria-hidden="true">→</span>'
 
-SEO = 'ADHD care navigator: find the right clinician'
-DESCRIPTION = ('Pick an area of life, such as school, work, home, relationships or health, then the part ADHD affects. '
-               'See clinicians whose profiles say they work on it.')
+SEO = 'ADHD care navigator: who could help?'
+DESCRIPTION = ('Not sure who to see for ADHD? Tap a GP, psychologist, coach or therapist to see what they do, '
+               'or answer four quick taps to find your match.')
 
 
 # ---------------------------------------------------------------- shell
@@ -285,116 +381,225 @@ def header_for(shell_header):
     return out.replace(nav_inactive, nav_active).replace('<a href="care-navigator.html">Navigator<span', '<a aria-current="page" href="care-navigator.html">Navigator<span')
 
 
-# ---------------------------------------------------------------- the map
-# Bubbles are buttons positioned by the script on a square stage. No connector lines: the ring says what
-# belongs to the centre, a soft halo in the domain tint sits behind the chosen domain, and each ring springs
-# out of the centre with a short stagger, so the motion is the connection. Before anyone taps, the domain
-# bubbles drift slowly on their own small orbits. Both respect prefers-reduced-motion. Colours are the
-# domain tints. With JavaScript off the stage is hidden and the list shows.
-STYLE = '''<style>
-.nav-stage{position:relative;aspect-ratio:1/1;max-width:640px;margin:0 auto;}
-.nav-halo{position:absolute;left:50%;top:50%;width:64%;aspect-ratio:1/1;transform:translate(-50%,-50%) scale(.6);border-radius:50%;background:radial-gradient(circle,var(--tint,#f6f4ee) 0%,var(--tint,#f6f4ee) 35%,rgba(250,250,247,0) 72%);opacity:0;pointer-events:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.8,.2,1),background .4s;}
-.nav-halo.is-on{opacity:.9;transform:translate(-50%,-50%) scale(1);}
-.bubble{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%) scale(var(--s,1));width:var(--w,22%);aspect-ratio:1/1;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;text-align:center;padding:9%;margin:0;border:2.5px solid #1a1c1c;background:var(--tint,#f6f4ee);color:#1a1c1c;font-weight:700;font-size:15px;line-height:1.2;font-family:inherit;cursor:pointer;border-radius:52% 48% 47% 53%/56% 44% 56% 44%;box-shadow:0 6px 18px -8px rgba(0,0,0,.25);transition:left .6s cubic-bezier(.34,1.45,.64,1),top .6s cubic-bezier(.34,1.45,.64,1),transform .5s cubic-bezier(.34,1.5,.64,1),opacity .35s,width .45s cubic-bezier(.2,.8,.2,1),margin .5s ease,background .3s,color .3s;}
-.bubble__icon{width:24px;height:24px;flex:none;opacity:.85;}
-.bubble.is-centre .bubble__icon{width:30px;height:30px;}
-.bubble:nth-child(odd){border-radius:47% 53% 55% 45%/44% 58% 42% 56%;}
-.bubble:hover,.bubble:focus-visible{transform:translate(-50%,-50%) scale(calc(var(--s,1) * 1.06));outline:none;}
-.bubble:focus-visible{box-shadow:0 0 0 4px #fff,0 0 0 6.5px #1a1c1c;}
-.bubble[hidden]{display:none;}
-.bubble.is-centre{--w:30%;font-size:18px;box-shadow:0 10px 26px -10px rgba(0,0,0,.35);}
-.bubble.is-dim{opacity:.35;}
-.bubble.is-on{background:#1a1c1c;color:#fff;}
-.nav-stage.is-idle .bubble{animation:nav-drift 8s ease-in-out infinite alternate;}
-.nav-stage.is-idle .bubble:nth-child(2){animation-duration:9.5s;animation-delay:-3s;}
-.nav-stage.is-idle .bubble:nth-child(3){animation-duration:7s;animation-delay:-5s;}
-.nav-stage.is-idle .bubble:nth-child(4){animation-duration:10s;animation-delay:-2s;}
-.nav-stage.is-idle .bubble:nth-child(5){animation-duration:8.5s;animation-delay:-6.5s;}
-.nav-stage.is-idle .bubble:nth-child(6){animation-duration:7.5s;animation-delay:-1s;}
-@keyframes nav-drift{0%{margin:0 0 0 0}30%{margin:-7px 0 0 5px}60%{margin:5px 0 0 -6px}100%{margin:-4px 0 0 -7px}}
-.nav-crumb{display:none;flex-wrap:wrap;gap:8px;justify-content:center;}
-.nav-crumb button{font:600 14px/1 inherit;font-family:inherit;padding:8px 14px;border-radius:999px;border:1.5px solid #e8e6df;background:#fff;color:#1a1c1c;cursor:pointer;}
-.nav-crumb button:hover{border-color:#1a1c1c;}
-.nav-crumb button[aria-current="true"]{background:#1a1c1c;color:#fff;border-color:#1a1c1c;}
-.js .nav-list{display:none;}
-.no-js .nav-stage,.no-js .nav-crumb,.no-js .nav-results{display:none;}
-.nav-results[hidden]{display:none;}
-@media (max-width:520px){.bubble{font-size:12px;line-height:1.15;padding:7%;gap:4px;}.bubble__icon{width:18px;height:18px;}.bubble.is-centre{font-size:14px;}.bubble.is-centre .bubble__icon{width:24px;height:24px;}}
-@media (prefers-reduced-motion:reduce){.bubble,.nav-halo{transition:none;}.nav-stage.is-idle .bubble{animation:none;}}
-</style>'''
+# ---------------------------------------------------------------- the page
+STYLE = """<style>
+.nav{max-width:980px;margin:0 auto;}
+.nav-screen:focus{outline:none;}
+.nav-h{font-size:30px;line-height:1.1;font-weight:800;letter-spacing:-.02em;color:#1a1c1c;margin:0;}
+.nav-h:focus{outline:none;}
+@media (min-width:640px){.nav-h{font-size:38px;}}
+.nav-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;list-style:none;padding:0;margin:0;}
+@media (min-width:720px){.nav-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}}
+.nav-tile,.nav-opt,.nav-card{display:flex;font:inherit;color:#1a1c1c;text-decoration:none;text-align:left;background:#fff;border:1.5px solid #e8e6df;border-radius:22px;box-shadow:0 4px 0 #e8e6df;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;}
+.nav-tile:hover,.nav-opt:hover,.nav-card:hover{transform:translateY(-2px);box-shadow:0 6px 0 #e8e6df;}
+.nav-tile:active,.nav-opt:active,.nav-card:active{transform:translateY(3px);box-shadow:0 1px 0 #e8e6df;}
+.nav-tile:focus-visible,.nav-opt:focus-visible,.nav-card:focus-visible,.nav-btn:focus-visible,.nav-chip:focus-visible,.nav-back:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
+.nav-tile{flex-direction:column;align-items:flex-start;gap:6px;width:100%;height:100%;min-height:148px;padding:18px;}
+.nav-tile strong{display:block;margin-top:auto;font-size:18px;line-height:1.2;font-weight:800;letter-spacing:-.01em;}
+.nav-tile .nav-sub{font-size:15px;line-height:1.3;color:#5f5e59;}
+.nav-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:var(--tint,#f6f4ee);color:#1a1c1c;flex:none;}
+.nav-ic{width:24px;height:24px;flex:none;}
+.nav-grid__wide{grid-column:1/-1;}
+.nav-choose{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:20px 22px;font:inherit;font-size:18px;font-weight:800;color:#1a1c1c;background:#f1bc31;border:1.5px solid #e2ac24;border-radius:22px;box-shadow:0 4px 0 #c99a1a;cursor:pointer;transition:transform .15s ease,box-shadow .15s ease;}
+.nav-choose:hover{transform:translateY(-2px);box-shadow:0 6px 0 #c99a1a;}
+.nav-choose:active{transform:translateY(3px);box-shadow:0 1px 0 #c99a1a;}
+.nav-choose:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
+.nav-arrow{font-weight:800;}
+.nav-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;min-height:44px;}
+.nav-back{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;font:inherit;font-size:15px;font-weight:700;color:#1a1c1c;background:transparent;border:1.5px solid #e8e6df;border-radius:999px;cursor:pointer;}
+.nav-back:hover{background:#f6f4ee;}
+.nav-dots{display:flex;gap:6px;}
+.nav-dots span{width:8px;height:8px;border-radius:999px;background:#e8e6df;transition:background .2s,width .2s;}
+.nav-dots span.is-done{background:#1a1c1c;}
+.nav-dots span.is-now{width:22px;background:#f1bc31;}
+.nav-opts{display:grid;grid-template-columns:1fr;gap:12px;margin-top:22px;}
+@media (min-width:640px){.nav-opts{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}}
+.nav-opt{align-items:center;gap:14px;width:100%;min-height:68px;padding:12px 18px;font-size:18px;font-weight:700;}
+.nav-opt[aria-pressed="true"]{background:#fdf3d6;border-color:#f1bc31;box-shadow:0 4px 0 #e2ac24;}
+.nav-opt .nav-badge{width:40px;height:40px;border-radius:12px;background:#f6f4ee;}
+.nav-opt[aria-pressed="true"] .nav-badge{background:#f1bc31;}
+.nav-answers{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.nav-chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 14px;font:inherit;font-size:14px;font-weight:700;color:#1a1c1c;background:#fdf3d6;border:1.5px solid #ebd8ab;border-radius:999px;cursor:pointer;}
+.nav-chip:hover{background:#fbe7b0;}
+.nav-count{margin:6px 0 0;font-size:16px;font-weight:600;color:#5f5e59;}
+.nav-note{margin:14px 0 0;padding:12px 16px;font-size:15px;line-height:1.45;color:#1a1c1c;background:#f6f4ee;border-radius:14px;}
+.nav-list{list-style:none;padding:0;margin:18px 0 0;display:grid;gap:12px;}
+.nav-card{align-items:center;gap:14px;width:100%;padding:12px 16px 12px 12px;}
+.nav-card__img{display:block;width:68px;height:68px;flex:none;overflow:hidden;border-radius:16px;background:#f6f4ee;}
+.nav-card__img img{width:100%;height:100%;object-fit:cover;object-position:center 30%;}
+.nav-card__body{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1;}
+.nav-card__name{font-size:17px;line-height:1.25;font-weight:800;letter-spacing:-.01em;}
+.nav-card__meta{font-size:14px;line-height:1.3;font-weight:600;color:#5f5e59;}
+.nav-card__why{align-self:flex-start;margin-top:4px;padding:3px 10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:12.5px;line-height:1.35;font-weight:600;color:#5f5e59;background:#f6f4ee;border:1px solid #e8e6df;border-radius:999px;}
+.nav-card .nav-arrow{flex:none;font-size:18px;color:#c99a1a;}
+.nav-end{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
+.nav-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;font:inherit;font-size:15px;font-weight:800;color:#1a1c1c;text-decoration:none;background:#fff;border:1.5px solid #e8e6df;border-radius:999px;box-shadow:0 3px 0 #e8e6df;cursor:pointer;}
+.nav-btn--go{background:#f1bc31;border-color:#e2ac24;box-shadow:0 3px 0 #c99a1a;}
+.nav-btn--dark{color:#fff;background:#1a1c1c;border-color:#1a1c1c;box-shadow:0 3px 0 #000;}
+.nav-sheet{width:100%;max-width:100%;max-height:88vh;margin:auto 0 0;padding:0;color:#1a1c1c;background:#fff;border:0;border-radius:28px 28px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.18);}
+@media (min-width:640px){.nav-sheet{width:min(560px,calc(100% - 32px));margin:auto;border-radius:28px;}}
+.nav-sheet::backdrop{background:rgba(26,28,28,.45);}
+.nav-sheet[open]{animation:nav-up .28s cubic-bezier(.2,.8,.2,1);}
+@keyframes nav-up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.nav-sheet__in{position:relative;padding:26px 22px 24px;}
+@media (min-width:640px){.nav-sheet__in{padding:32px 32px 30px;}}
+.nav-sheet__close{position:absolute;top:14px;right:14px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;font:inherit;font-size:22px;color:#1a1c1c;background:#f6f4ee;border:0;border-radius:999px;cursor:pointer;}
+.nav-sheet h2{margin:14px 0 0;font-size:28px;line-height:1.1;font-weight:800;letter-spacing:-.02em;}
+.nav-sheet__what{margin:10px 0 0;font-size:17px;line-height:1.5;color:#1a1c1c;}
+.nav-sheet__good{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:16px 0 0;}
+.nav-sheet__good li{padding:6px 12px;font-size:14px;font-weight:700;background:#f6f4ee;border:1px solid #e8e6df;border-radius:999px;}
+.nav-sheet__ref{margin:16px 0 0;font-size:15px;line-height:1.45;color:#5f5e59;}
+.nav-sheet__act{display:grid;gap:10px;margin-top:22px;}
+@media (min-width:480px){.nav-sheet__act{grid-template-columns:1fr 1fr;}}
+.nav-sheet__act .nav-btn{width:100%;}
+.no-js .nav-js{display:none !important;}
+@media (prefers-reduced-motion:reduce){.nav-tile,.nav-opt,.nav-card,.nav-choose{transition:none;}.nav-sheet[open]{animation:none;}}
+</style>"""
 
-SCRIPT = r'''<script>
+SCRIPT = r"""<script>
 (function(){
-  var stage=document.getElementById('nav-stage'),halo=document.getElementById('nav-halo'),crumb=document.getElementById('nav-crumb'),results=document.getElementById('nav-results'),intro=document.getElementById('nav-intro');
-  if(!stage)return;
-  var TREE=JSON.parse(document.getElementById('nav-tree').textContent);
-  var state={domain:null,aspect:null};
-  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function bubble(id){return stage.querySelector('[data-bubble="'+id+'"]');}
-  function place(el,x,y,w,s){el.style.setProperty('--x',x+'%');el.style.setProperty('--y',y+'%');if(w)el.style.setProperty('--w',w+'%');el.style.setProperty('--s',s==null?1:s);}
-  function ring(n,r){var out=[];for(var i=0;i<n;i++){var a=-Math.PI/2+i*2*Math.PI/n;out.push([50+r*Math.cos(a),50+r*Math.sin(a)]);}return out;}
-  // A ring grows out of the centre: each bubble starts there at size zero and springs to its place, one
-  // after another. The motion is what says "these belong to the centre"; there are no lines to say it.
-  function spawn(el,x,y,w,i){
-    if(reduced||!el.hidden){el.hidden=false;place(el,x,y,w,1);return;}
-    el.hidden=false;el.style.transition='none';place(el,50,50,w,0);void el.offsetWidth;
-    el.style.transition='';el.style.transitionDelay=(i*70)+'ms';place(el,x,y,w,1);
-    el.addEventListener('transitionend',function done(){el.style.transitionDelay='';el.removeEventListener('transitionend',done);});
+  var nav=document.getElementById('nav');if(!nav)return;
+  var D=JSON.parse(document.getElementById('nav-data').textContent);
+  var sheet=document.getElementById('nav-sheet'),list=document.getElementById('nav-list');
+  var cards={};Array.prototype.forEach.call(list.children,function(li){cards[li.getAttribute('data-id')]=li;});
+  var state={},trail=[];
+  var flip=Math.random()<0.5?1:-1;   // which pinned GP leads, decided once per visit, as on The Network
+  function screen(name){return nav.querySelector('[data-screen="'+name+'"]');}
+  function steps(){return state.type?['who','where','meet']:['who','need','where','meet'];}
+  function next(){var s=steps();for(var i=0;i<s.length;i++)if(state[s[i]]===undefined)return s[i];return 'results';}
+  function go(name,back){
+    var current=nav.querySelector('[data-screen]:not([hidden])');
+    if(!back&&current)trail.push(current.getAttribute('data-screen'));
+    Array.prototype.forEach.call(nav.querySelectorAll('[data-screen]'),function(s){s.hidden=s.getAttribute('data-screen')!==name;});
+    if(name==='results')render();
+    else if(name!=='start')dots(name);
+    var h=screen(name).querySelector('.nav-h');
+    var bar=document.querySelector('header'),top=nav.getBoundingClientRect().top+window.pageYOffset-((bar&&bar.offsetHeight)||0)-12;
+    if(window.pageYOffset>top)window.scrollTo(0,top);
+    if(h&&name!=='start')h.focus({preventScroll:true});
+  }
+  function dots(name){
+    var s=steps(),at=s.indexOf(name),box=screen(name).querySelector('.nav-dots');
+    box.innerHTML=s.map(function(_,i){return '<span class="'+(i<at?'is-done':i===at?'is-now':'')+'"></span>';}).join('');
+    box.setAttribute('aria-label','Question '+(at+1)+' of '+s.length);
+    Array.prototype.forEach.call(screen(name).querySelectorAll('.nav-opt'),function(b){b.setAttribute('aria-pressed',String(state[name]===b.getAttribute('data-v')));});
+  }
+  function fits(c,meet,where){
+    if(meet==='online')return c.o;
+    var near=c.p&&c.s===where;
+    return meet==='person'?near:(c.o||near);
   }
   function render(){
-    var domains=TREE.map(function(d){return d.key;});
-    stage.querySelectorAll('.bubble').forEach(function(b){b.classList.remove('is-centre','is-dim','is-on');b.setAttribute('aria-pressed','false');});
-    if(!state.domain){
-      stage.querySelectorAll('.bubble[data-bubble^="a:"]').forEach(function(b){b.hidden=true;});
-      var small=window.innerWidth<520,pts=ring(domains.length,small?35:37);
-      domains.forEach(function(k,i){var b=bubble('d:'+k);b.classList.remove('is-centre');spawn(b,pts[i][0],pts[i][1],small?28:24,i);});
-      halo.classList.remove('is-on');stage.classList.add('is-idle');
-      crumb.style.display='none';results.hidden=true;intro.hidden=false;
-    }else{
-      stage.classList.remove('is-idle');
-      var d=TREE.filter(function(x){return x.key===state.domain;})[0],c=bubble('d:'+d.key);
-      stage.querySelectorAll('.bubble').forEach(function(b){var id=b.getAttribute('data-bubble');if(id!=='d:'+d.key&&id.indexOf('a:'+d.key+':')!==0)b.hidden=true;});
-      c.hidden=false;c.classList.add('is-centre');c.setAttribute('aria-pressed','true');place(c,50,50,30,1);
-      halo.style.setProperty('--tint',c.style.getPropertyValue('--tint'));halo.classList.add('is-on');
-      var small=window.innerWidth<520,pts=ring(4,small?34:36);
-      d.aspects.forEach(function(a,i){var b=bubble('a:'+d.key+':'+a.key);spawn(b,pts[i][0],pts[i][1],small?31:27,i);
-        if(state.aspect){if(a.key===state.aspect){b.classList.add('is-on');b.setAttribute('aria-pressed','true');}else b.classList.add('is-dim');}});
-      crumb.style.display='flex';crumb.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-current',String(x.getAttribute('data-domain')===d.key));});
-      intro.hidden=true;
-      results.querySelectorAll('[data-panel]').forEach(function(p){p.hidden=p.getAttribute('data-panel')!==(state.aspect?d.key+':'+state.aspect:'');});
-      results.hidden=!state.aspect;
+    var note='',meet=state.meet,where=state.where;
+    var pool=D.people.filter(function(c){return (!state.type||c.t===state.type)&&(!state.who||c.a.indexOf(state.who)!==-1);});
+    var met=meet?pool.filter(function(c){return fits(c,meet,where);}):pool;
+    if(meet&&!met.length&&meet!=='online'){met=pool.filter(function(c){return c.o;});note=D.words.noneNear;}
+    var picked=met;
+    if(state.need){
+      picked=met.filter(function(c){return c.n[state.need];});
+      if(!picked.length&&met.length){picked=met;note=D.words.noneExact;}
     }
+    picked=picked.map(function(c,i){return {c:c,s:(state.need&&c.n[state.need]?c.n[state.need][0]:0)+(where&&c.s===where?0.5:0),i:i};})
+      .sort(function(x,y){return (y.s-x.s)||((y.c.pin?1:0)-(x.c.pin?1:0))||(x.c.pin&&y.c.pin?(x.i-y.i)*flip:0)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);});
+    var shown={};
+    picked.forEach(function(p){var li=cards[p.c.i];shown[p.c.i]=1;li.hidden=false;
+      var why=li.querySelector('[data-why]');why.textContent=state.need&&p.c.n[state.need]?p.c.n[state.need][1]:why.getAttribute('data-why');
+      list.appendChild(li);});
+    Object.keys(cards).forEach(function(id){if(!shown[id])cards[id].hidden=true;});
+    var t=state.type?D.types[state.type]:null;
+    screen('results').querySelector('.nav-h').textContent=(t&&!state.need&&state.who===undefined)?t.title:D.words.matches;
+    var n=picked.length;
+    document.getElementById('nav-count').textContent=n?(n+' '+(n===1?D.words.one:D.words.many)):D.words.none;
+    var noteEl=document.getElementById('nav-note');noteEl.hidden=!note;noteEl.textContent=note;
+    var chips=[];
+    if(t)chips.push(['type',t.label]);
+    steps().forEach(function(k){if(state[k]!==undefined)chips.push([k,D.labels[k][state[k]]]);});
+    document.getElementById('nav-answers').innerHTML=chips.map(function(c){return '<button type="button" class="nav-chip" data-edit="'+c[0]+'">'+c[1]+' <span aria-hidden="true">✎</span></button>';}).join('');
+    document.getElementById('nav-narrow').hidden=!(t&&state.who===undefined);
   }
-  stage.addEventListener('click',function(e){var b=e.target.closest('.bubble');if(!b)return;var id=b.getAttribute('data-bubble').split(':');
-    if(id[0]==='d'){state=(state.domain===id[1])?{domain:null,aspect:null}:{domain:id[1],aspect:null};}
-    else{state.aspect=(state.aspect===id[2])?null:id[2];}
-    render();if(state.aspect&&window.innerWidth<768){setTimeout(function(){results.scrollIntoView({behavior:'smooth',block:'start'});},300);}});
-  crumb.addEventListener('click',function(e){var x=e.target.closest('button');if(!x)return;var k=x.getAttribute('data-domain');state=k?{domain:k,aspect:null}:{domain:null,aspect:null};render();});
-  render();
+  function openSheet(type){
+    Array.prototype.forEach.call(sheet.querySelectorAll('[data-role]'),function(s){s.hidden=s.getAttribute('data-role')!==type;});
+    sheet.setAttribute('aria-labelledby','role-'+type);
+    if(sheet.showModal)sheet.showModal();else sheet.setAttribute('open','');
+  }
+  function closeSheet(){if(sheet.close)sheet.close();else sheet.removeAttribute('open');}
+  nav.addEventListener('click',function(e){
+    var el=e.target.closest('[data-type],[data-start],[data-v],[data-back],[data-edit],[data-restart],[data-narrow]');if(!el)return;
+    if(el.hasAttribute('data-type')){e.preventDefault();openSheet(el.getAttribute('data-type'));return;}
+    if(el.hasAttribute('data-start')){state={};trail=[];go(next());return;}
+    if(el.hasAttribute('data-v')){
+      var q=el.closest('[data-screen]').getAttribute('data-screen');state[q]=el.getAttribute('data-v');
+      Array.prototype.forEach.call(el.parentNode.children,function(b){b.setAttribute('aria-pressed',String(b===el));});
+      setTimeout(function(){go(next());},170);return;}
+    if(el.hasAttribute('data-back')){go(trail.pop()||'start',true);return;}
+    if(el.hasAttribute('data-edit')){var k=el.getAttribute('data-edit');
+      if(k==='type'){state={};trail=[];go('start');return;}
+      delete state[k];if(k==='where'||k==='meet'){}go(k);return;}
+    if(el.hasAttribute('data-restart')){state={};trail=[];go('start');return;}
+    if(el.hasAttribute('data-narrow')){var keep=state.type;state={type:keep};go(next());return;}
+  });
+  sheet.addEventListener('click',function(e){
+    if(e.target===sheet){closeSheet();return;}
+    var el=e.target.closest('[data-close],[data-list],[data-choose]');if(!el)return;
+    if(el.hasAttribute('data-close')){closeSheet();return;}
+    closeSheet();trail=['start'];
+    var t=el.getAttribute(el.hasAttribute('data-list')?'data-list':'data-choose');
+    state={type:t};
+    if(el.hasAttribute('data-list'))go('results',true);else go(next(),true);
+  });
 })();
-</script>'''
+</script>"""
 
 
-def who_card(cid, why):
-    """One clinician under an aspect: portrait, name, role and place, and the declared reason.
+def portrait(c):
+    return ('<span class="nav-card__img">' + profiles.picture(
+        c, profiles.portrait_size(c), '68px', 'loading="lazy" decoding="async"', '') + '</span>')
 
-    Built here rather than from profiles.also_link. The reason chip has to sit in the same text column as
-    the name, which also_link has no slot for; the portrait has to be top-aligned so every row in the grid
-    starts on one line; and a clinician appears under many aspects, so the portrait cannot carry
-    also_link's id and view-transition-name without repeating both a dozen times on one page.
-    """
-    c = BY_ID[cid]
-    portrait = (f'<span class="block w-[72px] shrink-0 self-start {profiles.PORTRAIT_BOX}">'
-                + profiles.picture(c, profiles.portrait_size(c), '72px', 'loading="lazy" decoding="async"',
-                                   'w-full h-full object-cover object-[center_30%]') + '</span>')
-    return (f'<li class="h-full"><a class="group flex h-full gap-4 min-w-0" href="{c["slug"]}.html">{portrait}'
-            f'<span class="min-w-0 flex-1 flex flex-col">'
-            f'<strong class="block text-[17px] leading-[1.3] font-extrabold tracking-tight text-[#1a1c1c] '
-            f'group-hover:underline decoration-[#f1bc31] decoration-2 underline-offset-4">{esc(c["name"])}</strong>'
-            f'<span class="block mt-1 text-[14px] leading-[1.35] font-semibold text-[#5f5e59]">{profiles.subline_html(c)}</span>'
-            f'<span class="block mt-auto pt-2.5"><span class="inline-block px-2.5 py-1 rounded-full text-[12px] '
-            f'leading-[1.35] font-semibold text-[#5f5e59] bg-[#f6f4ee] border border-[#e8e6df]">{esc(why)}</span></span>'
-            f'</span></a></li>')
+
+def card(c, kinds):
+    where = profiles.city(c)
+    t = TYPE_BY_KEY[kinds[c['id']]]
+    default_why = c['chips'][0] if c['chips'] else (c['descriptor'] or c['role'])
+    return (f'<li data-id="{c["id"]}" hidden><a class="nav-card" href="{c["slug"]}.html">{portrait(c)}'
+            f'<span class="nav-card__body"><span class="nav-card__name">{esc(c["name"])}</span>'
+            f'<span class="nav-card__meta">{esc(t["label"])} · {esc(where)}</span>'
+            f'<span class="nav-card__why" data-why="{esc(default_why)}">{esc(default_why)}</span></span>{ARROW}</a></li>')
+
+
+def tile(t, count):
+    panel = {'gp': 'gps', 'psychologist': 'psychologists', 'psychiatrist': 'psychiatrists', 'coach': 'coaches',
+             'ot': 'occupational-therapy', 'physio': 'physiotherapy', 'ep': 'exercise-physiology'}.get(t['key'], 'allied-health')
+    return (f'<li><a class="nav-tile" href="the-doctors.html#panel-{panel}" data-type="{t["key"]}" style="--tint:{t["tint"]}" '
+            f'aria-haspopup="dialog"><span class="nav-badge">{icon(t["key"])}</span>'
+            f'<strong>{esc(t["label"])}</strong><span class="nav-sub">{esc(t["sub"])}</span></a></li>')
+
+
+def role(t, count):
+    noun = t['label'] if count == 1 else t['plural']
+    see = f'See {"the" if count == 1 else "all " + str(count)} {noun}'
+    good = ''.join(f'<li>{esc(g)}</li>' for g in t['good'])
+    return (f'<section data-role="{t["key"]}" hidden><span class="nav-badge" style="--tint:{t["tint"]}">{icon(t["key"])}</span>'
+            f'<h2 id="role-{t["key"]}">{esc(t["label"])}</h2><p class="nav-sheet__what">{esc(t["what"])}</p>'
+            f'<ul class="nav-sheet__good" aria-label="Good for">{good}</ul><p class="nav-sheet__ref">{esc(t["referral"])}</p>'
+            f'<div class="nav-sheet__act"><button type="button" class="nav-btn nav-btn--go" data-list="{t["key"]}">{esc(see)} {ARROW}</button>'
+            f'<button type="button" class="nav-btn" data-choose="{t["key"]}">Help me choose</button></div></section>')
+
+
+def question(q):
+    opts = ''.join(
+        f'<button type="button" class="nav-opt" data-v="{esc(o["value"])}" aria-pressed="false">'
+        + (f'<span class="nav-badge">{icon(o["icon"])}</span>' if o.get('icon') else '')
+        + f'<span>{esc(o["label"])}</span></button>' for o in q['options'])
+    return (f'<section class="nav-screen" data-screen="{q["key"]}" hidden aria-labelledby="q-{q["key"]}">'
+            f'<div class="nav-top"><button type="button" class="nav-back" data-back><span aria-hidden="true">←</span> Back</button>'
+            f'<span class="nav-dots" role="img" aria-label="Progress"></span></div>'
+            f'<h2 id="q-{q["key"]}" class="nav-h" tabindex="-1">{esc(q["title"])}</h2>'
+            f'<div class="nav-opts" role="group" aria-labelledby="q-{q["key"]}">{opts}</div></section>')
+
+
+def state_of(c):
+    s = c['schema']
+    return s.get('state') or s.get('works_for', {}).get('state') or ''
 
 
 def build():
@@ -404,20 +609,27 @@ def build():
     footer = shell[shell.index('<footer'):]
     footer = footer.replace('<script src="analytics-config.js" defer></script>', SCRIPT + '\n<script src="analytics-config.js" defer></script>', 1)
 
-    bubbles, crumbs, panels, listing = [], ['<button type="button" data-domain="">Start again</button>'], [], []
-    for d in DOMAINS:
-        bubbles.append(f'<button type="button" class="bubble" data-bubble="d:{d["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(d["key"])}<span>{esc(d["label"])}</span></button>')
-        crumbs.append(f'<button type="button" data-domain="{d["key"]}">{esc(d["label"])}</button>')
-        items = []
-        for asp in d['aspects']:
-            bubbles.append(f'<button type="button" class="bubble" data-bubble="a:{d["key"]}:{asp["key"]}" style="--tint:{d["tint"]}" aria-pressed="false" hidden>{icon(d["key"] + ":" + asp["key"])}<span>{esc(asp["label"])}</span></button>')
-            cards = ''.join(who_card(cid, why) for cid, why in asp['who'])
-            panels.append(f'<div data-panel="{d["key"]}:{asp["key"]}" hidden><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])} <span aria-hidden="true">›</span> {esc(asp["label"])}</h2>'
-                          f'<ul class="mt-6 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></div>')
-            items.append(f'<li class="py-4"><h3 class="text-[17px] font-bold text-[#1a1c1c]">{esc(asp["label"])}</h3><ul class="mt-4 grid grid-cols-1 md:grid-cols-2 auto-rows-fr gap-8 list-none p-0 m-0">{cards}</ul></li>')
-        listing.append(f'<section class="pt-10 border-t border-[#e8e6df]"><h2 class="text-[24px] font-extrabold tracking-tight text-[#1a1c1c]">{esc(d["label"])}</h2><ul class="list-none p-0 m-0 divide-y divide-[#e8e6df]">{"".join(items)}</ul></section>')
+    kinds = {c['id']: kind(c) for c in profiles.CLINICIANS}
+    counts = {t['key']: sum(1 for k in kinds.values() if k == t['key']) for t in TYPES}
+    present = [t for t in TYPES if counts[t['key']]]
+    # Same order as The Network: pinned GPs first, then online diaries, then enquiries, then CLINICIANS order.
+    ordered = sorted(profiles.CLINICIANS, key=lambda c: (c['id'] not in profiles.PINNED, not profiles.books_online(c)))
+    people = [dict(i=c['id'], t=kinds[c['id']], a=c['ages'], o=bool(c['telehealth']), p=c.get('in_person', True) is not False,
+                   s=state_of(c), n={k: list(v) for k, v in needs_of(c).items()}, pin=c['id'] in profiles.PINNED,
+                   b=profiles.books_online(c)) for c in ordered]
+    data = dict(
+        people=people,
+        types={t['key']: dict(label=t['label'], title=(t['label'] if counts[t['key']] == 1 else t['plural'][0].upper() + t['plural'][1:])) for t in present},
+        labels={q['key']: {o['value']: o['label'] for o in q['options']} for q in QUESTIONS},
+        words=dict(matches='Your matches', one='clinician', many='clinicians', none='No one fits all of that yet.',
+                   noneNear='No one sees people in person there yet. These work online.',
+                   noneExact='No exact match for that yet. These could still help.'),
+    )
+    tiles = ''.join(tile(t, counts[t['key']]) for t in present)
+    roles = ''.join(role(t, counts[t['key']]) for t in present)
+    questions = ''.join(question(q) for q in QUESTIONS)
+    cards = ''.join(card(c, kinds) for c in ordered)
 
-    tree = [dict(key=d['key'], aspects=[dict(key=a['key']) for a in d['aspects']]) for d in DOMAINS]
     url = f'{SITE}/{SLUG}.html'
     ld = {'@context': 'https://schema.org', '@graph': [
         {'@type': 'WebPage', '@id': url, 'url': url, 'name': SEO, 'description': DESCRIPTION, 'inLanguage': 'en-AU',
@@ -425,28 +637,50 @@ def build():
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'ADHDme', 'item': f'{SITE}/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Care Navigator', 'item': url}]}]}
-    return f'''{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
-<div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-6 text-center">
-<h1 class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c] max-w-[18ch] mx-auto">What would you like to get easier?</h1>
-<p id="nav-intro" class="hero-in hero-in-2 mt-5 text-[19px] leading-[1.6] text-[#5f5e59] max-w-[52ch] mx-auto text-balance">Pick an area of life, then what you’d like support with, and see clinicians who work on it.</p>
-<div id="nav-crumb" class="nav-crumb mt-6" role="group" aria-label="Change area">{''.join(crumbs)}</div>
-</div>
-<div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-10">
-<div id="nav-stage" class="nav-stage hero-in hero-in-3" role="group" aria-label="Care navigator"><div id="nav-halo" class="nav-halo" aria-hidden="true"></div>{''.join(bubbles)}</div>
-<section id="nav-results" class="nav-results max-w-[900px] mx-auto pt-10 border-t border-[#e8e6df]" aria-live="polite" hidden>{''.join(panels)}
-<p class="mt-8 text-[15px] text-[#5f5e59]">Clinicians appear here when their profile says they work on this. The note under each name is in their own words.</p>
-<p class="mt-6"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-all shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5" href="the-doctors.html">See the whole network <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
+    return f"""{head}{header}<main id="main" class="w-full bg-[#FAFAF7]">
+<div id="nav" class="nav px-5 md:px-8 pt-10 pb-20">
+<section class="nav-screen" data-screen="start" aria-labelledby="nav-title">
+<h1 id="nav-title" class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">Who could help?</h1>
+<p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do. Not sure? Four taps find your match.</p>
+<ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide nav-js"><button type="button" class="nav-choose" data-start>Not sure? Help me choose {ARROW}</button></li></ul>
 </section>
-<div class="nav-list max-w-[900px] mx-auto">{''.join(listing)}</div>
+{questions}
+<section class="nav-screen" data-screen="results" hidden aria-labelledby="nav-results-title">
+<div class="nav-top"><button type="button" class="nav-back" data-back><span aria-hidden="true">←</span> Back</button></div>
+<h2 id="nav-results-title" class="nav-h" tabindex="-1">Your matches</h2>
+<p id="nav-count" class="nav-count" aria-live="polite"></p>
+<div id="nav-answers" class="nav-answers"></div>
+<p id="nav-note" class="nav-note" hidden></p>
+<ul id="nav-list" class="nav-list">{cards}</ul>
+<div class="nav-end"><button type="button" id="nav-narrow" class="nav-btn nav-btn--go" data-narrow hidden>Narrow it down {ARROW}</button><button type="button" class="nav-btn" data-restart>Start again</button><a class="nav-btn nav-btn--dark" href="the-doctors.html">See the whole network</a></div>
+</section>
 </div>
-{JOURNEY}
+<dialog id="nav-sheet" class="nav-sheet"><div class="nav-sheet__in"><button type="button" class="nav-sheet__close" data-close aria-label="Close">×</button>{roles}</div></dialog>
 </main>
-<script id="nav-tree" type="application/json">{json.dumps(tree, separators=(',', ':'))}</script>
+<script id="nav-data" type="application/json">{json.dumps(data, ensure_ascii=False, separators=(',', ':'))}</script>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-{footer}'''
+{footer}"""
+
+
+def check():
+    """Fail the build rather than ship a navigator that would silently drop somebody."""
+    for d in DOMAINS:
+        for asp in d['aspects']:
+            if f"{d['key']}:{asp['key']}" not in ASPECT_NEED:
+                raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} has no need in ASPECT_NEED')
+            for cid, _ in asp['who']:
+                if cid not in BY_ID:
+                    raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
+    for c in profiles.CLINICIANS:
+        if not needs_of(c):
+            raise SystemExit(f'build-navigator: {c["name"]} matches no need, so no answer would ever list them')
+    for t in TYPES:
+        if t['key'] not in ICONS:
+            raise SystemExit(f'build-navigator: kind {t["key"]!r} has no icon')
 
 
 def main(argv):
+    check()
     text = build()
     stale = not OUT.exists() or OUT.read_text(encoding='utf-8') != text
     if '--check' in argv:

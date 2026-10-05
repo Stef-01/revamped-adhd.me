@@ -2007,6 +2007,7 @@ CLINICIANS = [
         description='More than 40 years of practice and a whole-person approach to how ADHD shapes your day-to-day life.',
         chips=['40+ years in practice', 'Rural & regional', 'Whole-person care'],
         telehealth=True,
+        in_person=False,   # telehealth from regional Queensland; his profile names no rooms
         book_href=NT_BOOK, book_hint=NT_BOOK_HINT,
         links=NT_LINKS,
         fees=NT_FEES_GP,
