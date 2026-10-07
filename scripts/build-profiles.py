@@ -3140,7 +3140,12 @@ def hero_facts():
     """The home hero's one-line credential: counts a visitor can check on the Network page."""
     professions = len({c['category'] for c in CLINICIANS})
     practices = len({c['practice'] for c in CLINICIANS})
-    return f'{len(CLINICIANS)} clinicians · {professions} professions · {practices} practices'
+    # Doctors, psychologists (provisional included), physiotherapists and OTs hold AHPRA registration;
+    # coaches, counsellors, social workers, dietitians and exercise physiologists are regulated elsewhere.
+    ahpra = sum(1 for c in CLINICIANS if c['category'] in ('gp', 'psychiatrist', 'psychologist', 'physiotherapy', 'occupational-therapy'))
+    # Non-breaking spaces inside each item, so a phone wraps the line between items, never inside one.
+    items = [f'{len(CLINICIANS)} clinicians', f'{ahpra} AHPRA-registered', f'{professions} professions', f'{practices} practices']
+    return ' · '.join(i.replace(' ', '\u00a0') for i in items)
 
 
 def region(page, name, body, where):
