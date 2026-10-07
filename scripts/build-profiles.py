@@ -2430,9 +2430,9 @@ CLINICIANS = [
         slug='ashleigh-feltham', id='ashleigh-feltham', category='allied',
         ages=['children', 'teens', 'adults'],
         name='Ashleigh Feltham', short='Ashleigh Feltham', role='Accredited Practising Dietitian', pronouns='she/her',
-        practice='Feed Your Future Dietetics', place='Telehealth Australia-wide', descriptor='Accredited practising dietitian',
-        description='A neurodivergent-affirming dietitian for eating disorders, restrictive eating and challenges around food, by telehealth anywhere in Australia.',
-        chips=['Neurodivergent-affirming', 'Eating disorders', 'Restrictive eating'],
+        practice='Feed Your Future Dietetics', place='Telehealth Australia-wide', descriptor='Dietitian',
+        description='A dietitian for eating disorders, restrictive eating and challenges around food. Neurodivergent-affirming, by telehealth anywhere in Australia.',
+        chips=['Dietitian', 'Neurodivergent-affirming', 'Eating disorders'],
         telehealth=True,
         in_person=False,   # consultations are by Telehealth, Zoom, Teams or phone
         book_href=FYF + 'contacts/', book_hint='Opens the practice’s website in a new tab.',
