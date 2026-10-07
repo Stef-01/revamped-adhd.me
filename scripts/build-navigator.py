@@ -64,7 +64,8 @@ DOMAINS = [
    ('fiona-alexander', 'Executive functioning · Able & gifted learners'),
    ('erin-lysle', 'Executive functioning · Self-confidence'),
    ('romney-taylor', 'Executive functioning · Students'),
-   ('debbie-hirte', 'Executive functioning · Gifted & talented')]),
+   ('debbie-hirte', 'Executive functioning · Gifted & talented'),
+   ('hannah-gray', 'Students & early career · Organisation & follow-through')]),
   dict(key='friends', label='Friendships at school', who=[
    ('erin-lysle', 'Social skills · Self-confidence'),
    ('flynn-simonis', 'Group social and movement programs for children'),
@@ -81,12 +82,18 @@ DOMAINS = [
    ('kate-dallimore', 'Executive functioning · Trauma-informed'),
    ('donna-italiano', 'Executive functioning · Emotional regulation'),
    ('romney-taylor', 'Executive functioning · Advocacy & inclusion'),
-   ('alex-lawson', 'Executive functioning · Adults, students & parents')]),
+   ('alex-lawson', 'Executive functioning · Adults, students & parents'),
+   ('hannah-gray', 'Organisation, procrastination and follow-through in study and work'),
+   ('richard-hostiadi', 'ADHD at work · Men’s mental health'),
+   ('shwetha-murthy', 'Men at work · Parents & carers')]),
   dict(key='burnout', label='Stress and burnout', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('kate-dallimore', 'Ongoing stress, anxiety, overwhelm'),
    ('jeff-leech', 'Trauma, anxiety, depression and performance'),
-   ('paula-garrido', 'Neuroaffirming · Trauma-informed')]),
+   ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
+   ('tracey-dale', 'Burnout & life transitions · EMDR'),
+   ('canice-curtis', 'Mental health after major life changes or disasters'),
+   ('richard-hostiadi', 'Real insight into demanding, high-pressure work')]),
   dict(key='confidence', label='Confidence and handling feedback', who=[
    ('erin-lysle', 'Self-confidence'),
    ('jessica-katsamatsas', 'Low self-esteem · Neurodivergent adults'),
@@ -101,12 +108,20 @@ DOMAINS = [
   dict(key='routines', label='Daily routines and chores', who=[
    ('donna-italiano', 'Executive functioning · Emotional regulation'),
    ('kate-dallimore', 'Executive functioning'),
-   ('flynn-simonis', 'Sensory profiles and functional challenges, in clinic and at home')]),
+   ('flynn-simonis', 'Sensory profiles and functional challenges, in clinic and at home'),
+   ('ebony-young', 'Skills practice · Works with your psychologist'),
+   ('alexandra-wainwright', 'Skills practice · NDIS support work'),
+   ('eliza-keefe', 'Practises life skills with you · Children & teens')]),
   dict(key='parenting', label='Parenting a child with ADHD', who=[
    ('lachlan-avent', 'Triple P Stepping Stones parenting practitioner'),
    ('lauren-poulos', 'PCIT & early intervention · Toddlers & children'),
    ('flynn-simonis', 'Paediatric OT · Parent training'),
-   ('debbie-hirte', 'Children & teens')]),
+   ('debbie-hirte', 'Children & teens'),
+   ('gisele-fortkamp', 'Children & parents · Women’s wellbeing'),
+   ('nzubechi-oguoma', 'Family therapy · Ages 5+'),
+   ('shwetha-murthy', 'Parents & carers · ADHD in families'),
+   ('beth-hansen', 'ADHD in parents · Late-identified ADHD'),
+   ('kay-walls', 'Mothers & postnatal · ADHD in adult women')]),
   dict(key='emotions', label='Meltdowns and emotional outbursts', who=[
    ('donna-italiano', 'Emotional regulation'),
    ('ellie-putland', 'Young people · CBT, ACT & DBT'),
@@ -114,14 +129,21 @@ DOMAINS = [
   dict(key='body', label='Sleep and physical health', who=[
    ('anubhav-saxena', 'Baseline physical screening · Integrative care'),
    ('sarah-savage', 'Exercise as medicine · Pilates & hydrotherapy'),
-   ('anu-saxena', 'Mental health focus · Women’s health')]),
+   ('anu-saxena', 'Mental health focus · Women’s health'),
+   ('lana-hiscock', 'Sleep · Perinatal & postnatal'),
+   ('richard-hostiadi', 'Lifestyle medicine'),
+   ('sally-mcleod', 'Perimenopause and its interaction with ADHD and mental health')]),
  ]),
  dict(key='relationships', label='Relationships', tint='#fbd8cf', aspects=[
   dict(key='partner', label='Partner and family relationships', who=[
    ('jessica-katsamatsas', 'Relationship difficulties and attachment wounds'),
    ('kate-row', 'Communication and social skills building'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
-   ('trisha-harris', 'Teens, adults & couples')]),
+   ('trisha-harris', 'Teens, adults & couples'),
+   ('gisele-fortkamp', 'Level 1 Couples Counselling, Gottman Institute'),
+   ('lana-hiscock', 'Neurodiversity, relationships, sleep, perinatal mental health'),
+   ('nzubechi-oguoma', 'Family therapy · Ages 5+'),
+   ('matthew-persello', 'LGBTQIA+ · Teens 13+ & adults')]),
   dict(key='rejection', label='Rejection sensitivity', who=[
    ('jessica-katsamatsas', 'Attachment wounds · Low self-esteem'),
    ('donna-italiano', 'Emotional regulation'),
@@ -133,7 +155,9 @@ DOMAINS = [
   dict(key='conflict', label='Arguments and conflict', who=[
    ('kate-row', 'Communication skills · CBT, ACT & MI'),
    ('ellie-putland', 'DBT · Working collaboratively with families'),
-   ('lachlan-avent', 'Emotion Focussed Therapy')]),
+   ('lachlan-avent', 'Emotion Focussed Therapy'),
+   ('nzubechi-oguoma', 'Family therapy · Trauma & PTSD'),
+   ('tracey-dale', 'DBT, EMDR, Narrative Therapy')]),
  ]),
  dict(key='health', label='Health', tint='#dad9eb', aspects=[
   dict(key='assessment', label='ADHD assessment and diagnosis', who=[
@@ -142,24 +166,77 @@ DOMAINS = [
    ('allen-macbell', 'Children 10 and over, teens and adults'),
    ('lachlan-avent', 'Autism & ADHD assessment'),
    ('meera-lakhani', 'Autism & ADHD assessment · Cognitive assessment'),
-   ('chantelle-pin', 'Clinical psychologist · Taking on assessments')]),
+   ('chantelle-pin', 'Clinical psychologist · Taking on assessments'),
+   ('beth-hansen', 'Late-identified ADHD · ADHD in women'),
+   ('sally-mcleod', 'Women & girls · Late diagnosis'),
+   ('kay-walls', 'ADHD in adult women · Mothers & postnatal'),
+   ('hannah-gray', 'Students & early career · New to assessment'),
+   ('natalie-cook', 'Complex adult ADHD · Evidence-based'),
+   ('richard-hostiadi', 'Adult ADHD assessments and ongoing management'),
+   ('shwetha-murthy', 'A structured assessment of how ADHD has shown up over time'),
+   ('bill-liley', 'Whole-person care · 40+ years in practice'),
+   ('john-ruberry', 'Access to ADHD care · Mental health'),
+   ('jae-cho', 'General psychiatry · ADHD'),
+   ('rajitha-de-silva', 'Consultant psychiatrist · Adults'),
+   ('heather-mcauliffe', 'Neurodevelopmental assessment · Neurodivergent clinician'),
+   ('valeria-urrutia', 'Assessments · Grief & life changes')]),
   dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course'),
    ('allen-macbell', 'Same doctor from assessment to follow-up'),
-   ('yogesh-kalra', 'Continues ADHD medication · Bulk billed')]),
+   ('yogesh-kalra', 'Continues ADHD medication · Bulk billed'),
+   ('beth-hansen', 'General practice with a special interest in mental health and adult ADHD'),
+   ('bill-liley', 'Rural generalist GP, more than 40 years of clinical experience'),
+   ('hannah-gray', 'General practice with a strong interest in mental health and adult ADHD'),
+   ('john-ruberry', 'Strong interest in mental health and ADHD treatment'),
+   ('kay-walls', 'Specialist general practice, with a background in mental health'),
+   ('natalie-cook', 'Assessing and managing adults with ADHD, including complex cases'),
+   ('richard-hostiadi', 'Adult ADHD assessments and ongoing management'),
+   ('sally-mcleod', 'Thorough, evidence-based assessment · Teens & adults'),
+   ('shwetha-murthy', 'Specialist GP with a particular interest in adult ADHD'),
+   ('jae-cho', 'Specialist psychiatrist · ADHD · Trauma-informed'),
+   ('rajitha-de-silva', 'Consultant psychiatrist · Anxiety & mood')]),
   dict(key='mood', label='Anxiety and low mood', who=[
    ('jessica-katsamatsas', 'Anxiety, burnout, low self-esteem'),
    ('jeff-leech', 'Anxiety & depression · Schema therapy & ACT'),
    ('paula-garrido', 'Neuroaffirming · Trauma-informed'),
    ('ellie-putland', 'Trauma-informed · CBT, ACT & DBT'),
-   ('alice-bui', 'Trauma-informed · CALD & refugee clients')]),
+   ('alice-bui', 'Trauma-informed · CALD & refugee clients'),
+   ('rajitha-de-silva', 'Anxiety & mood · Culturally sensitive'),
+   ('valeria-urrutia', 'Anxiety, low mood, grief, life changes'),
+   ('matthew-persello', 'Men’s mental health · Strengths-based, solution-focused'),
+   ('canice-curtis', 'Trauma & EMDR · Men’s mental health'),
+   ('tracey-dale', 'Burnout & life transitions · EMDR'),
+   ('lana-hiscock', 'Perinatal & postnatal · CBT, DBT, ACT'),
+   ('sarah-bibo', 'Anxiety, low mood, trauma, eating and body image'),
+   ('michael-rehardt', 'Building clinical experience across a range of presentations')]),
+  dict(key='complex', label='Complex or overlapping conditions', who=[
+   ('jae-cho', 'General psychiatry · Trauma-informed'),
+   ('rajitha-de-silva', 'Over 16 years caring for adults'),
+   ('natalie-cook', 'Complex cases with psychiatrists and other specialists'),
+   ('heather-mcauliffe', 'Collaborative care · Consults with paediatricians and psychiatrists'),
+   ('canice-curtis', 'Complex trauma and ADHD · Ages 15+')]),
+  dict(key='exercise', label='Exercise, sport and movement', who=[
+   ('sarah-savage', 'Exercise as Medicine · Pilates & hydrotherapy'),
+   ('lester-rafanan', 'Strength & conditioning · Return to sport'),
+   ('yuri-lima', 'Sports rehabilitation · Orthopaedic rehab'),
+   ('tom-hissey', 'Runners, HYROX athletes and footballers · Return to function'),
+   ('ashleigh-feltham', 'Accredited practising dietitian · Personal trainer'),
+   ('kate-dallimore', 'ADHD coach with a background in physiotherapy')]),
+  dict(key='pain', label='Pain, injury and recovery', who=[
+   ('lester-rafanan', 'Injury and surgery recovery, chronic pain'),
+   ('tom-hissey', 'Musculoskeletal physio · Return to function'),
+   ('yuri-lima', 'Orthopaedic rehab · PhD, ACL injuries'),
+   ('sarah-savage', 'Pilates & hydrotherapy · Older adults')]),
+  dict(key='brain', label='Brain mapping and neurotherapy', who=[
+   ('lara-schulz', 'QEEG brain mapping · Neurostimulation')]),
  ]),
  dict(key='food', label='Food and diet', tint='#f6d58a', aspects=[
   dict(key='eating', label='Appetite and eating problems', who=[
    ('samantha-courtney', 'Eating disorders · CEDC-MH credentialed'),
    ('ashleigh-feltham', 'Eating disorders · Neurodivergent-affirming'),
-   ('anubhav-saxena', 'Baseline physical screening')]),
+   ('anubhav-saxena', 'Baseline physical screening'),
+   ('sarah-bibo', 'Eating & body image · Neurodivergent clients')]),
   dict(key='restrictive', label='Restrictive eating', who=[
    ('ashleigh-feltham', 'Restrictive eating and challenges around food')]),
   dict(key='nutrition', label='Healthy eating and nutrition', who=[
@@ -268,19 +345,22 @@ SERVICES = [
  dict(key='medication', label='Medication', chip='Medication'),
  dict(key='talk', label='Someone to talk to', chip='Someone to talk to'),
  dict(key='strategies', label='Practical strategies', chip='Practical strategies'),
+ dict(key='move', label='Exercise and movement', chip='Exercise and movement'),
 ]
 SERVICE_TAGS = {'assessment': 'diagnosis', 'medication': 'medication', 'psychiatry': 'medication',
                 'therapy': 'talk', 'counselling': 'talk',
                 'executive-function': 'strategies', 'coaching': 'strategies', 'therapy-assistant': 'strategies',
                 'occupational-therapy': 'strategies', 'education': 'strategies', 'social-skills': 'strategies',
                 'parenting': 'strategies', 'early-intervention': 'strategies', 'nutrition': 'strategies',
-                'physiotherapy': 'strategies', 'exercise-physiology': 'strategies'}
+                'physiotherapy': 'move', 'exercise-physiology': 'move'}
 SERVICE_WORDS = {'diagnosis': r'\bassess|\bdiagnos', 'medication': r'\bprescrib|\bmedication',
                  'talk': r'\btherap(y|ies|ist|eutic)\b|\bcbt\b|\bact\b|\bdbt\b|\bemdr\b|\bschema\b|\bcounsell|\bpsychotherap',
                  'strategies': r'\bstrateg|\bskills?\b|\bexecutive|\broutines?\b|\bcoach|\bparent'}
+# "Exercise and movement" is never read off loose words ("strengths-based", "sport psychology"): it comes from the
+# profession (physio, exercise physiology), the expertise tag, or a place in the exercise aspect below.
 KIND_SERVICES = {'gp': ['diagnosis', 'medication'], 'psychiatrist': ['diagnosis', 'medication'], 'psychologist': [],
-                 'coach': ['strategies'], 'ot': ['strategies'], 'counselling': ['talk'], 'physio': ['strategies'],
-                 'ep': ['strategies'], 'dietitian': ['strategies'], 'assistant': ['strategies'], 'neuro': [], 'allied': []}
+                 'coach': ['strategies'], 'ot': ['strategies'], 'counselling': ['talk'], 'physio': ['strategies', 'move'],
+                 'ep': ['strategies', 'move'], 'dietitian': ['strategies'], 'assistant': ['strategies'], 'neuro': [], 'allied': []}
 # Who can offer each kind of help at all, whatever words a profile uses: only a doctor prescribes; only a GP,
 # psychiatrist or psychologist can diagnose ADHD (an OT's functional assessment or a QEEG brain map is not an
 # ADHD diagnosis); and "therapy" in "occupational therapy" or "therapy assistant" is not somebody to talk to.
@@ -305,6 +385,7 @@ KIND_AREAS = {'gp': ['health'], 'psychiatrist': ['health'], 'psychologist': ['he
 CHIP_WORDS = {
     'diagnosis': ('assess', 'diagnos'), 'medication': ('medication', 'prescrib'),
     'talk': ('therap', 'cbt', 'act', 'dbt', 'counsel', 'emdr', 'schema'), 'strategies': ('executive', 'skills', 'routine', 'strateg', 'coach', 'parent'),
+    'move': ('exercise', 'sport', 'movement', 'pilates', 'strength', 'trainer', 'athlet', 'rehab'),
     'school': ('school', 'student', 'study', 'education', 'learn', 'class'), 'work': ('work', 'career', 'performance', 'burnout', 'leader'),
     'home': ('home', 'parent', 'family', 'routine', 'child', 'toddler'), 'relationships': ('relationship', 'couple', 'partner', 'social', 'friend', 'attachment'),
     'health': ('anx', 'mood', 'trauma', 'depress', 'stress', 'health', 'medic', 'assess', 'sleep', 'pain', 'injur', 'screen'),
@@ -346,7 +427,7 @@ def offers(c):
     out = {}
     for d in DOMAINS:
         for asp in d['aspects']:
-            service = {'health:assessment': 'diagnosis', 'health:medication': 'medication'}.get(f"{d['key']}:{asp['key']}")
+            service = {'health:assessment': 'diagnosis', 'health:medication': 'medication', 'health:exercise': 'move'}.get(f"{d['key']}:{asp['key']}")
             if service:
                 for cid, why in asp['who']:
                     if cid == c['id']:
@@ -485,6 +566,11 @@ ICONS = {
  'help:medication': '<rect x="3.5" y="8.5" width="17" height="7" rx="3.5" transform="rotate(-35 12 12)"/><path d="M9 7.8l6 8.4"/>',
  'help:talk': '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12.5h5"/>',
  'help:strategies': '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12.5l3 3 5-6"/>',
+ 'help:move': '<circle cx="15" cy="5" r="1.8"/><path d="M4 20l4-7 4 2 2-4 3 1.5"/><path d="M11 15l-1.5 5M14 11l4 2"/>',
+ 'health:exercise': '<circle cx="15" cy="5" r="1.8"/><path d="M4 20l4-7 4 2 2-4 3 1.5"/><path d="M11 15l-1.5 5M14 11l4 2"/>',
+ 'health:pain': '<path d="M5 9h2l1.5-3 3 10 2.5-7 1.5 3h4"/><path d="M4 17h16"/>',
+ 'health:brain': '<path d="M9 4.5A3.5 3.5 0 0 0 5.5 8v1A3 3 0 0 0 4 11.5 3.5 3.5 0 0 0 6 15a3.5 3.5 0 0 0 3 3.5h1V4.5z"/><path d="M15 4.5A3.5 3.5 0 0 1 18.5 8v1a3 3 0 0 1 1.5 2.5 3.5 3.5 0 0 1-2 3.5 3.5 3.5 0 0 1-3 3.5h-1V4.5z"/>',
+ 'health:complex': '<circle cx="9" cy="10" r="5"/><circle cx="15" cy="14" r="5"/>',
  'food:eating': '<path d="M6 3v7a2.5 2.5 0 0 0 5 0V3M8.5 3v18"/><path d="M17 3c-2 1.5-2.5 5-2.5 8h2.5v10"/>',
  'food:restrictive': '<circle cx="12" cy="13" r="7.5"/><path d="M7 8l10 10"/>',
  'food:nutrition': '<path d="M12 8c-1.6-1.6-6-1.8-6.8 2.6C4.4 15 7.5 21 10 21c.9 0 1.3-.5 2-.5s1.1.5 2 .5c2.5 0 5.6-6 4.8-10.4C18 6.2 13.6 6.4 12 8z"/><path d="M12 8c0-2 1-4 3-5"/>',
