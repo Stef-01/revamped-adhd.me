@@ -30,6 +30,7 @@ from collections import Counter
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SHELL = ROOT / 'scripts' / 'profile-shell.html'
 DECK = ROOT / 'the-doctors.html'
+HOME = ROOT / 'index.html'   # the hero's counted facts are stamped from CLINICIANS, so the line is always true
 SITE = 'https://www.adhdme.au'
 PORTRAITS = 'assets/clinicians'
 SHARE_CARDS = 'assets/clinicians/og'
@@ -3135,6 +3136,13 @@ def render_deck(deck, sizes):
     return region(deck, 'deck-ld', deck_jsonld(), 'the-doctors.html')
 
 
+def hero_facts():
+    """The home hero's one-line credential: counts a visitor can check on the Network page."""
+    professions = len({c['category'] for c in CLINICIANS})
+    practices = len({c['practice'] for c in CLINICIANS})
+    return f'{len(CLINICIANS)} clinicians · {professions} professions · {practices} practices'
+
+
 def region(page, name, body, where):
     """Replace the contents of one <!-- BEGIN:GENERATED name --> … <!-- END:GENERATED name --> region."""
     start, end = f'<!-- BEGIN:GENERATED {name} -->', f'<!-- END:GENERATED {name} -->'
@@ -3329,6 +3337,7 @@ def build():
     shell = SHELL.read_text(encoding='utf-8')
     out = {ROOT / f"{c['slug']}.html": render_page(c, shell, sizes) for c in CLINICIANS}
     out[DECK] = render_deck(DECK.read_text(encoding='utf-8'), sizes)
+    out[HOME] = region(HOME.read_text(encoding='utf-8'), 'hero-facts', hero_facts(), 'index.html')
     out[ANALYTICS] = render_analytics(ANALYTICS.read_text(encoding='utf-8'))
     return out
 
