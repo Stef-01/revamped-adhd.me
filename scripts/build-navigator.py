@@ -42,7 +42,9 @@ SLUG = 'care-navigator'
 spec = importlib.util.spec_from_file_location('profiles', ROOT / 'scripts' / 'build-profiles.py')
 profiles = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(profiles)
-BY_ID = {c['id']: c for c in profiles.CLINICIANS}
+# Clinicians marked LAST on The Network are left out of the navigator's matches.
+NAV_CLINICIANS = [c for c in profiles.CLINICIANS if c['id'] not in profiles.LAST]
+BY_ID = {c['id']: c for c in NAV_CLINICIANS}
 
 
 def esc(text):
@@ -475,7 +477,7 @@ def areas(c):
 def languages():
     """Every language besides English that somebody in the network works in, in the order they appear."""
     seen = []
-    for c in profiles.CLINICIANS:
+    for c in NAV_CLINICIANS:
         for lang in c['languages']:
             if lang != 'English' and lang not in seen:
                 seen.append(lang)
@@ -521,7 +523,7 @@ assert len(QUESTIONS) <= 9, 'the owner caps the questionnaire at nine questions'
 def places():
     """Where somebody in the network sees people in person, busiest first, as the city line on their profile."""
     seen = {}
-    for c in profiles.CLINICIANS:
+    for c in NAV_CLINICIANS:
         if c.get('in_person', True) is not False:
             seen[profiles.city(c)] = seen.get(profiles.city(c), 0) + 1
     return [p for p, _ in sorted(seen.items(), key=lambda kv: (-kv[1], kv[0]))]
@@ -1063,11 +1065,11 @@ def build():
     footer = shell[shell.index('<footer'):]
     footer = footer.replace('<script src="analytics-config.js" defer></script>', SCRIPT + '\n<script src="analytics-config.js" defer></script>', 1)
 
-    kinds = {c['id']: kind(c) for c in profiles.CLINICIANS}
+    kinds = {c['id']: kind(c) for c in NAV_CLINICIANS}
     counts = {t['key']: sum(1 for k in kinds.values() if k == t['key']) for t in TYPES}
     present = [t for t in TYPES if counts[t['key']]]
     # Same order as The Network: pinned GPs first, then online diaries, then enquiries, then CLINICIANS order.
-    ordered = sorted(profiles.CLINICIANS, key=lambda c: (c['id'] not in profiles.PINNED, not profiles.books_online(c)))
+    ordered = sorted(NAV_CLINICIANS, key=lambda c: (c['id'] not in profiles.PINNED, not profiles.books_online(c)))
     people = [dict(i=c['id'], t=kinds[c['id']], a=c['ages'], o=bool(c['telehealth']), p=c.get('in_person', True) is not False,
                    s=state_of(c), city=profiles.city(c), v={k: list(x) for k, x in offers(c).items()},
                    r={k: list(x) for k, x in areas(c)[0].items()}, x=areas(c)[1], pin=c['id'] in profiles.PINNED,
@@ -1143,7 +1145,7 @@ def check():
             for cid, _ in asp['who']:
                 if cid not in BY_ID:
                     raise SystemExit(f'build-navigator: {d["label"]} › {asp["label"]} names unknown clinician {cid!r}')
-    for c in profiles.CLINICIANS:
+    for c in NAV_CLINICIANS:
         if not offers(c) and not areas(c)[0]:
             raise SystemExit(f'build-navigator: {c["name"]} matches no answer, so no visitor would ever be shown them')
     for q in QUESTIONS:

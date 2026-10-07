@@ -109,7 +109,7 @@ html.has-consent { scroll-padding-bottom: var(--consent-h, 4.5rem); }
   ::view-transition-group(portrait-kay-walls), ::view-transition-group(portrait-natalie-cook), ::view-transition-group(portrait-richard-hostiadi),
   ::view-transition-group(portrait-sally-mcleod), ::view-transition-group(portrait-shwetha-murthy), ::view-transition-group(portrait-heather-mcauliffe),
   ::view-transition-group(portrait-matthew-persello), ::view-transition-group(portrait-nzubechi-oguoma), ::view-transition-group(portrait-canice-curtis),
-  ::view-transition-group(portrait-tracey-dale), ::view-transition-group(portrait-ashleigh-feltham) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+  ::view-transition-group(portrait-tracey-dale), ::view-transition-group(portrait-ashleigh-feltham), ::view-transition-group(portrait-toni-ghuman) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
 }
 /* A block that arrives via a page transition is already on screen: no second reveal */
 .js [data-reveal].no-anim, .js [data-reveal].no-anim img { transition: none !important; }

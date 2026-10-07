@@ -43,6 +43,9 @@ PANELS = {'gp': 'gps', 'psychologist': 'psychologists', 'psychiatrist': 'psychia
 # Pinned to the front of their panel, ahead of everyone else, in an order site.js flips at random on each visit:
 # the two Saxenas are the network's most affordable GPs. No other panel has pinned cards.
 PINNED = {'anubhav-saxena', 'anu-saxena'}
+# Always the last cards in their panel, whatever the shuffle or sort, and left out of the care navigator:
+# the evidence base for this kind of clinical care is unclear (owner's call, 2026-10-07).
+LAST = {'toni-ghuman'}
 DEFAULT_PANEL = 'gp'
 
 # ---------------------------------------------------------------- data
@@ -347,6 +350,8 @@ NT_FEES_CLINICAL = dict(
 )
 
 FYF = 'https://feedyourfuturedietetics.com/'   # Feed Your Future Dietetics, Canberra; telehealth Australia-wide
+
+NMC = 'https://www.neuromedclinic.au/'   # Neuromed Clinic
 
 CLINICIANS = [
     dict(
@@ -2480,6 +2485,54 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    # Neuromed Clinic: Toni's own words from neuromedclinic.au/antonia, as supplied by the owner 2026-10-07 (the site
+    # is not reachable from the build environment). She asked to be listed as a neuroscientist and called Toni.
+    # Location, fees and telehealth not yet supplied, so the button opens her clinic page and reads Enquire.
+    dict(
+        slug='toni-ghuman', id='toni-ghuman', category='allied',
+        ages=['children'],
+        name='Toni Ghuman', short='Toni Ghuman', role='Neuroscientist', pronouns='she/her',
+        practice='Neuromed Clinic', place='Ask the clinic for location', descriptor='Neuroscientist',
+        description='A neuroscientist with a special interest in children’s health, neurodevelopment and nutrition.',
+        chips=['Children’s health', 'Neurodevelopment', 'Nutrition'],
+        telehealth=False,
+        book_href=NMC + 'antonia', book_hint='Opens the clinic’s website in a new tab.',
+        links=[
+            ('website', 'neuromedclinic.au', NMC),
+        ],
+        fees=dict(
+            heading='What a consultation costs',
+            figures=[],
+            notes=[
+                'Ask the clinic about fees and appointment times.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='Master of Neuroscience (MNeuroSc), Bachelor of Health Science (BHSc)',
+        languages=[],
+        experience=[
+            'Master of Neuroscience',
+            'Bachelor of Health Science',
+            'Special interest in children’s health, neurodevelopment and nutrition',
+        ],
+        about=[
+            'Toni is a neuroscientist with a special interest in children’s health, neurodevelopment and nutrition.',
+            'Her work brings together neuroscience and nutrition to better understand the many factors that can influence how a child feels, functions, grows and develops.',
+            'Rather than looking at one symptom in isolation, she considers the whole child, including nutrition, gut health, immune function, nervous system regulation, sleep, development and lifestyle.',
+        ],
+        details=[
+            ('Appointments', 'Times set with the clinic'),
+            ('Billing', 'Set and charged by the clinic'),
+        ],
+        disclosure='Neuromed Clinic is an independent practice.',
+        schema=dict(
+            type='Person',
+            credentials=['Master of Neuroscience', 'Bachelor of Health Science'],
+            same_as=[NMC + 'antonia'],
+            works_for=dict(url=NMC, locality='', state=''),
+            area='Australia',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -2562,11 +2615,13 @@ def meta_line(c):
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
         'Graceville': 'Brisbane, QLD'}
-REGION_BY_ID = {'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
+REGION_BY_ID = {'toni-ghuman': 'Contact the clinic',
+                'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
                 'ashleigh-feltham': 'Australia-wide via telehealth',
                 'allen-macbell': 'Melbourne, VIC',
                 'paula-garrido': 'Australia-wide via telehealth'}
-SUBURBS_BY_ID = {'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
+SUBURBS_BY_ID = {'toni-ghuman': '',
+                 'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
                  'ashleigh-feltham': '',
                  'allen-macbell': 'Ivanhoe',
                  'paula-garrido': '', 'alex-lawson': 'Sutherland Shire'}
@@ -2837,6 +2892,7 @@ def deck_card(c, size, rank):
     img_class = 'w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-[1.02]'
     lived = ' data-lived' if c.get('lived') else ''
     lived += ' data-pinned' if c['id'] in PINNED else ''
+    lived += ' data-last' if c['id'] in LAST else ''
     where = (f'<span class="block mt-2 text-[15px] font-extrabold text-[#1a1c1c]">{esc(city(c))}</span>'
              + (f'<span class="block text-[14px] font-semibold text-[#5f5e59]">{esc(suburbs(c))}</span>' if suburbs(c) else ''))
     modes = ' '.join(m for m, on in (('in-person', c.get('in_person', True)), ('telehealth', c['telehealth'])) if on)
@@ -2888,9 +2944,14 @@ def jsonld(c):
              'hasCredential': [{'@type': 'EducationalOccupationalCredential', 'name': n} for n in s['credentials']],
              # Not every practice in the network is a health service: coaching is a ProfessionalService.
              # A clinician who only sees people in one town gets a Place rather than the whole country.
-             'worksFor': {'@type': w.get('type', 'MedicalBusiness'), 'name': c['practice'], 'url': w['url'], 'telephone': w['telephone'],
+             'worksFor': {'@type': w.get('type', 'MedicalBusiness'), 'name': c['practice'], 'url': w['url'], 'telephone': w.get('telephone'),
                           'address': {'@type': 'PostalAddress', 'addressLocality': w['locality'], 'addressRegion': w['state'], 'addressCountry': 'AU'},
                           'areaServed': {'@type': s.get('area_type', 'Country'), 'name': s['area']}}}
+        # A practice whose phone or address we have not been given carries neither, rather than blanks.
+        if not w.get('telephone'):
+            del d['worksFor']['telephone']
+        if not w['locality']:
+            del d['worksFor']['address']
         if own:
             d['sameAs'] = own
         shared = [u for u in s['same_as'] if u in SHARED_LINKS]
@@ -3115,7 +3176,7 @@ def deck_jsonld():
 def render_deck(deck, sizes):
     """the-doctors.html with each category panel's <ul> refilled from CLINICIANS."""
     # Pinned cards lead, then online diaries, then enquiry forms. Stable: CLINICIANS order holds within each group.
-    ordered = sorted(CLINICIANS, key=lambda c: (c['id'] not in PINNED, not books_online(c)))
+    ordered = sorted(CLINICIANS, key=lambda c: (c['id'] not in PINNED, c['id'] in LAST, not books_online(c)))
     # The first row of the panel shown on arrival is on the first screen, so its portraits load at once.
     first_row = [c['id'] for c in ordered if c['category'] == DEFAULT_PANEL][:DECK_COLUMNS]
     for category, panel in PANELS.items():

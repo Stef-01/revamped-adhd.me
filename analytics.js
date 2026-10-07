@@ -349,6 +349,12 @@
       name: 'Ashleigh Feltham', category: 'allied',
       practice: 'Feed Your Future Dietetics', destination: 'clinic-contact',
       expertise: ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'], ages: ['children', 'teens', 'adults']
+    },
+    'toni-ghuman': {
+      booking: /neuromedclinic\.au\/antonia/, profile: 'toni-ghuman.html',
+      name: 'Toni Ghuman', category: 'allied',
+      practice: 'Neuromed Clinic', destination: 'clinic-form',
+      expertise: ['therapy'], ages: ['children']
     }
   };
   // END:GENERATED clinicians
