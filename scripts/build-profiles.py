@@ -443,10 +443,10 @@ CLINICIANS = [
         slug='dr-yogesh-kalra', id='yogesh-kalra', category='gp', assesses=False, bulk_billed=True,
         ages=['adults'],
         name='Dr Yogesh Kalra', short='Dr Yogesh Kalra', role='GP', pronouns='he/him',
-        practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay, Central Coast', descriptor='Continuation prescriber',
+        practice='Dr Yogesh Kalra’s Surgery', place='Bateau Bay & telehealth', descriptor='Continuation prescriber',
         description='Continues ADHD medication for people already diagnosed. Not offering ADHD assessment or diagnosis yet.',
         chips=['Continues ADHD medication', 'Hindi'],
-        telehealth=False,
+        telehealth=True,
         book_href='https://healthengine.com.au/doctor/nsw/bateau-bay/dr-yogesh-kalra/p57872', book_hint=HEALTHENGINE_HINT,
         links=[],
         fees=dict(
@@ -468,7 +468,7 @@ CLINICIANS = [
         ],
         pathway=[
             ('Already diagnosed', 'For people who already have an ADHD diagnosis and a treatment plan.'),
-            ('Book an appointment', 'In person at Bateau Bay, bulk billed.'),
+            ('Book an appointment', 'In person at Bateau Bay or by telehealth, bulk billed.'),
             ('Ongoing prescriptions', 'He keeps your medication going close to home. Ask the practice what to bring.'),
         ],
         works_with=[
@@ -481,7 +481,7 @@ CLINICIANS = [
             'Yogesh is a GP and a Fellow of the Royal Australian College of General Practitioners, practising at his own surgery in Bateau Bay on the Central Coast. For ADHD, he is a continuation prescriber: he keeps your ADHD medication going once you have been diagnosed and have a treatment plan, so you can manage it close to home. He is not offering ADHD assessment or diagnosis yet; that is planned for the future. His other interests are family medicine, women’s health, and skin cancer checks and surgery, with diplomas in skin cancer surgery and dermoscopy. He speaks English and Hindi, and the practice bulk bills all eligible Medicare services.',
         ],
         details=[
-            ('Reach', 'Practice appointments in Bateau Bay'),
+            ('Reach', 'Practice appointments in Bateau Bay, and telehealth'),
             ('Appointments', 'Appointment lengths set with the practice'),
             ('Billing', 'Bulk billed for eligible Medicare services; set and charged by the practice'),
             ('Wheelchair access', 'Not declared'),
@@ -2790,7 +2790,7 @@ DECK_CHIPS = 2   # interest chips on a deck card: four stacked chips made each c
 CARD_LINES = {
     'anubhav-saxena': 'An ADHD assessment that looks at the whole of you: sleep, heart and general health, with a baseline taken before anything starts. He works from measurement, not impression, and reviews you at set times.',
     'anu-saxena': 'A GP who came to medicine through a psychology degree, with a special interest in ADHD, mental health and women’s health. She sees children and adults, in English, Hindi or Urdu.',
-    'yogesh-kalra': 'Keeps your ADHD medication going once you’re diagnosed, so you can manage it close to home, bulk billed. He isn’t diagnosing ADHD yet; that’s planned for the future.',
+    'yogesh-kalra': 'Keeps your ADHD medication going once you’re diagnosed, in person at Bateau Bay or by telehealth, bulk billed. He isn’t diagnosing ADHD yet; that’s planned for the future.',
     'allen-macbell': 'More than 15 years of ADHD care for children aged 10 and over, teens and adults, including autism and ADHD together. You see the same doctor from the first appointment to diagnosis, treatment and follow-up.',
     'paula-garrido': 'A clinical psychologist certified in ADHD and autism care, seeing you by video anywhere in Australia. Her care is neuroaffirming and trauma-aware, and helps you understand your strengths as well as your challenges.',
     'kate-row': 'Helps everyone from toddlers to adults build a toolkit of practical coping strategies. She has a lifelong passion for supporting people with disability, and can guide your family through the NDIS.',

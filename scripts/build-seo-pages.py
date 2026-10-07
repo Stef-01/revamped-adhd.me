@@ -66,7 +66,7 @@ def gold_coast(c): return locality(c) in ('Bundall', 'Benowa')
 def exercise_physiologists(c): return 'Exercise Physiologist' in c['role']
 def occupational_therapists(c): return 'Occupational' in c['role']
 def coaches(c): return c['category'] == 'coach'
-def telehealth_clinical(c): return c['telehealth'] and (c['category'] in ('gp', 'psychologist') or c['category'] in ALLIED)
+def telehealth_clinical(c): return c['telehealth'] and (gps(c) or c['category'] == 'psychologist' or c['category'] in ALLIED)   # an assessment page: continuation-only GPs stay off it
 def nsw_clinical(c): return state(c) == 'NSW' and (gps(c) or c['category'] == 'psychologist')
 def any_of(*fs): return lambda c: any(f(c) for f in fs)
 
