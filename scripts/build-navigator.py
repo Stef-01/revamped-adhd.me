@@ -693,6 +693,7 @@ SCRIPT = r"""<script>
   var ORDER=['who','diagnosed','help','area','aspect','pref','lang','where'];
   var state={},auto={},trail=[];
   var flip=Math.random()<0.5?1:-1;   // which pinned GP leads, decided once per visit, as on The Network
+  var MIN=3;   // a results list never shows fewer than three people (the owner's rule)
   function each(sel,fn,root){Array.prototype.forEach.call((root||nav).querySelectorAll(sel),fn);}
   function screen(name){return nav.querySelector('[data-screen="'+name+'"]');}
   function set(v){return v!==undefined&&v!==null&&v!=='any';}
@@ -798,6 +799,20 @@ SCRIPT = r"""<script>
       var diag=(state.diagnosed==='no'||state.diagnosed==='unsure')&&!set(state.help)&&c.v.diagnosis?0.5:0;
       return {c:c,k:Math.max(kh,ka),s:kh+ka+diag+(local(c)?0.5:0),i:i};})
       .sort(function(x,y){return ((y.c.pin?1:0)-(x.c.pin?1:0))||(x.c.pin&&y.c.pin?(x.i-y.i)*flip:0)||(y.s-x.s)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);});
+    // Never fewer than three: when the answers leave one or two, the list is topped up from the rest of the
+    // network, a kind not already in the list first, then whoever works most directly on what was picked.
+    // The visitor's own answers about who it is for and where still hold. These carry an "Also worth a look" tag.
+    if(picked.length<MIN&&picked.length<D.people.length){
+      var have={},kinds={};picked.forEach(function(p){have[p.c.i]=1;kinds[p.c.t]=1;});
+      var extra=D.people.filter(function(c){return !have[c.i]&&(!state.who||FITS.who(c))&&(where===undefined||fits(c,where));})
+        .map(function(c,i){
+          var kh=set(state.help)&&c.v[state.help]?c.v[state.help][0]:0;
+          var ka=set(state.aspect)&&c.x[state.aspect]?2:(set(state.area)&&c.r[state.area]?Math.min(c.r[state.area][0],set(state.aspect)?1:2):0);
+          return {c:c,k:Math.max(kh,ka),s:kh+ka+(local(c)?0.5:0),i:i,extra:true};});
+      var rank=function(x,y){return ((kinds[x.c.t]?0:1)-(kinds[y.c.t]?0:1))*-1||(y.s-x.s)||((y.c.b?1:0)-(x.c.b?1:0))||(x.i-y.i);};
+      while(picked.length<MIN&&extra.length){extra.sort(rank);var p=extra.shift();picked.push(p);kinds[p.c.t]=1;}
+      note=note||W.toppedUp;
+    }
     var asked=set(state.help)||set(state.area),shown={};
     picked.forEach(function(p){
       var c=p.c,li=cards[c.i];shown[c.i]=1;li.hidden=false;
@@ -813,7 +828,8 @@ SCRIPT = r"""<script>
         b.textContent=r[0];t.appendChild(b);if(r[1])t.appendChild(document.createTextNode(r[1]));x.appendChild(t);ul.appendChild(x);});
       li.querySelector('[data-whybox]').hidden=!reasons.length;
       var fit=li.querySelector('[data-fit]');fit.hidden=!asked;
-      if(asked){fit.textContent=W.fit[p.k];fit.setAttribute('data-fit',String(p.k));}
+      if(p.extra){fit.hidden=false;fit.textContent=W.also;fit.setAttribute('data-fit','x');}
+      else if(asked){fit.textContent=W.fit[p.k];fit.setAttribute('data-fit',String(p.k));}
       list.appendChild(li);
     });
     Object.keys(cards).forEach(function(id){if(!shown[id])cards[id].hidden=true;});
@@ -990,7 +1006,8 @@ def build():
                    inPerson='Sees people in person in ', online='Works online, wherever you are',
                    fit=['Worth considering', 'Good fit', 'Strong fit'], near='Near ', elsewhere='Somewhere else',
                    noneNear='No one sees people in person there yet. These work online.',
-                   noneExact='No exact match for that yet. These could still help.'),
+                   noneExact='No exact match for that yet. These could still help.',
+                   toppedUp='Fewer than three fit all of that, so a few others worth a look are here too.', also='Also worth a look'),
     )
     tiles = ''.join(tile(t, counts[t['key']]) for t in present)
     roles = ''.join(role(t, counts[t['key']]) for t in present)
