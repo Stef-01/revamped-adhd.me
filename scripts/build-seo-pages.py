@@ -585,7 +585,9 @@ def related_section(p):
 def banner(cta=PROFILE):
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-12">
 <div class="p-8 md:p-12 rounded-3xl bg-[#f1bc31] border border-black/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
-<div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2></div>
+<div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2>
+<p class="mt-3 text-[17px] leading-[1.5] font-semibold text-black/80">{esc(profiles.network_line())}</p>
+<p class="mt-2 text-[17px] leading-[1.5] text-black/75">{esc(profiles.INDEPENDENT)}</p></div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{cta}">Find your clinician {ARROW}</a>
 <p class="text-[13px] text-black/75 font-medium">No account needed.</p></div>
 </div></section>'''
@@ -640,7 +642,7 @@ def hub_page(head, header, footer):
         groups += f'<section class="mt-12" aria-labelledby="g-{key}"><h2 id="g-{key}" class="{H2}">{label}</h2><ul class="mt-4 list-none p-0 m-0">{items}</ul></section>'
     url = f'{SITE}/{HUB}.html'
     ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': HUB_SEO, 'description': HUB_DESCRIPTION,
+        {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': HUB_SEO, 'description': HUB_DESCRIPTION + ' ' + profiles.network_line(),
          'inLanguage': 'en-AU', 'isPartOf': {'@id': SITE + '/#site'}, 'breadcrumb': {'@id': url + '#breadcrumb'},
          'hasPart': [{'@type': 'WebPage', 'url': f'{SITE}/{p["slug"]}.html', 'name': p['seo']} for p in PAGES]},
         {'@type': 'BreadcrumbList', '@id': url + '#breadcrumb', 'itemListElement': [
@@ -650,6 +652,7 @@ def hub_page(head, header, footer):
 <div class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pt-10 pb-16">
 <h1 class="hero-in mt-6 max-w-[22ch] text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">ADHD care, by place and by profession.</h1>
 <p class="hero-in hero-in-2 mt-5 max-w-[64ch] text-[19px] leading-[1.6] text-[#5f5e59]">Short guides to ADHD care in Australia, with costs and clinicians.</p>
+<p class="hero-in hero-in-2 mt-3 max-w-[64ch] text-[17px] leading-[1.6] font-semibold text-[#1a1c1c]">{esc(profiles.network_line())}</p>
 <div class="max-w-[760px]">{groups}</div>
 </div>
 {banner()}

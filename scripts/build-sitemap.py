@@ -15,12 +15,16 @@ rank on it.
 """
 import datetime
 import html
+import importlib.util
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+_spec = importlib.util.spec_from_file_location('profiles', ROOT / 'scripts' / 'build-profiles.py')
+profiles = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(profiles)
 SITE = 'https://www.adhdme.au'
 SITEMAP = ROOT / 'sitemap.xml'
 LLMS = ROOT / 'llms.txt'
@@ -90,7 +94,7 @@ SECTIONS = [
 
 def llms(ps):
     lines = ['# ADHDme', '',
-             '> Australia’s largest directory of holistic ADHD providers: GPs, psychiatrists, psychologists, allied health clinicians and coaches. '
+             '> ' + profiles.network_line() + ' ' + profiles.INDEPENDENT + ' GPs, psychiatrists, psychologists, allied health clinicians and coaches. '
              'Each profile says how the clinician works, where they practise and how their fees work, and you book with '
              'the practice directly. ADHDme does not provide health care and takes no commission.', '',
              'Clinician profiles are written from each clinician\'s own description of their work. Fees and Medicare '

@@ -3163,7 +3163,7 @@ def deck_jsonld():
     url = f'{SITE}/the-doctors.html'
     graph = [
         {'@type': 'CollectionPage', '@id': url, 'url': url, 'name': 'ADHD clinicians in our network', 'inLanguage': 'en-AU',
-         'description': 'Browse Australia’s largest directory of holistic ADHD providers: GPs, psychiatrists, psychologists, allied health and coaches, many by telehealth.',
+         'description': network_line() + ' ' + INDEPENDENT,
          'isPartOf': {'@id': SITE + '/#site'}, 'mainEntity': {'@id': url + '#clinicians'}, 'breadcrumb': {'@id': url + '#breadcrumb'}},
         {'@type': 'ItemList', '@id': url + '#clinicians', 'name': 'ADHDme clinicians', 'url': url,
          'numberOfItems': len(items), 'itemListElement': items},
@@ -3198,15 +3198,30 @@ def render_deck(deck, sizes):
     return region(deck, 'deck-ld', deck_jsonld(), 'the-doctors.html')
 
 
-def hero_facts():
-    """The home hero's one-line credential: counts a visitor can check on the Network page."""
-    professions = len({c['category'] for c in CLINICIANS})
-    practices = len({c['practice'] for c in CLINICIANS})
+def network_facts():
+    """Counts a visitor can check on the Network page, shared by every page that states them."""
     # Doctors, psychologists (provisional included), physiotherapists and OTs hold AHPRA registration;
     # coaches, counsellors, social workers, dietitians and exercise physiologists are regulated elsewhere.
     ahpra = sum(1 for c in CLINICIANS if c['category'] in ('gp', 'psychiatrist', 'psychologist', 'physiotherapy', 'occupational-therapy'))
+    return dict(total=len(CLINICIANS), ahpra=ahpra, practices=len({c['practice'] for c in CLINICIANS}),
+                professions=len({c['category'] for c in CLINICIANS}))
+
+
+def network_line():
+    """The independence claim with its counts, for the search pages, The Network's JSON-LD and llms.txt."""
+    f = network_facts()
+    return (f"Australia’s leading independent ADHD directory: {f['total']} clinicians, "
+            f"{f['ahpra']} AHPRA-registered, {f['practices']} practices.")
+
+
+INDEPENDENT = 'We’re not a practice. We match you to whoever fits best.'
+
+
+def hero_facts():
+    """The home hero's one-line credential: counts a visitor can check on the Network page."""
+    f = network_facts()
     # Non-breaking spaces inside each item, so a phone wraps the line between items, never inside one.
-    items = [f'{len(CLINICIANS)} clinicians', f'{ahpra} AHPRA-registered', f'{professions} professions', f'{practices} practices']
+    items = [f"{f['total']} clinicians", f"{f['professions']} professions", f"{f['practices']} practices"]
     return '\u00a0· '.join(i.replace(' ', '\u00a0') for i in items)   # the dot stays with the item before it
 
 
