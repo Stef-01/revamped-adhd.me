@@ -3145,7 +3145,7 @@ def hero_facts():
     ahpra = sum(1 for c in CLINICIANS if c['category'] in ('gp', 'psychiatrist', 'psychologist', 'physiotherapy', 'occupational-therapy'))
     # Non-breaking spaces inside each item, so a phone wraps the line between items, never inside one.
     items = [f'{len(CLINICIANS)} clinicians', f'{ahpra} AHPRA-registered', f'{professions} professions', f'{practices} practices']
-    return ' · '.join(i.replace(' ', '\u00a0') for i in items)
+    return '\u00a0· '.join(i.replace(' ', '\u00a0') for i in items)   # the dot stays with the item before it
 
 
 def region(page, name, body, where):
