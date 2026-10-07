@@ -2496,6 +2496,7 @@ CLINICIANS = [
         description='A neuroscientist with a special interest in children’s health, neurodevelopment and nutrition.',
         chips=['Children’s health', 'Neurodevelopment', 'Nutrition'],
         telehealth=False,
+        in_person=False,   # neither mode confirmed yet, so no mode pill and no mode filter claims her
         book_href=NMC + 'antonia', book_hint='Opens the clinic’s website in a new tab.',
         links=[
             ('website', 'neuromedclinic.au', NMC),
@@ -2508,7 +2509,7 @@ CLINICIANS = [
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
-        qualifications='Master of Neuroscience (MNeuroSc), Bachelor of Health Science (BHSc)',
+        qualifications='Neuroscientist, Master of Neuroscience (MNeuroSc), Bachelor of Health Science (BHSc)',
         languages=[],
         experience=[
             'Master of Neuroscience',
@@ -3231,6 +3232,7 @@ ANALYTICS = ROOT / 'analytics.js'
 # What each clinician is sought for, as dashboard words. A clinician without a row here gets their category's
 # default below, so a new profile is never refused for want of one; add a row when you want something sharper.
 EXPERTISE = {
+    'toni-ghuman': ['nutrition', 'integrative'],
     'ashleigh-feltham': ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'],
     'anubhav-saxena': ['assessment', 'physical-health', 'integrative'],
     'anu-saxena': ['mental-health', 'womens-health'],
