@@ -338,6 +338,24 @@
       practice: 'Nurtured Thoughts Psychology', destination: 'clinic-contact',
       expertise: ['therapy', 'trauma', 'mens-health'], ages: ['teens', 'adults']
     },
+    'nicholas-bailey': {
+      booking: /mindscope-pty-ltd\.splose\.com\/online-booking\/a672136e-e273-42d2-bd65-f50e0f2162aa/, profile: 'nicholas-bailey.html',
+      name: 'Nicholas Bailey', category: 'psychologist',
+      practice: 'MindScope', destination: 'splose',
+      expertise: ['therapy', 'neuroaffirming', 'autism'], ages: ['teens', 'adults']
+    },
+    'kathy-cleland': {
+      booking: /mindscope-pty-ltd\.splose\.com\/online-booking\/a672136e-e273-42d2-bd65-f50e0f2162aa/, profile: 'kathy-cleland.html',
+      name: 'Kathy Cleland', category: 'psychologist',
+      practice: 'MindScope', destination: 'splose',
+      expertise: ['assessment', 'autism', 'trauma', 'complex-care', 'neuroaffirming'], ages: ['children', 'teens', 'adults']
+    },
+    'kirstie-shaw': {
+      booking: /mindscope-pty-ltd\.splose\.com\/online-booking\/a672136e-e273-42d2-bd65-f50e0f2162aa/, profile: 'kirstie-shaw.html',
+      name: 'Kirstie Shaw', category: 'allied',
+      practice: 'MindScope', destination: 'splose',
+      expertise: ['counselling', 'autism', 'neuroaffirming'], ages: ['children', 'teens', 'adults']
+    },
     'tracey-dale': {
       booking: /nurturedthoughtspsychology\.com\.au\/contact/, profile: 'tracey-dale.html',
       name: 'Tracey Dale', category: 'allied',
@@ -393,7 +411,7 @@
   // a destination missing from this map is counted as an enquiry, which understates rather than
   // flatters.
   // BEGIN:GENERATED destination-kind
-  var DESTINATION_KIND = { 'automed': 'diary', 'clinic-contact': 'enquiry', 'clinic-form': 'enquiry', 'halaxy': 'diary', 'healthengine': 'diary', 'hotdoc': 'diary', 'zanda': 'enquiry' };
+  var DESTINATION_KIND = { 'automed': 'diary', 'clinic-contact': 'enquiry', 'clinic-form': 'enquiry', 'halaxy': 'diary', 'healthengine': 'diary', 'hotdoc': 'diary', 'splose': 'diary', 'zanda': 'enquiry' };
   // END:GENERATED destination-kind
   var HANDOFF_KINDS = ['diary', 'enquiry'];
   // How long the practice's own page held them before they came back to this tab. Booking links

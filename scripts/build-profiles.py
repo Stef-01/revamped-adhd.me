@@ -188,6 +188,50 @@ TCO_FEES_TA = dict(
     ],
 )
 
+# MindScope, Moggill in Brisbane's west, and telehealth Australia-wide. Three of its clinicians asked to be listed
+# (2026-10-08): Nick (therapy in person and by telehealth), Kirstie (counselling by telehealth) and Kathy (limited
+# extended telehealth sessions for complex presentations). Facts from mindscope.com.au, its /prices page included.
+MS = 'https://www.mindscope.com.au/'
+MS_BOOK = 'https://mindscope-pty-ltd.splose.com/online-booking/a672136e-e273-42d2-bd65-f50e0f2162aa'
+MS_BOOK_HINT = 'Opens MindScope’s online booking (Splose) in a new tab.'
+MS_LINKS = [
+    ('instagram', '@mindscope.com.au', 'https://www.instagram.com/mindscope.com.au'),
+    ('website', 'mindscope.com.au', MS),
+]
+MS_APPOINTMENTS = 'Session hours Monday to Friday, 7am to 6pm AEST; times set with the practice'
+MS_DISCLOSURE = 'MindScope is an independent practice.'
+MS_WORKS_FOR = dict(url=MS, telephone='0480 800 617', locality='Moggill', state='QLD')
+MS_RESPONSIBLE = '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>'
+MS_PLAN = 'The rebate needs a Mental Health Treatment Plan and referral from your GP.'
+MS_FEES_PSYCHOLOGIST = dict(
+    heading='What a session costs',
+    figures=[('$290', 'Per session'), ('$101.55', 'Medicare rebate')],
+    notes=[
+        'With the rebate, a 50-minute session is $188.45 out of pocket. Payment is at the time of your appointment.',
+        MS_PLAN,
+        'Private health rebates may be available, depending on your cover. NDIS self- and plan-managed clients are welcome.',
+        MS_RESPONSIBLE,
+    ],
+)
+MS_FEES_EXTENDED = dict(
+    heading='What a session costs',
+    figures=[('$498', 'Extended 80-minute consultation'), ('$101.55', 'Medicare rebate')],
+    notes=[
+        'Extended consultations are for more complex presentations. The first one is a chance to decide together whether ongoing extended sessions are the right fit.',
+        MS_PLAN,
+        MS_RESPONSIBLE,
+    ],
+)
+MS_FEES_COUNSELLING = dict(
+    heading='What a session costs',
+    figures=[('$290', 'Per session')],
+    notes=[
+        'Standard 50-minute sessions by telehealth, paid at the time of your appointment.',
+        'Private health rebates may be available, depending on your cover. NDIS self- and plan-managed clients are welcome.',
+        MS_RESPONSIBLE,
+    ],
+)
+
 # REACH ADHD Coaching and Consultancy, Perth. One practice, six coaches, so the shared facts sit here once.
 # Coaching is not a registered health profession, which is why the disclosure says so and why worksFor is a
 # ProfessionalService rather than the MedicalBusiness the clinics get.
@@ -2396,6 +2440,111 @@ CLINICIANS = [
                     same_as=NT_SAME_AS, works_for=NT_WORKS_FOR, area='Australia'),
     ),
     dict(
+        slug='nicholas-bailey', id='nicholas-bailey', category='psychologist',
+        ages=['teens', 'adults'],
+        name='Nicholas Bailey', short='Nick Bailey', role='Psychologist', pronouns='he/him',
+        practice='MindScope', place='Moggill, Brisbane & telehealth', descriptor='Psychologist and clinical registrar',
+        description='A gentle, affirming psychologist for teens and adults, in person at Moggill or by telehealth, with room for new clients now.',
+        chips=['Teens & young adults', 'ACT', 'Sport & community'],
+        telehealth=True,
+        book_href=MS_BOOK, book_hint=MS_BOOK_HINT,
+        links=MS_LINKS,
+        fees=MS_FEES_PSYCHOLOGIST,
+        qualifications='Psychologist, BScBMed BScPsych(Hons) MProfPsych MClinPsych',
+        languages=[],
+        experience=[
+            'Psychologist and clinical registrar, MindScope, Moggill and telehealth',
+            'Five years supporting neurodivergent young people in clinical and community roles',
+            'Program development for a Rugby Australia initiative opening community sport to neurodivergent young people across Queensland',
+            'Acceptance and Commitment Therapy (ACT)',
+            'Master of Clinical Psychology, Master of Professional Psychology',
+        ],
+        about=[
+            'Nick is a psychologist who works within an affirming framework, and particularly enjoys working with adolescents, adults and men, and with people from a wide range of backgrounds and life experiences. Before psychology he contributed to a Rugby Australia initiative that expanded opportunities for neurodivergent young people to take part in community sport across Queensland, and he brings that breadth to his practice.',
+            'He draws mainly on Acceptance and Commitment Therapy, and values therapeutic relationships built on respect, curiosity and collaboration. He is interested in the unique experiences, perspectives and stories each person brings. Outside work he hikes, reads and plays the guitar.',
+        ],
+        details=[
+            ('Reach', 'In person at Moggill, Brisbane, and telehealth Australia-wide'),
+            ('Appointments', MS_APPOINTMENTS),
+            ('Billing', '$290 a session, $101.55 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', 'Not declared'),
+        ],
+        disclosure=MS_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Master of Clinical Psychology', 'Master of Professional Psychology', 'Bachelor of Psychological Science (Honours)', 'Bachelor of Biomedical Science'],
+                    same_as=[MS + 'nicholas-bailey'], works_for=MS_WORKS_FOR, area='Australia'),
+    ),
+    dict(
+        slug='kathy-cleland', id='kathy-cleland', category='psychologist',
+        ages=['children', 'teens', 'adults'],
+        name='Kathy Cleland', short='Kathy Cleland', role='Principal Psychologist', pronouns='she/her',
+        practice='MindScope', place='Extended telehealth sessions Australia-wide', descriptor='Principal psychologist',
+        description='Extended 80-minute telehealth sessions for complex presentations, where ADHD sits alongside autism, trauma or other diagnoses. Limited availability.',
+        chips=['Complex presentations', 'Autism & ADHD (AuDHD)', 'Complex trauma'],
+        telehealth=True,
+        in_person=False,   # her new-client availability is for extended telehealth sessions
+        book_href=MS_BOOK, book_hint=MS_BOOK_HINT,
+        links=MS_LINKS,
+        fees=MS_FEES_EXTENDED,
+        qualifications='Principal psychologist, BSc(Psych)(Hons) GCPsych(Forensic) MEdNeuro, MAPS',
+        languages=[],
+        experience=[
+            'Principal Psychologist and Clinical Director, MindScope',
+            'An early proponent of the neurodiversity-affirming paradigm, grounded in lived experience',
+            'Autism and ADHD (AuDHD), complex trauma, dissociation and plurality',
+            'Neuroaffirming Autism and ADHD diagnostic assessments, including complex diagnostic pictures',
+            'Associate Supervisor for Honours students in suicide prevention research',
+            'Earlier career in early childhood education, developmental disability, homelessness services and as a Queensland Ambulance Service first responder',
+        ],
+        about=[
+            'Kathy is MindScope’s Principal Psychologist and Clinical Director. Her practice is shaped by a philosophy centred on dignity, autonomy, inclusion and respect for neurodivergent ways of being; an early proponent of the neurodiversity-affirming paradigm, she remains an advocate for the human rights principles at its foundation. She is particularly skilled where autism and ADHD, complex trauma, and dissociation intersect, and complexity needs nuanced, compassionate care.',
+            'Her approach is relational, trauma-responsive and attentive to the systems that shape a person’s life. Extended sessions give more time to explore concerns in depth, understand how different factors interact, and work at a pace that supports substantive therapeutic work. She also provides neuroaffirming Autism and ADHD diagnostic assessments, including complex diagnostic work where previous or co-occurring diagnoses complicate the picture. Away from work she enjoys forest walks, theatre, making art and tinkering with software.',
+        ],
+        details=[
+            ('Reach', 'Extended telehealth sessions Australia-wide; limited availability'),
+            ('Appointments', '80-minute extended consultations; ' + MS_APPOINTMENTS[0].lower() + MS_APPOINTMENTS[1:]),
+            ('Billing', '$498 an extended consultation, $101.55 Medicare rebate with a plan; set and charged by the practice'),
+            ('Wheelchair access', 'Not applicable: telehealth'),
+        ],
+        disclosure=MS_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Master of Educational Neuroscience', 'Graduate Certificate in Psychology (Forensic)', 'Bachelor of Science (Psychology) (Honours)'],
+                    same_as=[MS + 'kathy-cleland'], works_for=MS_WORKS_FOR, area='Australia'),
+    ),
+    dict(
+        slug='kirstie-shaw', id='kirstie-shaw', category='allied',
+        ages=['children', 'teens', 'adults'],
+        name='Kirstie Shaw', short='Kirstie Shaw', role='Counsellor and Intake Clinician', pronouns='she/her',
+        practice='MindScope', place='Telehealth Australia-wide', descriptor='Counsellor',
+        description='Counselling and mentoring for neurodivergent people and people with disabilities, by telehealth, grounded in lived experience.',
+        chips=['Neurodivergence & disability', 'Capacity building', 'Access to diagnosis'],
+        telehealth=True,
+        in_person=False,   # new clients by telehealth
+        book_href=MS_BOOK, book_hint=MS_BOOK_HINT,
+        links=MS_LINKS,
+        fees=MS_FEES_COUNSELLING,
+        qualifications='Counsellor, Grad Dip Counselling; Master of Disability and Inclusion in progress',
+        languages=[],
+        experience=[
+            'Counsellor, mentor and assessment intake clinician, MindScope',
+            'Neurodivergence, including autism and ADHD, and intellectual disability support',
+            'Capacity building, independence, and access to diagnosis and services',
+            'Family support and mentoring',
+            'Graduate Diploma of Counselling; Master of Disability and Inclusion in progress',
+        ],
+        about=[
+            'Kirstie is a counsellor and mentor supporting people with disabilities and neurodivergence, and part of MindScope’s intake team. She combines academic training with lived experience of autism, ADHD and intellectual disability, which informs a thoughtful, compassionate and practical approach.',
+            'She is passionate about helping people build capacity, develop independence and navigate challenges with confidence, and a strong advocate for access to diagnosis, recognising how it opens the door to the right supports and services. Through a strengths-based and inclusive approach she helps individuals and families recognise their abilities, overcome barriers and move toward meaningful goals. Outside work she values family time, and a couch shared with her dogs.',
+        ],
+        details=[
+            ('Reach', 'Telehealth Australia-wide'),
+            ('Appointments', MS_APPOINTMENTS),
+            ('Billing', '$290 a session; set and charged by the practice'),
+            ('Wheelchair access', 'Not applicable: telehealth'),
+        ],
+        disclosure=MS_DISCLOSURE,
+        schema=dict(type='Person', credentials=['Graduate Diploma of Counselling'],
+                    same_as=[MS + 'kirstie-shaw'], works_for=MS_WORKS_FOR, area='Australia'),
+    ),
+    dict(
         slug='tracey-dale', id='tracey-dale', category='allied',
         ages=['children', 'teens', 'adults'],
         name='Tracey Dale', short='Tracey Dale', role='Accredited Mental Health Social Worker', pronouns=None,
@@ -2615,13 +2764,15 @@ def meta_line(c):
 # from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
-        'Graceville': 'Brisbane, QLD'}
+        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD'}
 REGION_BY_ID = {'toni-ghuman': 'Contact the clinic',
+                'kathy-cleland': 'Australia-wide via telehealth', 'kirstie-shaw': 'Australia-wide via telehealth',
                 'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
                 'ashleigh-feltham': 'Australia-wide via telehealth',
                 'allen-macbell': 'Melbourne, VIC',
                 'paula-garrido': 'Australia-wide via telehealth'}
 SUBURBS_BY_ID = {'toni-ghuman': '',
+                 'kathy-cleland': '', 'kirstie-shaw': '',
                  'anubhav-saxena': 'Beecroft & Double Bay', 'anu-saxena': 'Double Bay & Hornsby', 'yogesh-kalra': 'Bateau Bay',
                  'ashleigh-feltham': '',
                  'allen-macbell': 'Ivanhoe',
@@ -2794,7 +2945,7 @@ BOOK_HREF = 'the-doctors.html#{}'
 
 # A diary you can pick a time in, or a form the practice answers. The button says which, and each
 # list on The Network puts the diaries first: the easiest people to reach are the first ones you meet.
-ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au', 'automedsystems.com.au')
+ONLINE_DIARIES = ('healthengine.com.au', 'halaxy.com/book', 'hotdoc.com.au', 'automedsystems.com.au', 'splose.com/online-booking')
 
 
 def books_online(c):
@@ -3302,6 +3453,9 @@ EXPERTISE = {
     'matthew-persello': ['therapy', 'mens-health', 'lgbtqia'],
     'nzubechi-oguoma': ['therapy', 'trauma', 'family'],
     'canice-curtis': ['therapy', 'trauma', 'mens-health'],
+    'nicholas-bailey': ['therapy', 'neuroaffirming', 'autism'],
+    'kathy-cleland': ['assessment', 'autism', 'trauma', 'complex-care', 'neuroaffirming'],
+    'kirstie-shaw': ['counselling', 'autism', 'neuroaffirming'],
     'tracey-dale': ['therapy', 'trauma', 'perinatal']
 }
 EXPERTISE_DEFAULT = {'gp': ['assessment'], 'psychiatrist': ['psychiatry'], 'psychologist': ['therapy'],
@@ -3319,7 +3473,7 @@ CATEGORY_LABELS = {'gp': ('GP', 'GPs'), 'psychologist': ('Psychologist', 'Psycho
 # contact page if its path says so, otherwise a form. A host listed in CLINIC_FORM_HOSTS is a form whatever its
 # path says (Therapy Co's /contact/ is a booking request form, and has been counted as one since it joined).
 DESTINATION_HOSTS = {'healthengine.com.au': 'healthengine', 'halaxy.com': 'halaxy', 'hotdoc.com.au': 'hotdoc',
-                     'automedsystems.com.au': 'automed', 'zandahealth.com': 'zanda'}
+                     'automedsystems.com.au': 'automed', 'zandahealth.com': 'zanda', 'splose.com': 'splose'}
 CLINIC_FORM_HOSTS = {'thetherapyco.com.au'}
 
 

@@ -113,7 +113,8 @@ DOMAINS = [
    ('flynn-simonis', 'Sensory profiles and functional challenges, in clinic and at home'),
    ('ebony-young', 'Skills practice · Works with your psychologist'),
    ('alexandra-wainwright', 'Skills practice · NDIS support work'),
-   ('eliza-keefe', 'Practises life skills with you · Children & teens')]),
+   ('eliza-keefe', 'Practises life skills with you · Children & teens'),
+   ('kirstie-shaw', 'Capacity building and independence')]),
   dict(key='parenting', label='Parenting a child with ADHD', who=[
    ('lachlan-avent', 'Triple P Stepping Stones parenting practitioner'),
    ('lauren-poulos', 'PCIT & early intervention · Toddlers & children'),
@@ -123,7 +124,8 @@ DOMAINS = [
    ('nzubechi-oguoma', 'Family therapy · Ages 5+'),
    ('shwetha-murthy', 'Parents & carers · ADHD in families'),
    ('beth-hansen', 'ADHD in parents · Late-identified ADHD'),
-   ('kay-walls', 'Mothers & postnatal · ADHD in adult women')]),
+   ('kay-walls', 'Mothers & postnatal · ADHD in adult women'),
+   ('kirstie-shaw', 'Family support and mentoring')]),
   dict(key='emotions', label='Meltdowns and emotional outbursts', who=[
    ('donna-italiano', 'Emotional regulation'),
    ('ellie-putland', 'Young people · CBT, ACT & DBT'),
@@ -153,7 +155,8 @@ DOMAINS = [
   dict(key='social', label='Making and keeping friends', who=[
    ('erin-lysle', 'Social skills'),
    ('kate-row', 'Social skills building'),
-   ('flynn-simonis', 'Group social programs for children')]),
+   ('flynn-simonis', 'Group social programs for children'),
+   ('nicholas-bailey', 'Community participation · Sport and recreation')]),
   dict(key='conflict', label='Arguments and conflict', who=[
    ('kate-row', 'Communication skills · CBT, ACT & MI'),
    ('ellie-putland', 'DBT · Working collaboratively with families'),
@@ -181,7 +184,8 @@ DOMAINS = [
    ('jae-cho', 'General psychiatry · ADHD'),
    ('rajitha-de-silva', 'Consultant psychiatrist · Adults'),
    ('heather-mcauliffe', 'Neurodevelopmental assessment · Neurodivergent clinician'),
-   ('valeria-urrutia', 'Assessments · Grief & life changes')]),
+   ('valeria-urrutia', 'Assessments · Grief & life changes'),
+   ('kathy-cleland', 'Neuroaffirming Autism and ADHD diagnostic assessments')]),
   dict(key='medication', label='ADHD medication', who=[
    ('anubhav-saxena', 'Baseline cardiovascular and metabolic screening'),
    ('anu-saxena', 'Mental health focus · Endorsed ADHD prescriber course'),
@@ -211,13 +215,15 @@ DOMAINS = [
    ('tracey-dale', 'Burnout & life transitions · EMDR'),
    ('lana-hiscock', 'Perinatal & postnatal · CBT, DBT, ACT'),
    ('sarah-bibo', 'Anxiety, low mood, trauma, eating and body image'),
-   ('michael-rehardt', 'Building clinical experience across a range of presentations')]),
+   ('michael-rehardt', 'Building clinical experience across a range of presentations'),
+   ('nicholas-bailey', 'Acceptance and Commitment Therapy (ACT) · Adolescents and adults')]),
   dict(key='complex', label='Complex or overlapping conditions', who=[
    ('jae-cho', 'General psychiatry · Trauma-informed'),
    ('rajitha-de-silva', 'Over 16 years caring for adults'),
    ('natalie-cook', 'Complex cases with psychiatrists and other specialists'),
    ('heather-mcauliffe', 'Collaborative care · Consults with paediatricians and psychiatrists'),
-   ('canice-curtis', 'Complex trauma and ADHD · Ages 15+')]),
+   ('canice-curtis', 'Complex trauma and ADHD · Ages 15+'),
+   ('kathy-cleland', 'Complex trauma · Autism and ADHD (AuDHD) · Extended sessions')]),
   dict(key='exercise', label='Exercise, sport and movement', who=[
    ('sarah-savage', 'Exercise as Medicine · Pilates & hydrotherapy'),
    ('lester-rafanan', 'Strength & conditioning · Return to sport'),
