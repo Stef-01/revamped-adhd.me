@@ -165,8 +165,9 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 /* ---- ADHDme Weekly: beehiiv subscribe embeds ----
    The page owns the type and the copy; the iframe is only the field and the button.
    beehiiv's loader measures the child and writes height/width onto the iframe inline,
-   briefly setting width to 5000px — so the width is pinned here and the wrapper clips,
-   or that transient would widen the page and flash a horizontal scrollbar. */
+   setting it to 5000px wide and 2000px tall while it measures — so both are pinned here and the
+   wrapper clips. On a phone that measuring can last many seconds, and an unpinned height left a
+   2000px blank box where the field and button should be. The form is one row at every width. */
 .bh-embed { width: 100%; max-width: 100%; overflow: hidden; }
 .bh-embed iframe {
   width: 100% !important;
@@ -177,9 +178,9 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
   background: transparent;
   color-scheme: light;
 }
-/* Hold the control's height before the child reports back, so nothing jumps under the thumb */
-.bh-embed--primary iframe { min-height: 52px; }
-.bh-embed--footer iframe { min-height: 48px; }
+/* The control's own height, held from the start, so nothing jumps under the thumb */
+.bh-embed--primary iframe { height: 52px !important; }
+.bh-embed--footer iframe { height: 48px !important; }
 .bh-embed--primary { max-width: 520px; }
 
 /* ---- ADHDme Weekly: the invitation dialog ----
@@ -198,7 +199,7 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .weekly-invite h2 { margin: 0 0 .625rem; font-size: 1.375rem; font-weight: 800; letter-spacing: -.02em; }
 .weekly-invite p { margin: 0; font-size: .9375rem; line-height: 1.6; color: #4a453a; }
 .weekly-invite .bh-embed--invite { margin-top: 1.25rem; }
-.weekly-invite .bh-embed--invite iframe { min-height: 48px; }
+.weekly-invite .bh-embed--invite iframe { height: 48px !important; }
 /* On a phone the dialog's padding is the difference between the field and the button sitting
    side by side and the button's label wrapping out of its pill. */
 @media (max-width: 26rem) {
@@ -329,13 +330,15 @@ html { scrollbar-color: #d2c5ad #f4f2ec; scrollbar-width: thin; }
 .dir-label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 700; color: #1a1c1c; }
 .dir-search { width: 100%; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 16px; color: #1a1c1c; }
 .dir-search:focus { border-color: #1a1c1c; }
-.dir-modes { display: flex; gap: 8px; margin: 0; padding: 0; border: 0; }
-.dir-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid #d9d6cc; background: #fff; font-size: 15px; font-weight: 600; color: #1a1c1c; cursor: pointer; }
+.dir-modes { display: flex; gap: 8px; margin: 0 0 0 auto; padding: 0; border: 0; }   /* the on/off pair sits apart from the dropdowns, at the far right */
+.dir-check { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font-size: 15px; font-weight: 600; color: #1a1c1c; cursor: pointer; }
 .dir-check:has(input:checked) { border-color: #1a1c1c; background: #f6f4ee; }
 .dir-check input { width: 18px; height: 18px; margin: 0; accent-color: #1a1c1c; }
 .dir-select { display: inline-flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 700; color: #1a1c1c; }
 .dir-select[hidden] { display: none; }
 .dir-select select { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 1.5px solid #d9d6cc; background: #fff; font: inherit; font-size: 15px; font-weight: 500; color: #1a1c1c; }
+/* our own chevron, so it sits 14px in from the border rather than against it */
+.dir-select select, .dir-order select { appearance: none; -webkit-appearance: none; padding-right: 42px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1c1c' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; }
 .dir-select select:focus-visible { outline: 3px solid #1a1c1c; outline-offset: 3px; }
 .dir-select--spec { flex: 1 1 240px; }
 .dir-select--spec select { width: 100%; font-weight: 700; }
