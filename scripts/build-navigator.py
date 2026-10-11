@@ -974,9 +974,8 @@ SCRIPT = r"""<script>
   }
   function restart(type){state=type?{type:type}:{};auto={};trail=type?['start']:[];}
   nav.addEventListener('click',function(e){
-    var el=e.target.closest('[data-type],[data-start],[data-v],[data-place],[data-back],[data-edit],[data-restart]');if(!el)return;
+    var el=e.target.closest('[data-type],[data-v],[data-place],[data-back],[data-edit],[data-restart]');if(!el)return;
     if(el.hasAttribute('data-type')){e.preventDefault();openSheet(el.getAttribute('data-type'));return;}
-    if(el.hasAttribute('data-start')){restart();go(next());return;}
     if(el.hasAttribute('data-v')){
       var q=el.closest('[data-screen]').getAttribute('data-screen'),v=el.getAttribute('data-v');
       if(q==='where'&&v==='near'){   // reveal the places; the answer is the place tapped next
@@ -994,9 +993,7 @@ SCRIPT = r"""<script>
   });
   sheet.addEventListener('click',function(e){
     if(e.target===sheet){closeSheet();return;}
-    var el=e.target.closest('[data-close],[data-choose]');if(!el)return;
-    if(el.hasAttribute('data-close')){closeSheet();return;}
-    closeSheet();restart(el.getAttribute('data-choose'));go(next(),true);
+    if(e.target.closest('[data-close]'))closeSheet();
   });
 })();
 </script>"""
@@ -1050,7 +1047,7 @@ def role(t, count):
     return (f'<section data-role="{t["key"]}" hidden><span class="nav-badge" style="--tint:{t["tint"]}">{icon(t["key"])}</span>'
             f'<h2 id="role-{t["key"]}">{esc(t["label"])}</h2><p class="nav-sheet__what">{esc(t["what"])}</p>'
             f'<ul class="nav-facts">{rows}</ul>'
-            f'<div class="nav-sheet__act"><button type="button" class="nav-btn nav-btn--go" data-choose="{t["key"]}">Help me choose {ARROW}</button></div></section>')
+            f'<div class="nav-sheet__act"><a class="nav-btn nav-btn--go" href="matching-help.html?from=navigator">Help me choose {ARROW}</a></div></section>')
 
 
 def question(q):
@@ -1137,7 +1134,7 @@ def build():
 <section class="nav-screen" data-screen="start" aria-labelledby="nav-title">
 <h1 id="nav-title" class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">Who could help?</h1>
 <p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do.</p>
-<ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide rounded-3xl bg-[#fdf3d6] border border-[#ebd8ab] p-6 sm:p-8" data-matching-cta="navigator" hidden><h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-[#1a1c1c]">Not sure where to start?</h2><p class="mt-2 max-w-[52ch] text-[17px] leading-[1.6] text-[#4f4634]">Leave your details and one of us will be in touch. We match you to a clinician ourselves, not an algorithm.</p><p class="mt-5"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" href="matching-help.html?from=navigator">Request matching help <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p><p class="mt-3 max-w-[60ch] text-[14px] leading-[1.6] text-[#7a5a0e]">An early pilot. Each practice confirms its own fees and availability.</p></li></ul>
+<ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide rounded-3xl bg-[#3b86ac] p-6 sm:p-8" data-matching-cta="navigator" hidden><h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-white">Not sure where to start?</h2><p class="mt-2 max-w-[52ch] text-[17px] leading-[1.6] text-white/85">Leave your details and one of us will be in touch. We match you to a clinician ourselves, not an algorithm.</p><p class="mt-5"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" href="matching-help.html?from=navigator">Request matching help <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p><p class="mt-3 max-w-[60ch] text-[14px] leading-[1.6] text-white/75">An early pilot. Each practice confirms its own fees and availability.</p></li></ul>
 </section>
 {questions}
 <section class="nav-screen" data-screen="results" hidden aria-labelledby="nav-results-title">
