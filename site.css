@@ -400,3 +400,18 @@ body:has(.dir-sheet[open]) { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ADHDme Weekly mascot: a blob in the Learn characters' style, with its own moves (sway, blink, floating mail, peeking letter, sparks). */
+.wk-blob { animation: wk-sway 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+.wk-eye { animation: wk-blink 4.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.wk-mail { animation: wk-float 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.wk-letter { animation: wk-peek 2.8s ease-in-out infinite; }
+.wk-spark { animation: wk-spark 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.wk-spark--2 { animation-delay: .8s; }
+.wk-spark--3 { animation-delay: 1.5s; }
+@keyframes wk-sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg) translateY(-2px); } }
+@keyframes wk-blink { 0%, 91%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.12); } }
+@keyframes wk-float { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-6px) rotate(3deg); } }
+@keyframes wk-peek { 0%, 100% { transform: translateY(14px); } 50% { transform: translateY(0); } }
+@keyframes wk-spark { 0%, 100% { opacity: 0; transform: scale(.5); } 50% { opacity: 1; transform: scale(1.1); } }
+@media (prefers-reduced-motion: reduce) { .wk-blob, .wk-eye, .wk-mail, .wk-letter, .wk-spark { animation: none !important; } }
