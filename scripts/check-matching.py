@@ -26,6 +26,8 @@ def fail(msg):
 
 cfg = (ROOT / 'matching-config.js').read_text(encoding='utf-8')
 # The site has no backend: the only route that may be open is the mail-app one, which stores nothing here.
+if not re.search(r"appointmentUrl:\s*'https://calendar\.google\.com/calendar/appointments/schedules/[A-Za-z0-9_-]+\?gv=true'", cfg) and not re.search(r"appointmentUrl:\s*''", cfg):
+    fail('matching-config.js: appointmentUrl must be empty or a Google Calendar appointment schedule embed URL')
 if not re.search(r"requestEndpoint:\s*''", cfg):
     fail('matching-config.js: requestEndpoint must stay empty until an approved endpoint exists')
 if not re.search(r'\bcollectionNoticeApproved:\s*false\b', cfg):

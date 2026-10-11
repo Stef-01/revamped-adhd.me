@@ -19,7 +19,7 @@ window.ADHDME_MATCHING = {
   // both calendars. The team then meets them and matches by hand. Google's own embed URL, which ends in
   // ?gv=true, for example 'https://calendar.google.com/calendar/appointments/schedules/AcZss…?gv=true'.
   // Empty: the page falls back to the email form below. MATCHING-PILOT.md has the setup steps.
-  appointmentUrl: '',
+  appointmentUrl: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2WQj9FkyjvpimIfauW4xeWRDoyrCdFasOpYUJ6LfwG1sJwHgSAAoMfu4SxYuqEJqLihr_ppl1l?gv=true',
 
   // Where the request goes when there is no appointment schedule. With contactEmail set and requestEndpoint empty, the form opens the person's
   // own mail app with a short message addressed to the team (the same route as the site's Contact link),

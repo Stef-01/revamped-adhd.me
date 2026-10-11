@@ -17,13 +17,13 @@ function committedConfig() {
   const w = {}; new Function('window', src)(w); return w.ADHDME_MATCHING;
 }
 
-test('the committed configuration opens only the mail-app route, which stores nothing', () => {
+test('the committed configuration never opens the site-held route: only Google booking or the mail app', () => {
   const cfg = committedConfig();
   const d = m.decide(cfg);
   assert.equal(cfg.requestEndpoint, '');
   assert.equal(cfg.collectionNoticeApproved, false);
-  assert.equal(d.route === 'mailto' || d.enabled === false, true);
-  if (d.enabled) assert.equal(d.route, 'mailto');
+  if (d.enabled) assert.ok(d.route === 'appointment' || d.route === 'mailto');
+  if (cfg.appointmentUrl) assert.match(cfg.appointmentUrl, /^https:\/\/calendar\.google\.com\/calendar\/appointments\/schedules\/[A-Za-z0-9_-]+\?gv=true$/);
 });
 
 test('decide: the appointment schedule is preferred when set, and needs no site-side approvals', () => {
