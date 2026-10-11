@@ -198,14 +198,13 @@
     if (submitBtn) { submitBtn.disabled = true; submitBtn.setAttribute('aria-disabled', 'true'); }
   }
 
-  // The appointment route: Google's own booking page, embedded, with a plain link for anyone whose browser
-  // blocks the frame. The booking (and the Meet invite) is Google's to confirm; the page claims nothing.
+  // The appointment route: a link out to Google's own booking page (its standalone view, not the embed), which
+  // issues the Meet invite. Nothing is hosted or stored here; the page claims nothing about the booking.
   var booking = $('[data-matching-booking]');
   if (state.route === 'appointment' && state.open && booking) {
-    var frame = booking.querySelector('iframe'), link = booking.querySelector('a[data-matching-booking-link]');
-    if (frame) frame.src = cfg.appointmentUrl;
+    var link = booking.querySelector('a[data-matching-booking-link]');
     if (link) {
-      link.href = cfg.appointmentUrl;
+      link.href = String(cfg.appointmentUrl).replace(/[?&]gv=true$/, '');
       link.addEventListener('click', function () { track('matching-form-started', { placement: placementFromReferrer(), copy_version: copyVersion }); });
     }
     booking.hidden = false;
