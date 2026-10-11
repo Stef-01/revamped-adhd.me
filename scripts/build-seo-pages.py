@@ -585,7 +585,7 @@ def related_section(p):
 def banner(cta=PROFILE):
     return f'''<section class="max-w-[1200px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-12">
 <div class="p-8 md:p-12 rounded-3xl bg-[#f1bc31] border border-black/10 flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
-<div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to find your clinician?</h2>
+<div class="max-w-xl"><h2 class="text-[32px] sm:text-[40px] font-extrabold text-on-surface tracking-tight leading-tight">Ready to start your journey?</h2>
 <p class="mt-3 text-[17px] leading-[1.5] font-semibold text-black/80">{esc(profiles.network_line())}</p>
 <p class="mt-2 text-[17px] leading-[1.5] text-black/75">{esc(profiles.INDEPENDENT)}</p></div>
 <div class="flex flex-col items-center lg:items-end gap-2.5 shrink-0"><a class="{CTA_DARK}" href="{cta}">Find your clinician {ARROW}</a>

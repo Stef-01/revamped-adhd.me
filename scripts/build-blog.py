@@ -450,7 +450,7 @@ def post_page(p, head, footer, others):
 <div class="space-y-6">{paras}</div>
 <div class="mt-10 p-6 rounded-2xl bg-[#faf9f6] border border-[#eeebe5]"><h2 class="text-[15px] font-bold text-[#5f5e59] mb-3">Sources and further reading</h2><ul class="space-y-2 text-sm">{src}</ul></div>
 <div class="mt-10 bg-[#f1bc31] rounded-3xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-black/10">
-<div class="text-center sm:text-left"><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to find your clinician?</h2><p class="text-[15px] text-black/75 font-medium mt-1">No account needed.</p></div>
+<div class="text-center sm:text-left"><h2 class="text-2xl font-extrabold tracking-tight text-black">Ready to start your journey?</h2><p class="text-[15px] text-black/75 font-medium mt-1">No account needed.</p></div>
 <a class="btn-press shrink-0 h-12 px-7 rounded-full bg-[#1a1c1c] text-white font-bold text-[15px] flex items-center gap-2 hover:bg-[#2f3130] shadow-[0_4px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 transition-all" href="the-doctors.html">Find your clinician <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </article>
 <section class="max-w-[1200px] mx-auto px-5 md:px-8 lg:px-12 pb-16 lg:pb-20"><h2 class="text-[15px] font-bold text-[#785a00] mb-5">More from the blog</h2><div class="grid grid-cols-1 md:grid-cols-2 gap-6">{more}</div></section>
