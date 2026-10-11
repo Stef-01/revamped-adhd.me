@@ -26,6 +26,12 @@ test('the committed configuration opens only the mail-app route, which stores no
   if (d.enabled) assert.equal(d.route, 'mailto');
 });
 
+test('decide: the appointment schedule is preferred when set, and needs no site-side approvals', () => {
+  assert.deepEqual(m.decide({ ...MAILTO, appointmentUrl: 'https://calendar.google.com/calendar/appointments/schedules/x?gv=true' }),
+                   { enabled: true, open: true, route: 'appointment', reason: '' });
+  assert.equal(m.decide({ ...ENDPOINT, appointmentUrl: 'https://calendar.google.com/x?gv=true' }).route, 'appointment');
+});
+
 test('decide: off, no route, paused, and the endpoint route’s approvals', () => {
   assert.deepEqual(m.decide({}), { enabled: false, open: false, route: '', reason: 'disabled' });
   assert.equal(m.decide({ pilotEnabled: true, intakeOpen: true }).reason, 'no-route');
@@ -52,7 +58,7 @@ test('validate: a bad email is named and nothing else is', () => {
 test('mailto: addressed to the team with a fixed message, carrying nothing the person typed', () => {
   const href = m.mailtoHref(MAILTO);
   assert.ok(href.startsWith('mailto:info@adhdme.au?subject='));
-  assert.ok(decodeURIComponent(href).includes('five-minute matching survey'));
+  assert.ok(decodeURIComponent(href).includes('help finding the right clinician'));
   assert.ok(!href.includes('testy'));
 });
 

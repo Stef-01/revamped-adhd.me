@@ -109,6 +109,27 @@ access, notification emails, logs. See section 8.
 
 ## 6. Founder setup, in order
 
+### The Google Meet route (the one asked for)
+
+The site cannot create calendar events itself (no backend, no Google credentials), so the booking is done by
+**Google Calendar's own appointment schedule** on the info@adhdme.au account. The person picks a time and
+types their email on Google's page; Google puts a Meet invite in both calendars. The site only embeds the page.
+
+1. Sign in to Google Calendar as info@adhdme.au. Click **Create → Appointment schedule**.
+2. Name it (e.g. "ADHDme matching call"), set the duration (15 minutes), your availability, and a buffer.
+3. Under **Booking page options**, require the booker's email; turn on **Add Google Meet video conferencing**
+   (it is on by default); set the booking form to ask for name and email only.
+4. Save, then **Share → Embed** (or **Share → Open booking page**) and copy the URL. It looks like
+   `https://calendar.google.com/calendar/appointments/schedules/AcZss…?gv=true`.
+5. Paste it into `matching-config.js` as `appointmentUrl`. Deploy. The page switches to the booking view;
+   the email form stays as the fallback if the URL is ever emptied.
+6. Each booking is a calendar event with the person's email. That event is the queue (section 7's fields
+   can live in the event's description) and the evidence source for "booking confirmed".
+
+If info@adhdme.au is a personal Gmail rather than Google Workspace, appointment schedules are still
+available with Google's free-tier limits (one schedule); check before relying on it.
+
+
 1. Decide where requests live. Options that fit this repository, cheapest first:
    - **Vercel serverless function + a managed Postgres with row-level security (e.g. Supabase) and
      Supabase Auth for the two founders.** The function validates, rate-limits by IP, inserts, emails

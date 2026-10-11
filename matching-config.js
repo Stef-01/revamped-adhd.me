@@ -14,7 +14,14 @@ window.ADHDME_MATCHING = {
   // browsing stays available. It is not a waitlist: nothing is stored while it is off.
   intakeOpen: true,
 
-  // Where the request goes. With contactEmail set and requestEndpoint empty, the form opens the person's
+  // The Google Calendar appointment schedule on the info@adhdme.au account. When set, the page shows that
+  // booking page: the person picks a time and types their email there, and Google puts a Meet invite in
+  // both calendars. The team then meets them and matches by hand. Google's own embed URL, which ends in
+  // ?gv=true, for example 'https://calendar.google.com/calendar/appointments/schedules/AcZss…?gv=true'.
+  // Empty: the page falls back to the email form below. MATCHING-PILOT.md has the setup steps.
+  appointmentUrl: '',
+
+  // Where the request goes when there is no appointment schedule. With contactEmail set and requestEndpoint empty, the form opens the person's
   // own mail app with a short message addressed to the team (the same route as the site's Contact link),
   // so nothing is stored by the site at all. A requestEndpoint, once one exists, is POSTed to instead
   // and must validate, rate-limit and store where only staff can read; until then leave it empty.

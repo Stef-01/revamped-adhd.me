@@ -27,12 +27,13 @@
   var TIMEOUT_MS = 15000;
 
   // ------------------------------------------------------------ pure: what the configuration allows
-  // {enabled, open, route, reason}: route is 'endpoint' (POST to the site's own endpoint), 'mailto' (open the
+  // {enabled, open, route, reason}: route is 'appointment' (Google Calendar booking page on the team's
+  // account, which issues the Meet invite), 'endpoint' (POST to the site's own endpoint), 'mailto' (open the
   // person's mail app addressed to the team) or ''. reason names the first thing keeping intake closed.
   function decide(cfg) {
     cfg = cfg || {};
     if (cfg.pilotEnabled !== true) return { enabled: false, open: false, route: '', reason: 'disabled' };
-    var route = cfg.requestEndpoint ? 'endpoint' : (cfg.contactEmail ? 'mailto' : '');
+    var route = cfg.appointmentUrl ? 'appointment' : cfg.requestEndpoint ? 'endpoint' : (cfg.contactEmail ? 'mailto' : '');
     if (!route) return { enabled: true, open: false, route: '', reason: 'no-route' };
     if (cfg.intakeOpen !== true) return { enabled: true, open: false, route: route, reason: 'paused' };
     if (route === 'endpoint') {
@@ -48,7 +49,7 @@
     a = a || {};
     var errors = {};
     if (!EMAIL.test(String(a.email || '').trim())) errors.email = 'Enter an email address we can reply to.';
-    if (a.consent !== true) errors.consent = 'Tick the box so we can send you the survey.';
+    if (a.consent !== true) errors.consent = 'Tick the box so we can get in contact.';
     return { ok: !Object.keys(errors).length, errors: errors };
   }
 
@@ -62,7 +63,7 @@
   // anywhere by the site. Encoded for a mailto: URL.
   function mailtoHref(cfg) {
     var subject = 'Matching help request';
-    var body = 'Hi ADHDme team,\n\nPlease send me the five-minute matching survey.\n\n(Sent from the matching help page.)';
+    var body = 'Hi ADHDme team,\n\nI’d like help finding the right clinician. Please get in contact.\n\n(Sent from the matching help page.)';
     return 'mailto:' + cfg.contactEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
 
@@ -110,7 +111,8 @@
   if (preview) {
     cfg = Object.assign({}, cfg, {
       pilotEnabled: true, intakeOpen: preview !== 'paused',
-      requestEndpoint: preview === 'mailto' ? '' : '/__matching-preview',
+      requestEndpoint: preview === 'mailto' || preview === 'appointment' ? '' : '/__matching-preview',
+      appointmentUrl: preview === 'appointment' ? 'about:blank' : '',
       collectionNoticeApproved: true, approvedCollectionNoticeVersion: 'preview',
       retentionPolicyText: cfg.retentionPolicyText || 'Preview only: nothing is stored.'
     });
@@ -169,6 +171,10 @@
   var body = $('[data-matching-body]');
   var emailField = form.querySelector('input[name="email"]');
   var consentBox = form.querySelector('input[name="consent"]');
+  function placementFromReferrer() {
+    var m = /[?&]from=(homepage|directory|no_results)\b/.exec(location.search);
+    return m ? m[1] : 'directory';
+  }
 
   var rt = $('[data-matching-response-time]');
   if (rt) { if (cfg.approvedResponseTimeText) rt.textContent = cfg.approvedResponseTimeText; else rt.hidden = true; }
@@ -192,11 +198,21 @@
     if (submitBtn) { submitBtn.disabled = true; submitBtn.setAttribute('aria-disabled', 'true'); }
   }
 
-  var started = false;
-  function placementFromReferrer() {
-    var m = /[?&]from=(homepage|directory|no_results)\b/.exec(location.search);
-    return m ? m[1] : 'directory';
+  // The appointment route: Google's own booking page, embedded, with a plain link for anyone whose browser
+  // blocks the frame. The booking (and the Meet invite) is Google's to confirm; the page claims nothing.
+  var booking = $('[data-matching-booking]');
+  if (state.route === 'appointment' && state.open && booking) {
+    var frame = booking.querySelector('iframe'), link = booking.querySelector('a[data-matching-booking-link]');
+    if (frame) frame.src = cfg.appointmentUrl;
+    if (link) {
+      link.href = cfg.appointmentUrl;
+      link.addEventListener('click', function () { track('matching-form-started', { placement: placementFromReferrer(), copy_version: copyVersion }); });
+    }
+    booking.hidden = false;
+    form.hidden = true;
   }
+
+  var started = false;
   function onFirstInteraction() {
     if (started) return;
     started = true;
