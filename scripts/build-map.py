@@ -13,6 +13,7 @@ TASMANIA = [(144.7,-40.7),(145.8,-40.9),(146.5,-41.1),(147.5,-40.9),(148.3,-40.9
 # planned. A live dot is filled and a planned one is hollow. The caption under the map names the same places,
 # because phones hide the labels.
 CITIES = [  # name, lon, lat, label position, live
+    ('Darwin',          130.85, -12.46, 'right',      False),
     ('Cairns',          145.77, -16.92, 'right',      False),
     ('Townsville',      146.82, -19.26, 'right',      False),
     ('Brisbane',        153.03, -27.47, 'right-up',   True),
@@ -22,6 +23,7 @@ CITIES = [  # name, lon, lat, label position, live
     ('Adelaide',        138.60, -34.93, 'left-down',  False),
     ('Melbourne',       144.96, -37.81, 'left-down',  True),
     ('Perth',           115.86, -31.95, 'right',      True),
+    ('Tasmania',        147.33, -42.88, 'right',      False),
 ]
 
 SX, SY = 10.0, 11.2          # x scale, y scale (compensates for latitude)

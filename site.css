@@ -49,11 +49,11 @@ a.btn-press:active, button.btn-press:active { transform: scale(.97); }
 
 /* Australia map on Our Story */
 .au-map { width: 100%; height: 100%; overflow: visible; }
-.au-label { font-size: 15px; font-weight: 600; fill: #1a1c1c; paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; }
+.au-label { font-size: 15px; font-weight: 600; fill: #1a1c1c; paint-order: stroke; stroke: #ffffff; stroke-width: 3px; stroke-linejoin: round; opacity: 0; transition: opacity .2s ease; pointer-events: none; }
+.au-marker:hover .au-label, .au-marker.is-hot .au-label { opacity: 1; }
 .au-pulse { fill: #f1bc31; opacity: .55; transform-origin: center; transform-box: fill-box; animation: au-pulse 2.4s ease-out infinite; }
 .au-marker:nth-child(odd) .au-pulse { animation-delay: .8s; }
 @keyframes au-pulse { 0% { transform: scale(.4); opacity: .6; } 100% { transform: scale(1.6); opacity: 0; } }
-@media (max-width: 640px) { .au-label { display: none; } }
 
 /* ---- Micro-refinements (research pass, 2026-09-16) ---- */
 /* Touch: no 300ms delay or double-tap zoom on controls; our own active state instead of the grey tap flash */
