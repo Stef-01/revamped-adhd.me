@@ -56,6 +56,11 @@
 <h1 class="text-[36px] sm:text-[44px] lg:text-[52px] font-extrabold tracking-tight text-[#1a1c1c] leading-[1.05]">ADHD clinicians in our network.</h1>
 <ul class="dir-trust" aria-label="How booking works"><li>Book directly with each practice.</li><li>No referral needed.</li><li>We take no commission.</li></ul>
 </div>
+<div class="mt-5 rounded-2xl border border-[#e8e6df] bg-white px-5 py-4 sm:flex sm:items-center sm:justify-between sm:gap-6" data-matching-cta="directory" hidden>
+<div><p class="text-[17px] font-extrabold text-[#1a1c1c]">Not sure which clinician is right for you?</p><p class="mt-1 text-[15px] leading-[1.5] text-[#5f5e59]">Tell us what you’re looking for, and our team will help you explore options within the ADHDme network. An early pilot, reviewed by our team, not an automated matching service. Each practice confirms its own fees, availability and eligibility.</p></div>
+<p class="mt-3 sm:mt-0 shrink-0"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" href="matching-help.html?from=directory">Request matching help <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p>
+</div>
+
 <nav class="dir-cats" aria-label="Clinician categories" hidden>
 <div role="tablist" aria-label="Clinician categories" class="dir-tabs">
 <button id="tab-btn-gps" class="dir-tab" data-intro="Answers at last. Get assessed and diagnosed, and start medication if it’s right for you. Already diagnosed? A GP can keep it going." style="--tint:#f1bc31" role="tab" aria-selected="true" aria-controls="panel-gps" onclick="switchCategory('gps')" type="button">GPs</button><button id="tab-btn-psychologists" class="dir-tab" data-intro="Feel like yourself again. Support for anxiety, low mood and the years of “try harder”, for children, teens and adults. Some assess and diagnose; others focus on therapy or parenting." style="--tint:#8fc3ec" role="tab" aria-selected="false" aria-controls="panel-psychologists" onclick="switchCategory('psychologists')" type="button">Psychologists</button><button id="tab-btn-psychiatrists" class="dir-tab" data-intro="Specialist doctors for complex or overlapping conditions, medication questions a GP wants a second view on, and a thorough psychiatric assessment." style="--tint:#9dd6cf" role="tab" aria-selected="false" aria-controls="panel-psychiatrists" onclick="switchCategory('psychiatrists')" type="button">Psychiatrists</button><button id="tab-btn-allied-health" class="dir-tab" data-intro="More ways forward beyond medication: counselling for teens, adults and couples, nutrition, brain training, and practising new skills between sessions until they stick." style="--tint:#e3bf8a" role="tab" aria-selected="false" aria-controls="panel-allied-health" onclick="switchCategory('allied-health')" type="button">Allied health</button><button id="tab-btn-coaches" class="dir-tab" data-intro="Get organised and stay on track. Coaches who understand ADHD, most of them former teachers, help students, families and adults build routines that last." style="--tint:#f7a58c" role="tab" aria-selected="false" aria-controls="panel-coaches" onclick="switchCategory('coaches')" type="button">Coaches</button><button id="tab-btn-occupational-therapy" class="dir-tab" data-intro="Calmer mornings, easier school days. For children and teens: routines and strategies that fit how your child works, built at home, at school or in the clinic." style="--tint:#9fd08f" role="tab" aria-selected="false" aria-controls="panel-occupational-therapy" onclick="switchCategory('occupational-therapy')" type="button">Occupational therapy</button><button id="tab-btn-physiotherapy" class="dir-tab" data-intro="Get moving again. Recover from pain or injury and get back to the things you love, at a pace you can keep up." style="--tint:#b7b0f0" role="tab" aria-selected="false" aria-controls="panel-physiotherapy" onclick="switchCategory('physiotherapy')" type="button">Physiotherapy</button><button id="tab-btn-exercise-physiology" class="dir-tab" data-intro="Exercise that works with your brain. Pilates, warm water and movement that helps focus, sleep and mood, built around what you’ll enjoy." style="--tint:#f2a7c8" role="tab" aria-selected="false" aria-controls="panel-exercise-physiology" onclick="switchCategory('exercise-physiology')" type="button">Exercise physiology</button>
@@ -681,7 +686,7 @@
   <div class="mt-auto pt-4"><a class="btn-press inline-flex items-center gap-2 h-11 px-6 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" aria-label="Book with Sarah Savage" href="sarah-savage.html">Book <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></div>
 </li>
 </ul></div>
-<p id="dir-empty" class="dir-empty" hidden>No clinicians match these filters.</p>
+<p id="dir-empty" class="dir-empty" hidden>No clinicians match these filters. <a class="font-semibold text-[#1a1c1c] underline decoration-[#f1bc31] decoration-2 underline-offset-4" href="matching-help.html?from=no_results" data-matching-cta="no_results" hidden>Can’t find an option that fits? Request matching help.</a></p>
 </div>
 <dialog id="dir-sheet" class="dir-sheet" aria-labelledby="dir-sheet-title">
 <form method="dialog" class="dir-sheet__form">
@@ -775,6 +780,8 @@
 </footer>
 <script src="analytics-config.js" defer></script>
 <script src="assets/js/site.min.js" defer></script>
+<script src="matching-config.js" defer></script>
+<script src="matching.js" defer></script>
 
 <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script>
 </body></html>

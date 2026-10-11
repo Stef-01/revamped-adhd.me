@@ -467,7 +467,7 @@
     'blog-diagnosed-what-now.html': 'blog', 'blog-adhd-support-beyond-medication.html': 'blog',
     'blog-adhd-and-exercise.html': 'blog', 'blog-adhd-workplace-support.html': 'blog',
     'blog-adhd-nutrition.html': 'blog', 'blog-adhd-executive-functioning.html': 'blog',
-    'care-navigator.html': 'navigator', 'school-support.html': 'school-support',
+    'care-navigator.html': 'navigator', 'school-support.html': 'school-support', 'matching-help.html': 'matching',
     // BEGIN:GENERATED service-pages
     'adhd-services.html': 'service', 'adhd-doctor-gold-coast.html': 'service',
     'adhd-gp-brisbane.html': 'service', 'adhd-assessment-queensland.html': 'service',
@@ -508,7 +508,20 @@
     content_post: { kind: 'token' }
   };
 
+  // The matching pilot (matching.js). Only what the browser can genuinely observe: a call-to-action seen or
+  // pressed, a form begun, a request the server accepted. Shortlists, outbound contact and bookings happen
+  // in a founder's hands and are recorded there, never inferred here. The two properties name a placement
+  // and a copy label; a form answer or a contact detail has no property to travel in and is refused.
+  var MATCHING = {
+    placement: { kind: 'vocabulary', values: ['homepage', 'directory', 'no_results'] },
+    copy_version: { kind: 'token' }
+  };
+
   var EVENTS = {
+    'matching-cta-viewed': MATCHING,
+    'matching-cta-clicked': MATCHING,
+    'matching-form-started': MATCHING,
+    'matching-request-submitted': MATCHING,
     'page-viewed': spec({ page: { kind: 'vocabulary', values: PAGE_NAMES } }, CAME),
     'landing-viewed': {},
     'landing-cta': {
@@ -831,10 +844,12 @@
         // Every visitor becomes a person row, which is what makes the Persons list and the
         // dashboard's people tiles show anybody at all.
         person_profiles: config.posthogPersonProfiles || 'always',
-        autocapture: config.posthogAutocapture !== false,
+        // A page marked data-private-page (the matching request form) is never autocaptured or replayed,
+        // whatever the site-wide settings say: its declared events are the only thing it reports.
+        autocapture: !privatePage && config.posthogAutocapture !== false,
         capture_pageview: true,
         capture_pageleave: true,
-        disable_session_recording: config.posthogSessionRecording !== true,
+        disable_session_recording: privatePage || config.posthogSessionRecording !== true,
         // Replay, when it is on, is deliberately blunt about what it keeps. Every input is masked
         // before it is recorded, so the one field on this site anybody can type into — the
         // newsletter email — is never in a recording, and neither is anything a future form grows.
@@ -897,6 +912,8 @@
     pending = [];
     held.forEach(function (row) { send(row.name, row.properties); });
   }
+
+  var privatePage = document.documentElement.hasAttribute('data-private-page');
 
   function send(name, props) {
     posthogCall('capture', [name, props]);

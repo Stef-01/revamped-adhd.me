@@ -15,7 +15,8 @@
     "seo:lighthouse": "node scripts/seo-lighthouse.mjs",
     "seo:check": "python3 scripts/check-seo.py && npm run seo:html && npm run seo:links",
     "check:overwhelm": "node scripts/overwhelm-check.cjs",
-    "check:posthog": "python3 scripts/check-posthog-tiles.py"
+    "check:posthog": "python3 scripts/check-posthog-tiles.py",
+    "test:matching": "node --test tests/matching.test.js && python3 scripts/check-matching.py"
   },
   "engines": {
     "node": ">=18"
