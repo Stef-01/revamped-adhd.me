@@ -4,7 +4,7 @@
     python3 scripts/check-matching.py        # exit 1 on any failure
 
 What it holds the pilot to:
-  - the committed flags are off, and there is no endpoint to send to;
+  - there is no endpoint to send to, and the collection notice is still a draft;
   - every form control on matching-help.html has a visible label or legend, errors are tied to their fields,
     and the consent box starts unticked;
   - matching.js keeps answers out of browser storage, URLs and analytics (the only storage key is the
@@ -25,11 +25,11 @@ def fail(msg):
     fails.append(msg)
 
 cfg = (ROOT / 'matching-config.js').read_text(encoding='utf-8')
-for flag in ('pilotEnabled', 'intakeOpen', 'collectionNoticeApproved'):
-    if not re.search(rf'\b{flag}:\s*false\b', cfg):
-        fail(f'matching-config.js: {flag} must be committed as false')
+# The site has no backend: the only route that may be open is the mail-app one, which stores nothing here.
 if not re.search(r"requestEndpoint:\s*''", cfg):
-    fail('matching-config.js: requestEndpoint must be committed empty')
+    fail('matching-config.js: requestEndpoint must stay empty until an approved endpoint exists')
+if not re.search(r'\bcollectionNoticeApproved:\s*false\b', cfg):
+    fail('matching-config.js: collectionNoticeApproved must stay false until a founder approves the notice')
 
 js = (ROOT / 'matching.js').read_text(encoding='utf-8')
 storage = re.findall(r'(localStorage|sessionStorage)\.(setItem|getItem)\(([^)]*)\)', js)
@@ -44,7 +44,8 @@ for name, props in re.findall(r"track\('([a-z-]+)',\s*\{([^}]*)\}", js):
         fail(f'matching.js: {name} sends properties beyond placement and copy_version: {sorted(keys)}')
 if re.search(r'console\.(log|info|warn|error)', js):
     fail('matching.js: must not log (answers could end up in a recording or a report)')
-if re.search(r'location\.(search|hash|href)\s*=|history\.(push|replace)State', js):
+# The one allowed navigation is the fixed mailto: message; nothing typed may be written into a URL.
+if re.search(r'location\.(search|hash)\s*=|history\.(push|replace)State', js) or re.search(r'location\.href\s*=(?!\s*mailtoHref\(cfg\))', js):
     fail('matching.js: must not write answers into the URL')
 
 page = (ROOT / 'matching-help.html').read_text(encoding='utf-8')
@@ -56,12 +57,10 @@ if re.search(r'<input[^>]*name="consent"[^>]*\bchecked\b', page):
     fail('matching-help.html: the consent box must start unticked')
 if 'matching-config.js' not in page or 'matching.js' not in page:
     fail('matching-help.html: must load matching-config.js and matching.js')
-for name in ('locality', 'first_name', 'email', 'state', 'budget'):
-    if not re.search(rf'<label[^>]*for="{name}"', page):
-        fail(f'matching-help.html: no visible <label for="{name}">')
-for name in ('scope', 'service', 'mode', 'priorities'):
-    if not re.search(rf'<fieldset[^>]*data-field="{name}"[^>]*>\s*<legend', page):
-        fail(f'matching-help.html: the {name} group needs a <fieldset> with a <legend>')
+if not re.search(r'<label[^>]*for="email"', page):
+    fail('matching-help.html: no visible <label for="email">')
+if len(re.findall(r'<input[^>]*name="', page)) != 2:
+    fail('matching-help.html: the form should hold exactly two controls, the email and the consent box')
 for m in re.finditer(r'<(input|select)[^>]*name="([a-z_]+)"[^>]*>', page):
     tag = m.group(0)
     if 'aria-describedby="' not in tag:

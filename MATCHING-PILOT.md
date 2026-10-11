@@ -1,11 +1,13 @@
 # Matching pilot: implementation note
 
-A manual patient–clinician matching pilot inside the existing site. Visitors ask for help; a founder reviews
-and replies by hand. Nothing here is an algorithm, an assessment or a waitlist.
+A manual patient–clinician matching pilot inside the existing site. A visitor leaves an email address; the
+team sends them a five-minute survey; a founder matches them to clinicians by hand. Nothing here is an
+algorithm, an assessment or a waitlist.
 
-**State on this branch: built, tested in the browser and in `node --test`, and switched off.** Live intake
-cannot be turned on until the blockers in section 8 are resolved, because this repository has nowhere
-approved to put a request.
+**State on this branch: built, tested in the browser and in `node --test`, and switched on through the
+mail-app route only.** That route opens the person's own mail app with a fixed message to info@adhdme.au
+(the same address as the site's Contact link), so the site stores nothing. A site-held endpoint route is
+built but closed until the blockers in section 7 are resolved.
 
 ## 1. Repository findings
 
@@ -33,8 +35,8 @@ approved to put a request.
 | File | Change |
 |---|---|
 | `matching-config.js` | New. The flags and approved-text slots, **all off/empty**. Unminified so they can be set live without a rebuild, like `analytics-config.js`. |
-| `matching.js` | New. Reveals the calls-to-action when the pilot is on; runs the form (scope gate, validation, loading, duplicate prevention, failure/retry, success on server acceptance). Pure logic exported for tests. |
-| `matching-help.html` | New. The request page, built from the `how-it-works.html` shell so header and footer stay identical to the rest of the site. `noindex`, and marked `data-private-page`. |
+| `matching.js` | New. Reveals the calls-to-action when the pilot is on; runs the one-field form (validation, the mail-app route, and for a future endpoint: loading, duplicate prevention, failure/retry, success only on server acceptance). Pure logic exported for tests. |
+| `matching-help.html` | New. The request page (one email field and a consent box), built from the `how-it-works.html` shell so header and footer stay identical to the rest of the site. `noindex` for now, and marked `data-private-page`. |
 | `index.html` | A matching card after the "No wrong door" list, hidden until the flag is on. Loads the two scripts. |
 | `the-doctors.html` | A compact card above the listings and a link in the no-results state, both hidden until the flag is on. Loads the two scripts. |
 | `analytics.js` | Declares the four pilot events with their two allowed properties; names the page; switches autocapture and replay off on any page marked `data-private-page`. |
@@ -44,25 +46,21 @@ Routes added: `/matching-help.html`. Nothing else moved; the directory, profiles
 
 ## 3. Data flow
 
+Two routes, chosen by `matching-config.js`:
+
 ```
-visitor ──(form, HTTPS POST, JSON)──▶  cfg.requestEndpoint   ◀── EMPTY: nothing is sent today
-                                        │  must: validate, rate-limit, store where only staff can read,
-                                        │  email founders only "New matching request received. Sign in to review."
-                                        ▼
-                                   founder reviews by hand, replies through an approved channel
+mail-app route (on now)   visitor's own mail app ──▶ info@adhdme.au ──▶ founder replies with the survey, matches by hand
+                          the site stores nothing; the only thing it writes is a fixed subject and body
+
+endpoint route (closed)   visitor ──(HTTPS POST {email})──▶ cfg.requestEndpoint (none exists) ──▶ staff-only store
 ```
 
-Third-party services touched by this feature: **none** (no form platform, no new SDK). PostHog receives
-only the four events below. In local preview mode (`?matchingPreview=1` on localhost only) the endpoint is
-a mock inside the browser; nothing leaves the machine.
+Third-party services touched: **none**. PostHog receives only the four events below. The survey itself is
+sent by the team by email; whichever tool is used for it is a separate decision and is not in this repository.
 
-The request body, when an endpoint exists: `service`, `state`, `locality`, `mode`, `budget`, up to two
-`priorities`, `first_name`, `email`, `consent: true`, `collection_notice_version`, `copy_version`. No
-free-text box exists; suburb and first name are capped at 40 plain characters, so a medical history has
-nowhere to go.
-
-Answers never touch `localStorage`, `sessionStorage`, the URL, the console or analytics. The only storage
-key is `adhdme-matching-seen:<placement>` (a `1`, so a call-to-action is counted once per session).
+The only storage key the page uses is `adhdme-matching-seen:<placement>` (a `1`, so a call-to-action is
+counted once per session). The email address never touches `localStorage`, `sessionStorage`, the URL, the
+console or analytics.
 
 ## 4. Analytics
 
@@ -90,21 +88,21 @@ every other page is unchanged.
 
 `npm run test:matching` runs:
 
-- `node --test tests/matching.test.js` (14 tests): committed flags are off; each missing approval keeps
-  intake closed; a full in-scope request validates; out-of-scope is explained, not errored; every required
-  field is named; missing consent alone blocks; priorities capped at two; no invented budget bands; free
-  text cannot carry a history; payload has only the collected fields; success only on server acceptance;
-  server error and network failure both yield retry; a second press mid-flight does not send; a hung
-  request times out into retry.
-- `scripts/check-matching.py`: flags off and endpoint empty; every control labelled and tied to its error;
-  consent starts unticked; no storage, URL or console use for answers; events carry only the two
-  properties; the page is private and noindex; the three calls-to-action exist, hidden, with the approved
-  copy; no disallowed wording.
+- `node --test tests/matching.test.js` (11 tests): the committed configuration opens only the mail-app
+  route; off, no-route, paused and the endpoint route's approvals; a valid email and ticked box pass;
+  missing consent alone blocks; a bad email is named; the mailto message carries nothing typed; the
+  endpoint payload holds only the email, consent and labels; success only on server acceptance; server
+  error and network failure both yield retry; a second press mid-flight does not send; a hung request
+  times out into retry.
+- `scripts/check-matching.py`: endpoint empty and notice unapproved; the email labelled and tied to its
+  error; exactly two controls; consent starts unticked; no storage, URL or console use for answers (the
+  fixed mailto navigation is the one allowed URL); events carry only the two properties; the page is
+  private and noindex; the three calls-to-action exist with the approved copy; no disallowed wording.
 
-Checked by hand in the browser (393px and 1280px): disabled state, paused state, out-of-scope message,
-validation summary with focus and per-field errors, loading label, duplicate press ignored, success screen
-with focus on its heading and the form cleared, failure state with answers kept and the button re-enabled,
-all three calls-to-action and their `viewed` events, no horizontal overflow.
+Checked by hand in the browser (393px and 1280px): disabled and paused states, validation summary with
+per-field errors, the mail-app route reaching the success screen with the form cleared, and (with the
+preview endpoint) loading label, duplicate press ignored, failure with the address kept and the button
+re-enabled; all three calls-to-action and their `viewed` events; no horizontal overflow.
 
 **Not tested, because it does not exist:** server-side validation, rate limiting, unauthorised staff
 access, notification emails, logs. See section 8.
@@ -136,6 +134,8 @@ source · closed. Identifiable details stay in the restricted record; exports an
 
 ## 7. Launch blockers (explicit)
 
+For the mail-app route that is on now: none beyond agreeing who reads info@adhdme.au and sends the survey. For the endpoint route:
+
 1. **No backend or storage.** Nothing can receive a request. Building one is a hosting and data decision, not a code change on this branch.
 2. **No staff authentication.** Without it there is no safe way to read requests. Not improvised here.
 3. **Collection notice is a draft** and `privacy.html` contradicts it.
@@ -151,8 +151,8 @@ source · closed. Identifiable details stay in the restricted record; exports an
   not a waitlist: nothing is stored.
 - **Disable:** `pilotEnabled: false`. Every call-to-action disappears, the page shows the closed message.
 - **Roll back:** revert the branch's commit; no data or schema is involved on the site side.
-- **Local preview:** on localhost only, `?matchingPreview=1` (accepts), `?matchingPreview=fail` (retry
-  state), `?matchingPreview=paused`. Ignored on any other host.
+- **Local preview:** on localhost only, `?matchingPreview=1` (mock endpoint that accepts), `?matchingPreview=fail`
+  (retry state), `?matchingPreview=paused`, `?matchingPreview=mailto`. Ignored on any other host.
 
 This note describes what is built and tested. It is not a claim that the feature is compliant or ready for
 real requests; that depends on the decisions in section 6.

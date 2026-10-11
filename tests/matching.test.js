@@ -1,119 +1,94 @@
-// node --test tests/ — the pure parts of matching.js: what the flags allow, what the form accepts, and that a
-// request goes out once, is confirmed only when the server says so, and keeps its answers out of everything else.
+// node --test tests/matching.test.js — the pure parts of matching.js: what the flags allow, what the one-field
+// form accepts, the mail-app route, and that an endpoint request goes out once and is confirmed only when the
+// server says so.
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const m = require('../matching.js');
 
-const OPEN = { pilotEnabled: true, intakeOpen: true, requestEndpoint: '/api/matching', collectionNoticeApproved: true,
-               approvedCollectionNoticeVersion: 'v1', retentionPolicyText: 'Deleted 90 days after close.', copyVersion: 'pilot-test' };
-const GOOD = { scope: 'self-adult', service: 'psychology', state: 'QLD', locality: '4000', mode: 'either', budget: 'not-sure',
-               priorities: ['availability', 'cost'], firstName: 'Testy', email: 'testy@example.com', consent: true };
+const MAILTO = { pilotEnabled: true, intakeOpen: true, contactEmail: 'info@adhdme.au', requestEndpoint: '', copyVersion: 'pilot-test' };
+const ENDPOINT = { ...MAILTO, requestEndpoint: '/api/matching', collectionNoticeApproved: true, approvedCollectionNoticeVersion: 'v1', retentionPolicyText: 'Deleted 90 days after close.' };
+const GOOD = { email: 'testy@example.com', consent: true };
 
-test('the committed configuration keeps everything off', () => {
-  const fs = require('node:fs');
-  const src = fs.readFileSync(require('node:path').join(__dirname, '..', 'matching-config.js'), 'utf8');
-  const sandbox = { window: {} };
-  new Function('window', src)(sandbox.window);
-  const d = m.decide(sandbox.window.ADHDME_MATCHING);
-  assert.equal(d.enabled, false);
-  assert.equal(d.open, false);
-  assert.equal(sandbox.window.ADHDME_MATCHING.requestEndpoint, '');
+function committedConfig() {
+  const src = fs.readFileSync(path.join(__dirname, '..', 'matching-config.js'), 'utf8');
+  const w = {}; new Function('window', src)(w); return w.ADHDME_MATCHING;
+}
+
+test('the committed configuration opens only the mail-app route, which stores nothing', () => {
+  const cfg = committedConfig();
+  const d = m.decide(cfg);
+  assert.equal(cfg.requestEndpoint, '');
+  assert.equal(cfg.collectionNoticeApproved, false);
+  assert.equal(d.route === 'mailto' || d.enabled === false, true);
+  if (d.enabled) assert.equal(d.route, 'mailto');
 });
 
-test('decide: each missing approval keeps intake closed, with a reason', () => {
-  assert.deepEqual(m.decide({}), { enabled: false, open: false, reason: 'disabled' });
-  assert.equal(m.decide({ ...OPEN, intakeOpen: false }).reason, 'paused');
-  assert.equal(m.decide({ ...OPEN, requestEndpoint: '' }).reason, 'no-endpoint');
-  assert.equal(m.decide({ ...OPEN, collectionNoticeApproved: false }).reason, 'notice-unapproved');
-  assert.equal(m.decide({ ...OPEN, approvedCollectionNoticeVersion: '' }).reason, 'notice-unapproved');
-  assert.equal(m.decide({ ...OPEN, retentionPolicyText: '' }).reason, 'no-retention');
-  assert.deepEqual(m.decide(OPEN), { enabled: true, open: true, reason: '' });
+test('decide: off, no route, paused, and the endpoint route’s approvals', () => {
+  assert.deepEqual(m.decide({}), { enabled: false, open: false, route: '', reason: 'disabled' });
+  assert.equal(m.decide({ pilotEnabled: true, intakeOpen: true }).reason, 'no-route');
+  assert.equal(m.decide({ ...MAILTO, intakeOpen: false }).reason, 'paused');
+  assert.deepEqual(m.decide(MAILTO), { enabled: true, open: true, route: 'mailto', reason: '' });
+  assert.equal(m.decide({ ...ENDPOINT, collectionNoticeApproved: false }).reason, 'notice-unapproved');
+  assert.equal(m.decide({ ...ENDPOINT, retentionPolicyText: '' }).reason, 'no-retention');
+  assert.deepEqual(m.decide(ENDPOINT), { enabled: true, open: true, route: 'endpoint', reason: '' });
 });
 
-test('validate: a complete in-scope request passes', () => {
-  assert.deepEqual(m.validate(GOOD), { ok: true, outOfScope: false, errors: {} });
+test('validate: an email and the ticked box pass', () => {
+  assert.deepEqual(m.validate(GOOD), { ok: true, errors: {} });
 });
 
-test('validate: outside the pilot scope is explained, not treated as an error', () => {
-  const v = m.validate({ ...GOOD, scope: 'other' });
-  assert.equal(v.ok, false);
-  assert.equal(v.outOfScope, true);
-  assert.deepEqual(v.errors, {});
-  assert.equal(m.validate({ ...GOOD, scope: '' }).errors.scope, 'Choose who the care is for.');
+test('validate: missing consent alone blocks', () => {
+  assert.deepEqual(Object.keys(m.validate({ ...GOOD, consent: false }).errors), ['consent']);
 });
 
-test('validate: every required field is named, and the rest of the answers are untouched', () => {
-  const v = m.validate({ scope: 'self-adult', priorities: [], consent: false });
-  assert.deepEqual(Object.keys(v.errors).sort(), ['consent', 'email', 'firstName', 'locality', 'mode', 'service', 'state']);
+test('validate: a bad email is named and nothing else is', () => {
+  assert.deepEqual(Object.keys(m.validate({ email: 'nope', consent: true }).errors), ['email']);
+  assert.deepEqual(Object.keys(m.validate({}).errors).sort(), ['consent', 'email']);
 });
 
-test('validate: missing consent alone blocks the request', () => {
-  const v = m.validate({ ...GOOD, consent: false });
-  assert.deepEqual(Object.keys(v.errors), ['consent']);
+test('mailto: addressed to the team with a fixed message, carrying nothing the person typed', () => {
+  const href = m.mailtoHref(MAILTO);
+  assert.ok(href.startsWith('mailto:info@adhdme.au?subject='));
+  assert.ok(decodeURIComponent(href).includes('five-minute matching survey'));
+  assert.ok(!href.includes('testy'));
 });
 
-test('validate: priorities are capped at two and must come from the list', () => {
-  assert.equal(m.validate({ ...GOOD, priorities: ['availability', 'cost', 'location'] }).errors.priorities, 'Choose up to two.');
-  assert.equal(m.validate({ ...GOOD, priorities: ['speed'] }).errors.priorities, 'Choose from the options listed.');
-  assert.equal(m.validate({ ...GOOD, priorities: [] }).ok, true);
-});
-
-test('validate: budget has no invented price bands', () => {
-  assert.equal(m.validate({ ...GOOD, budget: '' }).ok, true);
-  assert.equal(m.validate({ ...GOOD, budget: 'prefer-not-to-say' }).ok, true);
-  assert.equal(m.validate({ ...GOOD, budget: '$100-200' }).ok, false);
-});
-
-test('validate: free text is short and plain, so it cannot carry a medical history', () => {
-  assert.equal(m.validate({ ...GOOD, locality: 'x'.repeat(41) }).ok, false);
-  assert.equal(m.validate({ ...GOOD, locality: 'Diagnosed 2019; on dex 20mg' }).ok, false);
-  assert.equal(m.validate({ ...GOOD, firstName: 'A'.repeat(41) }).ok, false);
-  assert.equal(m.validate({ ...GOOD, email: 'not-an-email' }).ok, false);
-});
-
-test('payload: only the collected fields, trimmed, plus the notice version agreed to', () => {
-  const p = m.payload({ ...GOOD, locality: ' 4000 ', firstName: ' Testy ' }, OPEN);
-  assert.deepEqual(Object.keys(p).sort(), ['budget', 'collection_notice_version', 'consent', 'copy_version', 'email', 'first_name', 'locality', 'mode', 'priorities', 'service', 'state']);
-  assert.equal(p.locality, '4000');
-  assert.equal(p.first_name, 'Testy');
-  assert.equal(p.collection_notice_version, 'v1');
+test('payload: only the email, consent and labels', () => {
+  const p = m.payload({ email: ' testy@example.com ', consent: true }, ENDPOINT);
+  assert.deepEqual(p, { email: 'testy@example.com', consent: true, collection_notice_version: 'v1', copy_version: 'pilot-test' });
 });
 
 test('submit: success only when the server accepts', async () => {
   const calls = [];
-  const fetchOk = async (url, init) => { calls.push([url, init]); return { ok: true, status: 202 }; };
-  const r = await m.createSubmitter(fetchOk, OPEN)(GOOD);
+  const r = await m.createSubmitter(async (url, init) => { calls.push([url, init]); return { ok: true, status: 202 }; }, ENDPOINT)(GOOD);
   assert.deepEqual(r, { accepted: true });
   assert.equal(calls.length, 1);
-  assert.equal(calls[0][0], '/api/matching');
   assert.equal(calls[0][1].method, 'POST');
   assert.equal(JSON.parse(calls[0][1].body).email, 'testy@example.com');
 });
 
-test('submit: a server error or a network failure asks for a retry and keeps nothing', async () => {
-  const r1 = await m.createSubmitter(async () => ({ ok: false, status: 500 }), OPEN)(GOOD);
-  assert.equal(r1.accepted, false); assert.equal(r1.retry, true); assert.equal(r1.status, 500);
-  const r2 = await m.createSubmitter(async () => { throw new Error('offline'); }, OPEN)(GOOD);
+test('submit: a server error or a network failure asks for a retry', async () => {
+  const r1 = await m.createSubmitter(async () => ({ ok: false, status: 500 }), ENDPOINT)(GOOD);
+  assert.equal(r1.accepted, false); assert.equal(r1.retry, true);
+  const r2 = await m.createSubmitter(async () => { throw new Error('offline'); }, ENDPOINT)(GOOD);
   assert.equal(r2.accepted, false); assert.equal(r2.retry, true);
 });
 
 test('submit: a second press while one request is in flight does not send again', async () => {
   let resolve; let calls = 0;
-  const slow = () => { calls++; return new Promise(res => { resolve = res; }); };
-  const submit = m.createSubmitter(slow, OPEN);
+  const submit = m.createSubmitter(() => { calls++; return new Promise(res => { resolve = res; }); }, ENDPOINT);
   const first = submit(GOOD);
-  const second = await submit(GOOD);
-  assert.deepEqual(second, { accepted: false, busy: true });
+  assert.deepEqual(await submit(GOOD), { accepted: false, busy: true });
   resolve({ ok: true, status: 202 });
   assert.deepEqual(await first, { accepted: true });
   assert.equal(calls, 1);
-  // and once it has settled, a genuine retry is allowed
-  assert.deepEqual(await m.createSubmitter(async () => ({ ok: true }), OPEN)(GOOD), { accepted: true });
 });
 
 test('submit: a request that never answers times out into the retry state', async () => {
   const never = (url, init) => new Promise((res, rej) => { init.signal && init.signal.addEventListener('abort', () => rej(new Error('aborted'))); });
-  const r = await m.createSubmitter(never, OPEN, 20)(GOOD);
+  const r = await m.createSubmitter(never, ENDPOINT, 20)(GOOD);
   assert.equal(r.accepted, false); assert.equal(r.retry, true);
 });
