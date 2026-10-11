@@ -81,10 +81,10 @@ for ev in ('matching-cta-viewed', 'matching-cta-clicked', 'matching-form-started
 if "autocapture: !privatePage &&" not in analytics or "disable_session_recording: privatePage ||" not in analytics:
     fail('analytics.js: a private page must switch autocapture and replay off')
 
-for file, placements in (('index.html', ['homepage']), ('the-doctors.html', ['directory', 'no_results'])):
+for file, placements in (('index.html', ['homepage']), ('the-doctors.html', ['directory', 'no_results']), ('care-navigator.html', ['navigator'])):
     html = (ROOT / file).read_text(encoding='utf-8')
     for p in placements:
-        tags = re.findall(rf'<(?:div|a)[^>]*data-matching-cta="{p}"[^>]*>', html)
+        tags = re.findall(rf'<(?:div|a|li)[^>]*data-matching-cta="{p}"[^>]*>', html)
         if len(tags) != 1:
             fail(f'{file}: expected one data-matching-cta="{p}", found {len(tags)}')
         elif ' hidden' not in tags[0]:

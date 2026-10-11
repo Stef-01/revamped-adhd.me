@@ -513,7 +513,7 @@
   // in a founder's hands and are recorded there, never inferred here. The two properties name a placement
   // and a copy label; a form answer or a contact detail has no property to travel in and is refused.
   var MATCHING = {
-    placement: { kind: 'vocabulary', values: ['homepage', 'directory', 'no_results'] },
+    placement: { kind: 'vocabulary', values: ['homepage', 'directory', 'no_results', 'navigator'] },
     copy_version: { kind: 'token' }
   };
 

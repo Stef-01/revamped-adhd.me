@@ -73,7 +73,7 @@ Declared in `analytics.js`, hyphenated to match the site's existing names:
 | `matching-form-started` | first input or change on the form, once per attempt |
 | `matching-request-submitted` | the endpoint returned 2xx (never on button press) |
 
-Properties: `placement` (`homepage` / `directory` / `no_results`) and `copy_version`. The validator refuses
+Properties: `placement` (`homepage` / `directory` / `no_results` / `navigator`) and `copy_version`. The validator refuses
 any other property, so an answer cannot be sent by mistake.
 
 Not implemented, deliberately: `matching_shortlist_sent`, `matching_option_clicked`,

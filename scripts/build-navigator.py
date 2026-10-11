@@ -690,7 +690,7 @@ STYLE = """<style>
 .nav-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;list-style:none;padding:0;margin:0;}
 @media (min-width:720px){.nav-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}}
 .nav-tile,.nav-opt{display:flex;font:inherit;color:#1a1c1c;text-decoration:none;text-align:left;background:#fff;border:1.5px solid #e8e6df;border-radius:22px;box-shadow:0 4px 0 #e8e6df;cursor:pointer;transition:transform .22s var(--nav-spring),box-shadow .22s var(--nav-out),background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;}
-.nav-tile:active,.nav-opt:active,.nav-choose:active,.nav-place:active,.nav-btn:active{transition-duration:.08s;}
+.nav-tile:active,.nav-opt:active,.nav-place:active,.nav-btn:active{transition-duration:.08s;}
 .nav-badge{transition:transform .28s var(--nav-spring),background .2s;}
 .nav-tile:hover .nav-badge,.nav-opt:hover .nav-badge{transform:scale(1.06) rotate(-3deg);}
 .nav-opt[aria-pressed="true"] .nav-badge{transform:scale(1.08);}
@@ -704,12 +704,6 @@ STYLE = """<style>
 .nav-badge{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:14px;background:var(--tint,#f6f4ee);color:#1a1c1c;flex:none;}
 .nav-ic{width:24px;height:24px;flex:none;}
 .nav-grid__wide{grid-column:1/-1;}
-.nav-choose{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:20px 22px;font:inherit;font-size:18px;font-weight:800;color:#1a1c1c;background:#f1bc31;border:1.5px solid #e2ac24;border-radius:22px;box-shadow:0 4px 0 #c99a1a;cursor:pointer;transition:transform .22s var(--nav-spring),box-shadow .22s var(--nav-out);}
-.nav-choose .nav-arrow{transition:transform .25s var(--nav-spring);}
-.nav-choose:hover .nav-arrow{transform:translateX(4px);}
-.nav-choose:hover{transform:translateY(-2px);box-shadow:0 6px 0 #c99a1a;}
-.nav-choose:active{transform:translateY(3px);box-shadow:0 1px 0 #c99a1a;}
-.nav-choose:focus-visible{outline:3px solid #1a1c1c;outline-offset:3px;}
 .nav-arrow{font-weight:800;}
 .nav-top{display:flex;align-items:center;gap:12px;margin-bottom:26px;min-height:48px;}
 .nav-back{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;font:inherit;font-size:15px;font-weight:700;color:#1a1c1c;background:transparent;border:1.5px solid #e8e6df;border-radius:999px;cursor:pointer;transition:background .2s,transform .2s var(--nav-spring);}
@@ -1092,6 +1086,7 @@ def build():
     header = header_for(shell[shell.index('<body'):shell.index('<main')])
     footer = shell[shell.index('<footer'):]
     footer = footer.replace('<script src="analytics-config.js" defer></script>', SCRIPT + '\n<script src="analytics-config.js" defer></script>', 1)
+    footer = footer.replace('<script src="analytics-config.js" defer></script>', '<script src="matching-config.js" defer></script>\n<script src="matching.js" defer></script>\n<script src="analytics-config.js" defer></script>', 1)
 
     kinds = {c['id']: kind(c) for c in NAV_CLINICIANS}
     counts = {t['key']: sum(1 for k in kinds.values() if k == t['key']) for t in TYPES}
@@ -1141,8 +1136,8 @@ def build():
 <div id="nav" class="nav px-5 md:px-8 pt-10 pb-20">
 <section class="nav-screen" data-screen="start" aria-labelledby="nav-title">
 <h1 id="nav-title" class="hero-in text-[36px] sm:text-[44px] lg:text-[52px] leading-[1.05] font-extrabold tracking-tight text-[#1a1c1c]">Who could help?</h1>
-<p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do. Not sure? A few taps find your match.</p>
-<ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide nav-js"><button type="button" class="nav-choose" data-start>Not sure? Help me choose {ARROW}</button></li></ul>
+<p class="hero-in hero-in-2 mt-3 mb-7 text-[17px] leading-[1.5] text-[#5f5e59] max-w-[46ch]">Tap one to see what they do.</p>
+<ul class="nav-grid hero-in hero-in-3">{tiles}<li class="nav-grid__wide rounded-3xl bg-[#fdf3d6] border border-[#ebd8ab] p-6 sm:p-8" data-matching-cta="navigator" hidden><h2 class="text-[22px] sm:text-[26px] font-extrabold tracking-tight text-[#1a1c1c]">Not sure where to start?</h2><p class="mt-2 max-w-[52ch] text-[17px] leading-[1.6] text-[#4f4634]">Leave your details and one of us will be in touch. We match you to a clinician ourselves, not an algorithm.</p><p class="mt-5"><a class="btn-press inline-flex items-center gap-2 h-12 px-7 rounded-full bg-[#1a1c1c] text-white text-[15px] font-bold hover:bg-[#2f3130] transition-colors" href="matching-help.html?from=navigator">Request matching help <span class="text-[#f1bc31]" aria-hidden="true">→</span></a></p><p class="mt-3 max-w-[60ch] text-[14px] leading-[1.6] text-[#7a5a0e]">An early pilot. Each practice confirms its own fees and availability.</p></li></ul>
 </section>
 {questions}
 <section class="nav-screen" data-screen="results" hidden aria-labelledby="nav-results-title">

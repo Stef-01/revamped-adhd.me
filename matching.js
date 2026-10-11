@@ -20,7 +20,7 @@
 (function (root) {
   'use strict';
 
-  var PLACEMENTS = ['homepage', 'directory', 'no_results'];
+  var PLACEMENTS = ['homepage', 'directory', 'no_results', 'navigator'];
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   var NAME = /^[A-Za-zÀ-ɏ' .-]{1,40}$/;
   var LOCALITY = /^[A-Za-z0-9À-ɏ' .-]{2,40}$/;
@@ -172,7 +172,7 @@
   var emailField = form.querySelector('input[name="email"]');
   var consentBox = form.querySelector('input[name="consent"]');
   function placementFromReferrer() {
-    var m = /[?&]from=(homepage|directory|no_results)\b/.exec(location.search);
+    var m = /[?&]from=(homepage|directory|no_results|navigator)\b/.exec(location.search);
     return m ? m[1] : 'directory';
   }
 
