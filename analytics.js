@@ -373,6 +373,12 @@
       name: 'Toni Ghuman', category: 'allied',
       practice: 'Neuromed Clinic', destination: 'clinic-form',
       expertise: ['nutrition', 'integrative'], ages: ['children']
+    },
+    'damien-margetts': {
+      booking: /adhdcoachingaustralia\.com\.au/, profile: 'damien-margetts.html',
+      name: 'Damien Margetts', category: 'coach',
+      practice: 'ADHD Coaching Australia', destination: 'clinic-form',
+      expertise: ['coaching'], ages: ['teens', 'adults']
     }
   };
   // END:GENERATED clinicians

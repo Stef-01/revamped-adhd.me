@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && echo 'Open requests (REQUESTS.md): finish or retry these, and keep the file current.' && awk '/^## Open/{f=1;next} /^## Done/{f=0} f' REQUESTS.md"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -397,6 +397,8 @@ FYF = 'https://feedyourfuturedietetics.com/'   # Feed Your Future Dietetics, Can
 
 NMC = 'https://www.neuromedclinic.au/'   # Neuromed Clinic
 
+ACA = 'https://adhdcoachingaustralia.com.au/'   # ADHD Coaching Australia, Sippy Downs QLD; online
+
 CLINICIANS = [
     dict(
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
@@ -2683,6 +2685,56 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    # ADHD Coaching Australia: from search results quoting his own site (adhdcoachingaustralia.com.au) and his
+    # SoulAdvisor listing, 2026-10-14; neither host is reachable from the build environment. No photograph yet,
+    # so the portrait is the placeholder illustration. Fees not yet confirmed, so none are shown.
+    dict(
+        slug='damien-margetts', id='damien-margetts', category='coach',
+        ages=['teens', 'adults'],
+        name='Damien Margetts', short='Damien', role='Founder and Lead Coach', pronouns='he/him',
+        practice='ADHD Coaching Australia', place='Sippy Downs & online', descriptor='ADHD coach',
+        description='Founder and lead ADHD coach working with adults, teens and families, with neuro-affirming guidance and practical toolkits.',
+        chips=['Adults, teens & families', 'Neuro-affirming'],
+        telehealth=True,
+        in_person=False,   # sessions are listed as online
+        book_href=ACA, book_hint='Opens the practice’s website in a new tab.',
+        links=[
+            ('website', 'adhdcoachingaustralia.com.au', ACA),
+        ],
+        fees=dict(
+            heading='What coaching costs',
+            figures=[],
+            notes=[
+                'A discovery call comes first. Ask the practice about session fees.',
+                'Coaching has no Medicare rebate.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='ADHD coach, MBA (RMIT), ICF member',
+        languages=[],
+        experience=[
+            'Founder and lead coach, ADHD Coaching Australia',
+            'Over 1,500 hours of coaching',
+            'Member of the International Coaching Federation',
+            'MBA, RMIT University',
+            'A corporate background before coaching',
+        ],
+        about=[
+            'Damien is the founder and lead coach at ADHD Coaching Australia. He works with adults, teens and families, offering neuro-affirming guidance and practical toolkits for high-pressure settings.',
+            'Sessions are online, starting with a discovery call.',
+        ],
+        details=[
+            ('Reach', 'Online, Australia-wide; based in Sippy Downs, Queensland'),
+            ('Appointments', 'A discovery call, then coaching sessions'),
+        ],
+        disclosure='ADHD Coaching Australia is an independent practice.',
+        schema=dict(
+            type='Person', credentials=['MBA', 'International Coaching Federation member'],
+            same_as=[ACA],
+            works_for=dict(type='ProfessionalService', url=ACA, locality='Sippy Downs', state='QLD'),
+            area='Australia',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -2764,7 +2816,7 @@ def meta_line(c):
 # from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
-        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD'}
+        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD', 'Sippy Downs': 'Sunshine Coast, QLD'}
 REGION_BY_ID = {'toni-ghuman': 'Contact the clinic',
                 'kathy-cleland': 'Australia-wide via telehealth', 'kirstie-shaw': 'Australia-wide via telehealth',
                 'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
