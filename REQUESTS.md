@@ -8,11 +8,10 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Open
 
-### R5 · 2026-10-08 · Onboard Damien, ADHD Coaching Australia · blocked
-- Sources: https://www.souladvisor.com/practitioner/adhd-coaching-australia and https://adhdcoachingaustralia.com.au
-- Blocked: the cloud environment's network policy denies both hosts (curl, WebFetch and search all failed, 2026-10-08 and 2026-10-14).
-- Unblock either way: add both hosts under Allowed domains in the cloud environment's Network access, or run this on a machine that can reach them, or the owner pastes his headshot and page text.
-- Then: Coaches tab, his own words only (full name, bio, training, location, online or in person, ages, fees, booking link); usual onboarding, checks, edge tests, merge to main.
+### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · blocked
+- Live with what search results quoted from his site and his SoulAdvisor listing: founder and lead coach, adults, teens and families, online from Sippy Downs QLD, 1,500+ coaching hours, ICF, MBA (RMIT).
+- Missing: his photograph (the portrait is the placeholder illustration), session fees, his booking page, and a read of his own pages to confirm the above. Both hosts are denied by the network policy.
+- Unblock: allow adhdcoachingaustralia.com.au and www.souladvisor.com in the environment's Network access, or the owner sends his headshot and pricing. Replace the six assets/clinicians/damien-margetts* files with the real portrait; nothing else changes.
 
 ### R4 · 2026-10-07 · Toni Ghuman: fill in the clinic details · blocked
 - Live since PR #46 with what was supplied: name, title, bio, photo. Always last in Allied health; out of the navigator.
@@ -20,6 +19,9 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 - Owner decisions still open: keep "(Naturopathy)" off her BHSc? Drop "ADHD" from her page title ("ADHD neuroscientist")?
 
 ## Done
+
+### R5 · 2026-10-08 · Onboard Damien, ADHD Coaching Australia · done (PR #47)
+- Damien Margetts, Coaches tab. Follow-ups in R7.
 
 ### R6 · 2026-10-14 · A canonical planner that remembers requests across machines · done
 - This file, the CLAUDE.md rules, and a SessionStart hook (.claude/settings.json) that prints the open items in every new session.
