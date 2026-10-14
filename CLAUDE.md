@@ -79,7 +79,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 `REQUESTS.md` is the one list of the owner's requests. Every session on every machine works from it, and a SessionStart hook prints its open items.
 
-- Before starting a request, add it under Open with the next `R<n>`, the date and the owner's ask in a line.
+- Before starting a request, add it under Open with the next `R<n>`, the date and the owner's ask in a line, then commit and push that one-file change to main straight away, so an interrupted session cannot lose it.
 - When it is done, move it to Done and say where (PR or commit). When it is blocked, mark it blocked and say exactly what unblocks it, so another machine can pick it up.
-- Commit `REQUESTS.md` with the work and get it to main, so the list is the same everywhere.
+- Commit each later status change to `REQUESTS.md` with the work and get it to main, so the list is the same everywhere.
 - At the start of a session, finish or retry open items before saying nothing is outstanding.
