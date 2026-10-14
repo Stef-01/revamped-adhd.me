@@ -74,3 +74,12 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Benchmark every page against https://www.lyrahealth.com/: a short headline, a one-line subhead, blocks of about 15 words. This is a landing site, not a research paper, and people with ADHD struggle with a lot of text on one screen.
 - Don't add words unless they replace more. When in doubt, cut.
 - At the end of every round of changes, run `npm run check:overwhelm` (with `npm start` running) and look at the screenshots it saves in `seo-reports/overwhelm/`. Nothing ships over the limits, and no page gains words without a reason.
+
+## Requests: log, update, finish
+
+`REQUESTS.md` is the one list of the owner's requests. Every session on every machine works from it, and a SessionStart hook prints its open items.
+
+- Before starting a request, add it under Open with the next `R<n>`, the date and the owner's ask in a line.
+- When it is done, move it to Done and say where (PR or commit). When it is blocked, mark it blocked and say exactly what unblocks it, so another machine can pick it up.
+- Commit `REQUESTS.md` with the work and get it to main, so the list is the same everywhere.
+- At the start of a session, finish or retry open items before saying nothing is outstanding.
