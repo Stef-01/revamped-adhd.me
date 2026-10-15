@@ -9,6 +9,7 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 ## Open
 
 ### R10 · 2026-10-15 · Auto-onboard providers who email info@adhdme.au, with their photos · blocked
+- Owner, 2026-10-15: check regularly and publish straight to live, no approval step. Building the scheduled check (`adhdme-provider-intake`, every 4 hours) now; it works the moment the forwarding below is on.
 - Blocked: no session can read info@adhdme.au. The Gmail connector reads only trivedisteven@gmail.com, and the account is not signed in to Gmail in any Chrome profile this machine can drive.
 - Unblock: in info@adhdme.au Gmail, Settings → Forwarding → add trivedisteven@gmail.com (a session reads the confirmation from the connector), then forward the existing provider threads once. Every provider email then reaches the connector and can be onboarded the way R7 and R9 were.
 
