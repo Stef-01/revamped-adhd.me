@@ -19,13 +19,13 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Done
 
-### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · done
-- Her portrait from her own Meet Your Coach page; office in Arana Hills; group program corrected to $725 (her group-training page), the unpublished $188 course price removed.
+### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · done (78390e5)
+- Her portrait at full resolution from her own Meet Your Coach page (it replaces 35ea8a8's copy of the same photo, which was a low-resolution circle crop); office in Arana Hills; group program corrected to $725 (her group-training page), the unpublished $188 course price removed.
 - Her page says she is still studying the CMC, while her email signature lists it; the profile keeps the signature's wording.
 
-### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · done
+### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · done (78390e5)
 - Portrait from his own coaching site, matched to his LinkedIn photo. Fees from his site: $99 for 30 minutes, $249 for a 60-minute strategy session, a free 15-minute call. Credentials now ACC (ICF), PAAC member, Executive MBA (RMIT). Book opens his booking page.
-- Also fixed: coach titles read "ADHD ADHD coach" on nine profiles and in llms.txt.
+- The "ADHD ADHD coach" titles were fixed in 8a7b8a3; this rebuild carried the fix into llms.txt and the sitemap.
 
 ### R8 · 2026-10-15 · Onboard Kirsten Lightfoot, ADHD coach · done (PR #48)
 - Coaches tab. Follow-ups in R9.
