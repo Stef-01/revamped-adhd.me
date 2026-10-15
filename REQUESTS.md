@@ -8,19 +8,9 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Open
 
-### R10 · 2026-10-15 · Auto-onboard providers who email info@adhdme.au, with their photos · doing
-- Read every provider who writes to info@adhdme.au, research them, and onboard them with their real photograph.
-- First pass: finish R7 and R9 (photos and a check against their own pages) from a machine that can reach their sites.
-
-### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · blocked
-- Live from her email signature plus search results quoting adhdcoachingbrisbane.org: credentials, Brisbane office and online, $200 adult session, $750 group program, has ADHD.
-- Missing: her photograph (placeholder illustration now), her office suburb, and a read of her own pages to confirm the fees. Her mobile from the signature is not published.
-- Unblock: allow www.adhdcoachingbrisbane.org in the environment's Network access, or the owner sends her headshot. Replace the six assets/clinicians/kirsten-lightfoot* files; nothing else changes.
-
-### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · blocked
-- Live with what search results quoted from his site and his SoulAdvisor listing: founder and lead coach, adults, teens and families, online from Sippy Downs QLD, 1,500+ coaching hours, ICF, MBA (RMIT).
-- Missing: his photograph (the portrait is the placeholder illustration), session fees, his booking page, and a read of his own pages to confirm the above. Both hosts are denied by the network policy.
-- Unblock: allow adhdcoachingaustralia.com.au and www.souladvisor.com in the environment's Network access, or the owner sends his headshot and pricing. Replace the six assets/clinicians/damien-margetts* files with the real portrait; nothing else changes.
+### R10 · 2026-10-15 · Auto-onboard providers who email info@adhdme.au, with their photos · blocked
+- Blocked: no session can read info@adhdme.au. The Gmail connector reads only trivedisteven@gmail.com, and the account is not signed in to Gmail in any Chrome profile this machine can drive.
+- Unblock: in info@adhdme.au Gmail, Settings → Forwarding → add trivedisteven@gmail.com (a session reads the confirmation from the connector), then forward the existing provider threads once. Every provider email then reaches the connector and can be onboarded the way R7 and R9 were.
 
 ### R4 · 2026-10-07 · Toni Ghuman: fill in the clinic details · blocked
 - Live since PR #46 with what was supplied: name, title, bio, photo. Always last in Allied health; out of the navigator.
@@ -28,6 +18,14 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 - Owner decisions still open: keep "(Naturopathy)" off her BHSc? Drop "ADHD" from her page title ("ADHD neuroscientist")?
 
 ## Done
+
+### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · done
+- Her portrait from her own Meet Your Coach page; office in Arana Hills; group program corrected to $725 (her group-training page), the unpublished $188 course price removed.
+- Her page says she is still studying the CMC, while her email signature lists it; the profile keeps the signature's wording.
+
+### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · done
+- Portrait from his own coaching site, matched to his LinkedIn photo. Fees from his site: $99 for 30 minutes, $249 for a 60-minute strategy session, a free 15-minute call. Credentials now ACC (ICF), PAAC member, Executive MBA (RMIT). Book opens his booking page.
+- Also fixed: coach titles read "ADHD ADHD coach" on nine profiles and in llms.txt.
 
 ### R8 · 2026-10-15 · Onboard Kirsten Lightfoot, ADHD coach · done (PR #48)
 - Coaches tab. Follow-ups in R9.

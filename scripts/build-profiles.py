@@ -2687,9 +2687,9 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
-    # ADHD Coaching Australia: from search results quoting his own site (adhdcoachingaustralia.com.au) and his
-    # SoulAdvisor listing, 2026-10-14; neither host is reachable from the build environment. No photograph yet,
-    # so the portrait is the placeholder illustration. Fees not yet confirmed, so none are shown.
+    # ADHD Coaching Australia: checked against his own site (adhdcoachingaustralia.com.au home, about and fees) and
+    # his SoulAdvisor listing on 2026-10-15. Portrait from his own coaching site (damienmargettscoaching.com.au),
+    # matched to his LinkedIn photo ("Exec MBA, ACC").
     dict(
         slug='damien-margetts', id='damien-margetts', category='coach',
         ages=['teens', 'adults'],
@@ -2699,47 +2699,47 @@ CLINICIANS = [
         chips=['Adults, teens & families', 'Neuro-affirming'],
         telehealth=True,
         in_person=False,   # sessions are listed as online
-        book_href=ACA, book_hint='Opens the practice’s website in a new tab.',
+        book_href=ACA + 'adhd-coaching-clarity-session-for-adults/', book_hint='Opens the practice’s website in a new tab.',
         links=[
             ('website', 'adhdcoachingaustralia.com.au', ACA),
         ],
         fees=dict(
             heading='What coaching costs',
-            figures=[],
+            figures=[('$99', '30-minute trial coaching session'), ('$249', '60-minute initial strategy session')],
             notes=[
-                'A discovery call comes first. Ask the practice about session fees.',
+                'A free 15-minute intro call comes first.',
                 'Coaching has no Medicare rebate.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
         ),
-        qualifications='ADHD coach, MBA (RMIT), ICF member',
+        qualifications='ADHD coach, Executive MBA (RMIT), ACC (ICF)',
         languages=[],
         experience=[
             'Founder and lead coach, ADHD Coaching Australia',
             'Over 1,500 hours of coaching',
-            'Member of the International Coaching Federation',
-            'MBA, RMIT University',
+            'Associate Certified Coach (ACC), International Coaching Federation',
+            'Member, Professional Association of ADHD Coaches (PAAC)',
+            'Executive MBA, RMIT University',
             'A corporate background before coaching',
         ],
         about=[
             'Damien is the founder and lead coach at ADHD Coaching Australia. He works with adults, teens and families, offering neuro-affirming guidance and practical toolkits for high-pressure settings.',
-            'Sessions are online, starting with a discovery call.',
+            'Sessions are online, starting with a free 15-minute intro call.',
         ],
         details=[
             ('Reach', 'Online, Australia-wide; based in Sippy Downs, Queensland'),
-            ('Appointments', 'A discovery call, then coaching sessions'),
+            ('Appointments', 'A free 15-minute intro call, then coaching sessions'),
         ],
         disclosure='ADHD Coaching Australia is an independent practice.',
         schema=dict(
-            type='Person', credentials=['MBA', 'International Coaching Federation member'],
+            type='Person', credentials=['Executive MBA', 'Associate Certified Coach (ICF)'],
             same_as=[ACA],
             works_for=dict(type='ProfessionalService', url=ACA, locality='Sippy Downs', state='QLD'),
             area='Australia',
         ),
     ),
-    # ADHD Coaching Brisbane: her credentials from her email signature to the owner (2026-10-15), the rest from
-    # search results quoting adhdcoachingbrisbane.org (meet-kirsten, individual coaching, group pages); the host is not
-    # reachable from the build environment. No photograph yet, so the portrait is the placeholder illustration.
+    # ADHD Coaching Brisbane: her credentials from her email signature to the owner (2026-10-15); fees, office and
+    # portrait checked against her own pages (meet-kirsten, adhd-individual-coaching, group-training) on 2026-10-15.
     dict(
         slug='kirsten-lightfoot', id='kirsten-lightfoot', category='coach',
         ages=['children', 'adults'],
@@ -2754,10 +2754,10 @@ CLINICIANS = [
         ],
         fees=dict(
             heading='What coaching costs',
-            figures=[('$200', '50-minute adult strategy session'), ('$750', '12-week online group program')],
+            figures=[('$200', '50-minute adult strategy session'), ('$725', '12-week group program, 12 sessions')],
             notes=[
                 'A free 20-minute consultation comes first. Three- and six-month packages cost less per session.',
-                'A 25-minute strategy session for children is $100. A 9-week self-paced course is $188.',
+                'A 25-minute strategy session for children is $100.',
                 'NDIS funding may be available, depending on your plan. Coaching has no Medicare rebate.',
                 '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
             ],
@@ -2778,7 +2778,7 @@ CLINICIANS = [
             'She offers one-on-one coaching online or in the office, group coaching, parent coaching and self-paced courses. She also mentors other coaches.',
         ],
         details=[
-            ('Reach', 'Online, or in person at her Brisbane office'),
+            ('Reach', 'Online, or in person at her office in Arana Hills, Brisbane'),
             ('Appointments', 'A free 20-minute consultation, then 50-minute sessions or a package'),
             ('Billing', '$200 per adult session, less in a package; set and charged by the practice'),
         ],
@@ -2786,7 +2786,7 @@ CLINICIANS = [
         schema=dict(
             type='Person', credentials=['Professional Certified Coach (ICF)', 'Certified ADHD Life Coach', 'Certified Mentor Coach'],
             same_as=[ACB + 'about-us/meet-kirsten-lightfoot-adhd-coach', 'https://www.linkedin.com/in/kirsten-lightfoot-87135268/'],
-            works_for=dict(type='ProfessionalService', url=ACB, locality='Brisbane', state='QLD'),
+            works_for=dict(type='ProfessionalService', url=ACB, locality='Arana Hills', state='QLD'),
             area='Australia',
         ),
     ),
@@ -2871,7 +2871,8 @@ def meta_line(c):
 # from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
-        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD', 'Sippy Downs': 'Sunshine Coast, QLD', 'Brisbane': 'Brisbane, QLD'}
+        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD', 'Sippy Downs': 'Sunshine Coast, QLD', 'Brisbane': 'Brisbane, QLD',
+        'Arana Hills': 'Brisbane, QLD'}
 REGION_BY_ID = {'toni-ghuman': 'Contact the clinic',
                 'kathy-cleland': 'Australia-wide via telehealth', 'kirstie-shaw': 'Australia-wide via telehealth',
                 'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
