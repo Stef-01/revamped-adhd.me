@@ -8,8 +8,10 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Open
 
-### R8 · 2026-10-15 · Onboard Kirsten Lightfoot, ADHD coach · doing
-- From her email signature: PCC, Certified ADHD Life Coach (CALC), facilitator at the International ADHD Coach Training Center, Certified Mentor Coach (CMC). Website not named.
+### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · blocked
+- Live from her email signature plus search results quoting adhdcoachingbrisbane.org: credentials, Brisbane office and online, $200 adult session, $750 group program, has ADHD.
+- Missing: her photograph (placeholder illustration now), her office suburb, and a read of her own pages to confirm the fees. Her mobile from the signature is not published.
+- Unblock: allow www.adhdcoachingbrisbane.org in the environment's Network access, or the owner sends her headshot. Replace the six assets/clinicians/kirsten-lightfoot* files; nothing else changes.
 
 ### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · blocked
 - Live with what search results quoted from his site and his SoulAdvisor listing: founder and lead coach, adults, teens and families, online from Sippy Downs QLD, 1,500+ coaching hours, ICF, MBA (RMIT).
@@ -22,6 +24,9 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 - Owner decisions still open: keep "(Naturopathy)" off her BHSc? Drop "ADHD" from her page title ("ADHD neuroscientist")?
 
 ## Done
+
+### R8 · 2026-10-15 · Onboard Kirsten Lightfoot, ADHD coach · done (PR #48)
+- Coaches tab. Follow-ups in R9.
 
 ### R5 · 2026-10-08 · Onboard Damien, ADHD Coaching Australia · done (PR #47)
 - Damien Margetts, Coaches tab. Follow-ups in R7.

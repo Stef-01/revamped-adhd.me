@@ -399,6 +399,8 @@ NMC = 'https://www.neuromedclinic.au/'   # Neuromed Clinic
 
 ACA = 'https://adhdcoachingaustralia.com.au/'   # ADHD Coaching Australia, Sippy Downs QLD; online
 
+ACB = 'https://www.adhdcoachingbrisbane.org/'   # ADHD Coaching Brisbane; online or in the office
+
 CLINICIANS = [
     dict(
         slug='dr-anubhav-saxena', id='anubhav-saxena', category='gp',
@@ -2735,6 +2737,59 @@ CLINICIANS = [
             area='Australia',
         ),
     ),
+    # ADHD Coaching Brisbane: her credentials from her email signature to the owner (2026-10-15), the rest from
+    # search results quoting adhdcoachingbrisbane.org (meet-kirsten, individual coaching, group pages); the host is not
+    # reachable from the build environment. No photograph yet, so the portrait is the placeholder illustration.
+    dict(
+        slug='kirsten-lightfoot', id='kirsten-lightfoot', category='coach',
+        ages=['children', 'adults'],
+        name='Kirsten Lightfoot', short='Kirsten', role='ADHD Coach', pronouns='she/her',
+        practice='ADHD Coaching Brisbane', place='Brisbane & online', descriptor='ADHD coach',
+        description='Certified ADHD life coach and ICF Professional Certified Coach, with ADHD herself. One-on-one, group and parent coaching.',
+        chips=['Adults & parents', 'Group coaching'], lived='Has ADHD',
+        telehealth=True,
+        book_href=ACB + 'adhd-individual-coaching', book_hint='Opens the practice’s website in a new tab.',
+        links=[
+            ('website', 'adhdcoachingbrisbane.org', ACB),
+        ],
+        fees=dict(
+            heading='What coaching costs',
+            figures=[('$200', '50-minute adult strategy session'), ('$750', '12-week online group program')],
+            notes=[
+                'A free 20-minute consultation comes first. Three- and six-month packages cost less per session.',
+                'A 25-minute strategy session for children is $100. A 9-week self-paced course is $188.',
+                'NDIS funding may be available, depending on your plan. Coaching has no Medicare rebate.',
+                '<strong>Fees are set and charged by the practice. ADHDme takes no commission.</strong>',
+            ],
+        ),
+        qualifications='ADHD coach, PCC (ICF), CALC, CMC',
+        languages=[],
+        experience=[
+            'Founder, ADHD Coaching Brisbane',
+            'Professional Certified Coach (PCC), International Coaching Federation',
+            'Certified ADHD Life Coach (CALC)',
+            'Facilitator at the International ADHD Coach Training Center',
+            'Certified Mentor Coach (CMC), mentoring coaches towards ICF credentials',
+            'Associate member, Australasian ADHD Professionals Association (AADPA)',
+            'Earlier career in government, including the Royal Australian Air Force',
+        ],
+        about=[
+            'Kirsten is an ADHD coach in Brisbane. She was diagnosed with ADHD herself in late 2020.',
+            'She offers one-on-one coaching online or in the office, group coaching, parent coaching and self-paced courses. She also mentors other coaches.',
+        ],
+        details=[
+            ('Reach', 'Online, or in person at her Brisbane office'),
+            ('Appointments', 'A free 20-minute consultation, then 50-minute sessions or a package'),
+            ('Billing', '$200 per adult session, less in a package; set and charged by the practice'),
+        ],
+        disclosure='ADHD Coaching Brisbane is an independent practice.',
+        schema=dict(
+            type='Person', credentials=['Professional Certified Coach (ICF)', 'Certified ADHD Life Coach', 'Certified Mentor Coach'],
+            same_as=[ACB + 'about-us/meet-kirsten-lightfoot-adhd-coach', 'https://www.linkedin.com/in/kirsten-lightfoot-87135268/'],
+            works_for=dict(type='ProfessionalService', url=ACB, locality='Brisbane', state='QLD'),
+            area='Australia',
+        ),
+    ),
 ]
 
 # ---------------------------------------------------------------- helpers
@@ -2816,7 +2871,7 @@ def meta_line(c):
 # from the practice's suburb; the three GPs and the telehealth-only psychologist are named here directly.
 CITY = {'Fortitude Valley': 'Brisbane, QLD', 'Ashgrove': 'Brisbane, QLD', 'Benowa': 'Gold Coast, QLD', 'Bundall': 'Gold Coast, QLD',
         'Glenbrook': 'Blue Mountains, NSW', 'Jindabyne': 'Snowy Mountains, NSW', 'Sutherland': 'Sydney, NSW', 'Perth': 'Perth, WA',
-        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD', 'Sippy Downs': 'Sunshine Coast, QLD'}
+        'Graceville': 'Brisbane, QLD', 'Moggill': 'Brisbane, QLD', 'Sippy Downs': 'Sunshine Coast, QLD', 'Brisbane': 'Brisbane, QLD'}
 REGION_BY_ID = {'toni-ghuman': 'Contact the clinic',
                 'kathy-cleland': 'Australia-wide via telehealth', 'kirstie-shaw': 'Australia-wide via telehealth',
                 'anubhav-saxena': 'Sydney, NSW', 'anu-saxena': 'Sydney, NSW', 'yogesh-kalra': 'Central Coast, NSW',
@@ -3450,6 +3505,7 @@ ANALYTICS = ROOT / 'analytics.js'
 # What each clinician is sought for, as dashboard words. A clinician without a row here gets their category's
 # default below, so a new profile is never refused for want of one; add a row when you want something sharper.
 EXPERTISE = {
+    'kirsten-lightfoot': ['coaching', 'ndis'],
     'toni-ghuman': ['nutrition', 'integrative'],
     'ashleigh-feltham': ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'],
     'anubhav-saxena': ['assessment', 'physical-health', 'integrative'],
