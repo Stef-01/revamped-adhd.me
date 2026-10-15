@@ -8,6 +8,10 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Open
 
+### R10 · 2026-10-15 · Auto-onboard providers who email info@adhdme.au, with their photos · doing
+- Read every provider who writes to info@adhdme.au, research them, and onboard them with their real photograph.
+- First pass: finish R7 and R9 (photos and a check against their own pages) from a machine that can reach their sites.
+
 ### R9 · 2026-10-15 · Kirsten Lightfoot: photo and a check against her own pages · blocked
 - Live from her email signature plus search results quoting adhdcoachingbrisbane.org: credentials, Brisbane office and online, $200 adult session, $750 group program, has ADHD.
 - Missing: her photograph (placeholder illustration now), her office suburb, and a read of her own pages to confirm the fees. Her mobile from the signature is not published.
