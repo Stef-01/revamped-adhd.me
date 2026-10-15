@@ -379,6 +379,12 @@
       name: 'Damien Margetts', category: 'coach',
       practice: 'ADHD Coaching Australia', destination: 'clinic-form',
       expertise: ['coaching'], ages: ['teens', 'adults']
+    },
+    'kirsten-lightfoot': {
+      booking: /adhdcoachingbrisbane\.org\/adhd-individual-coaching/, profile: 'kirsten-lightfoot.html',
+      name: 'Kirsten Lightfoot', category: 'coach',
+      practice: 'ADHD Coaching Brisbane', destination: 'clinic-form',
+      expertise: ['coaching'], ages: ['children', 'adults']
     }
   };
   // END:GENERATED clinicians
