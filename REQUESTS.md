@@ -8,6 +8,9 @@ Status is one of: **open** (not started), **doing**, **blocked** (say exactly wh
 
 ## Open
 
+### R8 · 2026-10-15 · Onboard Kirsten Lightfoot, ADHD coach · doing
+- From her email signature: PCC, Certified ADHD Life Coach (CALC), facilitator at the International ADHD Coach Training Center, Certified Mentor Coach (CMC). Website not named.
+
 ### R7 · 2026-10-14 · Damien Margetts: photo, fees and a check against his own pages · blocked
 - Live with what search results quoted from his site and his SoulAdvisor listing: founder and lead coach, adults, teens and families, online from Sippy Downs QLD, 1,500+ coaching hours, ICF, MBA (RMIT).
 - Missing: his photograph (the portrait is the placeholder illustration), session fees, his booking page, and a read of his own pages to confirm the above. Both hosts are denied by the network policy.
