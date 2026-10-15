@@ -3505,6 +3505,7 @@ ANALYTICS = ROOT / 'analytics.js'
 # What each clinician is sought for, as dashboard words. A clinician without a row here gets their category's
 # default below, so a new profile is never refused for want of one; add a row when you want something sharper.
 EXPERTISE = {
+    'kirsten-lightfoot': ['coaching', 'ndis'],
     'toni-ghuman': ['nutrition', 'integrative'],
     'ashleigh-feltham': ['nutrition', 'eating-disorders', 'neuroaffirming', 'ndis'],
     'anubhav-saxena': ['assessment', 'physical-health', 'integrative'],

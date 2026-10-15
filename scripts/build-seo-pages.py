@@ -449,7 +449,7 @@ PAGES = [
       description='ADHD coaching in Perth, Sutherland and online, what a session costs, and how JobAccess can fund it if you work at least eight hours a week.',
       lede='ADHD coaching is practical help with starting, planning and finishing tasks. It isn’t therapy, and coaching isn’t a registered health profession.',
       who=coaches, who_heading='The coaches in the network',
-      who_note='Six coaches at REACH in Perth, and Alex Lawson in Sutherland. All also work online.',
+      who_note='Six coaches at REACH in Perth, Alex Lawson in Sutherland, Kirsten Lightfoot in Brisbane and Damien Margetts on the Sunshine Coast. All work online.',
       sections=[
        ('What coaching covers', [
         'A coach works with you on executive function in your actual week, such as the task you keep putting off or the plan that falls apart by Wednesday. Sessions are practical and focus on what comes next. A coach does not assess, diagnose or treat. If the difficulty is mood, anxiety or trauma, see a psychologist.',
