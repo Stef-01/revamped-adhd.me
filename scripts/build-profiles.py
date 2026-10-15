@@ -2939,7 +2939,8 @@ def og_title(c):
     role = c['descriptor'] or c['role']
     # "ADHD" leads the role: it is the word people search with ("ADHD GP Brisbane"), and the brand suffix alone
     # does not carry it. It goes before the place does, and the place before the name and bare role.
-    adhd = 'ADHD ' + (role[0].lower() + role[1:] if role[1:2].islower() else role)
+    # A role that already starts with it ("ADHD coach") is left alone rather than doubled.
+    adhd = role if role.lower().startswith('adhd ') else 'ADHD ' + (role[0].lower() + role[1:] if role[1:2].islower() else role)
     with_place, bare = f"{c['name']}, {adhd}, {c['place']}", f"{c['name']}, {adhd}"
     if len(with_place) <= TITLE_ROOM:
         return with_place
