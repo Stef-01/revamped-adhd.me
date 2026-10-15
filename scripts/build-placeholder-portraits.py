@@ -6,7 +6,8 @@
 Writes assets/clinicians/<id>.jpg, -640.jpg, -320.jpg and the WebP equivalents: a square illustration
 in the blog covers' style (a character on a tinted, dotted ground), so build-profiles.py can run and
 the profile is honest about what it is. Replace the six files with the real portrait when it arrives;
-nothing else changes. Needs Pillow and the Playwright Chromium the repo's screenshots use.
+nothing else changes. Needs Pillow and the Playwright Chromium the repo's screenshots use; PLAYWRIGHT_PATH and
+CHROME_PATH work as in build-og-images.cjs.
 """
 import importlib.util
 import pathlib
@@ -37,10 +38,10 @@ def svg(i):
 
 
 RASTER = """
-const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const { chromium } = require(process.env.PLAYWRIGHT_PATH || '/opt/node22/lib/node_modules/playwright');
 (async () => {
   const [svgPath, pngPath] = process.argv.slice(2);
-  const b = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(async () => chromium.launch());
+  const b = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/opt/pw-browsers/chromium' }).catch(async () => chromium.launch());
   const p = await b.newPage({ viewport: { width: 1000, height: 1000 } });
   await p.setContent('<html><body style="margin:0">' + require('fs').readFileSync(svgPath, 'utf8') + '</body></html>');
   await p.screenshot({ path: pngPath, clip: { x: 0, y: 0, width: 1000, height: 1000 } });
